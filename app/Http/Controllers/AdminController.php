@@ -182,7 +182,7 @@ class AdminController extends Controller {
 			$this->model->update();
 
 			$alert_type = "success";
-			$message = "データ（ID: " . $id . "）が回復完了。";
+			$message = "データ（ID: " . $id . "）が復元完了。";
 		}
 
 		return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message, "alert_type" => $alert_type]);
