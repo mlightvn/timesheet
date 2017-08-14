@@ -1,0 +1,5 @@
+php artisan make:migration create_tasks_table
+php artisan make:migration create_session_table
+php artisan make:migration create_user_task_table
+php artisan make:migration create_working_date_table
+php artisan make:migration create_working_time_table
