@@ -66,7 +66,7 @@
 				<td>
 					<input type="checkbox" id="chkTop[{{ $key }}]">
 				</td>
-				<td nowrap="nowrap">{{ $task->name }}</td>
+				<td nowrap="nowrap" width="200px">{{ $task->name }}</td>
 				@foreach ($task->timeline as $timeKey => $timeFlag)
 					<td id="task[{{ $task->id }}][{{ $timeKey }}]" class="timesheet valign center {{ ($timeFlag == 1) ? 'w3-green' : '' }}">{{ ($timeFlag == 1) ? '30分' : '' }}</td>
 				@endforeach
@@ -104,7 +104,7 @@
 				<td>
 					<input type="checkbox" id="chkTop[{{ $key }}]">
 				</td>
-				<td nowrap="nowrap"><span>{{ $task->name }}</span></td>
+				<td nowrap="nowrap" width="200px"><span>{{ $task->name }}</span></td>
 				@foreach ($task->timeline as $timeKey => $timeFlag)
 					<td id="task[{{ $task->id }}][{{ $timeKey }}]" class="timesheet valign center {{ ($timeFlag == 1) ? 'w3-green' : '' }}">{{ ($timeFlag == 1) ? '30分' : '' }}</td>
 				@endforeach
