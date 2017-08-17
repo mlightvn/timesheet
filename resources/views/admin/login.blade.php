@@ -33,7 +33,11 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td><input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}> <label for="remember">Remember Me</label></td>
+			<td>
+				<input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}> <label for="remember">Remember Me</label>
+				<br>
+				<a href="password/reset">Forgot password?</a>
+			</td>
 		</tr>
 
 		<tr>
