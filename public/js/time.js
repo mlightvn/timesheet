@@ -82,9 +82,11 @@ $(document).ready(function(){
 				}else{
 					val = this.value;
 					taskHours[m[1]][m[2]] = val;
-					taskHours[m[1]]["minutes"]++;
+					// taskHours[m[1]]["minutes"]++;
 
 					if(val == 1){
+						taskHours[m[1]]["minutes"]++;
+
 						sum++;
 						if(offTaskID == m[1]){
 							sumOff++;
@@ -98,8 +100,10 @@ $(document).ready(function(){
 
 		jQuery.each(taskHours, function(index, taskHour) {
 				minutes = this["minutes"];
-				minutes = minutes * 30 / 60;
-				$("td[id=hourSum\\[" + index + "\\]]").html(timeDisplay(minutes));
+				if(minutes != null){
+					minutes = minutes * 30 / 60;
+					$("td[id=hourSum\\[" + index + "\\]]").html(timeDisplay(minutes));
+				}
 			});
 
 		sum *= 30; // minutes
