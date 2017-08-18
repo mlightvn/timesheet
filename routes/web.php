@@ -90,3 +90,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 	});
 
 });
+
+Route::group(['prefix' => 'bin'], function()
+{
+
+	Route::get('sendMessageToChatwork', 'BinController@sendMessageToChatwork');
+
+});
