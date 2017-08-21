@@ -25,7 +25,7 @@
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
 	@endif
 
-	<table class="timesheet_table w3-table-all w3-striped w3-bordered w3-tiny">
+	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
 			<th>{!! Form::label('name', '部署※') !!}</th>
 			<td>
