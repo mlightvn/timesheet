@@ -18,10 +18,10 @@
 <div class="w3-row">
 	<a href="{{ \Request::url() }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
 	@if ( $logged_in_user->session_is_manager == "Manager" )
-	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
-	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered w3-tiny">
+	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
@@ -29,6 +29,7 @@
 			<th></th>
 		</tr>
 		</thead>
+		<tbody id="listBody">
 		@foreach($arrSessions as $key => $session)
 		<tr class="{{ ($session->is_deleted == 1) ? 'w3-gray' : '' }}">
 			<td>{{ $session->id }}</td>
@@ -52,6 +53,7 @@
 			</td>
 		</tr>
 		@endforeach
+		</tbody>
 	</table>
 	<br>
 
@@ -64,4 +66,8 @@
 	<br>
 </div>
 
-@include('_include.admin_footer')
+	@include('_include.admin.session.add')
+
+@include('_include.admin_footer', [
+		'js'				=> 'admin/session',
+])

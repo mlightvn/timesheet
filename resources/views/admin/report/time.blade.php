@@ -13,7 +13,7 @@
 		<div class="w3-container w3-responsive">
 			<div class="w3-row">
 				<div class="w3-col s12 m4 l4">
-					<label class="w3-xlarge">{{ $sDbRequestDate }}</label>
+					<label class="w3-xlarge">{{ date('Y年m月d日', strtotime($sDbRequestDate)) }}</label>
 					<br>
 					<div id="datepicker"></div>
 				</div>

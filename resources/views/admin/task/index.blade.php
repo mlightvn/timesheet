@@ -17,12 +17,15 @@
 
 <div class="w3-row">
 	<a href="{{ \Request::url() }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
+	{{--
 	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	--}}
 	<br><br>
 
 	<form action="{{ \Request::url() }}/update" method="post">
 	{{ csrf_field() }}
-	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered w3-tiny">
+	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
@@ -80,5 +83,8 @@
 	@include('_include.admin_pagination', ['list'=>$arrTasks, 'keyword'=>$data["keyword"]])
 	<br>
 </div>
+	@include('_include.admin.task.add')
 
-@include('_include.admin_footer')
+@include('_include.admin_footer', [
+		'js'				=> 'admin/task',
+])

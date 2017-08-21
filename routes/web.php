@@ -89,6 +89,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::post('update', 'AdminHolidayController@update');
 	});
 
+	Route::group(['prefix' => 'api'], function()
+	{
+		Route::get('list/{object_type}', 'AdminApiController@list');
+		Route::get('list/{object_type}/{keyword}', 'AdminApiController@list');
+		Route::get('get/{object_type}/{id}', 'AdminApiController@get')->where('id', '[0-9]+');
+
+		Route::post('add/{object_type}', 'AdminApiController@add');
+		Route::post('edit/{object_type}/{id}', 'AdminApiController@edit');
+	});
+
 });
 
 Route::group(['prefix' => 'bin'], function()

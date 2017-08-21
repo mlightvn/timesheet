@@ -32,17 +32,21 @@
 		</tr>
 		@if(isset($model->id))
 		<tr>
-			<th></th>
-			<td>{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }} {!! Form::label('user_id', '自分のタスクにする') !!}</td>
+			<th>{!! Form::label('user_id', '自分のタスク') !!}</th>
+			<td>
+				<label class="switch">
+					{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }}
+					<span class="slider round"></span>
+				</label>
+			</td>
 		</tr>
 		@endif
 		@if($logged_in_user->session_is_manager == "Manager")
 		<tr>
-			<th>{!! Form::label('is_off_task', '休憩タスクのフラグ') !!}</th>
+			<th>{!! Form::label('is_off_task', '休憩タスク') !!}</th>
 			<td>
-				<!-- Rounded switch -->
 				<label class="switch">
-					{!! Form::checkbox('is_off_task', "1", ($model->is_off_task == "1" ? 1 : 0), ['placeholder'=>'休憩タスクのフラグ']) !!}
+					{!! Form::checkbox('is_off_task', "1", ($model->is_off_task == "1" ? 1 : 0), ['placeholder'=>'休憩タスク']) !!}
 					<span class="slider round"></span>
 				</label>
 			</td>

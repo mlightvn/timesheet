@@ -29,7 +29,7 @@
 		<div class="w3-row">
 		<a href="/admin/holiday" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
 		<br><br>
-		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered w3-tiny">
+		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 			<tr class="w3-brown">
 				<th nowrap="nowrap">日</th>

@@ -37,7 +37,7 @@
 
 		<div class="w3-responsive">
 		@if(count($arrTaskSheet["on_task"]) > 0)
-		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered w3-tiny">
+		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 			<tr class="w3-brown">
 				<th nowrap="nowrap">稼働のタスク</th>
@@ -73,7 +73,7 @@
 
 		<div class="w3-responsive">
 		@if(count($arrTaskSheet["off_task"]) > 0)
-		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered w3-tiny">
+		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 			<tr class="w3-brown">
 				<th nowrap="nowrap">休憩のタスク</th>
