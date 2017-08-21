@@ -40,4 +40,24 @@ class BinController extends Controller {
 		return;
 	}
 
+	public function pullSourceCode(){
+		$username = \Request::input('username');
+		$password = \Request::input('password');
+
+		if($username && $password){
+			$git_url = "https://{USERNAME}:{PASSWORD}@urbanfunes.backlog.jp/git/RESERVED/COST.git";
+			$cmd = "git pull {URL}";
+
+			$git_url = str_replace("{USERNAME}", $username, $git_url);
+			$git_url = str_replace("{PASSWORD}", $password, $git_url);
+			$cmd = str_replace("{URL}", $git_url, $cmd);
+
+			chdir(base_path());
+			$result_s = exec($cmd);
+			echo $result_s;
+		}else{
+			echo "ユーザ名とパスワードを入力してください。";
+		}
+	}
+
 }

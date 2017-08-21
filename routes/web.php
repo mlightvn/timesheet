@@ -105,5 +105,6 @@ Route::group(['prefix' => 'bin'], function()
 {
 
 	Route::get('sendMessageToChatwork', 'BinController@sendMessageToChatwork');
+	Route::match(['get', 'post'], 'pullSourceCode', 'BinController@pullSourceCode');
 
 });
