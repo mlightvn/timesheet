@@ -41,15 +41,13 @@ class BinController extends Controller {
 		$response = exec($cmd);
 
 		echo ($response);
-		// 結果のJSON文字列をデコード
-		// $result = json_decode($response);
 
 		return;
 	}
 
 	public function pullSourceCode(){
 		$this->blade_url = $this->url_pattern . '/pullSourceCode';
-// dd($this->blade_url);
+
 		$username = \Request::input('username');
 		$password = \Request::input('password');
 
@@ -60,13 +58,11 @@ class BinController extends Controller {
 			$git_url = str_replace("{USERNAME}", $username, $git_url);
 			$git_url = str_replace("{PASSWORD}", $password, $git_url);
 			$cmd = str_replace("{URL}", $git_url, $cmd);
-// echo $cmd;
-// echo getcwd();
+
 			chdir(base_path());
 			$result_s = exec($cmd);
 			echo $result_s;
 		}else{
-			// echo "ユーザ名とパスワードを入力してください。";
 			return view($this->blade_url, ['data'=>$this->data]);
 		}
 	}
