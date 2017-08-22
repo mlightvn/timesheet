@@ -9,6 +9,13 @@ class BinController extends Controller {
 		parent::__construct($request);
 	}
 
+	protected function init()
+	{
+		parent::init();
+
+		$this->url_pattern = '/bin';
+	}
+
 	public function sendMessageToChatwork(){
 		$message = \Request::input('message');
 		$debug_mode = \Request::input('debug');
@@ -41,6 +48,8 @@ class BinController extends Controller {
 	}
 
 	public function pullSourceCode(){
+		$this->blade_url = $this->url_pattern . '/pullSourceCode';
+// dd($this->blade_url);
 		$username = \Request::input('username');
 		$password = \Request::input('password');
 
@@ -57,7 +66,8 @@ class BinController extends Controller {
 			$result_s = exec($cmd);
 			echo $result_s;
 		}else{
-			echo "ユーザ名とパスワードを入力してください。";
+			// echo "ユーザ名とパスワードを入力してください。";
+			return view($this->blade_url, ['data'=>$this->data]);
 		}
 	}
 
