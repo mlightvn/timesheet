@@ -15,6 +15,8 @@
 				<a href="/admin/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-list"></span> 部署</a>
 
 				<a href="/admin/holiday" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-calendar"></span> 祭日・祝日・休日</a>
+
+				<a href="/bin/pullSourceCode" class="w3-bar-item w3-button"><span class="fa fa-git"></span> プルコード</a>
 			</div>
 		</div>
 	@endif

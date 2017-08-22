@@ -12,7 +12,7 @@
 		{{ csrf_field() }}
 		<div class="input-group">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-			<input id="username" type="text" class="form-control" name="text" placeholder="Username">
+			<input id="username" type="text" class="form-control" name="username" placeholder="Username">
 		</div>
 		<div class="input-group">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
