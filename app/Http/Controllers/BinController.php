@@ -46,14 +46,14 @@ class BinController extends Controller {
 
 		if($username && $password){
 			$git_url = "https://{USERNAME}:{PASSWORD}@urbanfunes.backlog.jp/git/RESERVED/COST.git";
-			$cmd = base_path() . "git pull {URL}";
+			$cmd = "git pull {URL}";
 
 			$git_url = str_replace("{USERNAME}", $username, $git_url);
 			$git_url = str_replace("{PASSWORD}", $password, $git_url);
 			$cmd = str_replace("{URL}", $git_url, $cmd);
 // echo $cmd;
 // echo getcwd();
-			// chdir(base_path());
+			chdir(base_path());
 			$result_s = exec($cmd);
 			echo $result_s;
 		}else{
