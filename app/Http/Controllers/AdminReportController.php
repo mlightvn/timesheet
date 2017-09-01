@@ -76,24 +76,24 @@ class AdminReportController extends AdminController {
 		$data["user_name"] 			= $user_name;
 		$data["filename"] 			= $filename;
 
-		$arrOffTaskList = $this->getTaskSheet($this->reportUser->id, $year, $month, NULL, 1);
+		// $arrOffTaskList = $this->getTaskSheet($this->reportUser->id, $year, $month, NULL, 1);
 		$arrOnTaskList = $this->getTaskSheet($this->reportUser->id, $year, $month, NULL, 0);
 
 		$taskSheet 						= array();
-		$arrOffTasks 					= array();
+		// $arrOffTasks 					= array();
 		$arrOnTasks 					= array();
 
-		$arrOffTasks["task"] 							= $arrOffTaskList;
-		$arrOffTasks["task_label"] 						= "休憩時間";
-		$arrOffTasks["total_minutes"] 					= 0;
-		$arrOffTasks["total_working_hours_label"] 		= "";
+		// $arrOffTasks["task"] 							= $arrOffTaskList;
+		// $arrOffTasks["task_label"] 						= "休憩時間";
+		// $arrOffTasks["total_minutes"] 					= 0;
+		// $arrOffTasks["total_working_hours_label"] 		= "";
 
 		$arrOnTasks["task"] 							= $arrOnTaskList;
 		$arrOnTasks["task_label"] 						= "稼働プロジェクト";
 		$arrOnTasks["total_minutes"] 					= 0;
 		$arrOnTasks["total_working_hours_label"] 		= "";
 
-		$taskSheet["off_task"] 			= $arrOffTasks;
+		// $taskSheet["off_task"] 			= $arrOffTasks;
 		$taskSheet["on_task"] 			= $arrOnTasks;
 
 		$data["taskSheet"] 	= $taskSheet;
@@ -102,7 +102,7 @@ class AdminReportController extends AdminController {
 			$excel->sheet('Sheetname', function($sheet) use($data) {
 				$taskSheet 			= $data["taskSheet"];
 
-				$arrOffTasks 		= $taskSheet["off_task"];
+				// $arrOffTasks 		= $taskSheet["off_task"];
 				$arrOnTasks 		= $taskSheet["on_task"];
 
 				$arrTotalData		= array(
@@ -139,17 +139,26 @@ class AdminReportController extends AdminController {
 				$arrTotalData["minutes"] = $minutes;
 
 				$start_row += count($arrOnTasks["task"]) + 4;
-				$this->writeSheetTable($sheet, $arrOffTasks, $start_row, $minutes);
-				$arrTotalData["minutes"] += $minutes;
+				// $this->writeSheetTable($sheet, $arrOffTasks, $start_row, $minutes);
+				// $arrTotalData["minutes"] += $minutes;
 
-				$start_row += count($arrOffTasks["task"]) + 4;
-				$this->writeSheetTotalTable($sheet, $arrTotalData, $start_row);
+				// $start_row += count($arrOffTasks["task"]) + 4;
+				// $this->writeSheetTotalTable($sheet, $arrTotalData, $start_row);
 
 				$sheet->setWidth('A', 3);
 				$sheet->setWidth('B', 20);
 				$sheet->setWidth('C', 20);
 				$sheet->setWidth('D', 20);
 				$sheet->setWidth('E', 20);
+
+				// $start_row += 2;
+				$sheet->cell('D' . $start_row, function($cell) {
+						$cell->setBorder('thick', 'thick', 'thick', 'thick');
+					});
+				$sheet->cell('E' . $start_row, function($cell) {
+						$cell->setBorder('thick', 'thick', 'thick', 'thick');
+					});
+				$sheet->setSize('D' . $start_row, 20, 110);
 			});
 
 			// Chain the setters
@@ -269,6 +278,8 @@ class AdminReportController extends AdminController {
 		}
 // dd($month);
 		$workingDate = $workingDate->where("working_date.date", "LIKE", $year . "-" . $month . "-" . $day . "%");
+		$workingDate = $workingDate->where("working_date.working_minutes", ">", "0");
+
 		$workingDate = $workingDate->groupBy(["task.id", "task.is_off_task", "working_date.user_id", "task.name"]);
 		$workingDate = $workingDate->orderBy("task.is_off_task");
 // dd($workingDate->get());
