@@ -18,7 +18,10 @@
 <div class="w3-row">
 	<a href="{{ \Request::url() }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
 	@if ( $logged_in_user->session_is_manager == "Manager" )
+	{{--
 	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
+	--}}
+	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">

@@ -17,10 +17,10 @@
 
 <div class="w3-row">
 	<a href="{{ \Request::url() }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
 	{{--
-	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
 	--}}
+	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	<br><br>
 
 	<form action="{{ \Request::url() }}/update" method="post">

@@ -66,6 +66,9 @@ class AdminApiController extends AdminController {
 		if($this->form_input && (count($this->form_input) > 0)){ // Submit
 			$form_input = $this->form_input;
 
+$ele = \Illuminate\Support\Facades\Input::get('is_off_task');
+$json = json_encode($ele);
+return $json;
 			$this->model->fill($this->form_input);
 			$this->model->save(); //insert
 			$arrRet["status"] = "success";
