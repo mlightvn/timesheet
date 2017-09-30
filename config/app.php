@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://timesheet.nam.php'),
+    'url' => env('APP_URL', 'http://timesheet.ngoc.nam'),
 
     /*
     |--------------------------------------------------------------------------
