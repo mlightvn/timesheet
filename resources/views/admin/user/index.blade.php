@@ -48,7 +48,7 @@
 			@endif
 			&nbsp;
 			@if (($logged_in_user->session_is_manager == "Manager") || ($logged_in_user->id == $user->id) )
-			<a href="{{ \Request::url() }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-edit"></span> {{ $user->name }}</a>
+			<a href="{{ \Request::url() }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span> {{ $user->name }}</a>
 			@else
 			{{ $user->name }}
 			@endif
@@ -60,14 +60,14 @@
 			@endif
 			<td>
 			@if (($logged_in_user->session_is_manager == "Manager") || ($logged_in_user->id == $user->id) )
-			<a href="{{ \Request::url() }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-edit"></span></a> 
+			<a href="{{ \Request::url() }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
 			@endif
 			@if ( $logged_in_user->session_is_manager == "Manager" )
 				@if ( $user->session_is_manager != "Manager" )
 					@if ($user->is_deleted)
-			| <a href="{{ \Request::url() }}/recover/{{ $user->id }}"><span class="fa fa-recycle"></span></a>
+			| <a href="{{ \Request::url() }}/recover/{{ $user->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
 					@else
-			| <a href="{{ \Request::url() }}/delete/{{ $user->id }}"><span class="fa fa-trash"></span></a>
+			| <a href="{{ \Request::url() }}/delete/{{ $user->id }}"><span class="fa fa-trash w3-text-red"></span></a>
 					@endif
 				@endif
 			@endif

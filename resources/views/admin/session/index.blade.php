@@ -45,12 +45,12 @@
 			</td>
 			<td>
 			@if ($logged_in_user->session_is_manager == "Manager")
-			<a href="{{ \Request::url() }}/edit/{{ $session->id }}"><span class="glyphicon glyphicon-edit"></span></a> 
+			<a href="{{ \Request::url() }}/edit/{{ $session->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
 			|
 					@if ($session->is_deleted)
-			<a href="{{ \Request::url() }}/recover/{{ $session->id }}"><span class="fa fa-recycle"></span></a>
+			<a href="{{ \Request::url() }}/recover/{{ $session->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
 					@else
-			<a href="{{ \Request::url() }}/delete/{{ $session->id }}"><span class="fa fa-trash"></span></a>
+			<a href="{{ \Request::url() }}/delete/{{ $session->id }}"><span class="fa fa-trash w3-text-red"></span></a>
 					@endif
 			@endif
 			</td>

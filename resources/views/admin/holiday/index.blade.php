@@ -60,7 +60,7 @@
 			<tr>
 				<td colspan="3">
 					<div class="w3-center">
-						<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-edit"></span> 登録　　</button>
+						<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span> 登録　　</button>
 					</div>
 				</td>
 			</tr>

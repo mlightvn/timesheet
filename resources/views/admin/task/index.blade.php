@@ -51,12 +51,12 @@
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ \Request::url() }}/edit/{{ $task->id }}"><span class="glyphicon glyphicon-edit"></span></a>
+			<td><a href="{{ \Request::url() }}/edit/{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
 			@if($logged_in_user->session_is_manager == "Manager")
 					@if ($task->is_deleted)
-			| <a href="{{ \Request::url() }}/recover/{{ $task->id }}"><span class="fa fa-recycle"></span></a>
+			| <a href="{{ \Request::url() }}/recover/{{ $task->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
 					@else
-			| <a href="{{ \Request::url() }}/delete/{{ $task->id }}"><span class="fa fa-trash"></span></a>
+			| <a href="{{ \Request::url() }}/delete/{{ $task->id }}"><span class="fa fa-trash w3-text-red"></span></a>
 					@endif
 			@endif
 			</td>
@@ -67,7 +67,7 @@
 		<tr>
 			<td colspan="5">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-edit"></span> 登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span> 登録　　</button>
 				</div>
 			</td>
 		</tr>
