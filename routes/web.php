@@ -99,6 +99,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::post('edit/{object_type}/{id}', 'AdminApiController@edit');
 	});
 
+	Route::group(['prefix' => 'domain'], function()
+	{
+		Route::get('', 'AdminDomainController@index');
+		Route::get('index', 'AdminDomainController@index');
+
+		Route::match(["get", "post"], 'add', 'AdminDomainController@add');
+		Route::match(["get", "post"], 'edit/{task_id}', 'AdminDomainController@edit')->where('task_id', '[0-9]+');
+		Route::get('delete/{task_id}', 'AdminDomainController@delete')->where('task_id', '[0-9]+');
+		Route::get('recover/{task_id}', 'AdminDomainController@recover')->where('task_id', '[0-9]+');
+	});
+
 });
 
 Route::group(['prefix' => 'bin'], function()

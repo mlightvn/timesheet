@@ -12,5 +12,5 @@ class Task extends Model
 		'is_off_task',		// '0': FALSE, '1': TRUE
 	];
 
-    protected $table = 'task';
+	protected $table = 'task';
 }
