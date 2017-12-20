@@ -90,20 +90,37 @@ class AdminTimeReportController extends AdminReportController {
 
 	public function regist()
 	{
+		$alert_type = "success";
+		$message = "工数入力完了。";
 
 		$url = $this->blade_url . "?date=" . $this->sDbRequestDate;
 		$this->blade_url = $url;
 
+		if(!isset($this->form_input["input_task"])){
+			$alert_type = "error";
+			$message = "稼働プロジェクトを登録してください。";
+
+			$data = ["alert_type" => $alert_type, "alert_message" => $message];
+			$this->jsonExport($data);
+		}
+
 		$arrInputWorkingTime = $this->form_input["input_task"];
 
-		foreach ($arrInputWorkingTime as $task_id => $arrWorkingTimes) {
-			$dbWorkingTime = new WorkingTime();
-			$dbWorkingTime = $dbWorkingTime->where("task_id", "=", $task_id);
-			$dbWorkingTime = $dbWorkingTime->where("user_id", "=", $this->logged_in_user->id);
-			$dbWorkingTime = $dbWorkingTime->where("date", "=", $this->sDbRequestDate);
-			$dbWorkingTime->delete(); // 削除
-			unset($dbWorkingTime);
+		// 追加するために、最初、working_timeのデータを削除
+		$dbWorkingTime = new WorkingTime();
+		$dbWorkingTime = $dbWorkingTime->where("user_id"			, "=", $this->logged_in_user->id);
+		$dbWorkingTime = $dbWorkingTime->where("date"				, "=", $this->sDbRequestDate);
+		$dbWorkingTime->delete(); // 削除
+		unset($dbWorkingTime);
 
+		// 追加するために、最初、working_dateのデータを削除
+		$dbWorkingDate = new WorkingDate();
+		$dbWorkingDate = $dbWorkingDate->where("user_id" 				, "=", $this->logged_in_user->id);
+		$dbWorkingDate = $dbWorkingDate->where("date" 					, "=", $this->sDbRequestDate);
+		$dbWorkingDate->delete();
+		unset($dbWorkingDate);
+
+		foreach ($arrInputWorkingTime as $task_id => $arrWorkingTimes) {
 			$working_minutes = 0;
 			foreach ($arrWorkingTimes as $timeKey => $timeValue) {
 				if($timeKey != "is_off_task"){
@@ -124,13 +141,6 @@ class AdminTimeReportController extends AdminReportController {
 			}
 
 			$dbWorkingDate = new WorkingDate();
-			$dbWorkingDate = $dbWorkingDate->where("task_id", "=", $task_id);
-			$dbWorkingDate = $dbWorkingDate->where("user_id", "=", $this->logged_in_user->id);
-			$dbWorkingDate = $dbWorkingDate->where("date", "=", $this->sDbRequestDate);
-			$dbWorkingDate->delete();
-			unset($dbWorkingDate);
-
-			$dbWorkingDate = new WorkingDate();
 			$dbWorkingDate->task_id = $task_id;
 			$dbWorkingDate->user_id = $this->logged_in_user->id;
 			$dbWorkingDate->date = $this->sDbRequestDate;
@@ -139,7 +149,8 @@ class AdminTimeReportController extends AdminReportController {
 			unset($dbWorkingDate);
 		}
 
-		return redirect(str_replace(".", "/", $this->blade_url));
+		$data = ["alert_type" => $alert_type, "alert_message" => $message];
+		$this->jsonExport($data);
 	}
 
 }

@@ -399,4 +399,12 @@ abstract class Controller extends BaseController
 
 		return $return;
 	}
+
+	public function jsonExport($data)
+	{
+		$json = json_encode($data);
+		echo $json;
+		exit;
+	}
+
 }

@@ -182,4 +182,51 @@ $(document).ready(function(){
 		return true;
 	}
 
+	$('#btnReportSubmit').click(function(event) {
+		$request_data = {};
+		$request_data["_token"] = $('[name=_token]').val();
+		$request_data["sDbRequestDate"] = $('#sDbRequestDate').val();
+
+		$input_sub_task_list = $('[id^=input_task]');
+		$.each($input_sub_task_list, function(index, element) {
+			if($(element).val() == "1"){
+				$request_data[$(element).attr("name")] = "1";
+			}
+		});
+
+		$.ajax({
+			url: '/admin/report/time',
+			type: 'POST',
+			dataType: 'json',
+			data: $request_data,
+		})
+		.done(function($response_data) {
+			console.log("success");
+			$alert_message = $(".alert");
+			$alert_message.removeClass('w3-hide');
+			$alert_message.removeClass('warning');
+			$alert_message.addClass("success");
+
+			$alert_message = $("#divMessage");
+			$alert_message.html("工数入力完了。");
+
+			$btnReportSubmit = $('#btnReportSubmit');
+			$btnReportSubmit.toggleClass('w3-green');
+			$btnReportSubmit.delay(100);
+			$btnReportSubmit.toggleClass('w3-green', 1000);
+		})
+		.fail(function($response_data) {
+			console.log("error");
+
+			$alert_message = $(".alert");
+			$alert_message.removeClass('w3-hide');
+			$alert_message.addClass("warning");
+
+			$alert_message = $("#divMessage");
+			$alert_message.html("Unknown error。");
+			console.log($response_data);
+		});
+
+	});
+
 });
