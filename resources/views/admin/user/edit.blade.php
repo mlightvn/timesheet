@@ -10,9 +10,9 @@
 </div>
 
 <div class="w3-row">
-	<a href="/admin/user" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	<a href="{{ \Request::url() }}/.." class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
 	@if ( $logged_in_user->session_is_manager == "Manager" )
-	<a href="/admin/user/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ \Request::url() }}/../add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
 </div>
@@ -85,7 +85,7 @@
 		<tr>
 			<td colspan="2">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="glyphicon glyphicon-edit"></span>　登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span>　登録　　</button>
 				</div>
 			</td>
 		</tr>
