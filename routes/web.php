@@ -110,6 +110,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::get('recover/{id}', 'AdminDomainController@recover')->where('id', '[0-9]+');
 	});
 
+	Route::group(['prefix' => 'dayoff'], function()
+	{
+		Route::get('', 'AdminDayoffController@index');
+		Route::get('index', 'AdminDayoffController@index');
+
+		Route::match(["get", "post"], 'add', 'AdminDayoffController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'AdminDayoffController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'AdminDayoffController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'AdminDayoffController@recover')->where('id', '[0-9]+');
+	});
+
 });
 
 Route::group(['prefix' => 'bin'], function()
