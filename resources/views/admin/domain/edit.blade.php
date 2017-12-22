@@ -31,19 +31,6 @@
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'ドメイン名', 'required'=>'required']) !!}
 			</td>
 		</tr>
-{{--
-		@if(isset($model->id))
-		<tr>
-			<th>{!! Form::label('user_id', '自分のタスク') !!}</th>
-			<td>
-				<label class="switch">
-					{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }}
-					<span class="slider round"></span>
-				</label>
-			</td>
-		</tr>
-		@endif
-	--}}
 
 		<tr>
 			<th>{!! Form::label('url', 'url') !!}</th>
@@ -73,7 +60,7 @@
 			<th>{!! Form::label('admin_password', '管理のパスワード') !!}</th>
 			<th><button type="button" name="btnCopy" value="admin_password"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::password('admin_password', ['class'=>'form-control', 'placeholder'=>'管理のパスワード']) !!}
+				{!! Form::text('admin_password', null, ['class'=>'form-control', 'placeholder'=>'管理のパスワード', 'autocomplete'=>'off', 'current-password'=>'off', 'style'=>'-webkit-text-security: disc;']) !!}
 			</td>
 		</tr>
 
@@ -96,10 +83,26 @@
 		</tr>
 
 		<tr>
+			<th>{!! Form::label('ssh_access_command', 'SSH接続') !!}</th>
+			<th><button type="button" name="btnCopy" value="ssh_access_command"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('ssh_access_command', NULL, ['class'=>'form-control', 'placeholder'=>'SSH接続']) !!}
+			</td>
+		</tr>
+
+		<tr>
 			<th>{!! Form::label('ssh_description', 'SSH情報') !!}</th>
 			<th><button type="button" name="btnCopy" value="ssh_description"><i class="fa fa-copy"></i></button></th>
 			<td>
 				{!! Form::textarea('ssh_description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細']) !!}
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('db_access_command', 'DB接続') !!}</th>
+			<th><button type="button" name="btnCopy" value="db_access_command"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('db_access_command', NULL, ['class'=>'form-control', 'placeholder'=>'DB接続']) !!}
 			</td>
 		</tr>
 

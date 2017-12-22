@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>タスク一覧</h1>
+	<h1>ドメイン一覧</h1>
 	<br>
 </div>
 
@@ -27,21 +27,25 @@
 		<tr class="w3-brown">
 			<th>ID</th>
 			<th>環境</th>
-			<th>Domain Name</th>
-			<th>url</th>
+			<th>ドメイン名</th>
+			<th>SSHとDB接続</th>
 			<th></th>
 		</tr>
 		</thead>
 		@foreach($arrModel as $key => $model)
 		<tr class="{{ ($model->is_deleted == 1) ? 'w3-gray' : '' }}">
 			<td>{{ $model->id }}</td>
-			<td>{{ $model->development_flag_label }}</td>
+			<td><a href="?development_flag={{ $model->development_flag }}">{{ $model->development_flag_label }}</a></td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}">{{ $model->name }}</a><br><br>
-				サイト：<a href="{{ $model->url }}">{{ $model->url }}</a><br>
-				管理：<a href="{{ $model->admin_url }}">{{ $model->admin_url }}</a>
+				<a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><i class="fa fa-pencil"></i> {{ $model->name }}</a><br><br>
+				サイト： <a href="{{ $model->url }}">{{ $model->url }}</a><br>
+				管理： <a href="{{ $model->admin_url }}">{{ $model->admin_url }}</a>
 			</td>
-			<td></td>
+			<td>
+				SSH： {{ $model->ssh_access_command }}
+				<br>
+				DB： {{ $model->db_access_command }}
+			</td>
 			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><i class="fa fa-pencil"></i></a>
 			@if($logged_in_user->session_is_manager == "Manager")
 					@if ($model->is_deleted)
@@ -54,17 +58,6 @@
 		</tr>
 		@endforeach
 
-{{--
-		<tfoot>
-		<tr>
-			<td colspan="5">
-				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<i class="fa fa-pencil"></i> 登録　　</button>
-				</div>
-			</td>
-		</tr>
-		</tfoot>
-	--}}
 	</table>
 	</form>
 	<br>

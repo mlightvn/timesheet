@@ -15,7 +15,9 @@ class Domain extends Model
 		'admin_password',
 		'repository_url',
 		'description',
+		'ssh_access_command',
 		'ssh_description',
+		'db_access_command',
 		'db_description',
 		'development_flag', // 0: production, 1: Staging, 2: development
 		'is_deleted',
