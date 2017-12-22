@@ -10,8 +10,8 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ \Request::url() }}/.." class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	<a href="{{ \Request::url() }}/../add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	<br><br>
 </div>
 

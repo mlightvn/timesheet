@@ -16,19 +16,17 @@
 @endif
 
 <div class="w3-row">
-	<a href="{{ \Request::url() }}" class="w3-button w3-brown"><span class="fa fa-list"></span></a>&nbsp;
-	{{--
-	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="fa fa-plus"></span></a>
-	--}}
-	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	<br><br>
 
-	<form action="{{ \Request::url() }}/update" method="post">
+	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
+			<th>環境</th>
 			<th>Domain Name</th>
 			<th>url</th>
 			<th></th>
@@ -37,14 +35,19 @@
 		@foreach($arrModel as $key => $model)
 		<tr class="{{ ($model->is_deleted == 1) ? 'w3-gray' : '' }}">
 			<td>{{ $model->id }}</td>
-			<td><a href="{{ \Request::url() }}/edit/{{ $model->id }}">{{ $model->name }}</a></td>
-			<td><a href="{{ \Request::url() }}/edit/{{ $model->id }}">{{ $model->url }}</a></td>
-			<td><a href="{{ \Request::url() }}/edit/{{ $model->id }}"><span class="fa fa-pencil"></span></a>
+			<td>{{ $model->development_flag_label }}</td>
+			<td>
+				<a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}">{{ $model->name }}</a><br><br>
+				サイト：<a href="{{ $model->url }}">{{ $model->url }}</a><br>
+				管理：<a href="{{ $model->admin_url }}">{{ $model->admin_url }}</a>
+			</td>
+			<td></td>
+			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><i class="fa fa-pencil"></i></a>
 			@if($logged_in_user->session_is_manager == "Manager")
 					@if ($model->is_deleted)
-			| <a href="{{ \Request::url() }}/recover/{{ $model->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+			| <a href="{{ $data['url_pattern'] }}/recover/{{ $model->id }}"><i class="fa fa-recycle w3-text-green"></i></a>
 					@else
-			| <a href="{{ \Request::url() }}/delete/{{ $model->id }}"><span class="fa fa-trash w3-text-red"></span></a>
+			| <a href="{{ $data['url_pattern'] }}/delete/{{ $model->id }}"><i class="fa fa-trash w3-text-red"></i></a>
 					@endif
 			@endif
 			</td>
@@ -56,7 +59,7 @@
 		<tr>
 			<td colspan="5">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span> 登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<i class="fa fa-pencil"></i> 登録　　</button>
 				</div>
 			</td>
 		</tr>

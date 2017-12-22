@@ -16,9 +16,9 @@
 @endif
 
 <div class="w3-row">
-	<a href="{{ \Request::url() }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
 	@if ( $logged_in_user->session_is_manager == "Manager" )
-	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 {{--
 	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
 --}}
@@ -48,7 +48,7 @@
 			@endif
 			&nbsp;
 			@if (($logged_in_user->session_is_manager == "Manager") || ($logged_in_user->id == $user->id) )
-			<a href="{{ \Request::url() }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span> {{ $user->name }}</a>
+			<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span> {{ $user->name }}</a>
 			@else
 			{{ $user->name }}
 			@endif
@@ -60,14 +60,14 @@
 			@endif
 			<td>
 			@if (($logged_in_user->session_is_manager == "Manager") || ($logged_in_user->id == $user->id) )
-			<a href="{{ \Request::url() }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
+			<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
 			@endif
 			@if ( $logged_in_user->session_is_manager == "Manager" )
 				@if ( $user->session_is_manager != "Manager" )
 					@if ($user->is_deleted)
-			| <a href="{{ \Request::url() }}/recover/{{ $user->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+			| <a href="{{ $data['url_pattern'] }}/recover/{{ $user->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
 					@else
-			| <a href="{{ \Request::url() }}/delete/{{ $user->id }}"><span class="fa fa-trash w3-text-red"></span></a>
+			| <a href="{{ $data['url_pattern'] }}/delete/{{ $user->id }}"><span class="fa fa-trash w3-text-red"></span></a>
 					@endif
 				@endif
 			@endif

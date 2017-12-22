@@ -16,14 +16,14 @@
 @endif
 
 <div class="w3-row">
-	<a href="{{ \Request::url() }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
 	{{--
 	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
 	--}}
-	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	<br><br>
 
-	<form action="{{ \Request::url() }}/update" method="post">
+	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
@@ -44,19 +44,19 @@
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ \Request::url() }}/edit/{{ $task->id }}">{{ $task->name }}</a></td>
+			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $task->id }}">{{ $task->name }}</a></td>
 			<td>
 				<label class="switch">
 					<input type="checkbox" name="task[{{ $task->id }}][user_id]" {{ (($task->task_id) ? 'checked="checked"' : '') }}>
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ \Request::url() }}/edit/{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
 			@if($logged_in_user->session_is_manager == "Manager")
 					@if ($task->is_deleted)
-			| <a href="{{ \Request::url() }}/recover/{{ $task->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+			| <a href="{{ $data['url_pattern'] }}/recover/{{ $task->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
 					@else
-			| <a href="{{ \Request::url() }}/delete/{{ $task->id }}"><span class="fa fa-trash w3-text-red"></span></a>
+			| <a href="{{ $data['url_pattern'] }}/delete/{{ $task->id }}"><span class="fa fa-trash w3-text-red"></span></a>
 					@endif
 			@endif
 			</td>

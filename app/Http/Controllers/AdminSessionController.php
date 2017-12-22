@@ -11,6 +11,7 @@ class AdminSessionController extends AdminController {
 
 		$this->model = new Session();
 		$this->url_pattern = "admin.session";
+		$this->data["url_pattern"] = "/admin/session";
 		$this->logical_delete = true;
 	}
 

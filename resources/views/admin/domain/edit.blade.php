@@ -10,13 +10,13 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ \Request::url() }}/.." class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	<a href="{{ \Request::url() }}/../add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	<br><br>
 </div>
 
 <div class="w3-row">
-	{!! Form::model($model, ['ng-app'=>'']) !!}
+	{!! Form::model($model, ['ng-app'=>'', 'ng-init'=>"url='" . $model->url . "';admin_url='" . $model->admin_url . "';repository_url='" . $model->repository_url . "'"]) !!}
 	{!! Form::hidden('id') !!}
 
 	@if(isset($message) || session("message"))
@@ -25,10 +25,10 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('name', 'タスク名') !!}</th>
+			<th>{!! Form::label('name', 'ドメイン名') !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タスク名', 'required'=>'required']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'ドメイン名', 'required'=>'required']) !!}
 			</td>
 		</tr>
 {{--

@@ -105,9 +105,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::get('index', 'AdminDomainController@index');
 
 		Route::match(["get", "post"], 'add', 'AdminDomainController@add');
-		Route::match(["get", "post"], 'edit/{task_id}', 'AdminDomainController@edit')->where('task_id', '[0-9]+');
-		Route::get('delete/{task_id}', 'AdminDomainController@delete')->where('task_id', '[0-9]+');
-		Route::get('recover/{task_id}', 'AdminDomainController@recover')->where('task_id', '[0-9]+');
+		Route::match(["get", "post"], 'edit/{id}', 'AdminDomainController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'AdminDomainController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'AdminDomainController@recover')->where('id', '[0-9]+');
 	});
 
 });

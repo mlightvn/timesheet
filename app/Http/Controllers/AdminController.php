@@ -112,7 +112,7 @@ class AdminController extends Controller {
 
 	public function edit($id)
 	{
-		$url = $this->url_pattern . '.edit';
+		$this->blade_url = $this->url_pattern . '.edit';
 		$message = NULL;
 		$alert_type = NULL;
 
@@ -131,7 +131,7 @@ class AdminController extends Controller {
 			$message = "データ（ID: " . $id . "）が修正完了。";
 		}
 
-		return view("/" . str_replace(".", "/", $this->url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
+		return view("/" . str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}
 
 	public function delete($id)

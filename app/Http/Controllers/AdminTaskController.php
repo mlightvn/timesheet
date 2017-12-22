@@ -12,6 +12,7 @@ class AdminTaskController extends AdminController {
 
 		$this->model = new Task();
 		$this->url_pattern = "admin.task";
+		$this->data["url_pattern"] = "/admin/task";
 		$this->logical_delete = true;
 	}
 

@@ -16,12 +16,12 @@
 @endif
 
 <div class="w3-row">
-	<a href="{{ \Request::url() }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
 	@if ( $logged_in_user->session_is_manager == "Manager" )
 	{{--
 	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
 	--}}
-	<a href="{{ \Request::url() }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
@@ -38,19 +38,19 @@
 			<td>{{ $session->id }}</td>
 			<td>
 			@if ($logged_in_user->session_is_manager == "Manager")
-			<a href="{{ \Request::url() }}/edit/{{ $session->id }}">{{ $session->name }}</a>
+			<a href="{{ $data['url_pattern'] }}/edit/{{ $session->id }}">{{ $session->name }}</a>
 			@else
 			{{ $session->name }}
 			@endif
 			</td>
 			<td>
 			@if ($logged_in_user->session_is_manager == "Manager")
-			<a href="{{ \Request::url() }}/edit/{{ $session->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
+			<a href="{{ $data['url_pattern'] }}/edit/{{ $session->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
 			|
 					@if ($session->is_deleted)
-			<a href="{{ \Request::url() }}/recover/{{ $session->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+			<a href="{{ $data['url_pattern'] }}/recover/{{ $session->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
 					@else
-			<a href="{{ \Request::url() }}/delete/{{ $session->id }}"><span class="fa fa-trash w3-text-red"></span></a>
+			<a href="{{ $data['url_pattern'] }}/delete/{{ $session->id }}"><span class="fa fa-trash w3-text-red"></span></a>
 					@endif
 			@endif
 			</td>

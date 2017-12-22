@@ -11,6 +11,7 @@ class AdminUserController extends AdminController {
 
 		$this->model = new User();
 		$this->url_pattern = "admin.user";
+		$this->data["url_pattern"] = "/admin/user";
 		$this->logical_delete = true;
 	}
 

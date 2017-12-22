@@ -11,6 +11,7 @@ class AdminDomainController extends AdminController {
 
 		$this->model = new Domain();
 		$this->url_pattern = "admin.domain";
+		$this->data["url_pattern"] = "/admin/domain";
 		$this->logical_delete = true;
 	}
 

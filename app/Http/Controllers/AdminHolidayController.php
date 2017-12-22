@@ -14,6 +14,8 @@ class AdminHolidayController extends AdminController {
 		parent::init();
 
 		$this->url_pattern = "admin.holiday";
+		$this->data["url_pattern"] = "/admin/holiday";
+
 		$form_input = $this->form_input;
 		if(isset($form_input["year_month"])){
 			$this->sRequestYearMonth = $form_input["year_month"];
