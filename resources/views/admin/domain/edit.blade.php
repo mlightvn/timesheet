@@ -60,7 +60,7 @@
 			<th>{!! Form::label('admin_password', '管理のパスワード') !!}</th>
 			<th><button type="button" name="btnCopy" value="admin_password"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::text('admin_password', null, ['class'=>'form-control', 'placeholder'=>'管理のパスワード', 'autocomplete'=>'off', 'current-password'=>'off', 'style'=>'-webkit-text-security: disc;']) !!}
+				{!! Form::text('admin_password', null, ['class'=>'form-control raku-textbox-asterisk', 'placeholder'=>'管理のパスワード', 'autocomplete'=>'off', 'current-password'=>'off']) !!}
 			</td>
 		</tr>
 

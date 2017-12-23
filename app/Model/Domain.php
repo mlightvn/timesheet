@@ -8,6 +8,7 @@ class Domain extends Model
 {
 	protected $fillable = [
 		'id',
+		'user_id',
 		'name',
 		'url',
 		'admin_url',

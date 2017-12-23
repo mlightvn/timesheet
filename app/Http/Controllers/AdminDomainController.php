@@ -13,6 +13,11 @@ class AdminDomainController extends AdminController {
 		$this->model = $this->model->orderBy("is_deleted");
 		$this->model = $this->model->orderBy("development_flag");
 
+		// 新規追加画面、デフォルトの価値を定義
+		$this->model->url = "";
+		$this->model->admin_url = "";
+		$this->model->repository_url = "";
+
 		$this->url_pattern = "admin.domain";
 		$this->data["url_pattern"] = "/admin/domain";
 		$this->logical_delete = true;

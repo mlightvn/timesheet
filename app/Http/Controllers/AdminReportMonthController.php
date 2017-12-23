@@ -5,7 +5,7 @@ use App\Model\Task;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 
-class AdminMonthReportController extends AdminReportController {
+class AdminReportMonthController extends AdminReportController {
 
 	private $sDbRequestDate;
 

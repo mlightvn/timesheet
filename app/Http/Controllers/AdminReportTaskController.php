@@ -5,7 +5,7 @@ use App\Model\Task;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 
-class AdminTaskReportController extends AdminReportController {
+class AdminReportTaskController extends AdminReportController {
 
 	// protected $requestYear = "";
 	// protected $sRequestMonth = "";

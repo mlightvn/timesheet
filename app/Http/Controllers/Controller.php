@@ -131,9 +131,9 @@ abstract class Controller extends BaseController
 
 	public function getUsers($isPagination, $id = NULL, $email = NULL, $name = NULL, $keyword = NULL)
 	{
-		$table = DB::table('user');
-		$table = $table->select(["user.*", DB::raw("session.name AS session_name")]);
-		$table = $table->leftJoin("session", "user.session_id", "=", "session.id");
+		$table = DB::table('users');
+		$table = $table->select(["users.*", DB::raw("session.name AS session_name")]);
+		$table = $table->leftJoin("session", "users.session_id", "=", "session.id");
 		if($id){
 			$table = $table->where("id", "=", $id);
 		}
@@ -146,9 +146,9 @@ abstract class Controller extends BaseController
 
 		if($keyword){
 			$where = " (
-							   (user.id = '{KEYWORD}')
-							OR (user.email LIKE '%{KEYWORD}%')
-							OR (user.name LIKE '%{KEYWORD}%')
+							   (users.id = '{KEYWORD}')
+							OR (users.email LIKE '%{KEYWORD}%')
+							OR (users.name LIKE '%{KEYWORD}%')
 							OR (session.name LIKE '%{KEYWORD}%')
 						)";
 			$where = str_replace("{KEYWORD}", $keyword, $where);
@@ -156,7 +156,7 @@ abstract class Controller extends BaseController
 			$table = $table->whereRaw($where);
 		}
 
-		$table = $table->orderBy("is_deleted", "ASC");
+		$table = $table->orderBy("users.is_deleted", "ASC");
 
 		if($isPagination){
 			$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
@@ -259,7 +259,7 @@ abstract class Controller extends BaseController
 	{
 		$table = DB::table('working_date');
 
-		$table = $table->join("user", "working_date.user_id", "=", "user.id");
+		$table = $table->join("users", "working_date.user_id", "=", "users.id");
 		$table = $table->join("task", "working_date.task_id", "=", "task.id");
 
 		if($user_id != NULL && $user_id != ""){
@@ -269,7 +269,7 @@ abstract class Controller extends BaseController
 			$table = $table->where("working_date.date", "=", $date);
 		}
 
-		$table = $table->where("user.is_deleted", "=", "0");
+		$table = $table->where("users.is_deleted", "=", "0");
 		$table = $table->where("task.is_deleted", "=", "0");
 
 		$table = $table->orderBy("date");
@@ -281,7 +281,7 @@ abstract class Controller extends BaseController
 	public function getWorkingTimeList($user_id = NULL, $task_id = NULL, $date = NULL)
 	{
 		$table = DB::table('working_time');
-		$table = $table->join("user", "working_time.user_id", "=", "user.id");
+		$table = $table->join("users", "working_time.user_id", "=", "users.id");
 		$table = $table->join("task", "working_time.task_id", "=", "task.id");
 
 		if($user_id != NULL && $user_id != ""){
@@ -294,7 +294,7 @@ abstract class Controller extends BaseController
 			$table = $table->where("working_time.date", "=", $date);
 		}
 
-		$table = $table->where("user.is_deleted", "=", "0");
+		$table = $table->where("users.is_deleted", "=", "0");
 		$table = $table->where("task.is_deleted", "=", "0");
 
 		$table = $table->orderBy("working_time.date");

@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="/css/common/bootstrap.min.css">
 
 	<link rel="stylesheet" href="/css/admin/checkbox.css">
+	<link rel="stylesheet" href="/css/common/rakuhin.css">
 	<link rel="stylesheet" href="/css/common/custom.styles.css">
 
 	<script src="/js/common/jquery.min.js"></script>

@@ -17,7 +17,7 @@ class AdminApiController extends AdminController {
 		$this->url_pattern = "admin.api";
 	}
 
-	public function list($objectType = "user", $keyword = NULL, $where = NULL)
+	public function list($objectType = "users", $keyword = NULL, $where = NULL)
 	{
 		$objectType = "\\App\\Model\\" . ucfirst($objectType);
 		$this->model = new $objectType;
@@ -40,7 +40,7 @@ class AdminApiController extends AdminController {
 		return $json;
 	}
 
-	public function get($objectType = "user", $id = NULL)
+	public function get($objectType = "users", $id = NULL)
 	{
 		$objectType = "\\App\\Model\\" . ucfirst($objectType);
 		$this->model = new $objectType;
@@ -56,7 +56,7 @@ class AdminApiController extends AdminController {
 		return $json;
 	}
 
-	public function add($objectType = "user")
+	public function add($objectType = "users")
 	{
 		$objectType = "\\App\\Model\\" . ucfirst($objectType);
 		$this->model = new $objectType;
@@ -79,7 +79,7 @@ return $json;
 		return $json;
 	}
 
-	public function edit($objectType = "user", $id = NULL)
+	public function edit($objectType = "users", $id = NULL)
 	{
 		$objectType = "\\App\\Model\\" . ucfirst($objectType);
 		$this->model = new $objectType;
@@ -102,7 +102,7 @@ return $json;
 		return $json;
 	}
 
-	public function delete($objectType = "user", $id = NULL)
+	public function delete($objectType = "users", $id = NULL)
 	{
 		$objectType = "\\App\\Model\\" . ucfirst($objectType);
 		$this->model = new $objectType;
@@ -132,7 +132,7 @@ return $json;
 		return $json;
 	}
 
-	public function recover($objectType = "user", $id = NULL)
+	public function recover($objectType = "users", $id = NULL)
 	{
 		$objectType = "\\App\\Model\\" . ucfirst($objectType);
 		$this->model = new $objectType;
