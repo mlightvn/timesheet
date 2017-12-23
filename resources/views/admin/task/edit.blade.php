@@ -41,7 +41,7 @@
 			</td>
 		</tr>
 		@endif
-		@if($logged_in_user->session_is_manager == "Manager")
+		@if($logged_in_user->permission_flag == "Manager")
 		<tr>
 			<th>{!! Form::label('is_off_task', '休憩タスク') !!}</th>
 			<td>

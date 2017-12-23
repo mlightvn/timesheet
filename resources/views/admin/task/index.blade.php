@@ -29,6 +29,9 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
+			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
+			<th>企業名</th>
+			@endif
 			<th>休憩のフラグ</th>
 			<th>タスク</th>
 			<th>自分のタスク</th>
@@ -38,9 +41,12 @@
 		@foreach($arrTasks as $key => $task)
 		<tr class="{{ ($task->is_deleted == 1) ? 'w3-gray' : '' }}">
 			<td>{{ $task->id }}</td>
+			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
+			<td>{{ $task->organization_name }}</td>
+			@endif
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="task[{{ $task->id }}][is_off_task]" value="1" {{ (($task->is_off_task) ? 'checked="checked"' : '') }} {{ ($logged_in_user->session_is_manager != "Manager") ? 'disabled="disabled' : '' }}>
+					<input type="checkbox" name="task[{{ $task->id }}][is_off_task]" value="1" {{ (($task->is_off_task) ? 'checked="checked"' : '') }} {{ ($logged_in_user->permission_flag != "Manager") ? 'disabled="disabled' : '' }}>
 					<span class="slider round"></span>
 				</label>
 			</td>
@@ -52,7 +58,7 @@
 				</label>
 			</td>
 			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
-			@if($logged_in_user->session_is_manager == "Manager")
+			@if($logged_in_user->permission_flag == "Manager")
 					@if ($task->is_deleted)
 			| <a href="{{ $data['url_pattern'] }}/recover/{{ $task->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
 					@else

@@ -11,7 +11,7 @@
 
 <div class="w3-row">
 	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	@if ( $logged_in_user->session_is_manager == "Manager" )
+	@if ( $logged_in_user->permission_flag == "Manager" )
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
@@ -59,13 +59,13 @@
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'名前', 'required'=>'required']) !!}
 			</td>
 		</tr>
-		@if($logged_in_user->session_is_manager == "Manager")
+		@if($logged_in_user->permission_flag == "Manager")
 		<tr>
-			<th>{!! Form::label('session_is_manager', '管理フラグ') !!}</th>
+			<th>{!! Form::label('permission_flag', '管理フラグ') !!}</th>
 			<td>
 				<!-- Rounded switch -->
 				<label class="switch">
-					{!! Form::checkbox('session_is_manager', "Manager", ($model->session_is_manager == "Manager" ? 1 : 0), ['placeholder'=>'管理フラグ']) !!}
+					{!! Form::checkbox('permission_flag', "Manager", ($model->permission_flag == "Manager" ? 1 : 0), ['placeholder'=>'管理フラグ']) !!}
 					<span class="slider round"></span>
 				</label>
 			</td>

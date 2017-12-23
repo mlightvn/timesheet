@@ -9,6 +9,8 @@ class Session extends Model
 	protected $fillable = [
 		'id',
 		'name',
+		'organization_id',
 	];
-    protected $table = 'session';
+
+	protected $table = 'session';
 }

@@ -99,6 +99,8 @@ abstract class Controller extends BaseController
 	{
 		$table = DB::table('task');
 
+		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
+
 		if($user_id != NULL && $user_id != ""){
 			$subQuery = "( SELECT * FROM user_task WHERE user_id = '" . $user_id . "') AS user_task ";
 
@@ -117,6 +119,8 @@ abstract class Controller extends BaseController
 			$table = $table->whereRaw($where);
 		}
 
+		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
+
 		$table = $table->orderBy("task.is_deleted", "ASC");
 		$table = $table->orderBy("task.is_off_task", "ASC")->orderBy("task.id");
 
@@ -132,9 +136,15 @@ abstract class Controller extends BaseController
 	public function getUsers($isPagination, $id = NULL, $email = NULL, $name = NULL, $keyword = NULL)
 	{
 		$table = DB::table('users');
-		$table = $table->select(["users.*", DB::raw("organization.name AS organization_name"), DB::raw("session.name AS session_name")]);
+		$table = $table->select([
+			  "users.*"
+			, DB::raw("organization.name AS organization_name")
+			, DB::raw("session.name AS session_name")
+		]);
+
 		$table = $table->leftJoin("session", "users.session_id", "=", "session.id");
 		$table = $table->leftJoin("organization", "users.organization_id", "=", "organization.id");
+
 		if($id){
 			$table = $table->where("id", "=", $id);
 		}
@@ -157,6 +167,10 @@ abstract class Controller extends BaseController
 			$table = $table->whereRaw($where);
 		}
 
+		if(\Auth::user()->permission_flag != "Administrator"){
+			$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
+		}
+
 		$table = $table->orderBy("users.is_deleted", "ASC");
 
 		if($isPagination){
@@ -171,6 +185,11 @@ abstract class Controller extends BaseController
 	public function getTasks($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
 	{
 		$table = DB::table('task');
+
+		$table = $table->select(["task.*", DB::raw("organization.name AS organization_name")]);
+
+		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
+
 		if($id){
 			$table = $table->where("id", "=", $id);
 		}
@@ -187,6 +206,8 @@ abstract class Controller extends BaseController
 
 			$table = $table->whereRaw($where);
 		}
+
+		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
 		$table = $table->orderBy("is_deleted", "ASC");
 		$table = $table->orderBy("is_off_task", "DESC");
@@ -203,6 +224,11 @@ abstract class Controller extends BaseController
 	public function getSessions($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
 	{
 		$table = DB::table('session');
+
+		$table = $table->select(["session.*", DB::raw("organization.name AS organization_name")]);
+
+		$table = $table->leftJoin("organization", "session.organization_id", "=", "organization.id");
+
 		if($id){
 			$table = $table->where("id", "=", $id);
 		}
@@ -220,6 +246,8 @@ abstract class Controller extends BaseController
 			$table = $table->whereRaw($where);
 		}
 
+		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
+
 		$table = $table->orderBy("is_deleted", "ASC");
 
 		if($isPagination){
@@ -233,7 +261,11 @@ abstract class Controller extends BaseController
 	public function getUserTaskList($user_id = NULL, $task_id = NULL, $is_off_task = NULL)
 	{
 		$table = DB::table('user_task');
+
+		$table = $table->select(["user_task.*", DB::raw("organization.name AS organization_name")]);
+
 		$table = $table->join("task", "user_task.task_id", "=", "task.id");
+		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
 
 		if($user_id){
 			$table = $table->where("user_task.user_id", "=", $user_id);
@@ -247,6 +279,7 @@ abstract class Controller extends BaseController
 			$table = $table->where("task.is_off_task", "=", $is_off_task);
 		}
 
+		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 		$table = $table->where("task.is_deleted", "=", "0");
 
 		$table = $table->orderBy("task.is_deleted", "ASC");
@@ -260,6 +293,10 @@ abstract class Controller extends BaseController
 	{
 		$table = DB::table('working_date');
 
+		$table = $table->select(["working_date.*", DB::raw("organization.name AS organization_name")]);
+
+		$table = $table->leftJoin("organization", "working_date.organization_id", "=", "organization.id");
+
 		$table = $table->join("users", "working_date.user_id", "=", "users.id");
 		$table = $table->join("task", "working_date.task_id", "=", "task.id");
 
@@ -269,6 +306,8 @@ abstract class Controller extends BaseController
 		if($date != NULL && $date != ""){
 			$table = $table->where("working_date.date", "=", $date);
 		}
+
+		$table = $table->where("organizationid", "=", \Auth::user()->organization_id);
 
 		$table = $table->where("users.is_deleted", "=", "0");
 		$table = $table->where("task.is_deleted", "=", "0");
@@ -282,6 +321,10 @@ abstract class Controller extends BaseController
 	public function getWorkingTimeList($user_id = NULL, $task_id = NULL, $date = NULL)
 	{
 		$table = DB::table('working_time');
+
+		$table = $table->select(["working_time.*", DB::raw("organization.name AS organization_name")]);
+
+		$table = $table->leftJoin("organization", "working_time.organization_id", "=", "organization.id");
 		$table = $table->join("users", "working_time.user_id", "=", "users.id");
 		$table = $table->join("task", "working_time.task_id", "=", "task.id");
 
@@ -294,6 +337,8 @@ abstract class Controller extends BaseController
 		if($date != NULL && $date != ""){
 			$table = $table->where("working_time.date", "=", $date);
 		}
+
+		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
 		$table = $table->where("users.is_deleted", "=", "0");
 		$table = $table->where("task.is_deleted", "=", "0");

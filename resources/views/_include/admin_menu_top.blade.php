@@ -33,9 +33,11 @@
 			<a href="/admin/task" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> タスク</a>
 			<a href="/admin/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
 
+			@if(\Auth::user()->permission_flag == "Administrator")
 			<a href="/admin/holiday" class="w3-bar-item w3-button"><span class="fa fa-calendar"></span> 祭日・祝日・休日</a>
 
-			<a href="/bin/pullSourceCode" class="w3-bar-item w3-button"><span class="fa fa-git"></span> プルコード</a>
+			<a href="/bin/pullSourceCode" class="w3-bar-item w3-button" target="_blank"><span class="fa fa-git"></span> プルコード</a>
+			@endif
 		</div>
 	</div>
 	@endif
