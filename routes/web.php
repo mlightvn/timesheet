@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::get('day', 'AdminReportDayController@index');
 		Route::get('day_download_{year}_{month}', 'AdminReportDayController@download');
 
-		Route::get('month', 'AdminMonthReportController@index');
+		Route::get('month', 'AdminReportMonthController@index');
 
 		Route::get('task', 'AdminReportTaskController@index');
 		Route::get('task_download_{year}_{month}', 'AdminReportTaskController@download');
