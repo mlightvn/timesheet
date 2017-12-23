@@ -35,7 +35,7 @@
 		@foreach($arrModel as $key => $model)
 		<tr class="{{ ($model->is_deleted == 1) ? 'w3-gray' : '' }}">
 			<td>{{ $model->id }}</td>
-			<td><a href="?development_flag={{ $model->development_flag }}">{{ $model->development_flag_label }}</a></td>
+			<td><a href="?development_flag={{ $model->development_flag }}"><i class="fa fa-search"></i> {{ $model->development_flag_label }}</a></td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><i class="fa fa-pencil"></i> {{ $model->name }}</a><br><br>
 				サイト： <a href="{{ $model->url }}">{{ $model->url }}</a><br>

@@ -132,8 +132,9 @@ abstract class Controller extends BaseController
 	public function getUsers($isPagination, $id = NULL, $email = NULL, $name = NULL, $keyword = NULL)
 	{
 		$table = DB::table('users');
-		$table = $table->select(["users.*", DB::raw("session.name AS session_name")]);
+		$table = $table->select(["users.*", DB::raw("organization.name AS organization_name"), DB::raw("session.name AS session_name")]);
 		$table = $table->leftJoin("session", "users.session_id", "=", "session.id");
+		$table = $table->leftJoin("organization", "users.organization_id", "=", "organization.id");
 		if($id){
 			$table = $table->where("id", "=", $id);
 		}

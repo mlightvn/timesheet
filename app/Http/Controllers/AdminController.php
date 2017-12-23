@@ -99,7 +99,6 @@ class AdminController extends Controller {
 		unset($_SERVER['PHP_AUTH_PW']);
 
 		return redirect('/admin/login');
-		// return redirect()->route("admin.login");
 	}
 
 	public function add()

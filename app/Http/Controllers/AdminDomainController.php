@@ -10,22 +10,24 @@ class AdminDomainController extends AdminController {
 		parent::init();
 
 		$this->model = new Domain();
-		$this->model = $this->model->orderBy("is_deleted");
-		$this->model = $this->model->orderBy("development_flag");
 
 		// 新規追加画面、デフォルトの価値を定義
-		$this->model->url = "";
-		$this->model->admin_url = "";
-		$this->model->repository_url = "";
+		$this->model->organization_id 		= $this->logged_in_user->organization_id;
+		$this->model->url 					= "";
+		$this->model->admin_url 			= "";
+		$this->model->repository_url 		= "";
 
-		$this->url_pattern = "admin.domain";
-		$this->data["url_pattern"] = "/admin/domain";
-		$this->logical_delete = true;
+		$this->url_pattern 					= "admin.domain";
+		$this->data["url_pattern"] 			= "/admin/domain";
+		$this->logical_delete 				= true;
 	}
 
 	public function index()
 	{
 		$this->blade_url = $this->url_pattern . '.index';
+
+		$this->model = $this->model->orderBy("is_deleted");
+		$this->model = $this->model->orderBy("development_flag");
 
 		$keyword = null;
 		$development_flag = null;
@@ -49,6 +51,10 @@ class AdminDomainController extends AdminController {
 						END AS 'development_flag_label'
 					")
 		]);
+
+		// $this->model = $this->model->leftJoin("users", "domain.user_id", "=", "users.id");
+		// $this->model = $this->model->leftJoin("organization", "organization.user_id", "=", "users.id");
+
 		if($keyword){
 			$this->model = $this->model->where(function($query) use ($keyword) {
 						$query->orWhere("name"					, "LIKE", "%" . $keyword . "%")
@@ -87,9 +93,12 @@ class AdminDomainController extends AdminController {
 					}
 				);
 		}
+
 		if($development_flag){
 			$this->model = $this->model->where("development_flag", $development_flag);
 		}
+
+		$this->model = $this->model->where("organization_id", $this->logged_in_user->organization_id);
 
 		$arrModel = $this->model->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
 

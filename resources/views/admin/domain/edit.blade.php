@@ -18,6 +18,7 @@
 <div class="w3-row">
 	{!! Form::model($model, ['ng-app'=>'', 'ng-init'=>"url='" . $model->url . "';admin_url='" . $model->admin_url . "';repository_url='" . $model->repository_url . "'"]) !!}
 	{!! Form::hidden('id') !!}
+	{!! Form::hidden('organization_id') !!}
 
 	@if(isset($message) || session("message"))
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
