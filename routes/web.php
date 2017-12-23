@@ -55,6 +55,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::get('recover/{task_id}', 'AdminTaskController@recover')->where('task_id', '[0-9]+');
 	});
 
+	Route::group(['prefix' => 'organization'], function()
+	{
+		Route::get('', 'AdminOrganizationController@index');
+		Route::get('index', 'AdminOrganizationController@index');
+
+		Route::match(["get", "post"], 'add', 'AdminOrganizationController@add');
+		Route::match(["get", "post"], 'edit/{user_id}', 'AdminOrganizationController@edit')->where('user_id', '[0-9]+');
+		Route::get('delete/{user_id}', 'AdminOrganizationController@delete')->where('user_id', '[0-9]+');
+		Route::get('recover/{user_id}', 'AdminOrganizationController@recover')->where('user_id', '[0-9]+');
+	});
+
 	Route::group(['prefix' => 'user'], function()
 	{
 		Route::get('', 'AdminUserController@index');

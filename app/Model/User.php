@@ -25,7 +25,7 @@ class User extends Authenticatable
 		'email',
 		'password',
 		'name',
-		'session_is_manager',
+		'permission_flag', // Administrator: admin of website, Manager: representative of organization, "member" : workers, staff at organization
 		'session_id',
 		// 'gender',
 		// 'birthday',

@@ -37,7 +37,7 @@ class AdminUserController extends AdminController {
 		$arrSelectSessions = $this->getSelectSessions();
 		$this->data["arrSelectSessions"] = $arrSelectSessions;
 
-		if($this->logged_in_user->session_is_manager == "Manager"){
+		if($this->logged_in_user->permission_flag == "Manager"){
 			return parent::add();
 		}else{
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。"]);
@@ -59,16 +59,16 @@ class AdminUserController extends AdminController {
 		}
 
 		if($this->form_input){ // Submit
-			$is_manager = $this->logged_in_user->session_is_manager;
+			$is_manager = $this->logged_in_user->permission_flag;
 			if(($is_manager == "Manager") || ($this->logged_in_user->id == $this->form_input["id"])){
 				if(empty($this->form_input["password"])){
 					unset($this->form_input["password"]);
 				}
 
-				if(isset($this->form_input["session_is_manager"])){
-					$this->form_input["session_is_manager"] = "Manager";
+				if(isset($this->form_input["permission_flag"])){
+					$this->form_input["permission_flag"] = "Manager";
 				}else{
-					$this->form_input["session_is_manager"] = "Member";
+					$this->form_input["permission_flag"] = "Member";
 				}
 
 				$this->model->fill($this->form_input);

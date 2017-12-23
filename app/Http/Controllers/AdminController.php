@@ -16,7 +16,7 @@ class AdminController extends Controller {
 	protected $administrator;
 	protected $redirectTo = '/admin';
 	protected $model;
-	protected $logical_delete = false;
+	protected $logical_delete = true;
 
 	public function __construct(Request $request)
 	{
@@ -30,6 +30,7 @@ class AdminController extends Controller {
 		parent::init();
 
 		$this->url_pattern = "admin";
+		// $this->logical_delete = true;
 	}
 
 	public function index()
@@ -41,7 +42,18 @@ class AdminController extends Controller {
 			$url = 'admin.index';
 		}
 
-		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
+		$keyword = "";
+		if(isset($this->form_input["keyword"])){
+			$keyword = $this->form_input["keyword"];
+		}
+
+		// $this->model = $this->model->select(["*"]);
+		$model_list = $this->model->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
+
+		$this->data["keyword"] = $keyword;
+		$this->data["model_list"] = $model_list;
+
+		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, 'model_list'=>$model_list]);
 	}
 
 	public function login()
@@ -146,7 +158,7 @@ class AdminController extends Controller {
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
-		if($this->logged_in_user->session_is_manager != "Manager"){
+		if($this->logged_in_user->permission_flag != "Manager"){
 			$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
 		}else{
 			if($this->logical_delete){
@@ -175,7 +187,7 @@ class AdminController extends Controller {
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
-		if($this->logged_in_user->session_is_manager != "Manager"){
+		if($this->logged_in_user->permission_flag != "Manager"){
 			$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
 		}else{
 			$this->model->is_deleted = 0;

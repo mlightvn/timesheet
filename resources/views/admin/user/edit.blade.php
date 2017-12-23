@@ -36,19 +36,16 @@
 			</td>
 		</tr>
 		<tr>
-		@if($model->id)
 			<th>{!! Form::label('password', 'パスワード') !!}</th>
 			<td>
+			@if($model->id)
 				{!! Form::password('password', ['placeholder'=>'パスワード', 'min'=>'8', 'max'=>'100', 'class'=>'form-control']) !!}
 				<br>
 				<label class="w3-text-green">パスワードを入力しない場合は、パスワードが変わらないです。</label>
-			</td>
-		@else
-			<th>{!! Form::label('password', 'パスワード※') !!}</th>
-			<td>
+			@else
 				{!! Form::password('password', ['placeholder'=>'パスワード', 'min'=>'8', 'max'=>'100', 'class'=>'form-control', 'required'=>'required']) !!}
 			</td>
-		@endif
+			@endif
 		</tr>
 		<tr>
 			<th colspan="2"><br></th>
