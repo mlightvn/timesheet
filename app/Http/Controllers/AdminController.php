@@ -33,6 +33,13 @@ class AdminController extends Controller {
 		// $this->logical_delete = true;
 	}
 
+	public function dashboard()
+	{
+		$url = 'admin.index';
+
+		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
+	}
+
 	public function index()
 	{
 		$url = "";
@@ -47,7 +54,6 @@ class AdminController extends Controller {
 			$keyword = $this->form_input["keyword"];
 		}
 
-		// $this->model = $this->model->select(["*"]);
 		$model_list = $this->model->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
 
 		$this->data["keyword"] = $keyword;

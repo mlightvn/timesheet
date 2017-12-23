@@ -26,8 +26,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 	Route::post('login', 'AdminController@authenticate');
 	Route::any('logout', 'AdminController@logout');
 
-	Route::get('', 'AdminController@index');
-	Route::get('index', 'AdminController@index');
+	Route::get('', 'AdminController@dashboard');
+	Route::get('index', 'AdminController@dashboard');
 
 	Route::group(['prefix' => 'report'], function(){
 		Route::get('time', 'AdminReportTimeController@index');
