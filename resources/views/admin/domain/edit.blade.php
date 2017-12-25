@@ -18,6 +18,7 @@
 <div class="w3-row">
 	{!! Form::model($model, ['ng-app'=>'', 'ng-init'=>"url='" . $model->url . "';admin_url='" . $model->admin_url . "';repository_url='" . $model->repository_url . "'"]) !!}
 	{!! Form::hidden('id') !!}
+	{!! Form::hidden('organization_id') !!}
 
 	@if(isset($message) || session("message"))
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
@@ -60,7 +61,7 @@
 			<th>{!! Form::label('admin_password', '管理のパスワード') !!}</th>
 			<th><button type="button" name="btnCopy" value="admin_password"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::text('admin_password', null, ['class'=>'form-control', 'placeholder'=>'管理のパスワード', 'autocomplete'=>'off', 'current-password'=>'off', 'style'=>'-webkit-text-security: disc;']) !!}
+				{!! Form::text('admin_password', null, ['class'=>'form-control raku-textbox-asterisk', 'placeholder'=>'管理のパスワード', 'autocomplete'=>'off', 'current-password'=>'off']) !!}
 			</td>
 		</tr>
 

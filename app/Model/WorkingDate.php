@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class WorkingDate extends Model
 {
 	protected $fillable = [
+		'organization_id',
 		'user_id',
 		'task_id',
 		'date',

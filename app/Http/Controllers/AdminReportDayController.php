@@ -5,7 +5,7 @@ use App\Model\Task;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 
-class AdminDayReportController extends AdminReportController {
+class AdminReportDayController extends AdminReportController {
 
 	protected $sRequestYearMonth = ""; //yyyy-mm
 	private $sDbRequestDate;
@@ -117,12 +117,12 @@ class AdminDayReportController extends AdminReportController {
 				, CONCAT(LPAD(FLOOR(SUM(working_date.working_minutes) / 60), 2, '0'), ':', LPAD(MOD(SUM(working_date.working_minutes), 60), 2, '0')) AS 'total_working_hours_label'
 				"
 			));
-		$dbWorkingDate = $dbWorkingDate->join("user", "working_date.user_id", "=", "user.id");
+		$dbWorkingDate = $dbWorkingDate->join("users", "working_date.user_id", "=", "users.id");
 		$dbWorkingDate = $dbWorkingDate->join("task", "working_date.task_id", "=", "task.id");
 
 		$dbWorkingDate = $dbWorkingDate->where("working_date.user_id", "LIKE", $this->logged_in_user->id);
 		$dbWorkingDate = $dbWorkingDate->where("working_date.date", "LIKE", $year_month . "%");
-		$dbWorkingDate = $dbWorkingDate->where("user.is_deleted", "=", "0");
+		$dbWorkingDate = $dbWorkingDate->where("users.is_deleted", "=", "0");
 		$dbWorkingDate = $dbWorkingDate->where("task.is_deleted", "=", "0");
 
 		$dbWorkingDate = $dbWorkingDate->groupBy(["working_date.date", "working_date.user_id"]);

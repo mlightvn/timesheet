@@ -26,20 +26,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 	Route::post('login', 'AdminController@authenticate');
 	Route::any('logout', 'AdminController@logout');
 
-	Route::get('', 'AdminController@index');
-	Route::get('index', 'AdminController@index');
+	Route::get('', 'AdminController@dashboard');
+	Route::get('index', 'AdminController@dashboard');
 
 	Route::group(['prefix' => 'report'], function(){
-		Route::get('time', 'AdminTimeReportController@index');
-		Route::post('time', 'AdminTimeReportController@regist');
+		Route::get('time', 'AdminReportTimeController@index');
+		Route::post('time', 'AdminReportTimeController@regist');
 
-		Route::get('day', 'AdminDayReportController@index');
-		Route::get('day_download_{year}_{month}', 'AdminDayReportController@download');
+		Route::get('day', 'AdminReportDayController@index');
+		Route::get('day_download_{year}_{month}', 'AdminReportDayController@download');
 
-		Route::get('month', 'AdminMonthReportController@index');
+		Route::get('month', 'AdminReportMonthController@index');
 
-		Route::get('task', 'AdminTaskReportController@index');
-		Route::get('task_download_{year}_{month}', 'AdminTaskReportController@download');
+		Route::get('task', 'AdminReportTaskController@index');
+		Route::get('task_download_{year}_{month}', 'AdminReportTaskController@download');
 	});
 
 	Route::group(['prefix' => 'task'], function()
@@ -53,6 +53,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 
 		Route::post('update', 'AdminTaskController@update');
 		Route::get('recover/{task_id}', 'AdminTaskController@recover')->where('task_id', '[0-9]+');
+	});
+
+	Route::group(['prefix' => 'organization'], function()
+	{
+		Route::get('', 'AdminOrganizationController@index');
+		Route::get('index', 'AdminOrganizationController@index');
+
+		Route::match(["get", "post"], 'add', 'AdminOrganizationController@add');
+		Route::match(["get", "post"], 'edit/{user_id}', 'AdminOrganizationController@edit')->where('user_id', '[0-9]+');
+		Route::get('delete/{user_id}', 'AdminOrganizationController@delete')->where('user_id', '[0-9]+');
+		Route::get('recover/{user_id}', 'AdminOrganizationController@recover')->where('user_id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'user'], function()

@@ -123,29 +123,4 @@ class AdminHolidayController extends AdminController {
 		return redirect("/" . str_replace(".", "/", $this->blade_url))->with(['message'=>$message, "alert_type" => $alert_type]);
 	}
 
-	// public function delete($date)
-	// {
-	// 	$message = NULL;
-	// 	$alert_type = NULL;
-
-	// 	$table = new Holiday();
-	// 	$table = $table->find($date);
-
-	// 	if(!$table){
-	// 		$message = "データ（" . $date . "）が存在していません。";
-	// 		return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
-	// 	}
-
-	// 	if($this->logged_in_user->session_is_manager != "Manager"){
-	// 		$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
-	// 	}else{
-	// 		$table->where("date", "=", $date)->delete();
-	// 		$alert_type = "success";
-	// 		$message = "データ（" . $date . "）が削除完了。";
-	// 	}
-
-	// 	return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message, "alert_type" => $alert_type]);
-
-	// }
-
 }

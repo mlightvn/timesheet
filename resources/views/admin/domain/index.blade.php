@@ -35,7 +35,7 @@
 		@foreach($arrModel as $key => $model)
 		<tr class="{{ ($model->is_deleted == 1) ? 'w3-gray' : '' }}">
 			<td>{{ $model->id }}</td>
-			<td><a href="?development_flag={{ $model->development_flag }}">{{ $model->development_flag_label }}</a></td>
+			<td><a href="?development_flag={{ $model->development_flag }}"><i class="fa fa-search"></i> {{ $model->development_flag_label }}</a></td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><i class="fa fa-pencil"></i> {{ $model->name }}</a><br><br>
 				サイト： <a href="{{ $model->url }}">{{ $model->url }}</a><br>
@@ -47,7 +47,7 @@
 				DB： {{ $model->db_access_command }}
 			</td>
 			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><i class="fa fa-pencil"></i></a>
-			@if($logged_in_user->session_is_manager == "Manager")
+			@if($logged_in_user->permission_flag == "Manager")
 					@if ($model->is_deleted)
 			| <a href="{{ $data['url_pattern'] }}/recover/{{ $model->id }}"><i class="fa fa-recycle w3-text-green"></i></a>
 					@else

@@ -4,13 +4,15 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class Organization extends Model
 {
 	protected $fillable = [
 		'id',
 		'name',
-		'organization_id',
+		'website',
+		'description',
+		'is_deleted',
 	];
 
-	protected $table = 'session';
+	protected $table = 'organization';
 }

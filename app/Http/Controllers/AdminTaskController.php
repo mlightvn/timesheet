@@ -96,7 +96,7 @@ class AdminTaskController extends AdminController {
 		$table = $table->delete(); // delete all tasks of current user
 		unset($table);
 
-		if($this->logged_in_user->session_is_manager == "Manager"){
+		if($this->logged_in_user->permission_flag == "Manager"){
 			// Remove all off_task flag
 			$table = new Task();
 			$table = $table->where("is_off_task", "=", "1");
@@ -114,7 +114,7 @@ class AdminTaskController extends AdminController {
 				unset($table);
 			}
 
-			if($this->logged_in_user->session_is_manager == "Manager"){
+			if($this->logged_in_user->permission_flag == "Manager"){
 				if(isset($task["is_off_task"]) && ($task["is_off_task"] == "1")){
 					$table = new Task();
 					$table = $table->find($task_id);
