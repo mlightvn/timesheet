@@ -26,20 +26,23 @@
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">設定 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			@if ( $logged_in_user->permission_flag == "Administrator" )
-			<a href="/admin/organization" class="w3-bar-item w3-button {{ ($id == 'organization') ? 'w3-gray' : ''}}"><span class="fa fa-bank"></span> 企業</a>
-			@endif
 			<a href="/admin/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> ユーザー</a>
 			<a href="/admin/task" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> タスク</a>
 			<a href="/admin/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
+		</div>
+	</div>
 
-			@if(\Auth::user()->permission_flag == "Administrator")
+		@if ( $logged_in_user->permission_flag == "Administrator" )
+	<div class="w3-dropdown-hover w3-brown">
+		<button class="w3-button w3-brown w3-hover-black">管理 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+		<div class="w3-dropdown-content w3-bar-block w3-card-4">
+			<a href="/admin/organization" class="w3-bar-item w3-button {{ ($id == 'organization') ? 'w3-gray' : ''}}"><span class="fa fa-bank"></span> 企業</a>
 			<a href="/admin/holiday" class="w3-bar-item w3-button"><span class="fa fa-calendar"></span> 祭日・祝日・休日</a>
 
 			<a href="/bin/pullSourceCode" class="w3-bar-item w3-button" target="_blank"><span class="fa fa-git"></span> プルコード</a>
-			@endif
 		</div>
 	</div>
+		@endif
 	@endif
 
 	<div class="w3-right">

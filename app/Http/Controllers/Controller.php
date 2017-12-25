@@ -264,7 +264,7 @@ abstract class Controller extends BaseController
 	{
 		$table = DB::table('user_task');
 
-		$table = $table->select(["user_task.*", DB::raw("organization.name AS organization_name")]);
+		$table = $table->select(["user_task.*", "task.*", DB::raw("organization.name AS organization_name")]);
 
 		$table = $table->join("task", "user_task.task_id", "=", "task.id");
 		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
