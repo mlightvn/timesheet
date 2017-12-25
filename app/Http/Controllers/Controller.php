@@ -99,6 +99,8 @@ abstract class Controller extends BaseController
 	{
 		$table = DB::table('task');
 
+		$table = $table->select(["task.*", \DB::raw("organization.name AS organization_name")]);
+
 		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
 
 		if($user_id != NULL && $user_id != ""){

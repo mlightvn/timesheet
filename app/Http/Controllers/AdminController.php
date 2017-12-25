@@ -133,7 +133,11 @@ class AdminController extends Controller {
 		$message = NULL;
 		$alert_type = NULL;
 
-		$this->model = $this->model->find($id);
+		// $this->model = $this->model->find($id);
+		$this->model = $this->model->where("id", $id);
+		$this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
+		$this->model = $this->model->first();
+
 
 		if(!$this->model){
 			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"データが存在していませんから、追加画面に遷移しました。", "alert_type" => $alert_type]);

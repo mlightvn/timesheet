@@ -20,6 +20,7 @@
 <div class="w3-row">
 	{!! Form::model($model) !!}
 	{!! Form::hidden('id') !!}
+	{!! Form::hidden('organization_id') !!}
 
 	@if(isset($message) || session("message"))
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])

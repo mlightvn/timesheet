@@ -61,9 +61,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::get('index', 'AdminOrganizationController@index');
 
 		Route::match(["get", "post"], 'add', 'AdminOrganizationController@add');
-		Route::match(["get", "post"], 'edit/{user_id}', 'AdminOrganizationController@edit')->where('user_id', '[0-9]+');
-		Route::get('delete/{user_id}', 'AdminOrganizationController@delete')->where('user_id', '[0-9]+');
-		Route::get('recover/{user_id}', 'AdminOrganizationController@recover')->where('user_id', '[0-9]+');
+		Route::match(["get", "post"], 'edit/{id}', 'AdminOrganizationController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'AdminOrganizationController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'AdminOrganizationController@recover')->where('id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'user'], function()
@@ -130,6 +130,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::match(["get", "post"], 'edit/{id}', 'AdminDayoffController@edit')->where('id', '[0-9]+');
 		Route::get('delete/{id}', 'AdminDayoffController@delete')->where('id', '[0-9]+');
 		Route::get('recover/{id}', 'AdminDayoffController@recover')->where('id', '[0-9]+');
+	});
+
+	Route::group(['prefix' => 'profile'], function()
+	{
+		Route::group(['prefix' => 'organization'], function()
+		{
+			Route::match(["get", "post"], 'edit', 'AdminProfileOrganizationController@edit');
+			// Route::get('preview', 'AdminOrganizationController@add');
+		});
 	});
 
 });

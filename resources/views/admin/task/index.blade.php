@@ -53,7 +53,7 @@
 			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $task->id }}">{{ $task->name }}</a></td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="task[{{ $task->id }}][user_id]" {{ (($task->task_id) ? 'checked="checked"' : '') }}>
+					<input type="checkbox" name="task[{{ $task->id }}][user_id]" {{ (($task->id) ? 'checked="checked"' : '') }}>
 					<span class="slider round"></span>
 				</label>
 			</td>

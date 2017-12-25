@@ -10,6 +10,9 @@ class AdminSessionController extends AdminController {
 		parent::init();
 
 		$this->model = new Session();
+
+		// 新規追加画面、デフォルトの価値を定義
+		$this->model->organization_id 		= $this->logged_in_user->organization_id;
 		$this->url_pattern = "admin.session";
 		$this->data["url_pattern"] = "/admin/session";
 		$this->logical_delete = true;

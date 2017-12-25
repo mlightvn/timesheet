@@ -10,6 +10,9 @@ class AdminUserController extends AdminController {
 		parent::init();
 
 		$this->model = new User();
+
+		// 新規追加画面、デフォルトの価値を定義
+		$this->model->organization_id 		= $this->logged_in_user->organization_id;
 		$this->url_pattern = "admin.user";
 		$this->data["url_pattern"] = "/admin/user";
 		$this->logical_delete = true;
@@ -47,7 +50,11 @@ class AdminUserController extends AdminController {
 	public function edit($id)
 	{
 		$url = $this->url_pattern . '.edit';
-		$this->model = $this->model->find($id);
+
+		$this->model = $this->model->where("id", $id);
+		$this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
+		$this->model = $this->model->first();
+
 		$arrSelectSessions = $this->getSelectSessions();
 		$this->data["arrSelectSessions"] = $arrSelectSessions;
 
