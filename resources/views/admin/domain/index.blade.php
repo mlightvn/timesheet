@@ -47,7 +47,7 @@
 				DB： {{ $model->db_access_command }}
 			</td>
 			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><i class="fa fa-pencil"></i></a>
-			@if($logged_in_user->permission_flag == "Manager")
+			@if(in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
 					@if ($model->is_deleted)
 			| <a href="{{ $data['url_pattern'] }}/recover/{{ $model->id }}"><i class="fa fa-recycle w3-text-green"></i></a>
 					@else

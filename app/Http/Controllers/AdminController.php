@@ -167,7 +167,7 @@ class AdminController extends Controller {
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
-		if($this->logged_in_user->permission_flag != "Manager"){
+		if(!in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"))){
 			$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
 		}else{
 			if($this->logical_delete){
@@ -196,7 +196,7 @@ class AdminController extends Controller {
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
-		if($this->logged_in_user->permission_flag != "Manager"){
+		if(!in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"))){
 			$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
 		}else{
 			$this->model->is_deleted = 0;
