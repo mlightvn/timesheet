@@ -52,8 +52,9 @@ class BinController extends Controller {
 		$password = \Request::input('password');
 
 		if($username && $password){
-			$git_url = "https://{USERNAME}:{PASSWORD}@urbanfunes.backlog.jp/git/RESERVED/COST.git";
-			$cmd = "git pull {URL}";
+			$git_url = "https://{USERNAME}:{PASSWORD}@bitbucket.org/mincorp/timesheet.git";
+			// $git_url = "origin";
+			$cmd = "git pull {URL} master";
 
 			$git_url = str_replace("{USERNAME}", $username, $git_url);
 			$git_url = str_replace("{PASSWORD}", $password, $git_url);
