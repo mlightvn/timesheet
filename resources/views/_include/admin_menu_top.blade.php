@@ -8,7 +8,7 @@
 			<a href="/admin/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'time') ? 'w3-gray' : ''}}">工数入力画面</a>
 			<a href="/admin/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'day') ? 'w3-gray' : ''}}">日別工数集計</a>
 			<a href="/admin/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'month') ? 'w3-gray' : ''}}">月別工数集計</a>
-			<a href="/admin/report/task" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'task') ? 'w3-gray' : ''}}">タスク別工数集計</a>
+			<a href="/admin/report/task" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'task') ? 'w3-gray' : ''}}">プロジェクト別工数集計</a>
 		</div>
 	</div>
 
@@ -27,7 +27,7 @@
 		<button class="w3-button w3-brown w3-hover-black">設定 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/admin/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> ユーザー</a>
-			<a href="/admin/task" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> タスク</a>
+			<a href="/admin/task" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> プロジェクト</a>
 			<a href="/admin/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
 		</div>
 	</div>

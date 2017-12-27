@@ -62,7 +62,7 @@
 			<td>{{ $user->session_name }}</td>
 			<td><a href="mailto:{{ $user->email }}"><span class="glyphicon glyphicon-envelope"></span> {{ $user->email }}</a></td>
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
-			<td><a href="/admin/report/task?user_id={{ $user->id }}"><span class="fa fa-file-o" aria-hidden="true"></span> タスクのレポート</a></td>
+			<td><a href="/admin/report/task?user_id={{ $user->id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
 			@endif
 			<td>
 			@if ((in_array($logged_in_user->permission_flag, array("Administrator", "Manager"))) || ($logged_in_user->id == $user->id) )
