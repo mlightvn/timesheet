@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Model\Holiday;
 
-class AdminHolidayController extends AdminController {
+class HolidayController extends Controller {
 
 	protected $sRequestYearMonth = ""; //yyyy-mm
 	private $sDbRequestDate;

@@ -53,7 +53,7 @@
 				<th>
 					<input type="checkbox" id="chkTopAll">
 				</th>
-				<th nowrap="nowrap">タスク</th>
+				<th nowrap="nowrap">プロジェクト</th>
 				@foreach ($arrTimes as $timeKey => $time)
 				<th>{{ $time }}</th>
 				@endforeach
@@ -91,7 +91,7 @@
 				<th>
 					<input type="checkbox" id="chkTopAll">
 				</th>
-				<th nowrap="nowrap">タスク</th>
+				<th nowrap="nowrap">プロジェクト</th>
 				@foreach ($arrTimes as $timeKey => $time)
 				<th>{{ $time }}</th>
 				@endforeach

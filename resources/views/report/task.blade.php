@@ -40,7 +40,7 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 			<tr class="w3-brown">
-				<th nowrap="nowrap">稼働のタスク</th>
+				<th nowrap="nowrap">稼働のプロジェクト</th>
 				<th>時間</th>
 			</tr>
 			</thead>
@@ -76,7 +76,7 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 			<tr class="w3-brown">
-				<th nowrap="nowrap">休憩のタスク</th>
+				<th nowrap="nowrap">休憩のプロジェクト</th>
 				<th>時間</th>
 			</tr>
 			</thead>

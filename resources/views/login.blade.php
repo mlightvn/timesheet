@@ -1,11 +1,11 @@
-@include('_include.admin_header',
+@include('_include.user_header',
 	[
-		'id'				=> 'register',
+		'id'				=> 'login',
 	]
 )
 
 <div class="w3-row">
-	<h1 class="w3-center">ユーザー登録</h1>
+	<h1 class="w3-center">ログイン</h1>
 	<br>
 </div>
 
@@ -20,23 +20,24 @@
 
 <div class="w3-row">
 	{!! Form::model($model) !!}
+	{{-- csrf_field() --}}
 
 	<table class="w3-table w3-bordered">
 		<tr>
-			<td>名前</td>
-			<td><input type="name" name="name" class="w3-col s6 m6 l6" placeholder="名前"></td>
-		</tr>
-		<tr>
 			<td>email</td>
-			<td><input type="email" name="email" class="w3-col s6 m6 l6" placeholder="example@urban-funes.co.jp"></td>
+			<td><input type="email" name="email" class="w3-col s6 m6 l6" placeholder="user@coxanh.net"></td>
 		</tr>
 		<tr>
 			<td>パスワード</td>
-			<td><input type="password" name="password" class="w3-col s6 m6 l6" placeholder="パスワード"></td>
+			<td><input type="password" name="password" class="w3-col s6 m6 l6" placeholder="password"></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td><input type="password" name="confirm_password" class="w3-col s6 m6 l6" placeholder="確認パスワード"></td>
+			<td>
+				<input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}> <label for="remember">Remember Me</label>
+				<br>
+				<a href="password/reset">Forgot password?</a>
+			</td>
 		</tr>
 
 		<tr>
@@ -47,4 +48,4 @@
 	<br>
 </div>
 
-@include('_include.admin_footer')
+@include('_include.user_footer')

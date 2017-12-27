@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
 
-class AdminReportController extends AdminController {
+class Controller extends \App\Http\Controllers\Admin\Controller {
 
 	protected $requestYear, $requestMonth, $requestDay;
 	protected $rowHeight = 25;
@@ -17,7 +17,7 @@ class AdminReportController extends AdminController {
 			$user_id = $this->form_input["user_id"];
 		}
 		$this->setReportUser($user_id);
-		$this->url_pattern = "admin.report";
+		$this->url_pattern = "report";
 
 		$date = date("Y/m/d");
 		$arrDate = explode("/", $date);

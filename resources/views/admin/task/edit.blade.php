@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>タスク一</h1>
+	<h1>プロジェクト一</h1>
 	<br>
 </div>
 
@@ -26,14 +26,14 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('name', 'タスク名') !!}</th>
+			<th>{!! Form::label('name', 'プロジェクト名') !!}</th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タスク名', 'required'=>'required']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'プロジェクト名', 'required'=>'required']) !!}
 			</td>
 		</tr>
 		@if(isset($model->id))
 		<tr>
-			<th>{!! Form::label('user_id', '自分のタスク') !!}</th>
+			<th>{!! Form::label('user_id', '自分のプロジェクト') !!}</th>
 			<td>
 				<label class="switch">
 					{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }}
@@ -44,10 +44,10 @@
 		@endif
 		@if($logged_in_user->permission_flag == "Manager")
 		<tr>
-			<th>{!! Form::label('is_off_task', '休憩タスク') !!}</th>
+			<th>{!! Form::label('is_off_task', '休憩プロジェクト') !!}</th>
 			<td>
 				<label class="switch">
-					{!! Form::checkbox('is_off_task', "1", ($model->is_off_task == "1" ? 1 : 0), ['placeholder'=>'休憩タスク']) !!}
+					{!! Form::checkbox('is_off_task', "1", ($model->is_off_task == "1" ? 1 : 0), ['placeholder'=>'休憩プロジェクト']) !!}
 					<span class="slider round"></span>
 				</label>
 			</td>

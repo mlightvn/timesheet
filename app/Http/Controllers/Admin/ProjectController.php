@@ -1,10 +1,10 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Model\Task;
 use App\Model\UserTask;
 
-class AdminTaskController extends AdminController {
+class ProjectController extends Controller {
 
 	protected function init()
 	{

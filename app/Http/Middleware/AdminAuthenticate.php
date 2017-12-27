@@ -24,11 +24,11 @@ class AdminAuthenticate
      */
     public function handle($request, Closure $next)
     {
-        if(in_array($request->path(), array("admin/login", "admin/logout", "admin/register", "admin/password/reset"))){
+        if(in_array($request->path(), array("login", "logout", "register", "password/reset"))){
             //
         }else{
             if (Auth::guard('admin')->check() === false) {
-                return redirect('/admin/login');
+                return redirect('/login');
             }
         }
 

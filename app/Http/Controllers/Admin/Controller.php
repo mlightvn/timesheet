@@ -1,29 +1,27 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+// use Illuminate\Contracts\Auth\Authenticatable;
+// use Illuminate\Contracts\Auth\Guard;
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-use Illuminate\Foundation\Auth\ThrottlesLogins;
+// use Illuminate\Foundation\Auth\ThrottlesLogins;
 
-class AdminController extends Controller {
+class Controller extends \App\Http\Controllers\Controller {
 
-	use AuthenticatesUsers;
+	// use AuthenticatesUsers;
 
 	protected $administrator;
 	protected $redirectTo = '/admin';
 	protected $model;
 	protected $logical_delete = true;
 
-	public function __construct(Request $request)
-	{
-		$this->middleware('admin', ['except' => ['login', 'logout', 'register']]);
-
-		parent::__construct($request);
-	}
+	// public function __construct(Request $request)
+	// {
+	// 	parent::__construct($request);
+	// }
 
 	protected function init()
 	{
@@ -60,51 +58,6 @@ class AdminController extends Controller {
 		$this->data["model_list"] = $model_list;
 
 		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, 'model_list'=>$model_list]);
-	}
-
-	public function login()
-	{
-		$url = $this->url_pattern . '.login';
-
-		$logged_in_user = new \App\Model\User();
-
-		return view($url, ['data'=>$this->data, "model" => $logged_in_user]);
-	}
-
-	public function authenticate() {
-		$form_input = $this->form_input;
-
-		$email 			= $form_input['email'];
-		$password 		= $form_input['password'];
-
-		$remember 		= isset($form_input['remember']);
-
-		$credentials = [
-				'email' 		=> $form_input['email'], 
-				'password' 		=> $form_input['password'], //auto-encrypt
-				'is_deleted' 	=> "0",
-			];
-
-		if ($this->guard->attempt($credentials, $remember)) {
-			return redirect()->intended('/admin');
-		} else {
-			return redirect('/admin/login');
-		}
-
-	}
-
-	public function logout(){
-		if($this->guard->check()){
-			$this->guard->logout();
-		}
-
-		$_SERVER['PHP_AUTH_USER'] = NULL;
-		$_SERVER['PHP_AUTH_PW'] = NULL;
-
-		unset($_SERVER['PHP_AUTH_USER']);
-		unset($_SERVER['PHP_AUTH_PW']);
-
-		return redirect('/admin/login');
 	}
 
 	public function add()

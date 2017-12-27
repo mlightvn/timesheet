@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Model\Organization;
 
-class AdminOrganizationController extends AdminController {
+class OrganizationController extends Controller {
 
 	protected function init()
 	{

@@ -1,11 +1,11 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
 use App\Model\Task;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 
-class AdminReportDayController extends AdminReportController {
+class DayController extends Controller {
 
 	protected $sRequestYearMonth = ""; //yyyy-mm
 	private $sDbRequestDate;

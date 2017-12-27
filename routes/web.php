@@ -17,119 +17,121 @@ Route::get('index', 'UserController@index');
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
+Route::auth();
+
+Route::get('login', ['as' => 'login', 'uses' => 'Controller@login']);
+Route::post('login', 'Controller@authenticate');
+Route::any('logout', 'Controller@logout');
+// Route::any('register', 'Controller@register');
+
+Route::group(['prefix' => 'report'], function(){
+	Route::get('time', 'Report\TimeController@index');
+	Route::post('time', 'Report\TimeController@regist');
+
+	Route::get('day', 'Report\DayController@index');
+	Route::get('day_download_{year}_{month}', 'Report\DayController@download');
+
+	Route::get('month', 'Report\MonthController@index');
+
+	Route::get('task', 'Report\TaskController@index');
+	Route::get('task_download_{year}_{month}', 'Report\TaskController@download');
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 {
-	Route::auth();
+	// Route::auth();
 
-	Route::get('login', 'AdminController@login');
-	Route::post('login', 'AdminController@authenticate');
-	Route::any('logout', 'AdminController@logout');
-
-	Route::get('', 'AdminController@dashboard');
-	Route::get('index', 'AdminController@dashboard');
-
-	Route::group(['prefix' => 'report'], function(){
-		Route::get('time', 'AdminReportTimeController@index');
-		Route::post('time', 'AdminReportTimeController@regist');
-
-		Route::get('day', 'AdminReportDayController@index');
-		Route::get('day_download_{year}_{month}', 'AdminReportDayController@download');
-
-		Route::get('month', 'AdminReportMonthController@index');
-
-		Route::get('task', 'AdminReportTaskController@index');
-		Route::get('task_download_{year}_{month}', 'AdminReportTaskController@download');
-	});
+	Route::get('', 'Admin\Controller@dashboard');
+	Route::get('index', 'Admin\Controller@dashboard');
 
 	Route::group(['prefix' => 'task'], function()
 	{
-		Route::get('', 'AdminTaskController@index');
-		Route::get('index', 'AdminTaskController@index');
+		Route::get('', 'Admin\TaskController@index');
+		Route::get('index', 'Admin\TaskController@index');
 
-		Route::match(["get", "post"], 'add', 'AdminTaskController@add');
-		Route::match(["get", "post"], 'edit/{task_id}', 'AdminTaskController@edit')->where('task_id', '[0-9]+');
-		Route::get('delete/{task_id}', 'AdminTaskController@delete')->where('task_id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Admin\TaskController@add');
+		Route::match(["get", "post"], 'edit/{task_id}', 'Admin\TaskController@edit')->where('task_id', '[0-9]+');
+		Route::get('delete/{task_id}', 'Admin\TaskController@delete')->where('task_id', '[0-9]+');
 
-		Route::post('update', 'AdminTaskController@update');
-		Route::get('recover/{task_id}', 'AdminTaskController@recover')->where('task_id', '[0-9]+');
+		Route::post('update', 'Admin\TaskController@update');
+		Route::get('recover/{task_id}', 'Admin\TaskController@recover')->where('task_id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'organization'], function()
 	{
-		Route::get('', 'AdminOrganizationController@index');
-		Route::get('index', 'AdminOrganizationController@index');
+		Route::get('', 'Admin\OrganizationController@index');
+		Route::get('index', 'Admin\OrganizationController@index');
 
-		Route::match(["get", "post"], 'add', 'AdminOrganizationController@add');
-		Route::match(["get", "post"], 'edit/{id}', 'AdminOrganizationController@edit')->where('id', '[0-9]+');
-		Route::get('delete/{id}', 'AdminOrganizationController@delete')->where('id', '[0-9]+');
-		Route::get('recover/{id}', 'AdminOrganizationController@recover')->where('id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Admin\OrganizationController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Admin\OrganizationController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'Admin\OrganizationController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'Admin\OrganizationController@recover')->where('id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'user'], function()
 	{
-		Route::get('', 'AdminUserController@index');
-		Route::get('index', 'AdminUserController@index');
+		Route::get('', 'Admin\UserController@index');
+		Route::get('index', 'Admin\UserController@index');
 
-		Route::match(["get", "post"], 'add', 'AdminUserController@add');
-		Route::match(["get", "post"], 'edit/{user_id}', 'AdminUserController@edit')->where('user_id', '[0-9]+');
-		Route::get('delete/{user_id}', 'AdminUserController@delete')->where('user_id', '[0-9]+');
-		Route::get('recover/{user_id}', 'AdminUserController@recover')->where('user_id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Admin\UserController@add');
+		Route::match(["get", "post"], 'edit/{user_id}', 'Admin\UserController@edit')->where('user_id', '[0-9]+');
+		Route::get('delete/{user_id}', 'Admin\UserController@delete')->where('user_id', '[0-9]+');
+		Route::get('recover/{user_id}', 'Admin\UserController@recover')->where('user_id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'session'], function()
 	{
-		Route::get('', 'AdminSessionController@index');
-		Route::get('index', 'AdminSessionController@index');
+		Route::get('', 'Admin\SessionController@index');
+		Route::get('index', 'Admin\SessionController@index');
 
-		Route::match(["get", "post"], 'add', 'AdminSessionController@add');
-		Route::match(["get", "post"], 'edit/{session_id}', 'AdminSessionController@edit')->where('session_id', '[0-9]+');
-		Route::get('delete/{session_id}', 'AdminSessionController@delete')->where('session_id', '[0-9]+');
-		Route::get('recover/{session_id}', 'AdminSessionController@recover')->where('session_id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Admin\SessionController@add');
+		Route::match(["get", "post"], 'edit/{session_id}', 'Admin\SessionController@edit')->where('session_id', '[0-9]+');
+		Route::get('delete/{session_id}', 'Admin\SessionController@delete')->where('session_id', '[0-9]+');
+		Route::get('recover/{session_id}', 'Admin\SessionController@recover')->where('session_id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'holiday'], function()
 	{
-		Route::get('', 'AdminHolidayController@index');
-		Route::get('index', 'AdminHolidayController@index');
+		Route::get('', 'Admin\HolidayController@index');
+		Route::get('index', 'Admin\HolidayController@index');
 
-		Route::match(["get", "post"], 'add', 'AdminHolidayController@add');
-		Route::match(["get", "post"], 'add', 'AdminHolidayController@add');
-		// Route::get('delete/{date}', 'AdminHolidayController@delete');
+		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
+		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
+		// Route::get('delete/{date}', 'Admin\HolidayController@delete');
 
-		Route::post('update', 'AdminHolidayController@update');
+		Route::post('update', 'Admin\HolidayController@update');
 	});
 
 	Route::group(['prefix' => 'api'], function()
 	{
-		Route::get('list/{object_type}', 'AdminApiController@list');
-		Route::get('list/{object_type}/{keyword}', 'AdminApiController@list');
-		Route::get('get/{object_type}/{id}', 'AdminApiController@get')->where('id', '[0-9]+');
+		Route::get('list/{object_type}', 'Admin\ApiController@list');
+		Route::get('list/{object_type}/{keyword}', 'Admin\ApiController@list');
+		Route::get('get/{object_type}/{id}', 'Admin\ApiController@get')->where('id', '[0-9]+');
 
-		Route::post('add/{object_type}', 'AdminApiController@add');
-		Route::post('edit/{object_type}/{id}', 'AdminApiController@edit');
+		Route::post('add/{object_type}', 'Admin\ApiController@add');
+		Route::post('edit/{object_type}/{id}', 'Admin\ApiController@edit');
 	});
 
 	Route::group(['prefix' => 'domain'], function()
 	{
-		Route::get('', 'AdminDomainController@index');
-		Route::get('index', 'AdminDomainController@index');
+		Route::get('', 'Admin\DomainController@index');
+		Route::get('index', 'Admin\DomainController@index');
 
-		Route::match(["get", "post"], 'add', 'AdminDomainController@add');
-		Route::match(["get", "post"], 'edit/{id}', 'AdminDomainController@edit')->where('id', '[0-9]+');
-		Route::get('delete/{id}', 'AdminDomainController@delete')->where('id', '[0-9]+');
-		Route::get('recover/{id}', 'AdminDomainController@recover')->where('id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Admin\DomainController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Admin\DomainController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'Admin\DomainController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'Admin\DomainController@recover')->where('id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'dayoff'], function()
 	{
-		Route::get('', 'AdminDayoffController@index');
-		Route::get('index', 'AdminDayoffController@index');
+		Route::get('', 'Admin\DayoffController@index');
+		Route::get('index', 'Admin\DayoffController@index');
 
-		Route::match(["get", "post"], 'add', 'AdminDayoffController@add');
-		Route::match(["get", "post"], 'edit/{id}', 'AdminDayoffController@edit')->where('id', '[0-9]+');
-		Route::get('delete/{id}', 'AdminDayoffController@delete')->where('id', '[0-9]+');
-		Route::get('recover/{id}', 'AdminDayoffController@recover')->where('id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Admin\DayoffController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Admin\DayoffController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'Admin\DayoffController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'Admin\DayoffController@recover')->where('id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'profile'], function()

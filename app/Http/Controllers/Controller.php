@@ -8,11 +8,16 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+// use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\DB;
 
-abstract class Controller extends BaseController
+class Controller extends BaseController
 {
-	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+	// use AuthorizesRequests;
+	// use DispatchesJobs;
+	// use ValidatesRequests;
+	// use AuthenticatesUsers;
 
 	protected $request;
 	protected $data;
@@ -23,8 +28,10 @@ abstract class Controller extends BaseController
 	protected $logged_in_user;
 	protected $organization_id = NULL;
 
-	protected function __construct(Request $request)
+	public function __construct(Request $request)
 	{
+		// $this->middleware('', ['except' => ['login', 'authenticate', 'logout', 'register', 'index']]);
+
 		$this->guard = Auth::guard('admin');
 
 		$this->request = $request;
@@ -36,25 +43,69 @@ abstract class Controller extends BaseController
 	}
 
 	protected function init(){
+		$this->blade_url = "index";
 	}
 
-	// public function index(){
-	// 	if($this->blade_url){
-	// 		return view($this->blade_url, ["data" => $this->data]);
-	// 	}
-	// }
+	public function index()
+	{
+		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
+	}
 
 	public function getLoggedInUser(){
 		$this->logged_in_user = $this->guard->user();
 
-		$this->organization_id = \Auth::user()->organization_id | null;
-
 		if($this->logged_in_user){
 			$this->data["logged_in_user"] = $this->logged_in_user;
 			$this->user_id = $this->logged_in_user->id;
+			$this->organization_id = $this->logged_in_user->organization_id;
 		}
 
 		return $this->logged_in_user;
+	}
+
+	public function login()
+	{
+		$url = 'login';
+
+		$logged_in_user = new \App\Model\User();
+
+		return view($url, ['data'=>$this->data, "model" => $logged_in_user]);
+	}
+
+	public function authenticate() {
+		$form_input = $this->form_input;
+
+		$email 			= $form_input['email'];
+		$password 		= $form_input['password'];
+
+		$remember 		= isset($form_input['remember']);
+
+		$credentials = [
+				'email' 		=> $form_input['email'], 
+				'password' 		=> $form_input['password'], //auto-encrypt
+				'is_deleted' 	=> "0",
+			];
+
+		if ($this->guard->attempt($credentials, $remember)) {
+			return redirect()->intended('/');
+		} else {
+			return redirect('/login');
+		}
+
+	}
+
+	public function logout(){
+		if($this->guard->check()){
+			$this->guard->logout();
+		}
+
+		$_SERVER['PHP_AUTH_USER'] = NULL;
+		$_SERVER['PHP_AUTH_PW'] = NULL;
+
+		unset($_SERVER['PHP_AUTH_USER']);
+		unset($_SERVER['PHP_AUTH_PW']);
+
+		return redirect('/admin/login');
 	}
 
 	public function getWorkingTimeLabelList($value='')

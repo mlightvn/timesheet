@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
-class AdminApiController extends AdminController {
+class ApiController extends Controller {
 
 
 	protected $administrator;

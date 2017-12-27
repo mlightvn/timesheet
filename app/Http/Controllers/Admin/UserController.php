@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Model\User;
 
-class AdminUserController extends AdminController {
+class UserController extends Controller {
 
 	protected function init()
 	{

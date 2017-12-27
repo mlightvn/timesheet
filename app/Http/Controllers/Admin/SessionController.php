@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Model\Session;
 
-class AdminSessionController extends AdminController {
+class SessionController extends Controller {
 
 	protected function init()
 	{

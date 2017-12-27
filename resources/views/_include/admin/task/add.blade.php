@@ -15,17 +15,17 @@
 		<div class="modal-body">
 			<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 				<tr>
-					<th>{!! Form::label('name', 'タスク名※') !!}</th>
+					<th>{!! Form::label('name', 'プロジェクト名※') !!}</th>
 					<td>
-						{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タスク名', 'required'=>'required']) !!}
+						{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'プロジェクト名', 'required'=>'required']) !!}
 					</td>
 				</tr>
 				@if($logged_in_user->permission_flag == "Manager")
 				<tr>
-					<th>{!! Form::label('is_off_task', '休憩タスク') !!}</th>
+					<th>{!! Form::label('is_off_task', '休憩プロジェクト') !!}</th>
 					<td>
 						<label class="switch">
-							{!! Form::checkbox('is_off_task', "1", 0, ['placeholder'=>'休憩タスク']) !!}
+							{!! Form::checkbox('is_off_task', "1", 0, ['placeholder'=>'休憩プロジェクト']) !!}
 							<span class="slider round"></span>
 						</label>
 					</td>

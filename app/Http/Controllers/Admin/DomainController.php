@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Model\Domain;
 
-class AdminDomainController extends AdminController {
+class DomainController extends Controller {
 
 	protected function init()
 	{

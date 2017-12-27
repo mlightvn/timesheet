@@ -5,10 +5,10 @@
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">レポート <span class="glyphicon glyphicon-triangle-bottom"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="/admin/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'time') ? 'w3-gray' : ''}}">工数入力画面</a>
-			<a href="/admin/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'day') ? 'w3-gray' : ''}}">日別工数集計</a>
-			<a href="/admin/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'month') ? 'w3-gray' : ''}}">月別工数集計</a>
-			<a href="/admin/report/task" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'task') ? 'w3-gray' : ''}}">プロジェクト別工数集計</a>
+			<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'time') ? 'w3-gray' : ''}}">工数入力画面</a>
+			<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'day') ? 'w3-gray' : ''}}">日別工数集計</a>
+			<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'month') ? 'w3-gray' : ''}}">月別工数集計</a>
+			<a href="/report/task" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'task') ? 'w3-gray' : ''}}">プロジェクト別工数集計</a>
 		</div>
 	</div>
 
@@ -57,18 +57,18 @@
 				</div>
 			</button>
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
-				<a href="/admin/user/edit/{{ $logged_in_user->id }}" class="w3-bar-item w3-button"><span class="fa fa-user"></span> プロフィール修正</a>
+				<a href="/management/user/edit/{{ $logged_in_user->id }}" class="w3-bar-item w3-button"><span class="fa fa-user"></span> プロフィール修正</a>
 				<a href="/admin" class="w3-bar-item w3-button">管理画面</a>
 				@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
-				<a href="/admin/profile/organization/edit" class="w3-bar-item w3-button">企業修正</a>
+				<a href="/profile/organization/edit" class="w3-bar-item w3-button">企業修正</a>
 				@endif
-				<a href="/admin/profile/organization/info" class="w3-bar-item w3-button">企業情報</a>
-				<a href="/admin/logout" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-log-out"></span> ログアウト</a>
+				<a href="/profile/organization/info" class="w3-bar-item w3-button">企業情報</a>
+				<a href="/logout" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-log-out"></span> ログアウト</a>
 			</div>
 		</div>
 		@else
-		<a href="/admin/login" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'login')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-log-in"></span> ログイン</a>
-		<a href="/admin/register" class="w3-bar-item w3-button {{ (isset($id) && ($id == 'register')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-log-in"></span> 登録</a>
+		<a href="/login" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'login')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-log-in"></span> ログイン</a>
+		<a href="/register" class="w3-bar-item w3-button {{ (isset($id) && ($id == 'register')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-log-in"></span> 登録</a>
 		@endif
 	</div>
 </div>

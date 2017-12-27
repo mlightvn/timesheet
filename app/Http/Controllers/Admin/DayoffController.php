@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Model\Dayoff;
 
-class AdminDayoffController extends AdminController {
+class DayoffController extends Controller {
 
 	protected function init()
 	{
