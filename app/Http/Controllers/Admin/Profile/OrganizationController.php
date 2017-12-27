@@ -40,14 +40,19 @@ class OrganizationController extends AdminController {
 
 	public function edit($id = NULL)
 	{
+		$permission_flag = $this->logged_in_user->permission_flag;
+		$is_manager = in_array($permission_flag, array("Administrator", "Manager"));
+		if(!$is_manager){
+			// return \Redirect::to('/admin/profile/organization/info');
+			return redirect('/admin/profile/organization/info');
+		}
+
 		$url = $this->url_pattern . '.edit';
 
-		$organization_id = \Auth::user()->organization_id | null;
-
-		if(!$organization_id){ // 新規追加の場合 ($organization_idが存在していないので)
+		if(!$this->organization_id){ // 新規追加の場合 ($organization_idが存在していないので)
 			// return parent::add();
 		}else{ // 修正の場合
-			$this->model = $this->model->find($organization_id);
+			$this->model = $this->model->find($this->organization_id);
 		}
 
 		$message = NULL;
@@ -83,6 +88,21 @@ class OrganizationController extends AdminController {
 		}
 
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
+	}
+
+	public function info()
+	{
+		$url = $this->url_pattern . '.info';
+
+		// $organization_id = \Auth::user()->organization_id | null;
+
+		if(!$this->organization_id){ // 新規追加の場合 ($organization_idが存在していないので)
+			// return parent::add();
+		}else{ // 修正の場合
+			$this->model = $this->model->find($this->organization_id);
+		}
+
+		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model]);
 	}
 
 }

@@ -137,7 +137,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::group(['prefix' => 'organization'], function()
 		{
 			Route::match(["get", "post"], 'edit', 'Admin\Profile\OrganizationController@edit');
-			// Route::get('preview', 'AdminOrganizationController@add');
+			Route::get('info', 'Admin\Profile\OrganizationController@info');
 		});
 	});
 

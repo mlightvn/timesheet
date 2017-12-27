@@ -53,13 +53,16 @@
 				<div class="chip">
 					<img src="/common/images/avatar_male.png" alt="{{ $logged_in_user->name }}">
 					{{ $logged_in_user->name }}
-							<span class="glyphicon glyphicon-triangle-bottom"></span>
+					<span class="glyphicon glyphicon-triangle-bottom"></span>
 				</div>
 			</button>
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
 				<a href="/admin/user/edit/{{ $logged_in_user->id }}" class="w3-bar-item w3-button"><span class="fa fa-user"></span> プロフィール修正</a>
 				<a href="/admin" class="w3-bar-item w3-button">管理画面</a>
-				<a href="/admin/profile/organization/edit" class="w3-bar-item w3-button">企業情報</a>
+				@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
+				<a href="/admin/profile/organization/edit" class="w3-bar-item w3-button">企業修正</a>
+				@endif
+				<a href="/admin/profile/organization/info" class="w3-bar-item w3-button">企業情報</a>
 				<a href="/admin/logout" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-log-out"></span> ログアウト</a>
 			</div>
 		</div>

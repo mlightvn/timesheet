@@ -47,10 +47,11 @@ abstract class Controller extends BaseController
 	public function getLoggedInUser(){
 		$this->logged_in_user = $this->guard->user();
 
+		$this->organization_id = \Auth::user()->organization_id | null;
+
 		if($this->logged_in_user){
 			$this->data["logged_in_user"] = $this->logged_in_user;
 			$this->user_id = $this->logged_in_user->id;
-			$this->organization_id 		= $this->logged_in_user->organization_id;
 		}
 
 		return $this->logged_in_user;
