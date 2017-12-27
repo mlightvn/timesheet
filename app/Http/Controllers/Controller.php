@@ -21,6 +21,7 @@ abstract class Controller extends BaseController
 	protected $guard;
 	protected $user_id;
 	protected $logged_in_user;
+	protected $organization_id = NULL;
 
 	protected function __construct(Request $request)
 	{
@@ -49,6 +50,7 @@ abstract class Controller extends BaseController
 		if($this->logged_in_user){
 			$this->data["logged_in_user"] = $this->logged_in_user;
 			$this->user_id = $this->logged_in_user->id;
+			$this->organization_id 		= $this->logged_in_user->organization_id;
 		}
 
 		return $this->logged_in_user;

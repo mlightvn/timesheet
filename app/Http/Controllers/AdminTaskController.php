@@ -13,7 +13,7 @@ class AdminTaskController extends AdminController {
 		$this->model = new Task();
 
 		// 新規追加画面、デフォルトの価値を定義
-		$this->model->organization_id 		= $this->logged_in_user->organization_id;
+		$this->model->organization_id 		= $this->organization_id;
 		$this->url_pattern = "admin.task";
 		$this->data["url_pattern"] = "/admin/task";
 		$this->logical_delete = true;
@@ -99,7 +99,8 @@ class AdminTaskController extends AdminController {
 		$table = $table->delete(); // delete all tasks of current user
 		unset($table);
 
-		if($this->logged_in_user->permission_flag == "Manager"){
+		$is_manager = in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"));
+		if($is_manager){
 			// Remove all off_task flag
 			$table = new Task();
 			$table = $table->where("is_off_task", "=", "1");

@@ -17,7 +17,7 @@
 
 <div class="w3-row">
 	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	@if ( $logged_in_user->permission_flag == "Manager" )
+	@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
@@ -25,6 +25,9 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
+			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
+			<th>企業名</th>
+			@endif
 			<th>部署</th>
 			<th></th>
 		</tr>
@@ -33,15 +36,18 @@
 		@foreach($arrSessions as $key => $session)
 		<tr class="{{ ($session->is_deleted == 1) ? 'w3-gray' : '' }}">
 			<td>{{ $session->id }}</td>
+			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
+			<td>{{ $session->organization_name }}</td>
+			@endif
 			<td>
-			@if ($logged_in_user->permission_flag == "Manager")
+			@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
 			<a href="{{ $data['url_pattern'] }}/edit/{{ $session->id }}">{{ $session->name }}</a>
 			@else
 			{{ $session->name }}
 			@endif
 			</td>
 			<td>
-			@if ($logged_in_user->permission_flag == "Manager")
+			@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
 			<a href="{{ $data['url_pattern'] }}/edit/{{ $session->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
 			|
 					@if ($session->is_deleted)

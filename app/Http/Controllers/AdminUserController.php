@@ -12,7 +12,7 @@ class AdminUserController extends AdminController {
 		$this->model = new User();
 
 		// 新規追加画面、デフォルトの価値を定義
-		$this->model->organization_id 		= $this->logged_in_user->organization_id;
+		$this->model->organization_id 		= $this->organization_id;
 		$this->url_pattern = "admin.user";
 		$this->data["url_pattern"] = "/admin/user";
 		$this->logical_delete = true;

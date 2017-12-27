@@ -12,7 +12,7 @@ class AdminSessionController extends AdminController {
 		$this->model = new Session();
 
 		// 新規追加画面、デフォルトの価値を定義
-		$this->model->organization_id 		= $this->logged_in_user->organization_id;
+		$this->model->organization_id 		= $this->organization_id;
 		$this->url_pattern = "admin.session";
 		$this->data["url_pattern"] = "/admin/session";
 		$this->logical_delete = true;
@@ -22,7 +22,7 @@ class AdminSessionController extends AdminController {
 	{
 		$url = $this->url_pattern . '.index';
 
-		$data["logged_in_user"] = $this->logged_in_user;
+		// $data["logged_in_user"] = $this->logged_in_user;
 
 		$keyword = null;
 		if(isset($this->form_input["keyword"])){
@@ -37,7 +37,7 @@ class AdminSessionController extends AdminController {
 
 	public function add()
 	{
-		if($this->logged_in_user->permission_flag == "Manager"){
+		if(in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"))){
 			return parent::add();
 		}else{
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"セッションの追加修正削除に関しては、システム管理者までお問い合わせください。"]);
@@ -57,8 +57,8 @@ class AdminSessionController extends AdminController {
 		}
 
 		if($this->form_input){ // Submit
-			$is_manager = $this->logged_in_user->permission_flag;
-			if(($is_manager == "Manager")){
+			$is_manager = in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"));
+			if($is_manager){
 
 				$this->model->fill($this->form_input);
 				$this->model->update();
