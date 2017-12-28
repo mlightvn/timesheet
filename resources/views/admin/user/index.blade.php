@@ -19,9 +19,6 @@
 	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
 	@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
-{{--
-	<a class="w3-button w3-brown" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span></a>
---}}
 	@endif
 	<br><br>
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
@@ -47,17 +44,33 @@
 			<td>{{ $user->organization_name }}</td>
 			@endif
 			<td>
-			@if (($user->permission_flag == "Manager"))
+			@if (($user->permission_flag == "Administrator"))
+			<span class="fa fa-ambulance w3-text-red"></span> 
+			@elseif (($user->permission_flag == "Manager"))
 			<span class="glyphicon glyphicon-king"></span> 
 			@else
 			<span class="glyphicon glyphicon-pawn"></span> 
 			@endif
 			&nbsp;
-			@if ((in_array($logged_in_user->permission_flag, array("Administrator", "Manager"))) || ($logged_in_user->id == $user->id) )
-			<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span> {{ $user->name }}</a>
+
+			@if($user->permission_flag == "Administrator")
+				@if ($logged_in_user->id == $user->id)
+					<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span> {{ $user->name }}</a>
+				@else
+					{{ $user->name }}
+				@endif
 			@else
-			{{ $user->name }}
+				@if ((in_array($logged_in_user->permission_flag, array("Manager"))) || ($logged_in_user->id == $user->id) )
+					@if (in_array($user->permission_flag, array("Administrator")))
+						{{ $user->name }}
+					@else
+						<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span> {{ $user->name }}</a>
+					@endif
+				@else
+					{{ $user->name }}
+				@endif
 			@endif
+
 			</td>
 			<td>{{ $user->session_name }}</td>
 			<td><a href="mailto:{{ $user->email }}"><span class="glyphicon glyphicon-envelope"></span> {{ $user->email }}</a></td>
@@ -65,16 +78,16 @@
 			<td><a href="/admin/report/task?user_id={{ $user->id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
 			@endif
 			<td>
-			@if ((in_array($logged_in_user->permission_flag, array("Administrator", "Manager"))) || ($logged_in_user->id == $user->id) )
+			@if ((in_array($logged_in_user->permission_flag, array("Manager"))) || ($logged_in_user->id == $user->id) )
 			<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
+			@else
+			<span class="glyphicon glyphicon-pencil"></span> 
 			@endif
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
-				@if ( $user->permission_flag != "Manager" )
-					@if ($user->is_deleted)
+				@if ($user->is_deleted)
 			| <a href="{{ $data['url_pattern'] }}/recover/{{ $user->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
-					@else
+				@else
 			| <a href="{{ $data['url_pattern'] }}/delete/{{ $user->id }}"><span class="fa fa-trash w3-text-red"></span></a>
-					@endif
 				@endif
 			@endif
 			</td>
