@@ -50,7 +50,7 @@ class Controller extends BaseController
 	{
 		$this->blade_url = $this->url_pattern . '.index';
 
-		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
+		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
 	}
 
 	public function list()
@@ -72,7 +72,7 @@ class Controller extends BaseController
 		$this->data["keyword"] = $keyword;
 		$this->data["model_list"] = $model_list;
 
-		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, 'model_list'=>$model_list]);
+		return view($url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user, 'model_list'=>$model_list));
 	}
 
 	public function getLoggedInUser(){
