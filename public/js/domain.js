@@ -59,6 +59,7 @@ console.log($response);
 loadData();
 
 function pagination(app) {
+	// https://docs.angularjs.org/guide/directive
 	app.directive('listPagination', function(){
 			template = 
 					'<div ng-show="last_page > 1">'
