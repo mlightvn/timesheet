@@ -1,10 +1,9 @@
-<?php namespace App\Http\Controllers\Admin\Profile;
+<?php namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Model\Organization;
 
-class OrganizationController extends AdminController {
+class OrganizationController extends \App\Http\Controllers\Controller {
 
 	protected function init()
 	{

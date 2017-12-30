@@ -129,7 +129,7 @@ class Controller extends BaseController
 		unset($_SERVER['PHP_AUTH_USER']);
 		unset($_SERVER['PHP_AUTH_PW']);
 
-		return redirect('/admin/login');
+		return redirect('/login');
 	}
 
 	public function getWorkingTimeLabelList($value='')

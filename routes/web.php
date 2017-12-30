@@ -158,15 +158,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 		Route::get('recover/{id}', 'Admin\DayoffController@recover')->where('id', '[0-9]+');
 	});
 
-	Route::group(['prefix' => 'profile'], function()
-	{
-		Route::group(['prefix' => 'organization'], function()
-		{
-			Route::match(["get", "post"], 'edit', 'Admin\Profile\OrganizationController@edit');
-			Route::get('info', 'Admin\Profile\OrganizationController@info');
-		});
-	});
+});
 
+Route::group(['prefix' => 'profile'], function()
+{
+	Route::group(['prefix' => 'organization'], function()
+	{
+		Route::match(["get", "post"], 'edit', 'Profile\OrganizationController@edit');
+		Route::get('info', 'Profile\OrganizationController@info');
+	});
 });
 
 Route::group(['prefix' => 'bin'], function()

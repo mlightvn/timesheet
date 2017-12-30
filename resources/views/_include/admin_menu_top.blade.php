@@ -58,7 +58,11 @@
 			</button>
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
 				<a href="/management/user/edit/{{ $logged_in_user->id }}" class="w3-bar-item w3-button"><span class="fa fa-user"></span> プロフィール修正</a>
+
+				@if ( $logged_in_user->permission_flag == "Administrator" )
 				<a href="/admin" class="w3-bar-item w3-button">管理画面</a>
+				@endif
+
 				@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
 				<a href="/profile/organization/edit" class="w3-bar-item w3-button">企業修正</a>
 				@endif
