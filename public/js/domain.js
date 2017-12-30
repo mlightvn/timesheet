@@ -60,17 +60,22 @@ loadData();
 
 function pagination(app) {
 	app.directive('listPagination', function(){
-		return{
+			template = 
+					'<div ng-show="last_page > 1">'
+					+ 	'<ul class="pagination">'
+					+ 		'<li ng-show="1 < current_page"><a href="javascript:void(0)" ng-click="loadData(1)">&laquo;</a></li>'
+					+ 		'<li ng-show="1 < current_page"><a href="javascript:void(0)" ng-click="loadData(current_page-1)">&lsaquo;</a></li>'
+					+ 		'<li ng-repeat="i in range" ng-class="{active : current_page == i}">'
+					+ 		'<a href="javascript:void(0)" ng-click="loadData(i)">{{i}}</a>'
+					+ 		'</li>'
+					+ 		'<li ng-show="current_page < last_page"><a href="javascript:void(0)" ng-click="loadData(current_page+1)">&rsaquo;</a></li>'
+					+ 		'<li ng-show="current_page < last_page"><a href="javascript:void(0)" ng-click="loadData(last_page)">&raquo;</a></li>'
+					+ 	'</ul>'
+					+ '</div>'
+					;
+		return {
 			restrict: 'E',
-			template: '<ul class="pagination">'+
-				'<li ng-show="1 < current_page"><a href="javascript:void(0)" ng-click="loadData(1)">&laquo;</a></li>'+
-				'<li ng-show="1 < current_page"><a href="javascript:void(0)" ng-click="loadData(current_page-1)">&lsaquo;</a></li>'+
-				'<li ng-repeat="i in range" ng-class="{active : current_page == i}">'+
-				'<a href="javascript:void(0)" ng-click="loadData(i)">{{i}}</a>'+
-				'</li>'+
-				'<li ng-show="current_page < last_page"><a href="javascript:void(0)" ng-click="loadData(current_page+1)">&rsaquo;</a></li>'+
-				'<li ng-show="current_page < last_page"><a href="javascript:void(0)" ng-click="loadData(last_page)">&raquo;</a></li>'+
-				'</ul>'
+			template: template
 			};
 	});
 }
