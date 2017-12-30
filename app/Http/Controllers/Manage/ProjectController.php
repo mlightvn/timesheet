@@ -1,10 +1,10 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Manage;
 
 use Illuminate\Http\Request;
 use App\Model\Task;
 use App\Model\UserTask;
 
-class TaskController extends Controller {
+class ProjectController extends Controller {
 
 	protected function init()
 	{
@@ -14,8 +14,8 @@ class TaskController extends Controller {
 
 		// 新規追加画面、デフォルトの価値を定義
 		$this->model->organization_id 		= $this->organization_id;
-		$this->url_pattern = "admin.task";
-		$this->data["url_pattern"] = "/admin/task";
+		$this->url_pattern = "manage.project";
+		$this->data["url_pattern"] = "/manage/project";
 		$this->logical_delete = true;
 	}
 

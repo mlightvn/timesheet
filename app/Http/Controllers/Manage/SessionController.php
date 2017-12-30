@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Manage;
 
 use Illuminate\Http\Request;
 use App\Model\Session;
@@ -13,8 +13,8 @@ class SessionController extends Controller {
 
 		// 新規追加画面、デフォルトの価値を定義
 		$this->model->organization_id 		= $this->organization_id;
-		$this->url_pattern = "admin.session";
-		$this->data["url_pattern"] = "/admin/session";
+		$this->url_pattern = "manage.session";
+		$this->data["url_pattern"] = "/manage/session";
 		$this->logical_delete = true;
 	}
 

@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Manage;
 
 use Illuminate\Http\Request;
 
@@ -14,14 +14,14 @@ class Controller extends \App\Http\Controllers\Controller {
 	// use AuthenticatesUsers;
 
 	protected $administrator;
-	protected $redirectTo = '/admin';
+	protected $redirectTo = 'manage';
 	protected $model;
 
 	protected function init()
 	{
 		parent::init();
 
-		$this->url_pattern = "admin";
+		$this->url_pattern = "manage";
 		// $this->logical_delete = true;
 	}
 
@@ -38,7 +38,7 @@ class Controller extends \App\Http\Controllers\Controller {
 		if($this->url_pattern){
 			$url = $this->url_pattern . '.index';
 		}else{
-			$url = 'admin.index';
+			$url = 'manage.index';
 		}
 
 		$keyword = "";

@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Manage;
 
 use Illuminate\Http\Request;
 use App\Model\User;
@@ -13,8 +13,8 @@ class UserController extends Controller {
 
 		// 新規追加画面、デフォルトの価値を定義
 		$this->model->organization_id 		= $this->organization_id;
-		$this->url_pattern = "admin.user";
-		$this->data["url_pattern"] = "/admin/user";
+		$this->url_pattern = "manage.user";
+		$this->data["url_pattern"] = "/manage/user";
 		$this->logical_delete = true;
 	}
 

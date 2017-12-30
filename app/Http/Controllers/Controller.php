@@ -31,7 +31,7 @@ class Controller extends BaseController
 
 	public function __construct(Request $request)
 	{
-		$this->middleware('', ['except' => ['login', 'authenticate', 'logout', 'register', 'index']]);
+		// $this->middleware('', ['except' => ['login', 'authenticate', 'logout', 'register', 'index']]);
 
 		$this->guard = Auth::guard('admin');
 

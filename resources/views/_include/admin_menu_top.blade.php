@@ -21,14 +21,14 @@
 		</div>
 	</div>
 
-	<a href="/admin/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> ドメイン</a>
+	<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> ドメイン</a>
 
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">設定 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="/admin/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> ユーザー</a>
-			<a href="/admin/task" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> プロジェクト</a>
-			<a href="/admin/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
+			<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> ユーザー</a>
+			<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> プロジェクト</a>
+			<a href="/manage/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
 		</div>
 	</div>
 
