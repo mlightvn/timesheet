@@ -37,6 +37,24 @@ Route::group(['prefix' => 'report'], function(){
 	Route::get('task_download_{year}_{month}', 'Report\TaskController@download');
 });
 
+Route::group(['prefix' => 'domain'], function()
+{
+	Route::get('', 'DomainController@index');
+	Route::get('index', 'DomainController@index');
+
+	Route::match(["get", "post"], 'add', 'DomainController@add');
+	Route::match(["get", "post"], 'edit/{id}', 'DomainController@edit')->where('id', '[0-9]+');
+	Route::get('delete/{id}', 'DomainController@delete')->where('id', '[0-9]+');
+	Route::get('recover/{id}', 'DomainController@recover')->where('id', '[0-9]+');
+});
+
+Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
+	Route::group(['prefix' => 'domain'], function(){
+		Route::get('', 'Api\DomainController@index');
+		Route::get('index', 'Api\DomainController@index');
+	});
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 {
 	// Route::auth();
@@ -110,17 +128,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 
 		Route::post('add/{object_type}', 'Admin\ApiController@add');
 		Route::post('edit/{object_type}/{id}', 'Admin\ApiController@edit');
-	});
-
-	Route::group(['prefix' => 'domain'], function()
-	{
-		Route::get('', 'Admin\DomainController@index');
-		Route::get('index', 'Admin\DomainController@index');
-
-		Route::match(["get", "post"], 'add', 'Admin\DomainController@add');
-		Route::match(["get", "post"], 'edit/{id}', 'Admin\DomainController@edit')->where('id', '[0-9]+');
-		Route::get('delete/{id}', 'Admin\DomainController@delete')->where('id', '[0-9]+');
-		Route::get('recover/{id}', 'Admin\DomainController@recover')->where('id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'dayoff'], function()

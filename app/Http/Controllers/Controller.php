@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+// use Illuminate\Foundation\Validation\ValidatesRequests;
+// use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
 // use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\DB;
 
@@ -27,10 +27,11 @@ class Controller extends BaseController
 	protected $user_id;
 	protected $logged_in_user;
 	protected $organization_id = NULL;
+	protected $logical_delete = true;
 
 	public function __construct(Request $request)
 	{
-		// $this->middleware('', ['except' => ['login', 'authenticate', 'logout', 'register', 'index']]);
+		$this->middleware('', ['except' => ['login', 'authenticate', 'logout', 'register', 'index']]);
 
 		$this->guard = Auth::guard('admin');
 
@@ -507,6 +508,11 @@ class Controller extends BaseController
 		$json = json_encode($data);
 		echo $json;
 		exit;
+	}
+
+	public function toJson($data)
+	{
+		return $this->jsonExport($data);
 	}
 
 }

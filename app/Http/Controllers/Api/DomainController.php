@@ -1,39 +1,30 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Model\Domain;
 
 class DomainController extends Controller {
 
+
 	protected function init()
 	{
 		parent::init();
 
 		$this->model = new Domain();
-
-		// 新規追加画面、デフォルトの価値を定義
-		$this->model->organization_id 		= $this->logged_in_user->organization_id;
-		$this->model->url 					= "";
-		$this->model->admin_url 			= "";
-		$this->model->repository_url 		= "";
-
-		$this->url_pattern 					= "admin.domain";
-		$this->data["url_pattern"] 			= "/admin/domain";
-		$this->logical_delete 				= true;
 	}
 
 	public function index()
 	{
-		$this->blade_url = $this->url_pattern . '.index';
-
 		$this->model = $this->model->orderBy("is_deleted");
 		$this->model = $this->model->orderBy("development_flag");
 
 		$keyword = null;
 		$development_flag = null;
 
-		if(isset($this->form_input["keyword"])){
-			$keyword = $this->form_input["keyword"];
+		// if(isset($this->form_input["keyword"])){
+		if(isset($_GET["keyword"])){
+			// $keyword = $this->form_input["keyword"];
+			$keyword = $_GET["keyword"];
 		}
 		if(isset($this->form_input["development_flag"])){
 			$development_flag = $this->form_input["development_flag"];
@@ -51,9 +42,6 @@ class DomainController extends Controller {
 						END AS 'development_flag_label'
 					")
 		]);
-
-		// $this->model = $this->model->leftJoin("users", "domain.user_id", "=", "users.id");
-		// $this->model = $this->model->leftJoin("organization", "organization.user_id", "=", "users.id");
 
 		if($keyword){
 			$this->model = $this->model->where(function($query) use ($keyword) {
@@ -102,7 +90,7 @@ class DomainController extends Controller {
 
 		$arrModel = $this->model->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
 
-		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "arrModel"=>$arrModel]);
+		return $this->toJson($arrModel);
 	}
 
 }

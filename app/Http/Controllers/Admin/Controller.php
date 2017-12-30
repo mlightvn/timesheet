@@ -16,7 +16,6 @@ class Controller extends \App\Http\Controllers\Controller {
 	protected $administrator;
 	protected $redirectTo = '/admin';
 	protected $model;
-	protected $logical_delete = true;
 
 	// public function __construct(Request $request)
 	// {
