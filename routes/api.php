@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-// Route::group(['prefix' => 'ajax', 'middleware' => ['admin']], function(){
+// Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 // 	Route::group(['prefix' => 'domain'], function(){
 // 		Route::get('', 'Ajax\DomainController@index');
 // 		Route::get('index', 'Ajax\DomainController@index');

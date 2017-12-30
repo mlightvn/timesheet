@@ -92,10 +92,14 @@
 	</div>
 	<br>
 
-{{--
-	@include('_include.admin_pagination', ['list'=>$arrModel, 'keyword'=>$data["keyword"]])
-	--}}
+
+	<div class="w3-row">
+		<div class="w3-col s12 m12 l12 w3-center">
+			<list-pagination></list-pagination>
+		</div>
+	</div>
 	<br>
+
 </div>
 
 </div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}

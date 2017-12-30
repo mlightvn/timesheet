@@ -512,7 +512,8 @@ class Controller extends BaseController
 
 	public function toJson($data)
 	{
-		return $this->jsonExport($data);
+		// return $this->jsonExport($data);
+		return \Response::json($data);
 	}
 
 }
