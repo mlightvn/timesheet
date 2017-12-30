@@ -19,7 +19,7 @@ class TaskController extends Controller {
 		$this->logical_delete = true;
 	}
 
-	public function index()
+	public function list()
 	{
 		$this->blade_url = $this->url_pattern . '.index';
 

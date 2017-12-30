@@ -18,7 +18,7 @@ class UserController extends Controller {
 		$this->logical_delete = true;
 	}
 
-	public function index()
+	public function list()
 	{
 		$url = $this->url_pattern . '.index';
 

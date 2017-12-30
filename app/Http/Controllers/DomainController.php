@@ -22,10 +22,4 @@ class DomainController extends Controller {
 		$this->logical_delete 				= true;
 	}
 
-	public function index()
-	{
-		$this->blade_url = $this->url_pattern . '.index';
-		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
-	}
-
 }

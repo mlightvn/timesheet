@@ -59,8 +59,8 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 {
 	Route::group(['prefix' => 'project'], function()
 	{
-		Route::get('', 'Manage\ProjectController@index');
-		Route::get('index', 'Manage\ProjectController@index');
+		Route::get('', 'Manage\ProjectController@list');
+		Route::get('list', 'Manage\ProjectController@list');
 
 		Route::match(["get", "post"], 'add', 'Manage\ProjectController@add');
 		Route::match(["get", "post"], 'edit/{id}', 'Manage\ProjectController@edit')->where('id', '[0-9]+');
@@ -85,8 +85,8 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 
 	Route::group(['prefix' => 'user'], function()
 	{
-		Route::get('', 'Manage\UserController@index');
-		Route::get('index', 'Manage\UserController@index');
+		Route::get('', 'Manage\UserController@list');
+		Route::get('index', 'Manage\UserController@list');
 
 		Route::match(["get", "post"], 'add', 'Manage\UserController@add');
 		Route::match(["get", "post"], 'edit/{user_id}', 'Manage\UserController@edit')->where('user_id', '[0-9]+');
@@ -96,8 +96,8 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 
 	Route::group(['prefix' => 'session'], function()
 	{
-		Route::get('', 'Manage\SessionController@index');
-		Route::get('index', 'Manage\SessionController@index');
+		Route::get('', 'Manage\SessionController@list');
+		Route::get('index', 'Manage\SessionController@list');
 
 		Route::match(["get", "post"], 'add', 'Manage\SessionController@add');
 		Route::match(["get", "post"], 'edit/{session_id}', 'Manage\SessionController@edit')->where('session_id', '[0-9]+');
@@ -116,8 +116,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 
 	Route::group(['prefix' => 'organization'], function()
 	{
-		Route::get('', 'Admin\OrganizationController@index');
-		Route::get('index', 'Admin\OrganizationController@index');
+		Route::get('', 'Admin\OrganizationController@list');
+		Route::get('index', 'Admin\OrganizationController@list');
 
 		Route::match(["get", "post"], 'add', 'Admin\OrganizationController@add');
 		Route::match(["get", "post"], 'edit/{id}', 'Admin\OrganizationController@edit')->where('id', '[0-9]+');
@@ -127,8 +127,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 
 	Route::group(['prefix' => 'holiday'], function()
 	{
-		Route::get('', 'Admin\HolidayController@index');
-		Route::get('index', 'Admin\HolidayController@index');
+		Route::get('', 'Admin\HolidayController@list');
+		Route::get('index', 'Admin\HolidayController@list');
 
 		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
 		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
@@ -149,8 +149,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 
 	Route::group(['prefix' => 'dayoff'], function()
 	{
-		Route::get('', 'Admin\DayoffController@index');
-		Route::get('index', 'Admin\DayoffController@index');
+		Route::get('', 'Admin\DayoffController@list');
+		Route::get('index', 'Admin\DayoffController@list');
 
 		Route::match(["get", "post"], 'add', 'Admin\DayoffController@add');
 		Route::match(["get", "post"], 'edit/{id}', 'Admin\DayoffController@edit')->where('id', '[0-9]+');

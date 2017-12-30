@@ -18,11 +18,9 @@ class SessionController extends Controller {
 		$this->logical_delete = true;
 	}
 
-	public function index()
+	public function list()
 	{
 		$url = $this->url_pattern . '.index';
-
-		// $data["logged_in_user"] = $this->logged_in_user;
 
 		$keyword = null;
 		if(isset($this->form_input["keyword"])){

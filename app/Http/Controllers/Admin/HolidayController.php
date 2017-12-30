@@ -38,7 +38,7 @@ class HolidayController extends Controller {
 		$this->lastDayOfMonth = end($arrDate);
 	}
 
-	public function index()
+	public function list()
 	{
 		$user_id = $this->user_id;
 		$this->blade_url = $this->url_pattern . '.index';
