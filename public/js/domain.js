@@ -1,6 +1,6 @@
 function loadData($argument) {
 
-	var app = angular.module('myApp', []);
+	app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http) {
 		$scope.get = function ($argument) {
 			url = "/api/domain", 
@@ -17,13 +17,13 @@ function loadData($argument) {
 						$scope.model_list = $response.data.data;
 // console.log($response.data);
 
-						$scope.last_page   = $response.last_page;
-						$scope.current_page  = $response.current_page;
+						$scope.last_page   = $response.data.last_page;
+						$scope.current_page  = $response.data.current_page;
 
 						// Pagination Range
 						pages = [];
 
-						for(i=1;i<=$response.last_page;i++) {          
+						for(i=1;i<=$response.data.last_page;i++) {          
 							pages.push(i);
 						}
 
@@ -35,7 +35,7 @@ console.log($response);
 					}
 				);
 
-			pagination($argument);
+			// pagination(app);
 
 		};
 
@@ -52,25 +52,24 @@ console.log($response);
 		$scope.get($argument);
 
 	});
+
+	pagination(app);
 }
 
 loadData();
-// pagination();
 
-function pagination($argument) {
-	var app = angular.module('myApp', []);
-
-	app.directive('list-pagination', function(){
+function pagination(app) {
+	app.directive('listPagination', function(){
 		return{
 			restrict: 'E',
 			template: '<ul class="pagination">'+
-				'<li ng-show="current_page != 1"><a href="javascript:void(0)" ng-click="loadData(1)">&laquo;</a></li>'+
-				'<li ng-show="current_page != 1"><a href="javascript:void(0)" ng-click="loadData(current_page-1)">&lsaquo; Prev</a></li>'+
+				'<li ng-show="1 < current_page"><a href="javascript:void(0)" ng-click="loadData(1)">&laquo;</a></li>'+
+				'<li ng-show="1 < current_page"><a href="javascript:void(0)" ng-click="loadData(current_page-1)">&lsaquo;</a></li>'+
 				'<li ng-repeat="i in range" ng-class="{active : current_page == i}">'+
 				'<a href="javascript:void(0)" ng-click="loadData(i)">{{i}}</a>'+
 				'</li>'+
-				'<li ng-show="current_page != last_page"><a href="javascript:void(0)" ng-click="loadData(current_page+1)">Next &rsaquo;</a></li>'+
-				'<li ng-show="current_page != last_page"><a href="javascript:void(0)" ng-click="loadData(last_page)">&raquo;</a></li>'+
+				'<li ng-show="current_page < last_page"><a href="javascript:void(0)" ng-click="loadData(current_page+1)">&rsaquo;</a></li>'+
+				'<li ng-show="current_page < last_page"><a href="javascript:void(0)" ng-click="loadData(last_page)">&raquo;</a></li>'+
 				'</ul>'
 			};
 	});
