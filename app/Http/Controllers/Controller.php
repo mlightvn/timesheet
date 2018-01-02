@@ -62,7 +62,7 @@ class Controller extends BaseController
 		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
 	}
 
-	public function list()
+	public function list($request_data = array())
 	{
 		$url = "";
 		if($this->url_pattern){
@@ -74,6 +74,22 @@ class Controller extends BaseController
 		$keyword = "";
 		if(isset($this->form_input["keyword"])){
 			$keyword = $this->form_input["keyword"];
+
+			if(isset($request_data["where"]["keyword"]["column_list"])){
+				$column_list = $request_data["where"]["keyword"]["column_list"];
+				$where_a = array();
+				foreach ($column_list as $column_name => $column_value) {
+					$where_a[] = "(" . $column_name . " LIKE '%" . $column_value . "%')";
+				}
+				$whereRaw = implode(" OR ", $where_a);
+				$whereRaw = "( " . $whereRaw . ")";
+
+				$this->model = $this->model->whereRaw(\DB::raw($whereRaw));
+
+			}else{
+				$this->model = $this->model->where("name", $keyword);
+			}
+
 		}
 
 		$model_list = $this->model->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
@@ -235,13 +251,13 @@ class Controller extends BaseController
 		$table = $table->leftJoin("organization", "users.organization_id", "=", "organization.id");
 
 		if($id){
-			$table = $table->where("id", "=", $id);
+			$table = $table->where("users.id", "=", $id);
 		}
 		if($email){
-			$table = $table->where("email", "=", $email);
+			$table = $table->where("users.email", "=", $email);
 		}
 		if($name){
-			$table = $table->where("name", "LIKE", "%" . $name . "%");
+			$table = $table->where("users.name", "LIKE", "%" . $name . "%");
 		}
 
 		if($keyword){
@@ -280,16 +296,16 @@ class Controller extends BaseController
 		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
 
 		if($id){
-			$table = $table->where("id", "=", $id);
+			$table = $table->where("task.id", "=", $id);
 		}
 		if($name){
-			$table = $table->where("name", "LIKE", "%" . $name . "%");
+			$table = $table->where("task.name", "LIKE", "%" . $name . "%");
 		}
 
 		if($keyword){
 			$where = " (
-							   (id = '{KEYWORD}')
-							OR (name LIKE '%{KEYWORD}%')
+							   (task.id = '{KEYWORD}')
+							OR (task.name LIKE '%{KEYWORD}%')
 						)";
 			$where = str_replace("{KEYWORD}", $keyword, $where);
 
@@ -319,7 +335,7 @@ class Controller extends BaseController
 		$table = $table->leftJoin("organization", "session.organization_id", "=", "organization.id");
 
 		if($id){
-			$table = $table->where("id", "=", $id);
+			$table = $table->where("session.id", "=", $id);
 		}
 		if($name){
 			$table = $table->where("name", "LIKE", "%" . $name . "%");
@@ -327,8 +343,8 @@ class Controller extends BaseController
 
 		if($keyword){
 			$where = " (
-							   (id = '{KEYWORD}')
-							OR (name LIKE '%{KEYWORD}%')
+							   (session.id = '{KEYWORD}')
+							OR (session.name LIKE '%{KEYWORD}%')
 						)";
 			$where = str_replace("{KEYWORD}", $keyword, $where);
 

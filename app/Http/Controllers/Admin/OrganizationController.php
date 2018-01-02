@@ -14,4 +14,19 @@ class OrganizationController extends Controller {
 		$this->data["url_pattern"] = "/admin/organization";
 	}
 
+	public function list($request_data = array())
+	{
+		if(isset($this->form_input["keyword"])){
+			$keyword = $this->form_input["keyword"];
+
+			$column_list = array();
+			$column_list["name"] = $keyword;
+			$column_list["website"] = $keyword;
+
+			$request_data["where"]["keyword"]["column_list"] = $column_list;
+		}
+
+		return parent::list($request_data);
+	}
+
 }

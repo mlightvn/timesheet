@@ -2,18 +2,14 @@
 	<div class="w3-col s12 m12 l12">
 
 		<form method="GET" action="{{ \Request::url() }}" accept-charset="UTF-8" role="search">
-
-			<div class="form-group form-inline">
-				<label class="control-label" for="keyword">キーワード：</label>
-
-				<div class="input-group">
-					<input placeholder="キーワード" class="form-control" id="keyword" name="keyword" type="text" value="{{ (isset($keyword) ? $keyword : '') }}">
-
-					<span class="input-group-btn">
-						<button type="submit" class="btn w3-brown"><span class="glyphicon glyphicon-search"></span></button>
-					</span>
+			<div class="w3-row w3-section">
+				<div class="w3-col s8 m6 l6">
+					<input class="w3-input w3-border" id="keyword" name="keyword" type="text" placeholder="検索キーワード" value="{{ (isset($keyword) ? $keyword : '') }}">
 				</div>
-				<button type="reset" class="btn w3-brown"><span class="glyphicon glyphicon-refresh"></span></button>
+				<div class="w3-col s4 m3 l3">
+					<button type="submit" class="w3-button w3-brown"><span class="glyphicon glyphicon-search"></span></button>
+					<button type="reset" class="w3-button w3-brown"><span class="glyphicon glyphicon-refresh"></span></button>
+				</div>
 			</div>
 
 		</form>
