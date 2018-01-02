@@ -12,14 +12,14 @@ class DomainController extends Controller {
 		$this->model = new Domain();
 
 		// 新規追加画面、デフォルトの価値を定義
-		$this->model->organization_id 		= $this->logged_in_user->organization_id;
+		$this->model->organization_id 		= (isset($this->logged_in_user)) ? $this->logged_in_user->organization_id : NULL;
 		$this->model->url 					= "";
 		$this->model->admin_url 			= "";
 		$this->model->repository_url 		= "";
 
 		$this->url_pattern 					= "domain";
 		$this->data["url_pattern"] 			= "/domain";
-		$this->logical_delete 				= true;
+		// $this->logical_delete 				= true;
 	}
 
 }
