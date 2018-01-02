@@ -4,6 +4,6 @@
 	]
 )
 
-<h1>トップページ</h1>
+<h1>管理画面</h1>
 <br>
 @include('_include.admin_footer')

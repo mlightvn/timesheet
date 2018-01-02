@@ -1,5 +1,5 @@
 <div class="w3-bar w3-brown w3-border">
-	<a href="/admin" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-time"></span> {{ env("APP_NAME") }}</a>
+	<a href="/" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-time"></span> {{ env("APP_NAME") }}</a>
 
 	@if(isset($logged_in_user))
 	<div class="w3-dropdown-hover w3-brown">
@@ -15,9 +15,9 @@
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">休暇・有給 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="/admin/dayoff/dayoff" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'time') ? 'w3-gray' : ''}}">休暇・有給</a>
-			<a href="/admin/dayoff/application" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'day') ? 'w3-gray' : ''}}">各種申請</a>
-			<a href="/admin/dayoff/history" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'month') ? 'w3-gray' : ''}}">休暇履歴</a>
+			<a href="/dayoff/dayoff" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'time') ? 'w3-gray' : ''}}">休暇・有給</a>
+			<a href="/dayoff/application" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'day') ? 'w3-gray' : ''}}">各種申請</a>
+			<a href="/dayoff/history" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'month') ? 'w3-gray' : ''}}">休暇履歴</a>
 		</div>
 	</div>
 

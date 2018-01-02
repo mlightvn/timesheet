@@ -73,12 +73,12 @@
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
 				@if(in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-					<div ng-if="model.is_deleted == 1">
+					<span ng-if="model.is_deleted == 1">
 				| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><i class="fa fa-recycle w3-text-green"></i></a>
-					</div>
-					<div ng-if="model.is_deleted == 0">
+					</span>
+					<span ng-if="model.is_deleted == 0">
 				| <a href="{{ $data['url_pattern'] }}/delete/@{{ model.id }}"><i class="fa fa-trash w3-text-red"></i></a>
-					</div>
+					</span>
 				@endif
 			</td>
 		</tr>
