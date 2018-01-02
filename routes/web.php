@@ -24,7 +24,7 @@ Route::post('login', 'Controller@authenticate');
 Route::any('logout', 'Controller@logout');
 // Route::any('register', 'Controller@register');
 
-Route::group(['prefix' => 'report'], function(){
+Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 	Route::get('time', 'Report\TimeController@index');
 	Route::post('time', 'Report\TimeController@regist');
 
@@ -37,7 +37,7 @@ Route::group(['prefix' => 'report'], function(){
 	Route::get('task_download_{year}_{month}', 'Report\TaskController@download');
 });
 
-Route::group(['prefix' => 'domain'], function()
+Route::group(['prefix' => 'domain', 'middleware' => ['admin']], function()
 {
 	Route::get('', 'DomainController@index');
 	Route::get('index', 'DomainController@index');
@@ -160,7 +160,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 
 });
 
-Route::group(['prefix' => 'profile'], function()
+Route::group(['prefix' => 'profile', 'middleware' => ['admin']], function()
 {
 	Route::group(['prefix' => 'organization'], function()
 	{
@@ -169,7 +169,7 @@ Route::group(['prefix' => 'profile'], function()
 	});
 });
 
-Route::group(['prefix' => 'bin'], function()
+Route::group(['prefix' => 'bin', 'middleware' => ['admin']], function()
 {
 
 	Route::get('sendMessageToChatwork', 'BinController@sendMessageToChatwork');

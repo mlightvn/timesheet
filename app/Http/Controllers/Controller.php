@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 // use Illuminate\Foundation\Validation\ValidatesRequests;
 // use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-// use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 // use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 use Illuminate\Support\Facades\DB;
@@ -19,7 +19,7 @@ class Controller extends BaseController
 	// use AuthorizesRequests;
 	// use DispatchesJobs;
 	// use ValidatesRequests;
-	// use AuthenticatesUsers;
+	use AuthenticatesUsers;
 
 	protected $request;
 	protected $data;
@@ -30,6 +30,7 @@ class Controller extends BaseController
 	protected $logged_in_user;
 	protected $organization_id = NULL;
 	protected $logical_delete = true;
+	// protected $redirectTo = '/';
 
 	public function __construct(Request $request)
 	{
@@ -39,6 +40,7 @@ class Controller extends BaseController
 
 		$this->request = $request;
 		$this->form_input = $this->request->all();
+		$this->data = array();
 
 		$this->getLoggedInUser();
 
@@ -50,7 +52,12 @@ class Controller extends BaseController
 
 	public function index()
 	{
-		$this->blade_url = $this->url_pattern . '.index';
+		if($this->url_pattern){
+			$this->blade_url = $this->url_pattern . '.index';
+		}else{
+			$this->blade_url = 'index';
+		}
+
 
 		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
 	}
@@ -61,7 +68,7 @@ class Controller extends BaseController
 		if($this->url_pattern){
 			$url = $this->url_pattern . '.index';
 		}else{
-			$url = 'manage.index';
+			$url = 'index';
 		}
 
 		$keyword = "";
@@ -89,7 +96,7 @@ class Controller extends BaseController
 		return $this->logged_in_user;
 	}
 
-	public function login()
+	public function login(Request $request)
 	{
 		$url = 'login';
 
@@ -98,7 +105,7 @@ class Controller extends BaseController
 		return view($url, ['data'=>$this->data, "model" => $logged_in_user]);
 	}
 
-	public function authenticate() {
+	public function authenticate(Request $request) {
 		$form_input = $this->form_input;
 
 		$email 			= $form_input['email'];
@@ -120,7 +127,7 @@ class Controller extends BaseController
 
 	}
 
-	public function logout(){
+	public function logout(Request $request){
 		if($this->guard->check()){
 			$this->guard->logout();
 		}

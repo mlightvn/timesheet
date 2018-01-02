@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Model\Domain;
 
@@ -12,14 +13,13 @@ class DomainController extends Controller {
 		$this->model = new Domain();
 
 		// 新規追加画面、デフォルトの価値を定義
-		$this->model->organization_id 		= (isset($this->logged_in_user)) ? $this->logged_in_user->organization_id : NULL;
+		$this->model->organization_id 		= $this->organization_id;
 		$this->model->url 					= "";
 		$this->model->admin_url 			= "";
 		$this->model->repository_url 		= "";
 
 		$this->url_pattern 					= "domain";
 		$this->data["url_pattern"] 			= "/domain";
-		// $this->logical_delete 				= true;
 	}
 
 }

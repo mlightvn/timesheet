@@ -15,7 +15,6 @@ class UserController extends Controller {
 		$this->model->organization_id 		= $this->organization_id;
 		$this->url_pattern = "manage.user";
 		$this->data["url_pattern"] = "/manage/user";
-		$this->logical_delete = true;
 	}
 
 	public function list()

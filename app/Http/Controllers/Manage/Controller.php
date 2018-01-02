@@ -22,7 +22,6 @@ class Controller extends \App\Http\Controllers\Controller {
 		parent::init();
 
 		$this->url_pattern = "manage";
-		// $this->logical_delete = true;
 	}
 
 	public function dashboard()
