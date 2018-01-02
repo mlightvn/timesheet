@@ -62,7 +62,7 @@ class Controller extends BaseController
 		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
 	}
 
-	public function list($request_data = array())
+	public function list()
 	{
 		$url = "";
 		if($this->url_pattern){
@@ -75,8 +75,8 @@ class Controller extends BaseController
 		if(isset($this->form_input["keyword"])){
 			$keyword = $this->form_input["keyword"];
 
-			if(isset($request_data["where"]["keyword"]["column_list"])){
-				$column_list = $request_data["where"]["keyword"]["column_list"];
+			if(isset($this->data["request_data"]["where"]["keyword"]["column_list"])){
+				$column_list = $this->data["request_data"]["where"]["keyword"]["column_list"];
 				$where_a = array();
 				foreach ($column_list as $column_name => $column_value) {
 					$where_a[] = "(" . $column_name . " LIKE '%" . $column_value . "%')";
