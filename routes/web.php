@@ -53,6 +53,13 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		Route::get('', 'Api\DomainController@index');
 		Route::get('index', 'Api\DomainController@index');
 	});
+
+	Route::group(['prefix' => 'manage'], function(){
+		Route::group(['prefix' => 'user'], function(){
+			Route::get('', 'Api\Manage\UserController@list');
+			Route::get('list', 'Api\Manage\UserController@list');
+		});
+	});
 });
 
 Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()

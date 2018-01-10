@@ -4,12 +4,14 @@
 	]
 )
 
+<div ng-app="myApp" ng-controller="myCtrl">
+
 <div class="w3-row">
 	<h1>ユーザー一覧</h1>
 	<br>
 </div>
 
-@include('_include.admin_search', ['keyword'=>$data["keyword"]])
+@include('_include.api_search', ['keyword'=>$data["keyword"]])
 
 @if(isset($message) || session("message"))
 	@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message")), "alert_type" => (isset($alert_type) ? $alert_type : session("alert_type"))])
@@ -31,68 +33,54 @@
 			<th>ユーザー名</th>
 			<th>部署</th>
 			<th>email</th>
-			@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
+			@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
 			<th>レポート</th>
 			@endif
 			<th></th>
 		</tr>
 		</thead>
-		@foreach($arrUsers as $key => $user)
-		<tr class="{{ ($user->is_deleted == 1) ? 'w3-gray' : '' }}">
-			<td>{{ $user->id }}</td>
+		<tr class="" ng-repeat="model in model_list">
+			<td>@{{ model.id }}</td>
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<td>{{ $user->organization_name }}</td>
+			<td>@{{ model.organization_name }}</td>
 			@endif
 			<td>
-			@if (($user->permission_flag == "Administrator"))
-			<span class="fa fa-ambulance w3-text-red"></span> 
-			@elseif (($user->permission_flag == "Manager"))
+			<span ng-if="model.permission_flag == 'Administrator'">
+				<span class="fa fa-ambulance w3-text-red"></span> 
+			</span>
+			<span ng-if="model.permission_flag == 'Manager'">
 			<span class="glyphicon glyphicon-king"></span> 
-			@else
-			<span class="glyphicon glyphicon-pawn"></span> 
-			@endif
+			</span>
+			<span ng-if="model.permission_flag == 'Member'">
+				<span class="glyphicon glyphicon-pawn"></span> 
+			</span>
+
 			&nbsp;
 
-			@if($user->permission_flag == "Administrator")
-				@if ($logged_in_user->id == $user->id)
-					<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span> {{ $user->name }}</a>
-				@else
-					{{ $user->name }}
-				@endif
-			@else
-				@if ((in_array($logged_in_user->permission_flag, array("Manager"))) || ($logged_in_user->id == $user->id) )
-					@if (in_array($user->permission_flag, array("Administrator")))
-						{{ $user->name }}
-					@else
-						<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span> {{ $user->name }}</a>
-					@endif
-				@else
-					{{ $user->name }}
-				@endif
-			@endif
+			<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> @{{ model.name }}</a>
 
 			</td>
-			<td>{{ $user->session_name }}</td>
-			<td><a href="mailto:{{ $user->email }}"><span class="glyphicon glyphicon-envelope"></span> {{ $user->email }}</a></td>
-			@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
-			<td><a href="/admin/report/task?user_id={{ $user->id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
+			<td>@{{ model.session_name }}</td>
+			<td><a href="mailto:@{{ model.email }}"><span class="glyphicon glyphicon-envelope"></span> @{{ model.email }}</a></td>
+			@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
+			<td><a href="/admin/report/task?user_id=@{{ model.id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
 			@endif
 			<td>
-			@if ((in_array($logged_in_user->permission_flag, array("Manager"))) || ($logged_in_user->id == $user->id) )
-			<a href="{{ $data['url_pattern'] }}/edit/{{ $user->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
+			@if (in_array($logged_in_user->permission_flag, array("Manager")))
+			<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
 			@else
 			<span class="glyphicon glyphicon-pencil"></span> 
 			@endif
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
-				@if ($user->is_deleted)
-			| <a href="{{ $data['url_pattern'] }}/recover/{{ $user->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
-				@else
-			| <a href="{{ $data['url_pattern'] }}/delete/{{ $user->id }}"><span class="fa fa-trash w3-text-red"></span></a>
-				@endif
+				<span ng-if="model.is_deleted == true">
+					| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+				</span>
+				<span ng-if="model.is_deleted == false">
+					| <a href="{{ $data['url_pattern'] }}/delete/@{{ model.id }}"><span class="fa fa-trash w3-text-red"></span></a>
+				</span>
 			@endif
 			</td>
 		</tr>
-		@endforeach
 	</table>
 	<br>
 
@@ -105,4 +93,8 @@
 	<br>
 </div>
 
-@include('_include.admin_footer')
+</div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
+
+@include('_include.admin_footer', [
+	'js' 		=> 'manage/user'
+])

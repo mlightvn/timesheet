@@ -3,7 +3,7 @@ function loadData($argument) {
 	app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http) {
 		$scope.get = function ($argument) {
-			url = "/api/domain", 
+			url = "/api/manage/user", 
 			config = {
 				params: $argument,
 				method : 'GET',
