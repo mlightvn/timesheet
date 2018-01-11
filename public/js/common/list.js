@@ -2,20 +2,24 @@ function loadData($argument) {
 
 	app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http) {
-		$data_source_url 			= document.getElementById("data_source_url");
-		data_source_url 			= $data_source_url.value;
-
-		$keyword 					= document.getElementById("keyword");
-		keyword 					= $keyword.value;
-console.log(keyword);
-		if(!$argument){
-			$argument 							= {};
-		}
-		$argument["keyword"] 				= keyword;
-		$argument["data_source_url"] 		= data_source_url;
-
 		$scope.get = function ($argument) {
-			url = $argument["data_source_url"],
+			$data_source_url 			= document.getElementById("data_source_url");
+			data_source_url 			= $data_source_url.value;
+
+			$keyword 					= document.getElementById("keyword");
+			keyword 					= $keyword.value;
+
+			if(!$argument){
+				$argument 							= {};
+			}
+			if(!$argument["keyword"]){
+				$argument["keyword"] 				= keyword;
+			}
+			if(!$argument["data_source_url"]){
+				$argument["data_source_url"] 		= data_source_url;
+			}
+
+			url = $argument["data_source_url"];
 			config = {
 				params: $argument,
 				method : 'GET',
@@ -47,30 +51,30 @@ console.log($response);
 					}
 				);
 
-			pagination(app);
+			pagination(app, $argument);
 
 		};
 
 		$scope.loadData = function(page){
 			$(document).ready(function(){
-				keyword 					= $('#keyword').val();
-				data_source_url 			= $("#data_source_url").val();
+				// keyword 					= $('#keyword').val();
+				// data_source_url 			= $("#data_source_url").val();
 
-				$argument = {data_source_url: data_source_url, keyword: keyword, page: page};
+				// $argument = {data_source_url: data_source_url, keyword: keyword, page: page};
+				$argument = {page: page};
 				$scope.get($argument);
 			});
 
-			// pagination(app);
 		};
 
 		$scope.get($argument);
 
 	});
 
-	pagination(app);
+	pagination(app, $argument);
 }
 
-function pagination(app) {
+function pagination(app, $argument) {
 	// https://docs.angularjs.org/guide/directive
 	app.directive('listPagination', function(){
 			template = 
