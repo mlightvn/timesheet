@@ -23,6 +23,9 @@
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
+
+	<input type="hidden" id="data_source_url" value="/api/manage/user">
+
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
@@ -96,5 +99,5 @@
 </div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
 
 @include('_include.admin_footer', [
-	'js' 		=> 'manage/user'
+	'js_list'	=> true,
 ])

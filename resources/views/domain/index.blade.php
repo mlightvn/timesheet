@@ -11,23 +11,7 @@
 	<br>
 </div>
 
-<div class="w3-row">
-	<div class="w3-col s12 m12 l12">
-
-		<form method="GET" action="{{ $data['url_pattern'] }}" accept-charset="UTF-8" role="search">
-			<div class="w3-row w3-section">
-				<div class="w3-col s8 m6 l6">
-					<input class="w3-input w3-border" id="keyword" name="keyword" type="text" placeholder="検索キーワード" ng-keypress="loadData()">
-				</div>
-				<div class="w3-col s4 m3 l3">
-					<button type="button" class="w3-button w3-brown" ng-click="loadData()"><span class="glyphicon glyphicon-search"></span></button>
-					<button type="reset" class="w3-button w3-brown"><span class="glyphicon glyphicon-refresh"></span></button>
-				</div>
-			</div>
-
-		</form>
-	</div>
-</div>
+@include('_include.api_search', ['keyword'=>$data["keyword"]])
 
 @if(session("message"))
 	@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message")), "alert_type" => (isset($alert_type) ? $alert_type : session("alert_type"))])
@@ -40,6 +24,7 @@
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
+	<input type="hidden" id="data_source_url" value="/api/domain">
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
@@ -101,5 +86,5 @@
 
 @include('_include.user_footer', [
 		'id'				=> 'domain',
-		'js'				=> 'domain',
+		'js_list'			=> true,
 ])

@@ -2,8 +2,11 @@ function loadData($argument) {
 
 	app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http) {
+		$data_source_url = document.getElementById("data_source_url");
+		var data_source_url = $data_source_url.value;
+
 		$scope.get = function ($argument) {
-			url = "/api/domain", 
+			url = data_source_url,
 			config = {
 				params: $argument,
 				method : 'GET',
@@ -56,8 +59,6 @@ console.log($response);
 	pagination(app);
 }
 
-loadData();
-
 function pagination(app) {
 	// https://docs.angularjs.org/guide/directive
 	app.directive('listPagination', function(){
@@ -80,3 +81,7 @@ function pagination(app) {
 			};
 	});
 }
+
+
+// $request = {data_source_url: "/api/domain"};
+loadData();
