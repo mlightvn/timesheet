@@ -2,11 +2,20 @@ function loadData($argument) {
 
 	app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http) {
-		$data_source_url = document.getElementById("data_source_url");
-		var data_source_url = $data_source_url.value;
+		$data_source_url 			= document.getElementById("data_source_url");
+		data_source_url 			= $data_source_url.value;
+
+		$keyword 					= document.getElementById("keyword");
+		keyword 					= $keyword.value;
+console.log(keyword);
+		if(!$argument){
+			$argument 							= {};
+		}
+		$argument["keyword"] 				= keyword;
+		$argument["data_source_url"] 		= data_source_url;
 
 		$scope.get = function ($argument) {
-			url = data_source_url,
+			url = $argument["data_source_url"],
 			config = {
 				params: $argument,
 				method : 'GET',
@@ -38,18 +47,20 @@ console.log($response);
 					}
 				);
 
-			// pagination(app);
+			pagination(app);
 
 		};
 
 		$scope.loadData = function(page){
 			$(document).ready(function(){
-				keyword = $('#keyword').val();
+				keyword 					= $('#keyword').val();
+				data_source_url 			= $("#data_source_url").val();
 
-				$argument = {keyword: keyword, page: page};
+				$argument = {data_source_url: data_source_url, keyword: keyword, page: page};
 				$scope.get($argument);
 			});
 
+			// pagination(app);
 		};
 
 		$scope.get($argument);
@@ -82,6 +93,4 @@ function pagination(app) {
 	});
 }
 
-
-// $request = {data_source_url: "/api/domain"};
 loadData();
