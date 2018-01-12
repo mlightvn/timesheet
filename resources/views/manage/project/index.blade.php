@@ -11,7 +11,7 @@
 	<br>
 </div>
 
-@include('_include.admin_search', ['keyword'=>$data["keyword"]])
+@include('_include.api_search', ['keyword'=>$data["keyword"]])
 
 @if(session("message"))
 	@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message")), "alert_type" => (isset($alert_type) ? $alert_type : session("alert_type"))])
@@ -47,7 +47,7 @@
 			@endif
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="task[@{{ model.id }}][is_off_task]" value="1" @{{ ((model.is_off_task) ? 'checked="checked"' : '') }} {{ ($logged_in_user->permission_flag == "Member") ? 'disabled="disabled' : '' }}>
+					<input type="checkbox" name="task[@{{ model.id }}][is_off_task]" value="1" @{{ model.radio_check_property }} {{ ($logged_in_user->permission_flag == "Member") ? 'disabled="disabled' : '' }}>
 					<span class="slider round"></span>
 				</label>
 			</td>

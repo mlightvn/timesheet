@@ -202,7 +202,11 @@ class Controller extends BaseController
 	{
 		$table = DB::table('project');
 
-		$table = $table->select(["project.*", \DB::raw("organization.name AS organization_name")]);
+		$table = $table->select([
+				"project.*", 
+				\DB::raw("organization.name AS organization_name"),
+				\DB::raw("CASE project.is_off WHEN 1 THEN 'checked=\"checked\"' ELSE '' END AS radio_check_property"),
+			]);
 
 		$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
 
