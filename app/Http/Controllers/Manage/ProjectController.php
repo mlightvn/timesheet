@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Manage;
 
 use Illuminate\Http\Request;
-use App\Model\Task;
-use App\Model\UserTask;
+use App\Model\Project;
+use App\Model\UserProject;
 
 class ProjectController extends Controller {
 
@@ -10,28 +10,13 @@ class ProjectController extends Controller {
 	{
 		parent::init();
 
-		$this->model = new Task();
+		$this->model = new Project();
 
 		// 新規追加画面、デフォルトの価値を定義
 		$this->model->organization_id 		= $this->organization_id;
 		$this->url_pattern = "manage.project";
 		$this->data["url_pattern"] = "/manage/project";
 		$this->logical_delete = true;
-	}
-
-	public function list()
-	{
-		$this->blade_url = $this->url_pattern . '.index';
-
-		$keyword = null;
-		if(isset($this->form_input["keyword"])){
-			$keyword = $this->form_input["keyword"];
-		}
-		$this->data["keyword"] = $keyword;
-
-		$arrTasks = $this->getTaskListWithUser(true, $this->user_id, $keyword);
-
-		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "arrTasks"=>$arrTasks]);
 	}
 
 	public function edit($task_id, $message = NULL)
@@ -58,7 +43,7 @@ class ProjectController extends Controller {
 			$form_input = $this->form_input;
 
 			// update "task" table
-			$task = new Task();
+			$task = neProject;
 			$task = $task->find($form_input["id"]);
 			$task->fill($form_input);
 			$task->update();
@@ -66,13 +51,13 @@ class ProjectController extends Controller {
 			// update "user_task" table
 			$user_id = $this->logged_in_user->id;
 
-			$user_task = new \App\Model\UserTask();
+			$user_task = new \App\Model\UserProject();
 			$user_task = $user_task->where("user_id", $user_id);
 			$user_task = $user_task->where("task_id", $task_id);
 			$user_task->delete();
 
 			if(isset($form_input["user_id"])){ // "on"
-				$user_task = new \App\Model\UserTask();
+				$user_task = new \App\Model\UserProject();
 				$user_task->user_id = $user_id;
 				$user_task->task_id = $task_id;
 				$user_task->save();
@@ -94,7 +79,7 @@ class ProjectController extends Controller {
 		$arrList = $this->form_input["task"];
 		$user_id = $this->logged_in_user->id;
 
-		$table = new UserTask();
+		$table = new UserProject();
 		$table = $table->where("user_id", "=", $user_id);
 		$table = $table->delete(); // delete all tasks of current user
 		unset($table);
@@ -102,7 +87,7 @@ class ProjectController extends Controller {
 		$is_manager = in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"));
 		if($is_manager){
 			// Remove all off_task flag
-			$table = new Task();
+			$table = new Project();
 			$table = $table->where("is_off_task", "=", "1");
 			$table->update(["is_off_task" => 0]);
 			unset($table);
@@ -111,7 +96,7 @@ class ProjectController extends Controller {
 		// insert tasks
 		foreach ($arrList as $task_id => $task) {
 			if(isset($task["user_id"]) && ($task["user_id"] == "on")){
-				$table = new UserTask();
+				$table = new UserProject();
 				$table->user_id = $user_id;
 				$table->task_id = $task_id;
 				$table->save();
@@ -120,7 +105,7 @@ class ProjectController extends Controller {
 
 			if($this->logged_in_user->permission_flag == "Manager"){
 				if(isset($task["is_off_task"]) && ($task["is_off_task"] == "1")){
-					$table = new Task();
+					$table = new Project();
 					$table = $table->find($task_id);
 					if(isset($table)){
 						$table->is_off_task = 1;

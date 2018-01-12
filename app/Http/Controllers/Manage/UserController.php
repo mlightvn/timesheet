@@ -17,23 +17,6 @@ class UserController extends Controller {
 		$this->data["url_pattern"] = "/manage/user";
 	}
 
-	public function list()
-	{
-		$url = $this->url_pattern . '.index';
-
-		$data["logged_in_user"] = $this->logged_in_user;
-
-		$keyword = null;
-		if(isset($this->form_input["keyword"])){
-			$keyword = $this->form_input["keyword"];
-		}
-		$this->data["keyword"] = $keyword;
-
-		$arrUsers = $this->getUsers(true, NULL, NULL, NULL, $keyword);
-
-		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "arrUsers"=>$arrUsers]);
-	}
-
 	public function add()
 	{
 		$arrSelectSessions = $this->getSelectSessions();

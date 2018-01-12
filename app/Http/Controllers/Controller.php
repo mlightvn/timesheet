@@ -198,26 +198,26 @@ class Controller extends BaseController
 		return $arrTimes;
 	}
 
-	public function getTaskListWithUser($isPagination, $user_id, $keyword = NULL)
+	public function getProjectListWithUser($isPagination, $user_id, $keyword = NULL)
 	{
-		$table = DB::table('task');
+		$table = DB::table('project');
 
-		$table = $table->select(["task.*", \DB::raw("organization.name AS organization_name")]);
+		$table = $table->select(["project.*", \DB::raw("organization.name AS organization_name")]);
 
-		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
+		$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
 
 		if($user_id != NULL && $user_id != ""){
-			$subQuery = "( SELECT * FROM user_task WHERE user_id = '" . $user_id . "') AS user_task ";
+			$subQuery = "( SELECT * FROM user_project WHERE user_id = '" . $user_id . "') AS user_project ";
 
-			$table = $table->leftJoin(DB::raw($subQuery), "task.id", "=", "user_task.task_id");
+			$table = $table->leftJoin(DB::raw($subQuery), "project.id", "=", "user_project.project_id");
 		}else{
-			$table = $table->leftJoin("user_task", "task.id", "=", "user_task.task_id");
+			$table = $table->leftJoin("user_project", "project.id", "=", "user_project.project_id");
 		}
 
 		if($keyword){
 			$where = " (
-							   (task.id = '{KEYWORD}')
-							OR (task.name LIKE '%{KEYWORD}%')
+							   (project.id = '{KEYWORD}')
+							OR (project.name LIKE '%{KEYWORD}%')
 						)";
 			$where = str_replace("{KEYWORD}", $keyword, $where);
 
@@ -226,8 +226,8 @@ class Controller extends BaseController
 
 		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
-		$table = $table->orderBy("task.is_deleted", "ASC");
-		$table = $table->orderBy("task.is_off_task", "ASC")->orderBy("task.id");
+		$table = $table->orderBy("project.is_deleted", "ASC");
+		$table = $table->orderBy("project.is_off", "ASC")->orderBy("project.id");
 
 		if($isPagination){
 			$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));

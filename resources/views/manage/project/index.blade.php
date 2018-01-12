@@ -4,6 +4,8 @@
 	]
 )
 
+<div ng-app="myApp" ng-controller="myCtrl">
+
 <div class="w3-row">
 	<h1>プロジェクト一覧</h1>
 	<br>
@@ -22,6 +24,8 @@
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
+	<input type="hidden" id="data_source_url" value="/api/manage/project">
+
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
@@ -35,36 +39,36 @@
 			<th></th>
 		</tr>
 		</thead>
-		@foreach($arrTasks as $key => $task)
-		<tr class="{{ ($task->is_deleted == 1) ? 'w3-gray' : '' }}">
-			<td>{{ $task->id }}</td>
+
+		<tr class="" ng-repeat="model in model_list">
+			<td>@{{ model.id }}</td>
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<td>{{ $task->organization_name }}</td>
+			<td>@{{ model.organization_name }}</td>
 			@endif
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="task[{{ $task->id }}][is_off_task]" value="1" {{ (($task->is_off_task) ? 'checked="checked"' : '') }} {{ ($logged_in_user->permission_flag == "Member") ? 'disabled="disabled' : '' }}>
+					<input type="checkbox" name="task[@{{ model.id }}][is_off_task]" value="1" @{{ ((model.is_off_task) ? 'checked="checked"' : '') }} {{ ($logged_in_user->permission_flag == "Member") ? 'disabled="disabled' : '' }}>
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $task->id }}">{{ $task->name }}</a></td>
+			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}">@{{ model.name }}</a></td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="task[{{ $task->id }}][user_id]" {{ (($task->id) ? 'checked="checked"' : '') }}>
+					<input type="checkbox" name="task[@{{ model.id }}][user_id]" @{{ ((model.id) ? 'checked="checked"' : '') }}>
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ $data['url_pattern'] }}/edit/{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
 				@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-					@if ($task->is_deleted)
-				| <a href="{{ $data['url_pattern'] }}/recover/{{ $task->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
-					@else
-				| <a href="{{ $data['url_pattern'] }}/delete/{{ $task->id }}"><span class="fa fa-trash w3-text-red"></span></a>
-					@endif
+				<span ng-if="model.is_deleted == true">
+					| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+				</span>
+				<span ng-if="model.is_deleted == false">
+					| <a href="{{ $data['url_pattern'] }}/delete/@{{ model.id }}"><span class="fa fa-trash w3-text-red"></span></a>
+				</span>
 				@endif
 			</td>
 		</tr>
-		@endforeach
 
 		<tfoot>
 		<tr>
@@ -78,16 +82,25 @@
 	</table>
 	</form>
 	<br>
-	@if(count($arrTasks) == 0)
-	データが存在していません。
-	<br>
-	@endif
 
-	@include('_include.admin_pagination', ['list'=>$arrTasks, 'keyword'=>$data["keyword"]])
+	<div ng-if="model_list.total == 0">
+		データが存在していません。
+	</div>
 	<br>
+
+	<div class="w3-row">
+		<div class="w3-col s12 m12 l12 w3-center">
+			<list-pagination></list-pagination>
+		</div>
+	</div>
+	<br>
+
 </div>
-	@include('_include.admin.task.add')
+
+</div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
+
 
 @include('_include.admin_footer', [
-		'js'				=> 'admin/task',
+	'js_list'			=> true,
+	'js'				=> 'manage/project',
 ])

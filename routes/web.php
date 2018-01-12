@@ -59,6 +59,11 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 			Route::get('', 'Api\Manage\UserController@list');
 			Route::get('list', 'Api\Manage\UserController@list');
 		});
+
+		Route::group(['prefix' => 'project'], function(){
+			Route::get('', 'Api\Manage\ProjectController@list');
+			Route::get('list', 'Api\Manage\ProjectController@list');
+		});
 	});
 });
 
