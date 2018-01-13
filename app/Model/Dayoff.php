@@ -10,6 +10,9 @@ class Dayoff extends Model
 		'id',
 		'name',
 		'description',
+		'applied_user_id',
+		'approved_user_id',
+		'status', // 0: Applied, 1: Approved, 2: Dismissed
 		'is_deleted',
 	];
 

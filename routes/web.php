@@ -50,15 +50,15 @@ Route::group(['prefix' => 'dayoff'], function()
 		Route::get('recover/{id}', 'Dayoff\DayoffController@recover')->where('id', '[0-9]+');
 	});
 
-	Route::group(['prefix' => 'application'], function()
+	Route::group(['prefix' => 'application-form'], function()
 	{
-		Route::get('', 'Dayoff\ApplicationController@list');
-		Route::get('list', 'Dayoff\ApplicationController@list');
+		Route::get('', 'Dayoff\ApplicationFormController@list');
+		Route::get('list', 'Dayoff\ApplicationFormController@list');
 
-		Route::match(["get", "post"], 'add', 'Dayoff\ApplicationController@add');
-		Route::match(["get", "post"], 'edit/{id}', 'Dayoff\ApplicationController@edit')->where('id', '[0-9]+');
-		Route::get('delete/{id}', 'Dayoff\ApplicationController@delete')->where('id', '[0-9]+');
-		Route::get('recover/{id}', 'Dayoff\ApplicationController@recover')->where('id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Dayoff\ApplicationFormController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Dayoff\ApplicationFormController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'Dayoff\ApplicationFormController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'Dayoff\ApplicationFormController@recover')->where('id', '[0-9]+');
 	});
 });
 
@@ -93,6 +93,14 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		Route::group(['prefix' => 'session'], function(){
 			Route::get('', 'Api\Manage\SessionController@list');
 			Route::get('list', 'Api\Manage\SessionController@list');
+		});
+	});
+
+	Route::group(['prefix' => 'dayoff'], function(){
+
+		Route::group(['prefix' => 'application-form'], function(){
+			Route::get('', 'Api\Dayoff\ApplicationFormController@list');
+			Route::get('list', 'Api\Dayoff\ApplicationFormController@list');
 		});
 	});
 

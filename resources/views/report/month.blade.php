@@ -5,20 +5,19 @@
 	]
 )
 
-		<form action="{{ \Request::url() }}" method="get">
+		<form action="{{ \Request::url() }}" method="get" accept-charset="UTF-8">
 
 		<div id="divMessageBorder" class="w3-container">
-			<div class="w3-row w3-col s12 m12 l12">
-				<div class="form-group form-inline">
-					<div class="input-group">
-						<input placeholder="{{ $requestYear }}" class="form-control" name="year" type="number" value="{{ $requestYear }}">
-						<span class="input-group-btn">
-							<button type="submit" class="btn w3-brown"><span class="fa fa-refresh"></span></button>
-						</span>
-					</div>
+			<div class="w3-row w3-col w3-section">
+				<div class="w3-col s8 m6 l6">
+					<input placeholder="{{ $requestYear }}" class="w3-input w3-border" name="year" type="number" value="{{ $requestYear }}">
+				</div>
+				<div class="w3-col s4 m3 l3">
+					<button type="submit" class="w3-button w3-brown"><span class="fa fa-refresh"></span></button>
 				</div>
 			</div>
 			<br><br>
+
 		</div>
 
 		<div class="w3-container">

@@ -61,6 +61,39 @@ class Controller extends BaseController
 		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
 	}
 
+	protected function getModelList()
+	{
+		$table_name = $this->model->getTable();
+
+		$keyword = "";
+		if(isset($this->form_input["keyword"])){
+			$keyword = $this->form_input["keyword"];
+
+			if(isset($this->data["request_data"]["where"]["keyword"]["column_list"])){
+
+				$column_list = $this->data["request_data"]["where"]["keyword"]["column_list"];
+				$where_a = array();
+				foreach ($column_list as $column_name => $column_value) {
+					$where_a[] = "(" . $column_name . " LIKE '%" . $column_value . "%')";
+				}
+				$whereRaw = implode(" OR ", $where_a);
+				$whereRaw = "( " . $whereRaw . ")";
+
+				$this->model = $this->model->whereRaw(\DB::raw($whereRaw));
+
+			}else{
+				$this->model = $this->model->where($table_name . ".name", "LIKE", \DB::raw("'%" . $keyword . "%'"));
+			}
+
+		}
+// dd($this->model->toSql());
+		$this->data["keyword"] = $keyword;
+
+		$model_list = $this->model;
+
+		return $model_list;
+	}
+
 	public function list()
 	{
 		$url = "";
@@ -73,27 +106,12 @@ class Controller extends BaseController
 		$keyword = "";
 		if(isset($this->form_input["keyword"])){
 			$keyword = $this->form_input["keyword"];
-
-			if(isset($this->data["request_data"]["where"]["keyword"]["column_list"])){
-				$column_list = $this->data["request_data"]["where"]["keyword"]["column_list"];
-				$where_a = array();
-				foreach ($column_list as $column_name => $column_value) {
-					$where_a[] = "(" . $column_name . " LIKE '%" . $column_value . "%')";
-				}
-				$whereRaw = implode(" OR ", $where_a);
-				$whereRaw = "( " . $whereRaw . ")";
-
-				$this->model = $this->model->whereRaw(\DB::raw($whereRaw));
-
-			}else{
-				$this->model = $this->model->where("name", $keyword);
-			}
-
 		}
 
-		$model_list = $this->model->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
+		$model_list = $this->getModelList();
+		$model_list = $model_list->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
 
-		$this->data["keyword"] = $keyword;
+		// $this->data["keyword"] = $keyword;
 		$this->data["model_list"] = $model_list;
 
 		return view($url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user, 'model_list'=>$model_list));
@@ -574,7 +592,7 @@ class Controller extends BaseController
 		$alert_type = NULL;
 
 		if($this->form_input && (count($this->form_input) > 0)){ // Submit
-			$form_input = $this->form_input;
+			// $form_input = $this->form_input;
 
 			$this->model->fill($this->form_input);
 			$this->model->save(); //insert
@@ -584,7 +602,8 @@ class Controller extends BaseController
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>$message, "alert_type" => $alert_type]);
 		}
 
-		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model]);
+		// $url = "/" . str_replace(".", "/", $url);
+		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model]);
 	}
 
 	public function edit($id)
@@ -593,10 +612,10 @@ class Controller extends BaseController
 		$message = NULL;
 		$alert_type = NULL;
 
-		// $this->model = $this->model->find($id);
-		$this->model = $this->model->where("id", $id);
-		$this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
-		$this->model = $this->model->first();
+		$this->model = $this->model->find($id);
+		// $this->model = $this->model->where("id", $id);
+		// $this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
+		// $this->model = $this->model->first();
 
 
 		if(!$this->model){
@@ -612,7 +631,8 @@ class Controller extends BaseController
 			$message = "データ（ID: " . $id . "）が修正完了。";
 		}
 
-		return view("/" . str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
+		// $this->blade_url = "/" . str_replace(".", "/", $this->blade_url);
+		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}
 
 	public function delete($id)

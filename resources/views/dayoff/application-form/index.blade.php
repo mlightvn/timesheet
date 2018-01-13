@@ -22,16 +22,18 @@
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	<br><br>
 
-	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
-	<input type="hidden" id="data_source_url" value="/api/domain">
+
+	<input type="hidden" id="data_source_url" value="/api/dayoff/application-form">
+
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>環境</th>
-			<th>ドメイン名</th>
-			<th>SSHとDB接続</th>
+			<th>タイトル</th>
+			<th>状態</th>
+			<th>登録者</th>
+			<th>承認者</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -40,32 +42,23 @@
 				@{{ model.id }}
 			</td>
 			<td>
-				<a href="?development_flag=@{{ model.development_flag }}"><i class="fa fa-search"></i> @{{ model.development_flag_label }}</a></td>
-			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> @{{ model.name }}</a><br><br>
-				サイト： <a href="@{{ model.url }}">@{{ model.url }}</a><br>
-				管理： <a href="@{{ model.admin_url }}">@{{ model.admin_url }}</a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> @{{ model.name }}</a>
 			</td>
 			<td>
-				SSH： @{{ model.ssh_access_command }}
-				<br>
-				DB： @{{ model.db_access_command }}
+				@{{ model.STATUS_LABEL }}
+			</td>
+			<td>
+				@{{ model.APPLIED_USER_NAME }}
+			</td>
+			<td>
+				@{{ model.APPROVED_USER_NAME }}
 			</td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
-				@if(in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-					<span ng-if="model.is_deleted == 1">
-				| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><i class="fa fa-recycle w3-text-green"></i></a>
-					</span>
-					<span ng-if="model.is_deleted == 0">
-				| <a href="{{ $data['url_pattern'] }}/delete/@{{ model.id }}"><i class="fa fa-trash w3-text-red"></i></a>
-					</span>
-				@endif
 			</td>
 		</tr>
 
 	</table>
-	</form>
 	<br>
 
 	@include('_include.user_pagination')

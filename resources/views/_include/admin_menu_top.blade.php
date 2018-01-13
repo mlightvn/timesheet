@@ -16,7 +16,7 @@
 		<button class="w3-button w3-brown w3-hover-black">休暇・有給 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/dayoff/dayoff" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'dayoff_dayoff') ? 'w3-gray' : ''}}">休暇・有給</a>
-			<a href="/dayoff/application" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'dayoff_application') ? 'w3-gray' : ''}}">各種申請</a>
+			<a href="/dayoff/application-form" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'dayoff_application') ? 'w3-gray' : ''}}">各種申請</a>
 			<a href="/dayoff/history" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'dayoff_history') ? 'w3-gray' : ''}}">休暇履歴</a>
 		</div>
 	</div>
@@ -29,6 +29,7 @@
 			<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> ユーザー</a>
 			<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> プロジェクト</a>
 			<a href="/manage/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
+			<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> Application Templates</a>
 		</div>
 	</div>
 
