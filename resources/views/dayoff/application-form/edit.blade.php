@@ -1,6 +1,6 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'dayoff_application',
+		'id'				=> 'dayoff_application_form',
 	]
 )
 
@@ -78,4 +78,7 @@
 	{!! Form::close() !!}
 </div>
 
-@include('_include.admin_footer', ['id'=>'dayoff_application'])
+@include('_include.admin_footer', [
+	'id'			=>'dayoff_application_form',
+	'js'			=>'dayoff/application_form',
+])

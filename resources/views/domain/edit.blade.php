@@ -137,4 +137,4 @@
 	{!! Form::close() !!}
 </div>
 
-@include('_include.admin_footer', ['js'=>'admin/domain'])
+@include('_include.admin_footer')
