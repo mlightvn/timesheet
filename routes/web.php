@@ -37,6 +37,31 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 	Route::get('task_download_{year}_{month}', 'Report\TaskController@download');
 });
 
+Route::group(['prefix' => 'dayoff'], function()
+{
+	Route::group(['prefix' => 'dayoff'], function()
+	{
+		Route::get('', 'Dayoff\DayoffController@list');
+		Route::get('list', 'Dayoff\DayoffController@list');
+
+		Route::match(["get", "post"], 'add', 'Dayoff\DayoffController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Dayoff\DayoffController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'Dayoff\DayoffController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'Dayoff\DayoffController@recover')->where('id', '[0-9]+');
+	});
+
+	Route::group(['prefix' => 'application'], function()
+	{
+		Route::get('', 'Dayoff\ApplicationController@list');
+		Route::get('list', 'Dayoff\ApplicationController@list');
+
+		Route::match(["get", "post"], 'add', 'Dayoff\ApplicationController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Dayoff\ApplicationController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'Dayoff\ApplicationController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'Dayoff\ApplicationController@recover')->where('id', '[0-9]+');
+	});
+});
+
 Route::group(['prefix' => 'domain', 'middleware' => ['admin']], function()
 {
 	Route::get('', 'DomainController@list');
@@ -50,8 +75,8 @@ Route::group(['prefix' => 'domain', 'middleware' => ['admin']], function()
 
 Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 	Route::group(['prefix' => 'domain'], function(){
-		Route::get('', 'Api\DomainController@index');
-		Route::get('index', 'Api\DomainController@index');
+		Route::get('', 'Api\DomainController@list');
+		Route::get('list', 'Api\DomainController@list');
 	});
 
 	Route::group(['prefix' => 'manage'], function(){
@@ -98,8 +123,8 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 
 	// Route::group(['prefix' => 'task'], function()
 	// {
-	// 	Route::get('', 'Manage\TaskController@index');
-	// 	Route::get('index', 'Manage\TaskController@index');
+	// 	Route::get('', 'Manage\TaskController@list');
+	// 	Route::get('list', 'Manage\TaskController@list');
 
 	// 	Route::match(["get", "post"], 'add', 'Manage\TaskController@add');
 	// 	Route::match(["get", "post"], 'edit/{id}', 'Manage\TaskController@edit')->where('id', '[0-9]+');
@@ -112,7 +137,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 	Route::group(['prefix' => 'user'], function()
 	{
 		Route::get('', 'Manage\UserController@list');
-		Route::get('index', 'Manage\UserController@list');
+		Route::get('list', 'Manage\UserController@list');
 
 		Route::match(["get", "post"], 'add', 'Manage\UserController@add');
 		Route::match(["get", "post"], 'edit/{user_id}', 'Manage\UserController@edit')->where('user_id', '[0-9]+');
@@ -123,7 +148,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 	Route::group(['prefix' => 'session'], function()
 	{
 		Route::get('', 'Manage\SessionController@list');
-		Route::get('index', 'Manage\SessionController@list');
+		Route::get('list', 'Manage\SessionController@list');
 
 		Route::match(["get", "post"], 'add', 'Manage\SessionController@add');
 		Route::match(["get", "post"], 'edit/{session_id}', 'Manage\SessionController@edit')->where('session_id', '[0-9]+');
@@ -143,7 +168,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 	Route::group(['prefix' => 'organization'], function()
 	{
 		Route::get('', 'Admin\OrganizationController@list');
-		Route::get('index', 'Admin\OrganizationController@list');
+		Route::get('list', 'Admin\OrganizationController@list');
 
 		Route::match(["get", "post"], 'add', 'Admin\OrganizationController@add');
 		Route::match(["get", "post"], 'edit/{id}', 'Admin\OrganizationController@edit')->where('id', '[0-9]+');
@@ -154,7 +179,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 	Route::group(['prefix' => 'holiday'], function()
 	{
 		Route::get('', 'Admin\HolidayController@list');
-		Route::get('index', 'Admin\HolidayController@list');
+		Route::get('list', 'Admin\HolidayController@list');
 
 		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
 		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
@@ -171,17 +196,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
 
 		Route::post('add/{object_type}', 'Admin\ApiController@add');
 		Route::post('edit/{object_type}/{id}', 'Admin\ApiController@edit');
-	});
-
-	Route::group(['prefix' => 'dayoff'], function()
-	{
-		Route::get('', 'Admin\DayoffController@list');
-		Route::get('index', 'Admin\DayoffController@list');
-
-		Route::match(["get", "post"], 'add', 'Admin\DayoffController@add');
-		Route::match(["get", "post"], 'edit/{id}', 'Admin\DayoffController@edit')->where('id', '[0-9]+');
-		Route::get('delete/{id}', 'Admin\DayoffController@delete')->where('id', '[0-9]+');
-		Route::get('recover/{id}', 'Admin\DayoffController@recover')->where('id', '[0-9]+');
 	});
 
 });

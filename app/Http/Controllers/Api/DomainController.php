@@ -13,7 +13,7 @@ class DomainController extends Controller {
 		$this->model = new Domain();
 	}
 
-	public function index()
+	public function list()
 	{
 		$this->model = $this->model->orderBy("is_deleted");
 		$this->model = $this->model->orderBy("development_flag");
