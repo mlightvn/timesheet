@@ -58,7 +58,6 @@ class Controller extends BaseController
 			$this->blade_url = 'index';
 		}
 
-
 		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
 	}
 

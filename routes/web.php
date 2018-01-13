@@ -39,8 +39,8 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 
 Route::group(['prefix' => 'domain', 'middleware' => ['admin']], function()
 {
-	Route::get('', 'DomainController@index');
-	Route::get('index', 'DomainController@index');
+	Route::get('', 'DomainController@list');
+	Route::get('list', 'DomainController@list');
 
 	Route::match(["get", "post"], 'add', 'DomainController@add');
 	Route::match(["get", "post"], 'edit/{id}', 'DomainController@edit')->where('id', '[0-9]+');
@@ -64,7 +64,21 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 			Route::get('', 'Api\Manage\ProjectController@list');
 			Route::get('list', 'Api\Manage\ProjectController@list');
 		});
+
+		Route::group(['prefix' => 'session'], function(){
+			Route::get('', 'Api\Manage\SessionController@list');
+			Route::get('list', 'Api\Manage\SessionController@list');
+		});
 	});
+
+	Route::group(['prefix' => 'admin'], function(){
+
+		Route::group(['prefix' => 'organization'], function(){
+			Route::get('', 'Api\Manage\OrganizationController@list');
+			Route::get('list', 'Api\Manage\OrganizationController@list');
+		});
+	});
+
 });
 
 Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()

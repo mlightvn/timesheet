@@ -74,6 +74,7 @@
 			@else
 			<span class="glyphicon glyphicon-pencil"></span> 
 			@endif
+
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
 				<span ng-if="model.is_deleted == true">
 					| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><span class="fa fa-recycle w3-text-green"></span></a>
@@ -87,16 +88,7 @@
 	</table>
 	<br>
 
-	<div ng-if="model_list.total == 0">
-		データが存在していません。
-	</div>
-	<br>
-
-	<div class="w3-row">
-		<div class="w3-col s12 m12 l12 w3-center">
-			<list-pagination></list-pagination>
-		</div>
-	</div>
+	@include('_include.user_pagination')
 	<br>
 
 </div>

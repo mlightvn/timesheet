@@ -4,6 +4,8 @@
 	]
 )
 
+<div ng-app="myApp" ng-controller="myCtrl">
+
 <div class="w3-row">
 	<h1>部署一覧</h1>
 	<br>
@@ -21,6 +23,9 @@
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
+
+	<input type="hidden" id="data_source_url" value="/api/manage/session">
+
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
@@ -33,47 +38,45 @@
 		</tr>
 		</thead>
 		<tbody id="listBody">
-		@foreach($arrSessions as $key => $session)
-		<tr class="{{ ($session->is_deleted == 1) ? 'w3-gray' : '' }}">
-			<td>{{ $session->id }}</td>
+
+		<tr class="" ng-repeat="model in model_list">
+			<td>@{{ model.id }}</td>
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<td>{{ $session->organization_name }}</td>
+			<td>@{{ model.organization_name }}</td>
 			@endif
 			<td>
 			@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-			<a href="{{ $data['url_pattern'] }}/edit/{{ $session->id }}">{{ $session->name }}</a>
+			<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}">@{{ model.name }}</a>
 			@else
-			{{ $session->name }}
+			@{{ model.name }}
 			@endif
 			</td>
 			<td>
 			@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-			<a href="{{ $data['url_pattern'] }}/edit/{{ $session->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
-			|
-					@if ($session->is_deleted)
-			<a href="{{ $data['url_pattern'] }}/recover/{{ $session->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
-					@else
-			<a href="{{ $data['url_pattern'] }}/delete/{{ $session->id }}"><span class="fa fa-trash w3-text-red"></span></a>
-					@endif
+			<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
+
+			<span ng-if="model.is_deleted == true">
+				| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+			</span>
+			<span ng-if="model.is_deleted == false">
+				| <a href="{{ $data['url_pattern'] }}/delete/@{{ model.id }}"><span class="fa fa-trash w3-text-red"></span></a>
+			</span>
+
 			@endif
 			</td>
 		</tr>
-		@endforeach
+
 		</tbody>
 	</table>
 	<br>
 
-	@if(count($arrSessions) == 0)
-	データが存在していません。
+	@include('_include.user_pagination')
 	<br>
-	@endif
 
-	@include('_include.admin_pagination', ['list'=>$arrSessions, 'keyword'=>$data["keyword"]])
-	<br>
 </div>
 
-	@include('_include.admin.session.add')
+</div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
 
 @include('_include.admin_footer', [
-		'js'				=> 'admin/session',
+	'js_list'	=> true,
 ])
