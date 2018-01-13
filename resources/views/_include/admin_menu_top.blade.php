@@ -3,7 +3,7 @@
 
 	@if(isset($logged_in_user))
 	<div class="w3-dropdown-hover w3-brown">
-		<button class="w3-button w3-brown w3-hover-black"><span class="fa fa-file-powerpoint-o"></span> レポート <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+		<button class="w3-button w3-brown w3-hover-black"><span class="fa fa-file-powerpoint-o"></span> レポート <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'time') ? 'w3-gray' : ''}}">工数入力画面</a>
 			<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'day') ? 'w3-gray' : ''}}">日別工数集計</a>
@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="w3-dropdown-hover w3-brown">
-		<button class="w3-button w3-brown w3-hover-black"><span class="fa fa-calendar"></span> 休暇・有給 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+		<button class="w3-button w3-brown w3-hover-black"><span class="fa fa-calendar"></span> 休暇・有給 <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/dayoff/dayoff" class="w3-bar-item w3-button w3-hover-black">休暇・有給</a>
 			<a href="/dayoff/application-form" class="w3-bar-item w3-button w3-hover-black">各種申請</a>
@@ -24,7 +24,7 @@
 	<a href="/customer" class="w3-bar-item w3-button w3-hover-black"><i class="fa fa-address-card" aria-hidden="true"></i> 顧客</a>
 
 	<div class="w3-dropdown-hover w3-brown">
-		<button class="w3-button w3-brown w3-hover-black"><span class="fa fa-dollar"></span> CashFlow <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+		<button class="w3-button w3-brown w3-hover-black"><span class="fa fa-dollar"></span> CashFlow <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/cashflow/outcome" class="w3-bar-item w3-button w3-hover-black">清算</a>
 			<a href="/cashflow/income" class="w3-bar-item w3-button w3-hover-black">支払い</a>
@@ -34,7 +34,7 @@
 	<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> ドメイン</a>
 
 	<div class="w3-dropdown-hover w3-brown">
-		<button class="w3-button w3-brown w3-hover-black">設定 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+		<button class="w3-button w3-brown w3-hover-black">設定 <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> ユーザー</a>
 			<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> プロジェクト</a>
@@ -45,7 +45,7 @@
 
 		@if ( $logged_in_user->permission_flag == "Administrator" )
 	<div class="w3-dropdown-hover w3-brown">
-		<button class="w3-button w3-brown w3-hover-black">管理 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+		<button class="w3-button w3-brown w3-hover-black">管理 <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/admin/organization" class="w3-bar-item w3-button {{ ($id == 'organization') ? 'w3-gray' : ''}}"><span class="fa fa-bank"></span> 企業</a>
 			<a href="/admin/holiday" class="w3-bar-item w3-button"><span class="fa fa-calendar"></span> 祭日・祝日・休日</a>
@@ -64,7 +64,7 @@
 				<div class="chip">
 					<img src="/common/images/avatar_male.png" alt="{{ $logged_in_user->name }}">
 					{{ $logged_in_user->name }}
-					<span class="glyphicon glyphicon-triangle-bottom"></span>
+					<span class="fa fa-caret-down"></span>
 				</div>
 			</button>
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
