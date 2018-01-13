@@ -290,44 +290,44 @@ class Controller extends BaseController
 		return $arrResult;
 	}
 
-	public function getTasks($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
-	{
-		$table = DB::table('task');
+	// public function getTasks($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
+	// {
+	// 	$table = DB::table('task');
 
-		$table = $table->select(["task.*", DB::raw("organization.name AS organization_name")]);
+	// 	$table = $table->select(["project.*", DB::raw("organization.name AS organization_name")]);
 
-		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
+	// 	$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
 
-		if($id){
-			$table = $table->where("task.id", "=", $id);
-		}
-		if($name){
-			$table = $table->where("task.name", "LIKE", "%" . $name . "%");
-		}
+	// 	if($id){
+	// 		$table = $table->where("project.id", "=", $id);
+	// 	}
+	// 	if($name){
+	// 		$table = $table->where("project.name", "LIKE", "%" . $name . "%");
+	// 	}
 
-		if($keyword){
-			$where = " (
-							   (task.id = '{KEYWORD}')
-							OR (task.name LIKE '%{KEYWORD}%')
-						)";
-			$where = str_replace("{KEYWORD}", $keyword, $where);
+	// 	if($keyword){
+	// 		$where = " (
+	// 						   (project.id = '{KEYWORD}')
+	// 						OR (project.name LIKE '%{KEYWORD}%')
+	// 					)";
+	// 		$where = str_replace("{KEYWORD}", $keyword, $where);
 
-			$table = $table->whereRaw($where);
-		}
+	// 		$table = $table->whereRaw($where);
+	// 	}
 
-		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
+	// 	$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
-		$table = $table->orderBy("is_deleted", "ASC");
-		$table = $table->orderBy("is_off_task", "DESC");
+	// 	$table = $table->orderBy("is_deleted", "ASC");
+	// 	$table = $table->orderBy("is_off", "DESC");
 
-		if($isPagination){
-			$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
-		}else{
-			$arrResult = $table->get();
-		}
+	// 	if($isPagination){
+	// 		$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
+	// 	}else{
+	// 		$arrResult = $table->get();
+	// 	}
 
-		return $arrResult;
-	}
+	// 	return $arrResult;
+	// }
 
 	public function getSessions($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
 	{
@@ -366,32 +366,32 @@ class Controller extends BaseController
 		return $arrResult;
 	}
 
-	public function getUserTaskList($user_id = NULL, $task_id = NULL, $is_off_task = NULL)
+	public function getUserProjectList($user_id = NULL, $project_id = NULL, $is_off = NULL)
 	{
-		$table = DB::table('user_task');
+		$table = DB::table('user_project');
 
-		$table = $table->select(["user_task.*", "task.*", DB::raw("organization.name AS organization_name")]);
+		$table = $table->select(["user_project.*", "project.*", DB::raw("organization.name AS organization_name")]);
 
-		$table = $table->join("task", "user_task.task_id", "=", "task.id");
-		$table = $table->leftJoin("organization", "task.organization_id", "=", "organization.id");
+		$table = $table->join("project", "user_project.project_id", "=", "project.id");
+		$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
 
 		if($user_id){
-			$table = $table->where("user_task.user_id", "=", $user_id);
+			$table = $table->where("user_project.user_id", "=", $user_id);
 		}
-		if($task_id){
-			$table = $table->where("user_task.task_id", "=", $task_id);
+		if($project_id){
+			$table = $table->where("user_project.project_id", "=", $project_id);
 		}
 
-		if(!is_null($is_off_task)){
-			$is_off_task = ($is_off_task) ? 1 : 0;
-			$table = $table->where("task.is_off_task", "=", $is_off_task);
+		if(!is_null($is_off)){
+			$is_off = ($is_off) ? 1 : 0;
+			$table = $table->where("project.is_off", "=", $is_off);
 		}
 
 		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
-		$table = $table->where("task.is_deleted", "=", "0");
+		$table = $table->where("project.is_deleted", "=", "0");
 
-		$table = $table->orderBy("task.is_deleted", "ASC");
-		$table = $table->orderBy("task.is_off_task", "DESC")->orderBy("user_task.task_priority", "DESC")->orderBy("task.id");
+		$table = $table->orderBy("project.is_deleted", "ASC");
+		$table = $table->orderBy("project.is_off", "DESC")->orderBy("user_project.task_priority", "DESC")->orderBy("project.id");
 
 		$arrResult = $table->get();
 		return $arrResult;
@@ -406,7 +406,7 @@ class Controller extends BaseController
 		$table = $table->leftJoin("organization", "working_date.organization_id", "=", "organization.id");
 
 		$table = $table->join("users", "working_date.user_id", "=", "users.id");
-		$table = $table->join("task", "working_date.task_id", "=", "task.id");
+		$table = $table->join("project", "working_date.project_id", "=", "project.id");
 
 		if($user_id != NULL && $user_id != ""){
 			$table = $table->where("working_date.user_id", "=", $user_id);
@@ -418,7 +418,7 @@ class Controller extends BaseController
 		$table = $table->where("organizationid", "=", \Auth::user()->organization_id);
 
 		$table = $table->where("users.is_deleted", "=", "0");
-		$table = $table->where("task.is_deleted", "=", "0");
+		$table = $table->where("project.is_deleted", "=", "0");
 
 		$table = $table->orderBy("date");
 
@@ -426,7 +426,7 @@ class Controller extends BaseController
 		return $arrResult;
 	}
 
-	public function getWorkingTimeList($user_id = NULL, $task_id = NULL, $date = NULL)
+	public function getWorkingTimeList($user_id = NULL, $project_id = NULL, $date = NULL)
 	{
 		$table = DB::table('working_time');
 
@@ -434,13 +434,13 @@ class Controller extends BaseController
 
 		$table = $table->leftJoin("organization", "working_time.organization_id", "=", "organization.id");
 		$table = $table->join("users", "working_time.user_id", "=", "users.id");
-		$table = $table->join("task", "working_time.task_id", "=", "task.id");
+		$table = $table->join("project", "working_time.project_id", "=", "project.id");
 
 		if($user_id != NULL && $user_id != ""){
 			$table = $table->where("working_time.user_id", "=", $user_id);
 		}
-		if($task_id != NULL && $task_id != ""){
-			$table = $table->where("working_time.task_id", "=", $task_id);
+		if($project_id != NULL && $project_id != ""){
+			$table = $table->where("working_time.project_id", "=", $project_id);
 		}
 		if($date != NULL && $date != ""){
 			$table = $table->where("working_time.date", "=", $date);
@@ -449,7 +449,7 @@ class Controller extends BaseController
 		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
 		$table = $table->where("users.is_deleted", "=", "0");
-		$table = $table->where("task.is_deleted", "=", "0");
+		$table = $table->where("project.is_deleted", "=", "0");
 
 		$table = $table->orderBy("working_time.date");
 		$table = $table->orderBy("working_time.time");

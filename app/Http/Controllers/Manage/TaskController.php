@@ -49,10 +49,10 @@ class TaskController extends Controller {
 		}
 
 		if($this->form_input){ // Submit
-			if(isset($this->form_input["is_off_task"])){
-				$this->form_input["is_off_task"] = "1";
+			if(isset($this->form_input["is_off"])){
+				$this->form_input["is_off"] = "1";
 			}else{
-				$this->form_input["is_off_task"] = "0";
+				$this->form_input["is_off"] = "0";
 			}
 
 			$form_input = $this->form_input;
@@ -63,27 +63,27 @@ class TaskController extends Controller {
 			$task->fill($form_input);
 			$task->update();
 
-			// update "user_task" table
+			// update "user_project" table
 			$user_id = $this->logged_in_user->id;
 
-			$user_task = new \App\Model\UserTask();
-			$user_task = $user_task->where("user_id", $user_id);
-			$user_task = $user_task->where("task_id", $task_id);
-			$user_task->delete();
+			$user_project = new \App\Model\UserTask();
+			$user_project = $user_project->where("user_id", $user_id);
+			$user_project = $user_project->where("task_id", $task_id);
+			$user_project->delete();
 
 			if(isset($form_input["user_id"])){ // "on"
-				$user_task = new \App\Model\UserTask();
-				$user_task->user_id = $user_id;
-				$user_task->task_id = $task_id;
-				$user_task->save();
+				$user_project = new \App\Model\UserTask();
+				$user_project->user_id = $user_id;
+				$user_project->task_id = $task_id;
+				$user_project->save();
 
 				$alert_type = "success";
 				$message = "修正完了。";
 			}
 		}
 
-		$subQuery = "( SELECT * FROM user_task WHERE user_id = '" . $this->logged_in_user->id . "') AS user_task ";
-		$this->model = $this->model->leftJoin(\DB::raw($subQuery), "task.id", "=", "user_task.task_id");
+		$subQuery = "( SELECT * FROM user_project WHERE user_id = '" . $this->logged_in_user->id . "') AS user_project ";
+		$this->model = $this->model->leftJoin(\DB::raw($subQuery), "task.id", "=", "user_project.task_id");
 		$this->model = $this->model->first();
 
 		return view("/". str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
@@ -103,8 +103,8 @@ class TaskController extends Controller {
 		if($is_manager){
 			// Remove all off_task flag
 			$table = new Task();
-			$table = $table->where("is_off_task", "=", "1");
-			$table->update(["is_off_task" => 0]);
+			$table = $table->where("is_off", "=", "1");
+			$table->update(["is_off" => 0]);
 			unset($table);
 		}
 
@@ -119,11 +119,11 @@ class TaskController extends Controller {
 			}
 
 			if($this->logged_in_user->permission_flag == "Manager"){
-				if(isset($task["is_off_task"]) && ($task["is_off_task"] == "1")){
+				if(isset($task["is_off"]) && ($task["is_off"] == "1")){
 					$table = new Task();
 					$table = $table->find($task_id);
 					if(isset($table)){
-						$table->is_off_task = 1;
+						$table->is_off = 1;
 						$table->update();
 					}
 					unset($table);

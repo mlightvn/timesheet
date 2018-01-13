@@ -48,7 +48,7 @@
 			@foreach($arrTaskSheet["on_task"]["task"] as $day => $oTask)
 			<tr>
 				<td>
-					{{ $oTask->task_name }}
+					{{ $oTask->project_name }}
 				</td>
 				<td>
 					{{ $oTask->total_working_hours_label }}
@@ -84,7 +84,7 @@
 			@foreach($arrTaskSheet["off_task"]["task"] as $day => $oTask)
 			<tr>
 				<td>
-					{{ $oTask->task_name }}
+					{{ $oTask->project_name }}
 				</td>
 				<td>
 					{{ $oTask->total_working_hours_label }}

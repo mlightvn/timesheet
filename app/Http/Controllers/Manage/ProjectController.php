@@ -19,11 +19,11 @@ class ProjectController extends Controller {
 		$this->logical_delete = true;
 	}
 
-	public function edit($task_id, $message = NULL)
+	public function edit($project_id, $message = NULL)
 	{
 		$this->blade_url = $this->url_pattern . '.edit';
 
-		$this->model = $this->model->where("id", $task_id);
+		$this->model = $this->model->where("id", $project_id);
 		$data_record = $this->model->first();
 
 		$message = NULL;
@@ -53,13 +53,13 @@ class ProjectController extends Controller {
 
 			$user_task = new \App\Model\UserProject();
 			$user_task = $user_task->where("user_id", $user_id);
-			$user_task = $user_task->where("task_id", $task_id);
+			$user_task = $user_task->where("project_id", $project_id);
 			$user_task->delete();
 
 			if(isset($form_input["user_id"])){ // "on"
 				$user_task = new \App\Model\UserProject();
 				$user_task->user_id = $user_id;
-				$user_task->task_id = $task_id;
+				$user_task->project_id = $project_id;
 				$user_task->save();
 
 				$alert_type = "success";
@@ -68,7 +68,7 @@ class ProjectController extends Controller {
 		}
 
 		$subQuery = "( SELECT * FROM user_task WHERE user_id = '" . $this->logged_in_user->id . "') AS user_task ";
-		$this->model = $this->model->leftJoin(\DB::raw($subQuery), "task.id", "=", "user_task.task_id");
+		$this->model = $this->model->leftJoin(\DB::raw($subQuery), "task.id", "=", "user_task.project_id");
 		$this->model = $this->model->first();
 
 		return view("/". str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
@@ -94,11 +94,11 @@ class ProjectController extends Controller {
 		}
 
 		// insert tasks
-		foreach ($arrList as $task_id => $task) {
+		foreach ($arrList as $project_id => $task) {
 			if(isset($task["user_id"]) && ($task["user_id"] == "on")){
 				$table = new UserProject();
 				$table->user_id = $user_id;
-				$table->task_id = $task_id;
+				$table->project_id = $project_id;
 				$table->save();
 				unset($table);
 			}
@@ -106,7 +106,7 @@ class ProjectController extends Controller {
 			if($this->logged_in_user->permission_flag == "Manager"){
 				if(isset($task["is_off_task"]) && ($task["is_off_task"] == "1")){
 					$table = new Project();
-					$table = $table->find($task_id);
+					$table = $table->find($project_id);
 					if(isset($table)){
 						$table->is_off_task = 1;
 						$table->update();

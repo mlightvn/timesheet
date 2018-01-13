@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
-use App\Model\Task;
+use App\Model\Project;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 
-class TaskController extends Controller {
+class ProjectController extends Controller {
 
 	// protected $requestYear = "";
 	// protected $sRequestMonth = "";
@@ -17,7 +17,7 @@ class TaskController extends Controller {
 	{
 		parent::init();
 
-		$this->blade_url = $this->url_pattern . '.task';
+		$this->blade_url = $this->url_pattern . '.project';
 
 		$form_input = $this->form_input;
 		if(isset($form_input["year_month"])){
@@ -50,7 +50,7 @@ class TaskController extends Controller {
 
 		$total_working_minutes = 0;
 
-		$arrTasks = $this->getTaskSheet($report_user_id, $this->requestYear, $this->requestMonth);
+		$arrTasks = $this->getProjectSheet($report_user_id, $this->requestYear, $this->requestMonth);
 
 		$arrOffTaskSheet = array();
 		$arrOnTaskSheet = array();

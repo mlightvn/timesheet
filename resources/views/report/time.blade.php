@@ -28,16 +28,16 @@
 		</div>
 
 		@foreach($arrOffTasks as $key => $task)
-			<input type="hidden" id="input_task[{{ $task->task_id }}][is_off_task]" name="input_task[{{ $task->task_id }}][is_off_task]" value="1">
+			<input type="hidden" id="input_task[{{ $task->project_id }}][is_off_task]" name="input_task[{{ $task->project_id }}][is_off_task]" value="1">
 			@foreach ($task->timeline as $timeKey => $timeFlag)
-			<input type="hidden" id="input_task[{{ $task->task_id }}][{{ $timeKey }}]" name="input_task[{{ $task->task_id }}][{{ $timeKey }}]" value="{{ $timeFlag }}">
+			<input type="hidden" id="input_task[{{ $task->project_id }}][{{ $timeKey }}]" name="input_task[{{ $task->project_id }}][{{ $timeKey }}]" value="{{ $timeFlag }}">
 			@endforeach
 		@endforeach
 
 		@foreach($arrOnTasks as $key => $task)
-			<input type="hidden" id="input_task[{{ $task->task_id }}][is_off_task]" name="input_task[{{ $task->task_id }}][is_off_task]" value="0">
+			<input type="hidden" id="input_task[{{ $task->project_id }}][is_off_task]" name="input_task[{{ $task->project_id }}][is_off_task]" value="0">
 			@foreach ($task->timeline as $timeKey => $timeFlag)
-			<input type="hidden" id="input_task[{{ $task->task_id }}][{{ $timeKey }}]" name="input_task[{{ $task->task_id }}][{{ $timeKey }}]" value="{{ $timeFlag }}">
+			<input type="hidden" id="input_task[{{ $task->project_id }}][{{ $timeKey }}]" name="input_task[{{ $task->project_id }}][{{ $timeKey }}]" value="{{ $timeFlag }}">
 			@endforeach
 		@endforeach
 

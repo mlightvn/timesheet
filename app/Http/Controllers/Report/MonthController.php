@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
-use App\Model\Task;
+use App\Model\Project;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 

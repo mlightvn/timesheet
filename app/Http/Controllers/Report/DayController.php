@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
-use App\Model\Task;
+use App\Model\Project;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 
@@ -118,12 +118,12 @@ class DayController extends Controller {
 				"
 			));
 		$dbWorkingDate = $dbWorkingDate->join("users", "working_date.user_id", "=", "users.id");
-		$dbWorkingDate = $dbWorkingDate->join("task", "working_date.task_id", "=", "task.id");
+		$dbWorkingDate = $dbWorkingDate->join("project", "working_date.project_id", "=", "project.id");
 
 		$dbWorkingDate = $dbWorkingDate->where("working_date.user_id", "LIKE", $this->logged_in_user->id);
 		$dbWorkingDate = $dbWorkingDate->where("working_date.date", "LIKE", $year_month . "%");
 		$dbWorkingDate = $dbWorkingDate->where("users.is_deleted", "=", "0");
-		$dbWorkingDate = $dbWorkingDate->where("task.is_deleted", "=", "0");
+		$dbWorkingDate = $dbWorkingDate->where("project.is_deleted", "=", "0");
 
 		$dbWorkingDate = $dbWorkingDate->groupBy(["working_date.date", "working_date.user_id"]);
 

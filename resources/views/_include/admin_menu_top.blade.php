@@ -8,16 +8,16 @@
 			<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'time') ? 'w3-gray' : ''}}">工数入力画面</a>
 			<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'day') ? 'w3-gray' : ''}}">日別工数集計</a>
 			<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'month') ? 'w3-gray' : ''}}">月別工数集計</a>
-			<a href="/report/task" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'task') ? 'w3-gray' : ''}}">プロジェクト別工数集計</a>
+			<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'task') ? 'w3-gray' : ''}}">プロジェクト別工数集計</a>
 		</div>
 	</div>
 
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">休暇・有給 <span class="glyphicon glyphicon-triangle-bottom"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="/dayoff/dayoff" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'time') ? 'w3-gray' : ''}}">休暇・有給</a>
-			<a href="/dayoff/application" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'day') ? 'w3-gray' : ''}}">各種申請</a>
-			<a href="/dayoff/history" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'month') ? 'w3-gray' : ''}}">休暇履歴</a>
+			<a href="/dayoff/dayoff" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'dayoff_dayoff') ? 'w3-gray' : ''}}">休暇・有給</a>
+			<a href="/dayoff/application" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'dayoff_application') ? 'w3-gray' : ''}}">各種申請</a>
+			<a href="/dayoff/history" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'dayoff_history') ? 'w3-gray' : ''}}">休暇履歴</a>
 		</div>
 	</div>
 

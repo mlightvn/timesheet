@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
-use App\Model\Task;
+use App\Model\Project;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 
@@ -52,12 +52,12 @@ class TimeController extends Controller {
 		return view("/" . str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "arrTimes"=>$arrTimes, "iTimesLength"=>$timeLength, "arrOffTasks"=>$arrOffTasks, "arrOnTasks"=>$arrOnTasks, "logged_in_user" => $this->logged_in_user, "sDbRequestDate"=> $this->sDbRequestDate, ]);
 	}
 
-	private function getTimeSheetDataByWorkingTaskFlag($user_id, $is_on_task = TRUE)
+	private function getTimeSheetDataByWorkingTaskFlag($user_id, $is_on = TRUE)
 	{
-		$is_off_task = !$is_on_task;
+		$is_off = !$is_on;
 
 		$arrTimes = $this->getWorkingTimeLabelList();
-		$arrTasks = $this->getUserTaskList($user_id, NULL, $is_off_task);
+		$arrTasks = $this->getUserProjectList($user_id, NULL, $is_off);
 
 		// Get Working Times from DB, and put into array to show on user screen
 		$arrData = array();
@@ -120,16 +120,16 @@ class TimeController extends Controller {
 		$dbWorkingDate->delete();
 		unset($dbWorkingDate);
 
-		foreach ($arrInputWorkingTime as $task_id => $arrWorkingTimes) {
+		foreach ($arrInputWorkingTime as $project_id => $arrWorkingTimes) {
 			$working_minutes = 0;
 			foreach ($arrWorkingTimes as $timeKey => $timeValue) {
-				if($timeKey != "is_off_task"){
+				if($timeKey != "is_off"){
 					if($timeValue == 1){ // 追加
 						$working_minutes++;
 						$sDbTime = $this->timeKey2DbTime($timeKey);
 
 						$dbWorkingTime = new WorkingTime();
-						$dbWorkingTime->task_id = $task_id;
+						$dbWorkingTime->project_id = $project_id;
 						$dbWorkingTime->user_id = $this->logged_in_user->id;
 						$dbWorkingTime->date = $this->sDbRequestDate;
 						$dbWorkingTime->time = $sDbTime;
@@ -141,7 +141,7 @@ class TimeController extends Controller {
 			}
 
 			$dbWorkingDate = new WorkingDate();
-			$dbWorkingDate->task_id = $task_id;
+			$dbWorkingDate->project_id = $project_id;
 			$dbWorkingDate->user_id = $this->logged_in_user->id;
 			$dbWorkingDate->date = $this->sDbRequestDate;
 			$dbWorkingDate->working_minutes = ($working_minutes * 30);

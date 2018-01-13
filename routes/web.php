@@ -33,8 +33,8 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 
 	Route::get('month', 'Report\MonthController@index');
 
-	Route::get('task', 'Report\TaskController@index');
-	Route::get('task_download_{year}_{month}', 'Report\TaskController@download');
+	Route::get('project', 'Report\ProjectController@index');
+	Route::get('project_download_{year}_{month}', 'Report\ProjectController@download');
 });
 
 Route::group(['prefix' => 'dayoff'], function()
