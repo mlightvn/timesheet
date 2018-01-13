@@ -5,22 +5,22 @@
 	]
 )
 
-		<form action="{{ \Request::url() }}" method="get" accept-charset="UTF-8">
+<form action="{{ \Request::url() }}" method="get" accept-charset="UTF-8">
 
-		<div id="divMessageBorder" class="w3-container">
-			<div class="w3-row w3-col w3-section">
-				<div class="w3-col s8 m6 l6">
-					<input placeholder="{{ $requestYear }}" class="w3-input w3-border" name="year" type="number" value="{{ $requestYear }}">
-				</div>
-				<div class="w3-col s4 m3 l3">
-					<button type="submit" class="w3-button w3-brown"><span class="fa fa-refresh"></span></button>
-				</div>
+	<div id="divMessageBorder" class="w3-container">
+		<div class="w3-row w3-col w3-section">
+			<div class="w3-col s8 m6 l6">
+				<input placeholder="{{ $requestYear }}" class="w3-input w3-border" name="year" type="number" value="{{ $requestYear }}">
 			</div>
-			<br><br>
-
+			<div class="w3-col s4 m3 l3">
+				<button type="submit" class="w3-button w3-brown"><span class="fa fa-refresh"></span></button>
+			</div>
 		</div>
+		<br><br>
 
-		<div class="w3-container">
+	</div>
+
+	<div class="w3-container">
 		<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 			<thead>
 			<tr class="w3-brown">
@@ -59,9 +59,12 @@
 			</tr>
 			</tfoot>
 		</table>
-		</form>
-		<br>
-		</div>
+
+	<br>
+	</div>
+
+</form>
+
 
 
 @include('_include.admin_footer', [
