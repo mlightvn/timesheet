@@ -74,8 +74,8 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 	Route::group(['prefix' => 'admin'], function(){
 
 		Route::group(['prefix' => 'organization'], function(){
-			Route::get('', 'Api\Manage\OrganizationController@list');
-			Route::get('list', 'Api\Manage\OrganizationController@list');
+			Route::get('', 'Api\Admin\OrganizationController@list');
+			Route::get('list', 'Api\Admin\OrganizationController@list');
 		});
 	});
 
