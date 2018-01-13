@@ -39,7 +39,7 @@
 		</thead>
 		<tbody id="listBody">
 
-		<tr class="" ng-repeat="model in model_list">
+		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td>@{{ model.id }}</td>
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
 			<td>@{{ model.organization_name }}</td>

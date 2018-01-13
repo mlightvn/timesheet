@@ -222,7 +222,8 @@ class Controller extends BaseController
 		$table = $table->select([
 				"project.*", 
 				\DB::raw("organization.name AS organization_name"),
-				\DB::raw("CASE project.is_off WHEN 1 THEN 'checked=\"checked\"' ELSE '' END AS radio_check_property"),
+				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+				\DB::raw("user_project.project_id AS SELF_PROJECT"),
 			]);
 
 		$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
@@ -249,7 +250,7 @@ class Controller extends BaseController
 
 		$table = $table->orderBy("project.is_deleted", "ASC");
 		$table = $table->orderBy("project.is_off", "ASC")->orderBy("project.id");
-
+// dd($table->toSql());
 		if($isPagination){
 			$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
 		}else{
@@ -266,6 +267,7 @@ class Controller extends BaseController
 			  "users.*"
 			, DB::raw("organization.name AS organization_name")
 			, DB::raw("session.name AS session_name")
+			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS")
 		]);
 
 		$table = $table->leftJoin("session", "users.session_id", "=", "session.id");
@@ -308,50 +310,15 @@ class Controller extends BaseController
 		return $arrResult;
 	}
 
-	// public function getTasks($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
-	// {
-	// 	$table = DB::table('task');
-
-	// 	$table = $table->select(["project.*", DB::raw("organization.name AS organization_name")]);
-
-	// 	$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
-
-	// 	if($id){
-	// 		$table = $table->where("project.id", "=", $id);
-	// 	}
-	// 	if($name){
-	// 		$table = $table->where("project.name", "LIKE", "%" . $name . "%");
-	// 	}
-
-	// 	if($keyword){
-	// 		$where = " (
-	// 						   (project.id = '{KEYWORD}')
-	// 						OR (project.name LIKE '%{KEYWORD}%')
-	// 					)";
-	// 		$where = str_replace("{KEYWORD}", $keyword, $where);
-
-	// 		$table = $table->whereRaw($where);
-	// 	}
-
-	// 	$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
-
-	// 	$table = $table->orderBy("is_deleted", "ASC");
-	// 	$table = $table->orderBy("is_off", "DESC");
-
-	// 	if($isPagination){
-	// 		$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
-	// 	}else{
-	// 		$arrResult = $table->get();
-	// 	}
-
-	// 	return $arrResult;
-	// }
-
 	public function getSessions($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
 	{
 		$table = DB::table('session');
 
-		$table = $table->select(["session.*", DB::raw("organization.name AS organization_name")]);
+		$table = $table->select([
+				"session.*", 
+				DB::raw("organization.name AS organization_name"),
+				DB::raw("CASE session.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+			]);
 
 		$table = $table->leftJoin("organization", "session.organization_id", "=", "organization.id");
 

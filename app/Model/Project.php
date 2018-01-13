@@ -10,7 +10,7 @@ class Project extends Model
 		'id',
 		'organization_id',
 		'name',
-		'is_off_task',		// '0': FALSE, '1': TRUE
+		'is_off',			// '0': FALSE, '1': TRUE
 	];
 
 	protected $table = 'project';

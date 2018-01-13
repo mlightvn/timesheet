@@ -40,21 +40,21 @@
 		</tr>
 		</thead>
 
-		<tr class="" ng-repeat="model in model_list">
+		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td>@{{ model.id }}</td>
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
 			<td>@{{ model.organization_name }}</td>
 			@endif
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="task[@{{ model.id }}][is_off_task]" value="1" @{{ model.radio_check_property }} {{ ($logged_in_user->permission_flag == "Member") ? 'disabled="disabled' : '' }}>
+					<input type="checkbox" name="project[@{{ model.id }}][is_off]" ng-checked="model.is_off" value="1" {{ ($logged_in_user->permission_flag == "Member") ? 'disabled="disabled' : '' }}>
 					<span class="slider round"></span>
 				</label>
 			</td>
 			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}">@{{ model.name }}</a></td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="task[@{{ model.id }}][user_id]" @{{ ((model.id) ? 'checked="checked"' : '') }}>
+					<input type="checkbox" name="project[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT">
 					<span class="slider round"></span>
 				</label>
 			</td>

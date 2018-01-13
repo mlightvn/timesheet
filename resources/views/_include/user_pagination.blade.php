@@ -1,5 +1,5 @@
 
-	<div ng-if="model_list.total == 0">
+	<div ng-if="last_page == 0">
 		データが存在していません。
 	</div>
 	<br>
