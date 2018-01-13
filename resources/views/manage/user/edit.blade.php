@@ -60,7 +60,7 @@
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'名前', 'required'=>'required']) !!}
 			</td>
 		</tr>
-		@if(in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
+		@if(in_array($logged_in_user->permission_flag, array("Manager")))
 		<tr>
 			<th>{!! Form::label('permission_flag', '管理フラグ') !!}</th>
 			<td>

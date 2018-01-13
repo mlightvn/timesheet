@@ -35,9 +35,15 @@
 			</td>
 		</tr>
 		<tr>
-			<th>代表取締役社長</th>
+			<th>{!! Form::label('established_date', '設立') !!}</th>
 			<td>
-				{{ $logged_in_user->name }}
+				{!! Form::text('established_date', null, ['class'=>'form-control', 'placeholder'=>'設立']) !!}
+			</td>
+		</tr>
+		<tr>
+			<th>{!! Form::label('ceo', '代表取締役社長') !!}</th>
+			<td>
+				{!! Form::text('ceo', null, ['class'=>'form-control', 'placeholder'=>'代表取締役社長']) !!}
 			</td>
 		</tr>
 		<tr>
@@ -47,6 +53,19 @@
 				<a href="@{{website}}" target="_blank">@{{website}}</a>
 			</td>
 		</tr>
+		<tr>
+			<th>{!! Form::label('capital', '資本金') !!}</th>
+			<td>
+				{!! Form::text('capital', null, ['class'=>'form-control', 'placeholder'=>'資本金']) !!}
+			</td>
+		</tr>
+		<tr>
+			<th>{!! Form::label('size', '従業員') !!}</th>
+			<td>
+				{!! Form::text('size', null, ['class'=>'form-control', 'placeholder'=>'従業員']) !!}
+			</td>
+		</tr>
+
 		<tr>
 			<th>{!! Form::label('description', '詳細') !!}</th>
 			<td>

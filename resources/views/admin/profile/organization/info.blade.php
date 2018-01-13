@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<th>代表取締役社長</th>
-			<td>
+			<td>{{ $model->ceo }}
 			</td>
 		</tr>
 		<tr>
@@ -35,17 +35,6 @@
 			</td>
 		</tr>
 
-{{--
-		<tfoot>
-		<tr>
-			<td colspan="2">
-				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span>　登録　　</button>
-				</div>
-			</td>
-		</tr>
-		</tfoot>
-	--}}
 	</table>
 	<br>
 	{!! Form::close() !!}
