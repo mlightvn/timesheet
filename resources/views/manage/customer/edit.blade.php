@@ -33,7 +33,7 @@
 		<tr>
 			<th>{!! Form::label('email', 'email※') !!}</th>
 			<td>
-				{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'email', 'required'=>'required']) !!}
+				{!! Form::input('email', 'email', null, ['class'=>'form-control', 'placeholder'=>'email', 'required'=>'required']) !!}
 			</td>
 		</tr>
 
@@ -63,7 +63,7 @@
 		<tr>
 			<th>{!! Form::label('phone', '携帯・電話番号') !!}</th>
 			<td>
-				{!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=>'携帯・電話番号']) !!}
+				{!! Form::input('tel', 'phone', null, ['class'=>'form-control', 'placeholder'=>'携帯・電話番号']) !!}
 			</td>
 		</tr>
 
