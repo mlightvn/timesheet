@@ -16,5 +16,5 @@ class Dayoff extends Model
 		'is_deleted',
 	];
 
-	protected $table = 'domain';
+	protected $table = 'application_form';
 }

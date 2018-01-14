@@ -21,8 +21,6 @@
 		</div>
 	</div>
 
-	<a href="/customer" class="w3-bar-item w3-button w3-hover-black"><i class="fa fa-address-card" aria-hidden="true"></i> 顧客</a>
-
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black"><span class="fa fa-dollar"></span> CashFlow <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -36,7 +34,10 @@
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">設定 <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> ユーザー</a>
+			<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> 会員</a>
+
+			<a href="/manage/customer" class="w3-bar-item w3-button w3-hover-black"><i class="fa fa-address-card" aria-hidden="true"></i> 顧客</a>
+
 			<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> プロジェクト</a>
 			<a href="/manage/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
 			<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> Application Templates</a>
