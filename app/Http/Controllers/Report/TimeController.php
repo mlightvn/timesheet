@@ -14,6 +14,7 @@ class TimeController extends Controller {
 		parent::init();
 
 		$this->blade_url = $this->url_pattern . '.time';
+		$this->data["url_pattern"] = "" . str_replace(".", "/", $this->blade_url);
 
 		$sDbRequestDate = $this->request["date"];
 		if(empty($sDbRequestDate)){

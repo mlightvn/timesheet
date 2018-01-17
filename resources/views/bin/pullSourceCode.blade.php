@@ -10,7 +10,7 @@
 			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 				<h3>Backlog(GIT)のアカウント</h3>
 
-				<form action="{{ \Request::url() }}" method="post">
+				<form action="{{ $data['url_pattern'] }}" method="post">
 					{{ csrf_field() }}
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>

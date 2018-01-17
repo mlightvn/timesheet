@@ -29,6 +29,8 @@ class MonthController extends Controller {
 		parent::init();
 
 		$this->blade_url = $this->url_pattern . '.month';
+		$this->data["url_pattern"] = "" . str_replace(".", "/", $this->blade_url);
+
 		if(isset($this->form_input["year"])){
 			$this->requestYear = $this->form_input["year"];
 		}else{

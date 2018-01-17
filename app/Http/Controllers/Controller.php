@@ -376,7 +376,7 @@ class Controller extends BaseController
 		$table = $table->where("project.is_deleted", "=", "0");
 
 		$table = $table->orderBy("project.is_deleted", "ASC");
-		$table = $table->orderBy("project.is_off", "DESC")->orderBy("user_project.task_priority", "DESC")->orderBy("project.id");
+		$table = $table->orderBy("project.is_off", "DESC")->orderBy("user_project.project_priority", "DESC")->orderBy("project.id");
 
 		$arrResult = $table->get();
 		return $arrResult;

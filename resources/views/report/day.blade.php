@@ -6,7 +6,7 @@
 	]
 )
 
-		<form action="{{ \Request::url() }}" method="post">
+		<form action="{{ $data['url_pattern'] }}" method="post">
 			{{ csrf_field() }}
 
 			<input type="hidden" name="sRequestYearMonth" value="{{ $sRequestYearMonth }}">

@@ -18,6 +18,7 @@ class ProjectController extends Controller {
 		parent::init();
 
 		$this->blade_url = $this->url_pattern . '.project';
+		$this->data["url_pattern"] = "" . str_replace(".", "/", $this->blade_url);
 
 		$form_input = $this->form_input;
 		if(isset($form_input["year_month"])){

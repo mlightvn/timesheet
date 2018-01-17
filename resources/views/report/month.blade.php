@@ -5,7 +5,7 @@
 	]
 )
 
-<form action="{{ \Request::url() }}" method="get" accept-charset="UTF-8">
+<form action="{{ $data['url_pattern'] }}" method="get" accept-charset="UTF-8">
 
 	<div id="divMessageBorder" class="w3-container">
 		<div class="w3-row w3-col w3-section">
