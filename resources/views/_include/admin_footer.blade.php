@@ -4,7 +4,6 @@
 	</div>
 <br>
 
-
 @if (isset($datetimepicker) && ($datetimepicker == true))
 <script src="/js/common/jquery.datetimepicker.full.min.js"></script>
 @endif

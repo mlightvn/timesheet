@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Api\Dayoff;
+<?php namespace App\Http\Controllers\Api;
 
 use App\Model\ApplicationForm;
 

@@ -111,6 +111,13 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		});
 	});
 
+	Route::group(['prefix' => 'application-template'], function(){
+		Route::get('', 'Api\ApplicationTemplateController@list');
+		Route::get('list', 'Api\ApplicationTemplateController@list');
+
+		Route::get('get/{id}', 'Api\ApplicationTemplateController@get')->where('id', '[0-9]+');
+	});
+
 	Route::group(['prefix' => 'admin'], function(){
 
 		Route::group(['prefix' => 'organization'], function(){
@@ -182,8 +189,8 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 		Route::get('', 'Manage\ApplicationTemplateController@list');
 		Route::get('list', 'Manage\ApplicationTemplateController@list');
 
-		Route::match(["get", "post"], 'add', 'Manage\ApplicationTemplateController@addTemplate');
-		Route::match(["get", "post"], 'edit/{id}', 'Manage\ApplicationTemplateController@editTemplate')->where('id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Manage\ApplicationTemplateController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Manage\ApplicationTemplateController@edit')->where('id', '[0-9]+');
 	});
 });
 

@@ -27,6 +27,14 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
+			<th>{!! Form::label('application-template', 'Template') !!}</th>
+			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::select('application-template', $data['template_list'], null, ['class'=>'form-control', 'required'=>'required']) !!}
+			</td>
+		</tr>
+
+		<tr>
 			<th>{!! Form::label('name', 'タイトル') !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
 			<td>

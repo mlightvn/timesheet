@@ -53,6 +53,7 @@ class Controller extends BaseController
 	public function dashboard()
 	{
 		$url = $this->url_pattern . '.index';
+		// $url = "/" . str_replace(".", "/", $url);
 
 		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
 	}
@@ -109,6 +110,7 @@ class Controller extends BaseController
 		}else{
 			$url = 'index';
 		}
+		// $url = str_replace(".", "/", $url);
 
 		$keyword = "";
 		if(isset($this->form_input["keyword"])){

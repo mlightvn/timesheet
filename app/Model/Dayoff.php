@@ -8,6 +8,7 @@ class Dayoff extends Model
 {
 	protected $fillable = [
 		'id',
+		'organization_id',
 		'name',
 		'description',
 		'applied_user_id',
