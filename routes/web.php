@@ -39,6 +39,8 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 
 Route::group(['prefix' => 'dayoff'], function()
 {
+	Route::get('', 'Dayoff\Controller@dashboard');
+
 	Route::group(['prefix' => 'dayoff'], function()
 	{
 		Route::get('', 'Dayoff\DayoffController@list');
@@ -167,6 +169,22 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 		Route::get('recover/{session_id}', 'Manage\SessionController@recover')->where('session_id', '[0-9]+');
 	});
 
+	// Route::group(['prefix' => 'application-form'], function()
+	// {
+	// 	Route::get('', 'Manage\ApplicationFormController@list');
+	// 	Route::get('list', 'Manage\ApplicationFormController@list');
+
+	// 	Route::match(["get", "post"], 'edit/{id}', 'Manage\ApplicationFormController@edit')->where('id', '[0-9]+');
+	// });
+
+	Route::group(['prefix' => 'application-template'], function()
+	{
+		Route::get('', 'Manage\ApplicationTemplateController@list');
+		Route::get('list', 'Manage\ApplicationTemplateController@list');
+
+		Route::match(["get", "post"], 'add', 'Manage\ApplicationTemplateController@addTemplate');
+		Route::match(["get", "post"], 'edit/{id}', 'Manage\ApplicationTemplateController@editTemplate')->where('id', '[0-9]+');
+	});
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()

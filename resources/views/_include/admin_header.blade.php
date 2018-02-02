@@ -15,6 +15,9 @@
 	<link rel="stylesheet" href="/css/common/w3.css">
 	<link rel="stylesheet" href="/css/common/font-awesome.min.css">
 	<link rel="stylesheet" href="/css/common/bootstrap.min.css">
+{{--
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+--}}
 
 	<link rel="stylesheet" href="/css/admin/checkbox.css">
 	<link rel="stylesheet" href="/css/common/rakuhin.css">
@@ -25,6 +28,10 @@
 	<script src="/js/common/angular.min.js"></script>
 
 	<link rel="stylesheet" href="/css/alert.box.css">
+
+	@if (isset($datetimepicker) && ($datetimepicker == true))
+	<link rel="stylesheet" href="/css/common/jquery.datetimepicker.min.css">
+	@endif
 
 	@if (in_array($id, array("time", "day", "task", "holiday")))
 	<link rel="stylesheet" href="/css/common/jquery-ui.css">

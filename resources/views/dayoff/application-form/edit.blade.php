@@ -1,6 +1,7 @@
 @include('_include.admin_header',
 	[
 		'id'				=> 'dayoff_application_form',
+		'datetimepicker'	=> true,
 	]
 )
 
@@ -18,6 +19,7 @@
 <div class="w3-row">
 	{!! Form::model($model, ['ng-app'=>'']) !!}
 	{!! Form::hidden('id') !!}
+	{!! Form::hidden('status') !!}
 
 	@if(isset($message) || session("message"))
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
@@ -44,10 +46,28 @@
 			<th>{!! Form::label('applied_user_id', 'Applied User') !!}</th>
 			<th><button type="button" name="btnCopy" value="applied_user_id"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::text('applied_user_id', null, ['class'=>'form-control', 'placeholder'=>'Applied User']) !!}
+				{!! $model['applied_user_name'] !!}
+				{!! Form::hidden('applied_user_id') !!}
 			</td>
 		</tr>
 
+		<tr>
+			<th>{!! Form::label('datetime_from', 'From Date time') !!}</th>
+			<th><button type="button" name="btnCopy" value="datetime_from"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('datetime_from', null, ['class'=>'form-control', 'placeholder'=>'YYYY-MM-DD HH:mm', 'datetimepicker'=>'datetimepicker']) !!}
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('datetime_to', 'To Date time') !!}</th>
+			<th><button type="button" name="btnCopy" value="datetime_to"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('datetime_to', null, ['class'=>'form-control', 'placeholder'=>'YYYY-MM-DD HH:mm', 'datetimepicker'=>'datetimepicker']) !!}
+			</td>
+		</tr>
+
+{{--
 		<tr>
 			<th>{!! Form::label('approved_user_id', 'Approver') !!}</th>
 			<th><button type="button" name="btnCopy" value="approved_user_id"><i class="fa fa-copy"></i></button></th>
@@ -63,6 +83,7 @@
 				{!! Form::select('status', ['0'=>'Applied', '1'=>'Approved', '2'=>'Dismissed', ], NULL, ['class'=>'form-control']) !!}
 			</td>
 		</tr>
+--}}
 
 		<tfoot>
 		<tr>
@@ -81,4 +102,5 @@
 @include('_include.admin_footer', [
 	'id'			=>'dayoff_application_form',
 	'js'			=>'dayoff/application_form',
+	'datetimepicker'	=> true,
 ])

@@ -5,6 +5,10 @@
 <br>
 
 
+@if (isset($datetimepicker) && ($datetimepicker == true))
+<script src="/js/common/jquery.datetimepicker.full.min.js"></script>
+@endif
+
 <script src="/js/common/rakuhin.js"></script>
 
 @if (isset($js_list))

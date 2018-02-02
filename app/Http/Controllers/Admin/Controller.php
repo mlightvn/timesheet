@@ -25,11 +25,11 @@ class Controller extends \App\Http\Controllers\Controller {
 		// $this->logical_delete = true;
 	}
 
-	public function dashboard()
-	{
-		$url = $this->url_pattern . '.index';
+	// public function dashboard()
+	// {
+	// 	$url = $this->url_pattern . '.index';
 
-		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
-	}
+	// 	return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
+	// }
 
 }

@@ -50,6 +50,13 @@ class Controller extends BaseController
 	protected function init(){
 	}
 
+	public function dashboard()
+	{
+		$url = $this->url_pattern . '.index';
+
+		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user]);
+	}
+
 	public function index()
 	{
 		if($this->url_pattern){
