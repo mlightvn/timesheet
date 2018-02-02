@@ -19,6 +19,7 @@ class ApplicationTemplateController extends \App\Http\Controllers\Api\Controller
 		$model_list = $model->get();
 
 		$return_arr = array();
+		$return_arr[""] = "Please choose value below";
 		foreach ($model_list as $row_index => $record) {
 			$return_arr[$record["id"]] = $record["name"];
 		}

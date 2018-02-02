@@ -24,7 +24,7 @@
 
 	{{ csrf_field() }}
 
-	<input type="hidden" id="data_source_url" value="/api/dayoff/application-form">
+	<input type="hidden" id="data_source_url" value="/api/application-form">
 
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
@@ -42,7 +42,7 @@
 				@{{ model.id }}
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> @{{ model.name }}</a>
+				<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><i class="fa fa-pencil"></i> @{{ model.name }}</a>
 			</td>
 			<td>
 				@{{ model.STATUS_LABEL }}
@@ -54,7 +54,7 @@
 				@{{ model.APPROVED_USER_NAME }}
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
+				<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
 			</td>
 		</tr>
 

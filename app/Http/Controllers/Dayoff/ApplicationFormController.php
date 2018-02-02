@@ -14,7 +14,7 @@ class ApplicationFormController extends Controller {
 		$this->model = new ApplicationForm();
 		$this->model->status = 0; //Applied
 		$this->model->applied_user_id = \Auth::id();
-		$this->model->applied_user_name = \Auth::user()->name;
+		// $this->model->applied_user_name = \Auth::user()->name;
 		$this->model->datetime_from = date("Y-m-d 00:00");
 		$this->model->datetime_to = date("Y-m-d 23:00");
 
@@ -24,12 +24,30 @@ class ApplicationFormController extends Controller {
 
 	public function add()
 	{
+		// if($this->form_input && (count($this->form_input) > 0)){ // Submit
+		// 	unset($this->model->applied_user_name);
+		// }
+
 		$controller = new ApplicationTemplateController($this->request);
 		$template_list = $controller->getList();
 
 		$this->data["template_list"] = $template_list;
 
 		return parent::add();
+	}
+
+	public function view($id)
+	{
+		$this->model->applied_user_name = \Auth::user()->name;
+
+		$this->data["view_mode"] = true;
+
+		// $controller = new ApplicationTemplateController($this->request);
+		// $template_list = $controller->getList();
+
+		// $this->data["template_list"] = $template_list;
+
+		return parent::edit($id);
 	}
 
 }
