@@ -44,10 +44,10 @@
 		@endif
 		@if($logged_in_user->permission_flag == "Manager")
 		<tr>
-			<th>{!! Form::label('is_off_task', '休憩プロジェクト') !!}</th>
+			<th>{!! Form::label('is_off', '休憩プロジェクト') !!}</th>
 			<td>
 				<label class="switch">
-					{!! Form::checkbox('is_off_task', "1", ($model->is_off_task == "1" ? 1 : 0), ['placeholder'=>'休憩プロジェクト']) !!}
+					{!! Form::checkbox('is_off', "1", ($model->is_off == "1" ? 1 : 0), ['placeholder'=>'休憩プロジェクト']) !!}
 					<span class="slider round"></span>
 				</label>
 			</td>

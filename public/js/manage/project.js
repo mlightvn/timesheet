@@ -5,11 +5,11 @@ $(function() {
 		var $form = $( this );
 		data = $form.find( "input" );
 console.log(data);
-// console.log(data["is_off_task"]);
-console.log(data["#is_off_task"]);
-// 		if(!($("#is_off_task").checked)){
-// 			// delete data["is_off_task"];
-// 			data.remove($("#is_off_task"));
+// console.log(data["is_off"]);
+console.log(data["#is_off"]);
+// 		if(!($("#is_off").checked)){
+// 			// delete data["is_off"];
+// 			data.remove($("#is_off"));
 // 		}
 // console.log(data);
 

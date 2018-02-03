@@ -8,7 +8,6 @@
 
 <div class="w3-row">
 	<h1>Application Template List</h1>
-	<br>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -34,7 +33,7 @@
 			<th></th>
 		</tr>
 		</thead>
-		<tr class="" ng-repeat="model in model_list">
+		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td>
 				@{{ model.id }}
 			</td>
@@ -43,6 +42,13 @@
 			</td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
+
+				<span ng-if="model.is_deleted == true">
+					| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+				</span>
+				<span ng-if="model.is_deleted == false">
+					| <a href="{{ $data['url_pattern'] }}/delete/@{{ model.id }}"><span class="fa fa-trash w3-text-red"></span></a>
+				</span>
 			</td>
 		</tr>
 

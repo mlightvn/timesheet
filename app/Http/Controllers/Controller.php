@@ -73,6 +73,25 @@ class Controller extends BaseController
 	{
 		$table_name = $this->model->getTable();
 
+		if(isset($this->data["request_data"]["where"]["column_list"])){
+			$column_list = $this->data["request_data"]["where"]["column_list"];
+
+			$where_a = array();
+			foreach ($column_list as $column_name => $column_value) {
+				$condition_s = "(" . $column_name;
+				if($column_value == NULL){
+					$condition_s .= " IS NULL)";
+				}else{
+					$condition_s .= " = '" . $column_value . "')";
+				}
+				$where_a[] = $condition_s;
+			}
+			$whereRaw = implode(" AND ", $where_a);
+			$whereRaw = "( " . $whereRaw . ")";
+
+			$this->model = $this->model->whereRaw(\DB::raw($whereRaw));
+		}
+
 		$keyword = "";
 		if(isset($this->form_input["keyword"])){
 			$keyword = $this->form_input["keyword"];
@@ -94,6 +113,18 @@ class Controller extends BaseController
 			}
 
 		}
+
+		if(isset($this->data["request_data"]["orderBy"])){
+			$orderBy = $this->data["request_data"]["orderBy"];
+
+			foreach ($orderBy as $column_name => $column_value) {
+				if($column_value == NULL){
+					$column_value = "ASC";
+				}
+				$this->model = $this->model->orderBy($column_name, $column_value);
+			}
+		}
+
 // dd($this->model->toSql());
 		$this->data["keyword"] = $keyword;
 
@@ -110,7 +141,6 @@ class Controller extends BaseController
 		}else{
 			$url = 'index';
 		}
-		// $url = str_replace(".", "/", $url);
 
 		$keyword = "";
 		if(isset($this->form_input["keyword"])){
@@ -447,7 +477,7 @@ class Controller extends BaseController
 
 		$table = $table->orderBy("working_time.date");
 		$table = $table->orderBy("working_time.time");
-
+// dd($table->toSql());
 		$arrResult = $table->get();
 		return $arrResult;
 	}
@@ -550,6 +580,7 @@ class Controller extends BaseController
 
 	public function jsonExport($data)
 	{
+		header('Content-Type: application/json');
 		$json = json_encode($data);
 		echo $json;
 		exit;
@@ -604,7 +635,7 @@ class Controller extends BaseController
 			$this->model->fill($this->form_input);
 			$this->model->update();
 			$alert_type = "success";
-			$message = "データ（ID: " . $id . "）が修正完了。";
+			$message = "データが修正完了。";
 		}
 
 		// $this->blade_url = "/" . str_replace(".", "/", $this->blade_url);
@@ -619,7 +650,7 @@ class Controller extends BaseController
 		$this->model = $this->model->find($id);
 
 		if(!$this->model){
-			$message = "データ（ID: " . $id . "）が存在していません。";
+			$message = "データが存在していません。";
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
@@ -633,7 +664,7 @@ class Controller extends BaseController
 				$this->model->delete();
 			}
 			$alert_type = "success";
-			$message = "データ（ID: " . $id . "）が削除完了。";
+			$message = "データが削除完了。";
 		}
 
 		return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message, "alert_type" => $alert_type]);
@@ -648,7 +679,7 @@ class Controller extends BaseController
 		$this->model = $this->model->find($id);
 
 		if(!$this->model){
-			$message = "データ（ID: " . $id . "）が存在していません。";
+			$message = "データが存在していません。";
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
@@ -659,7 +690,7 @@ class Controller extends BaseController
 			$this->model->update();
 
 			$alert_type = "success";
-			$message = "データ（ID: " . $id . "）が復元完了。";
+			$message = "データが復元完了。";
 		}
 
 		return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message, "alert_type" => $alert_type]);

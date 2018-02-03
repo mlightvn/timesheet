@@ -73,7 +73,7 @@ $(document).ready(function(){
 					taskHours[m[1]]["minutes"] = 0;
 				}
 
-				if(m[2] == "is_off_task"){
+				if(m[2] == "is_off"){
 					if(this.value == 1){
 						offTaskID = m[1];
 					}else{
@@ -136,7 +136,7 @@ $(document).ready(function(){
 			, changeYear: true
 			, onSelect: function (dateText, inst) {
 					var date = $(this).val();
-					window.location.href = "/admin/report/time?date=" + date;
+					window.location.href = "/report/time?date=" + date;
 				}
 
 			, monthNames: [ "1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月" ]
@@ -195,7 +195,7 @@ $(document).ready(function(){
 		});
 
 		$.ajax({
-			url: '/admin/report/time',
+			url: '/report/time',
 			type: 'POST',
 			dataType: 'json',
 			data: $request_data,

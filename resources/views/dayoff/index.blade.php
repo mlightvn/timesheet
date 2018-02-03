@@ -8,7 +8,6 @@
 
 <div class="w3-row">
 	<h1>Dashboard</h1>
-	<br>
 </div>
 
 {{--

@@ -8,7 +8,6 @@
 
 <div class="w3-row">
 	<h1>ドメイン一覧</h1>
-	<br>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -35,7 +34,7 @@
 			<th></th>
 		</tr>
 		</thead>
-		<tr class="" ng-repeat="model in model_list">
+		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td>
 				@{{ model.id }}
 			</td>

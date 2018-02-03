@@ -18,7 +18,7 @@ class ProjectController extends Controller {
 		parent::init();
 
 		$this->blade_url = $this->url_pattern . '.project';
-		$this->data["url_pattern"] = "" . str_replace(".", "/", $this->blade_url);
+		$this->data["url_pattern"] = "/" . str_replace(".", "/", $this->blade_url);
 
 		$form_input = $this->form_input;
 		if(isset($form_input["year_month"])){
@@ -64,7 +64,7 @@ class ProjectController extends Controller {
 
 		foreach ($arrTasks as $key => $oTask) {
 			$iWorkingMinutes = intval($oTask->total_working_minutes);
-			if($oTask->is_off_task == 1){
+			if($oTask->is_off == 1){
 				$arrOffTaskSheet["task"][$oTask->id] = $oTask;
 				$arrOffTaskSheet["total_minutes"] += $iWorkingMinutes;
 			}else{

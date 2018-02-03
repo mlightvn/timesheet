@@ -14,7 +14,7 @@ class TimeController extends Controller {
 		parent::init();
 
 		$this->blade_url = $this->url_pattern . '.time';
-		$this->data["url_pattern"] = "" . str_replace(".", "/", $this->blade_url);
+		$this->data["url_pattern"] = "/" . str_replace(".", "/", $this->blade_url);
 
 		$sDbRequestDate = $this->request["date"];
 		if(empty($sDbRequestDate)){
@@ -37,7 +37,7 @@ class TimeController extends Controller {
 
 		$arrOffTasks = $this->getTimeSheetDataByWorkingTaskFlag($user_id, FALSE);
 		$arrOnTasks = $this->getTimeSheetDataByWorkingTaskFlag($user_id, TRUE);
-
+// dd($arrOnTasks);
 		// Assign variables for user screen
 		$data = $this->data;
 		$times["list"] = $arrTimes;
@@ -65,6 +65,7 @@ class TimeController extends Controller {
 		// $iTotalMinutes = 0;
 		foreach ($arrTasks as $taskKey => $task) {
 			$oWorkingTimeList = $this->getWorkingTimeList($user_id, $task->id, $this->sDbRequestDate);
+// dd($oWorkingTimeList);
 			$timeLine = array();
 			foreach ($arrTimes as $timeKey => $time) {
 				$timeLine[$timeKey] = 0;
@@ -105,10 +106,13 @@ class TimeController extends Controller {
 			$this->jsonExport($data);
 		}
 
+		$organization_id = $this->logged_in_user->organization_id;
+// echo($organization_id);exit;
 		$arrInputWorkingTime = $this->form_input["input_task"];
 
 		// 追加するために、最初、working_timeのデータを削除
 		$dbWorkingTime = new WorkingTime();
+		$dbWorkingTime = $dbWorkingTime->where("organization_id" 	, "=", $organization_id);
 		$dbWorkingTime = $dbWorkingTime->where("user_id"			, "=", $this->logged_in_user->id);
 		$dbWorkingTime = $dbWorkingTime->where("date"				, "=", $this->sDbRequestDate);
 		$dbWorkingTime->delete(); // 削除
@@ -116,6 +120,7 @@ class TimeController extends Controller {
 
 		// 追加するために、最初、working_dateのデータを削除
 		$dbWorkingDate = new WorkingDate();
+		$dbWorkingDate = $dbWorkingDate->where("organization_id" 		, "=", $organization_id);
 		$dbWorkingDate = $dbWorkingDate->where("user_id" 				, "=", $this->logged_in_user->id);
 		$dbWorkingDate = $dbWorkingDate->where("date" 					, "=", $this->sDbRequestDate);
 		$dbWorkingDate->delete();
@@ -129,11 +134,12 @@ class TimeController extends Controller {
 						$working_minutes++;
 						$sDbTime = $this->timeKey2DbTime($timeKey);
 
-						$dbWorkingTime = new WorkingTime();
-						$dbWorkingTime->project_id = $project_id;
-						$dbWorkingTime->user_id = $this->logged_in_user->id;
-						$dbWorkingTime->date = $this->sDbRequestDate;
-						$dbWorkingTime->time = $sDbTime;
+						$dbWorkingTime 						= new WorkingTime();
+						$dbWorkingTime->organization_id 	= $organization_id;
+						$dbWorkingTime->project_id 			= $project_id;
+						$dbWorkingTime->user_id 			= $this->logged_in_user->id;
+						$dbWorkingTime->date 				= $this->sDbRequestDate;
+						$dbWorkingTime->time 				= $sDbTime;
 
 						$dbWorkingTime->save(); // 追加
 						unset($dbWorkingTime);
@@ -142,10 +148,11 @@ class TimeController extends Controller {
 			}
 
 			$dbWorkingDate = new WorkingDate();
-			$dbWorkingDate->project_id = $project_id;
-			$dbWorkingDate->user_id = $this->logged_in_user->id;
-			$dbWorkingDate->date = $this->sDbRequestDate;
-			$dbWorkingDate->working_minutes = ($working_minutes * 30);
+			$dbWorkingDate->organization_id 			= $organization_id;
+			$dbWorkingDate->project_id 					= $project_id;
+			$dbWorkingDate->user_id 					= $this->logged_in_user->id;
+			$dbWorkingDate->date 						= $this->sDbRequestDate;
+			$dbWorkingDate->working_minutes 			= ($working_minutes * 30);
 			$dbWorkingDate->save();
 			unset($dbWorkingDate);
 		}

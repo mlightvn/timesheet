@@ -40,7 +40,8 @@ class DomainController extends Controller {
 							WHEN 2 THEN '開発'
 							ELSE '不定義'
 						END AS 'development_flag_label'
-					")
+					"),
+				\DB::raw("CASE domain.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
 		]);
 
 		if($keyword){

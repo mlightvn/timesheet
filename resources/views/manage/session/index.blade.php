@@ -8,7 +8,6 @@
 
 <div class="w3-row">
 	<h1>部署一覧</h1>
-	<br>
 </div>
 
 @include('_include.admin_search', ['keyword'=>$data["keyword"]])

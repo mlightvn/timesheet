@@ -8,7 +8,6 @@
 
 <div class="w3-row">
 	<h1>プロジェクト一覧</h1>
-	<br>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])

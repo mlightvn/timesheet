@@ -15,12 +15,17 @@ class CustomerController extends \App\Http\Controllers\Api\Controller {
 		$this->model->organization_id 		= $this->organization_id;
 	}
 
-	public function getModelList()
+	protected function getModelList()
 	{
-		$model_list = parent::getModelList();
-		$model_list = $model_list->where("organization_id", "=", $this->organization_id);
+		$model = parent::getModelList();
 
-		return $model_list;
+		$model = $model->select([
+					"customer.*",
+					\DB::raw("CASE customer.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+		]);
+		$model = $model->where("organization_id", "=", $this->organization_id);
+
+		return $model;
 	}
 
 }

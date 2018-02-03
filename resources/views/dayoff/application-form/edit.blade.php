@@ -7,7 +7,7 @@
 
 <div class="w3-row">
 	@if ($data["view_mode"] == true)
-	<h1>各種申請 [VIEW MODE]</h1>
+	<h1>各種申請</h1>
 	@else
 	<h1>各種申請</h1>
 	@endif
@@ -52,6 +52,14 @@
 			<td>
 				@if ($data["view_mode"] == true)
 				{{ $model['name'] }}
+					@if ($model["status"] == "1")
+						<span class="badge w3-green">
+					@elseif ($model["status"] == "2")
+						<span class="badge w3-gray">
+					@else
+						<span>
+					@endif
+					{{ $model['STATUS_LABEL'] }}</span>
 				@else
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'required'=>'required']) !!}
 				@endif
@@ -78,7 +86,7 @@
 			<th><button type="button" name="btnCopy" value="applied_user_id"><i class="fa fa-copy"></i></button></th>
 			@endif
 			<td>
-				{{ $model['applied_user_name'] }}
+				{{ $data['applied_user_name'] }}
 				{!! Form::hidden('applied_user_id') !!}
 			</td>
 		</tr>
@@ -111,6 +119,15 @@
 			</td>
 		</tr>
 
+		@if ($data["view_mode"] == true)
+		<tr>
+			<th>{!! Form::label('status', '状態') !!}</th>
+			<td class="{{ ($model['status'] == '1') ? 'w3-green' : (($model['status'] == '2') ? 'w3-gray' : '') }}">
+				{{ $model['STATUS_LABEL'] }}
+			</td>
+		</tr>
+		@endif
+
 {{--
 		<tr>
 			<th>{!! Form::label('approved_user_id', 'Approver') !!}</th>
@@ -127,19 +144,22 @@
 			<th><button type="button" name="btnCopy" value="status"><i class="fa fa-copy"></i></button></th>
 			@endif
 			<td>
-				{!! Form::select('status', ['0'=>'Applied', '1'=>'Approved', '2'=>'Dismissed', ], NULL, ['class'=>'form-control']) !!}
+				{!! Form::select('status', ['0'=>'Applied', '1'=>'Approved', '2'=>'Rejected', ], NULL, ['class'=>'form-control']) !!}
 			</td>
 		</tr>
 --}}
 
+		@if ($model->status == 0)
 		<tfoot>
 		<tr>
 			<td colspan="3">
 				<div class="w3-center">
 					@if ($data["view_mode"] == true)
+						@if ( $logged_in_user->permission_flag == "Manager" || ($logged_in_user->id == $model->applied_user_id))
+						<a href="{{ $data['url_pattern'] }}/{{$model->id}}/reject" class="w3-button w3-gray w3-xlarge">　　<span class="fa fa-close"></span>　却下　　</a>
+						@endif
 						@if ( $logged_in_user->permission_flag == "Manager" )
-						<button type="submit" class="w3-button w3-gray w3-xlarge">　　<span class="fa fa-close"></span>　却下　　</button>
-						<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-check"></span>　同意　　</button>
+						<a href="{{ $data['url_pattern'] }}/{{$model->id}}/approve" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-check"></span>　同意　　</a>
 						@endif
 					@else
 					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span>　登録　　</button>
@@ -148,6 +168,7 @@
 			</td>
 		</tr>
 		</tfoot>
+		@endif
 
 	</table>
 	<br>

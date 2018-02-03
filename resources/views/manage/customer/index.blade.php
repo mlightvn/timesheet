@@ -8,7 +8,6 @@
 
 <div class="w3-row">
 	<h1>顧客一覧</h1>
-	<br>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -40,14 +39,14 @@
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td>@{{ model.id }}</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> @{{ model.name }}</a><br>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span> @{{ model.name }}</a><br>
 				生年月日: @{{ model.birthday }}<br>
 			</td>
-			<td><a href="mailto:@{{ model.email }}"><span class="glyphicon glyphicon-envelope"></span> @{{ model.email }}</a></td>
+			<td><a href="mailto:@{{ model.email }}"><span class="fa fa-envelope"></span> @{{ model.email }}</a></td>
 			<td><a href="callto:@{{ model.phone }}">@{{ model.phone }}</a></td>
 
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>
 
 				<span ng-if="model.is_deleted == true">
 					| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><span class="fa fa-recycle w3-text-green"></span></a>

@@ -9,10 +9,11 @@ class WorkingDate extends Model
 	protected $fillable = [
 		'organization_id',
 		'user_id',
-		'task_id',
+		'project_id',
 		'date',
-		'user_approved_id',
+		'approved_user_id',
 		'working_minutes',
 	];
-    protected $table = 'working_date';
+
+	protected $table = 'working_date';
 }

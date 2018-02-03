@@ -8,7 +8,6 @@
 
 <div class="w3-row">
 	<h1>各種申請一覧</h1>
-	<br>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -30,19 +29,23 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>タイトル</th>
+			<th>Started Date</th>
+			<th>Application</th>
 			<th>状態</th>
 			<th>登録者</th>
 			<th>承認者</th>
 			<th></th>
 		</tr>
 		</thead>
-		<tr class="" ng-repeat="model in model_list">
+		<tr class="@{{ model.STATUS_COLOR }}" ng-repeat="model in model_list">
 			<td>
 				@{{ model.id }}
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><i class="fa fa-pencil"></i> @{{ model.name }}</a>
+				@{{ model.datetime_from }}
+			</td>
+			<td>
+				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fa fa-eye"></i> @{{ model.name }}</a>
 			</td>
 			<td>
 				@{{ model.STATUS_LABEL }}
@@ -54,7 +57,7 @@
 				@{{ model.APPROVED_USER_NAME }}
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
+				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fa fa-eye"></i></a>
 			</td>
 		</tr>
 

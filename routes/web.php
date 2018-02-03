@@ -58,9 +58,12 @@ Route::group(['prefix' => 'dayoff'], function()
 		Route::get('list', 'Dayoff\ApplicationFormController@list');
 
 		Route::match(["get", "post"], 'add', 'Dayoff\ApplicationFormController@add');
-		Route::match(["get", "post"], 'view/{id}', 'Dayoff\ApplicationFormController@view')->where('id', '[0-9]+');
-		Route::get('delete/{id}', 'Dayoff\ApplicationFormController@delete')->where('id', '[0-9]+');
-		Route::get('recover/{id}', 'Dayoff\ApplicationFormController@recover')->where('id', '[0-9]+');
+		Route::get('{id}/view', 'Dayoff\ApplicationFormController@view')->where('id', '[0-9]+');
+		Route::get('{id}/reject', 'Dayoff\ApplicationFormController@reject')->where('id', '[0-9]+');
+		Route::get('{id}/approve', 'Dayoff\ApplicationFormController@approve')->where('id', '[0-9]+');
+		// Route::group(['prefix' => '{id}'], function()
+		// {
+		// });
 	});
 });
 
@@ -191,6 +194,8 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 
 		Route::match(["get", "post"], 'add', 'Manage\ApplicationTemplateController@add');
 		Route::match(["get", "post"], 'edit/{id}', 'Manage\ApplicationTemplateController@edit')->where('id', '[0-9]+');
+		Route::get('delete/{id}', 'Manage\ApplicationTemplateController@delete')->where('id', '[0-9]+');
+		Route::get('recover/{id}', 'Manage\ApplicationTemplateController@recover')->where('id', '[0-9]+');
 	});
 });
 
