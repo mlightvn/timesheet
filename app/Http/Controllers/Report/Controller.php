@@ -97,7 +97,6 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		$taskSheet["on_task"] 			= $arrOnTasks;
 
 		$data["taskSheet"] 	= $taskSheet;
-
 		\Excel::create($filename, function($excel) use($data) {
 			$excel->sheet('Sheetname', function($sheet) use($data) {
 				$taskSheet 			= $data["taskSheet"];
@@ -165,8 +164,9 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 			$excel->setCreator('Nguyen Nam')->setCompany(env("APP_COMP_NAME"));
 
 			$excel->setDescription($data["filename"]);
-
 		})->export('xlsx');
+		// ERR_INVALID_RESPONSE
+		// 
 	}
 
 	public function writeSheetTable($sheet, $data, $start_row, &$minutes)
@@ -277,6 +277,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 			$workingDate = $workingDate->where("project.is_off", "=", $is_off);
 		}
 // dd($month);
+		$workingDate = $workingDate->where("working_date.organization_id", "=", $this->organization_id);
 		$workingDate = $workingDate->where("working_date.date", "LIKE", $year . "-" . $month . "-" . $day . "%");
 		$workingDate = $workingDate->where("working_date.working_minutes", ">", "0");
 

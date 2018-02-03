@@ -120,7 +120,7 @@
 			<tr>
 				<td colspan="2">
 					<div class="w3-center">
-						<button type="button" onclick="window.open('/admin/report/task_download_{{ $requestYear }}_{{ $requestMonth }}?user_id={{ $report_user_id }}','_blank');" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-download"></span> ダウンロード　　</button>
+						<button type="button" onclick="window.open('/report/project_download_{{ $requestYear }}_{{ $requestMonth }}?user_id={{ $report_user_id }}','_blank');" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-download"></span> ダウンロード　　</button>
 					</div>
 				</td>
 			</tr>

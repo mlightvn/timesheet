@@ -81,7 +81,7 @@
 			<td>@{{ model.session_name }}</td>
 			<td><a href="mailto:@{{ model.email }}"><span class="glyphicon glyphicon-envelope"></span> @{{ model.email }}</a></td>
 			@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
-			<td><a href="/admin/report/task?user_id=@{{ model.id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
+			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
 			@endif
 			<td>
 
