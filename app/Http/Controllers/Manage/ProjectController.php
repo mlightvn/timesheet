@@ -43,7 +43,7 @@ class ProjectController extends Controller {
 			$form_input = $this->form_input;
 
 			// update "project" table
-			$project = neProject;
+			$project = new Project();
 			$project = $project->find($form_input["id"]);
 			$project->fill($form_input);
 			$project->update();
