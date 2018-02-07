@@ -60,7 +60,7 @@
 		@endif
 	@endif
 
-	<a href="https://www.paypal.me/ngocnam" target="_blank" class="w3-btn w3-green">Donate <span class="glyphicon glyphicon-apple"></span></a>
+	<a href="javascript:void(0);" onclick="donate()" class="w3-btn w3-green">Donate <span class="glyphicon glyphicon-apple"></span></a>
 
 	<div class="w3-right">
 		@if(isset($logged_in_user))

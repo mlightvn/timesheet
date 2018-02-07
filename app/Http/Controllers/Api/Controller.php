@@ -12,4 +12,11 @@ class Controller extends \App\Http\Controllers\Controller
 
 		return $this->toJson($model_list);
 	}
+
+	protected function querySetup()
+	{
+		$orderBy_a = array();
+		$orderBy_a["id"] = "ASC";
+		$this->data["request_data"]["orderBy"] = $orderBy_a;
+	}
 }

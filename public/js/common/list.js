@@ -62,6 +62,14 @@ console.log($response);
 
 		};
 
+		$scope.reset = function(event){
+			$(document).ready(function(){
+				$('form[role=search]').trigger('reset');
+				$argument = {page: 1};
+				$scope.get($argument);
+			});
+		};
+
 		$scope.get($argument);
 
 	});

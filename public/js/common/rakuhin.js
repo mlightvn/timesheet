@@ -108,3 +108,7 @@ $(function() {
 		}
 	});
 });
+
+function donate() {
+	window.open('https://www.paypal.me/ngocnam', '_blank');
+}

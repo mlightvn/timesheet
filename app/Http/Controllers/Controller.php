@@ -69,8 +69,14 @@ class Controller extends BaseController
 		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
 	}
 
+	protected function querySetup()
+	{
+	}
+
 	protected function getModelList()
 	{
+		$this->querySetup();
+
 		$table_name = $this->model->getTable();
 
 		if(isset($this->data["request_data"]["where"]["column_list"])){
@@ -289,6 +295,7 @@ class Controller extends BaseController
 
 		$table = $table->orderBy("project.is_deleted", "ASC");
 		$table = $table->orderBy("project.is_off", "ASC")->orderBy("project.id");
+		$table = $table->orderBy("project.id", "ASC");
 // dd($table->toSql());
 		if($isPagination){
 			$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
@@ -339,6 +346,7 @@ class Controller extends BaseController
 		}
 
 		$table = $table->orderBy("users.is_deleted", "ASC");
+		$table = $table->orderBy("users.id", "ASC");
 
 		if($isPagination){
 			$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
@@ -381,6 +389,7 @@ class Controller extends BaseController
 		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
 		$table = $table->orderBy("is_deleted", "ASC");
+		$table = $table->orderBy("id", "ASC");
 
 		if($isPagination){
 			$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
@@ -588,8 +597,8 @@ class Controller extends BaseController
 
 	public function toJson($data)
 	{
-		// return $this->jsonExport($data);
-		return \Response::json($data);
+		return $this->jsonExport($data);
+		// return \Response::json($data);
 	}
 
 	public function add()
