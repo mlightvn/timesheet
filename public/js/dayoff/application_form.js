@@ -1,27 +1,39 @@
 $(document).ready(function(){
+
+	start_date = moment().add(1, 'days');
+	end_date = moment().add(1, 'days');
+
 	/*
 	 * Document:
 	 *   http://xdsoft.net/jqplugins/datetimepicker/
+	 *   http://www.daterangepicker.com/
 	 */
-	$('[datetimepicker=datetimepicker]').datetimepicker({
+	$('[daterangepicker=daterangepicker]').daterangepicker({
 			  lang: "en"
-			, minDate: 0
-			// , minTime: 0
-			, step: 30
-			, mask: true
-			, format: "Y-m-d H:i"
-			// , defaultDate:new Date()
-			// , defaultTime:"01:00"
 
-			// , onSelectDate: function (dateText, $element) {
-			// 		date = $element.val();
-			// 		addTimeSheet(date);
-			// 	}
-			// , onSelectTime: function (dateText, $element) {
-			// 		date = $element.val();
-			// 		addTimeSheet(date);
-			// 	}
+			// , startDate: start_date
+			// , endDate: end_date
+			, minDate: 0
+
+			, showDropdowns: true
+			// , step: 30
+			// , mask: true
+			, timepicker: false
+			// , timePickerIncrement: 5
+			, locale: {
+				// format: 'YYYY-MM-DD HH:mm'
+				format: 'YYYY-MM-DD'
+			}
 	});
+
+	// $('input[daterangepicker=daterangepicker]').on('apply.daterangepicker', function(ev, picker) {
+	// });
+
+	// $('input[daterangepicker=daterangepicker]').on('cancel.daterangepicker', function(ev, picker) {
+	// });
+
+
+
 
 	$('#application-template').change(function(event) {
 		application_template_id = this.value;

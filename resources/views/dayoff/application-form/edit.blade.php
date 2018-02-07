@@ -1,7 +1,7 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'dayoff_application_form',
-		'datetimepicker'	=> true,
+		'id'					=> 'dayoff_application_form',
+		'daterangepicker'		=> true,
 	]
 )
 
@@ -23,7 +23,6 @@
 <div class="w3-row">
 	{!! Form::model($model, ['ng-app'=>'']) !!}
 	{!! Form::hidden('id') !!}
-	{!! Form::hidden('status') !!}
 
 	@if(isset($message) || session("message"))
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
@@ -92,29 +91,16 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('datetime_from', 'From Date time') !!}</th>
+			<th>{!! Form::label('date_range', '日付') !!} <span class="w3-text-red">※</span></th>
 			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="datetime_from"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="date_range"><i class="fa fa-copy"></i></button>
+			</th>
 			@endif
 			<td>
 				@if ($data["view_mode"] == true)
-				{{ $model['datetime_from'] }}
+				{{-- $model['date_range'] --}}
 				@else
-				{!! Form::text('datetime_from', null, ['class'=>'form-control', 'placeholder'=>'YYYY-MM-DD HH:mm', 'datetimepicker'=>'datetimepicker']) !!}
-				@endif
-			</td>
-		</tr>
-
-		<tr>
-			<th>{!! Form::label('datetime_to', 'To Date time') !!}</th>
-			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="datetime_to"><i class="fa fa-copy"></i></button></th>
-			@endif
-			<td>
-				@if ($data["view_mode"] == true)
-				{{ $model['datetime_to'] }}
-				@else
-				{!! Form::text('datetime_to', null, ['class'=>'form-control', 'placeholder'=>'YYYY-MM-DD HH:mm', 'datetimepicker'=>'datetimepicker']) !!}
+				<input type="text" id="date_range" class="form-control" placeholder="YYYY-MM-DD - YYYY-MM-DD" daterangepicker="daterangepicker" readonly="readonly">
 				@endif
 			</td>
 		</tr>
@@ -176,7 +162,7 @@
 </div>
 
 @include('_include.admin_footer', [
-	'id'			=>'dayoff_application_form',
-	'js'			=>'dayoff/application_form',
-	'datetimepicker'	=> true,
+	'id'					=>'dayoff_application_form',
+	'js'					=>'dayoff/application_form',
+	'daterangepicker'		=> true,
 ])

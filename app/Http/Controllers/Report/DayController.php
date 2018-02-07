@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Model\Project;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
+use App\Model\ApplicationForm;
 
 class DayController extends Controller {
 
@@ -52,6 +53,34 @@ class DayController extends Controller {
 		$arrHolidayList = $this->getHolidays($this->sRequestYearMonth);
 		$is_holiday_data_exist = (count($arrHolidayList) > 0);
 
+		// ApplicationForm
+		{
+			$application_form_model = ApplicationForm();
+			$application_form_model = $application_form_model->where("status", "=", 1); // Approved
+			$application_form_model = $application_form_model->where("applied_user_id", "=", $user_id);
+
+			$whereRaw = "
+					('{REQUEST_MONTH_START_DATE}' <= DATE_FORMAT(datetime_from, '%Y-%m-%d') 
+				AND (DATE_FORMAT(datetime_from, '%Y-%m-%d') <= '{REQUEST_MONTH_END_DATE}'
+			";
+			$whereRaw = str_replace("{REQUEST_MONTH_START_DATE}", $this->sRequestYearMonth . "-01", $whereRaw);
+			$whereRaw = str_replace("{REQUEST_MONTH_END_DATE}", $this->sDbRequestDate, $whereRaw);
+			$application_form_model = $application_form_model->whereRaw(\\DB::raw($whereRaw));
+
+			$application_form_model = $application_form_model->select([
+				"*",
+				\DB::raw("DATE_FORMAT(datetime_from, '%Y-%m-%d') AS DATE_FROM"),
+				\DB::raw("DATE_FORMAT(datetime_to, '%Y-%m-%d') AS DATE_TO"),
+			]);
+
+			$form_list = $application_form_model->get();
+			$application_form_list = array();
+			// foreach ($form_list as $key => $form) {
+			// 	$application_form_list[$form["datetime_from"]]
+			// }
+		}
+
+		// arrWorkingDays
 		for ($day=1; $day <= $this->lastDayOfMonth; $day++) {
 			$arrWorkingDays[$day] = array();
 			$date = $this->sRequestYearMonth . "-" . $day;

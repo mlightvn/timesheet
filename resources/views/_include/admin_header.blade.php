@@ -33,6 +33,10 @@
 	<link rel="stylesheet" href="/css/common/jquery.datetimepicker.min.css">
 	@endif
 
+	@if (isset($daterangepicker) && ($daterangepicker == true))
+	<link rel="stylesheet" href="/css/common/daterangepicker.css">
+	@endif
+
 	@if (in_array($id, array("report_time", "report_day", "report_project", "report_holiday")))
 	<link rel="stylesheet" href="/css/common/jquery-ui.css">
 	<script src="/js/common/jquery-ui.js"></script>

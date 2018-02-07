@@ -12,7 +12,7 @@ class ApplicationFormController extends Controller {
 		parent::init();
 
 		$this->model = new ApplicationForm();
-		$this->model->organization_id = $this->organization_id;
+		// $this->model->organization_id = $this->organization_id;
 		// $this->model->status = 0; //Applied
 		// $this->model->applied_user_id = \Auth::id();
 		$this->data['applied_user_name'] = "";
@@ -37,19 +37,69 @@ class ApplicationFormController extends Controller {
 		// 	unset($this->model->applied_user_name);
 		// }
 
-		$this->model->status = 0; //Applied
-		// $this->model->organization_id = $this->organization_id;
+		$this->model->status = 0; // Applied
+		$this->model->organization_id = $this->organization_id;
 		$this->model->applied_user_id = \Auth::id();
 		$this->data['applied_user_name'] = \Auth::user()->name;
-		$this->model->datetime_from = date("Y-m-d 00:00");
-		$this->model->datetime_to = date("Y-m-d 23:00");
+		// $this->model->datetime_from = date("Y-m-d 00:00");
+		// $this->model->datetime_to = date("Y-m-d 23:00");
 
 		$controller = new ApplicationTemplateController($this->request);
 		$template_list = $controller->getList();
 
 		$this->data["template_list"] = $template_list;
 
+		$is_submit = false;
+		// if(isset($this->form_input["status"])){
+		// 	unset($this->form_input["status"]);
+		// }
+		if(isset($this->form_input["date_range"])){
+			$is_submit = true;
+
+			$date_range = isset($this->form_input["date_range"]) ? $this->form_input["date_range"] : NULL;
+			unset($this->form_input["date_range"]); // in order not to insert into DB, release this variable
+
+			$date_start = NULL;
+			$date_end = NULL;
+			if($date_range){
+				$dates = explode(" - ", $date_range);
+				$length = count($dates);
+				$date_start = ($length > 1) ? $dates[0] : NULL;
+				$date_end = ($length > 2) ? $dates[1] : NULL;
+			}
+
+			if($date_start){
+				return parent::add();
+			}else{
+				$alert_type = "error";
+				$message = "日付を必ず入力してください。";
+
+				return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>$message, "alert_type" => $alert_type]);
+			}
+		}
 		return parent::add();
+	}
+
+	private function applicationDateInsert($application_form_id, $date_start_s, $date_end_s)
+	{
+		$model = new \App\Model\ApplicationDate();
+		$model->application_form_id = $application_form_id;
+		$model->status = 0;
+
+		// if(!$is_insert){ // 更新の場合
+		// 	// 最初、古データ削除
+		// 	$model = $model->where("application_form_id", "=", $application_form_id);
+		// 	$model->delete();
+		// }
+
+		$date_start 		= new Date($date_start_s); // DateTime
+		$date_end 			= new Date($date_end_s);
+		$date_diff 			= $date_end->diff($date_start);
+		for ($iDate = $date_start; $iDate  < $date_end; $iDate = date('Y-m-d', strtotime($iDate . ' +1 day'))) { 
+			$model->applied_date = $iDate->format('Y-m-d');
+			$model->save();
+		}
+
 	}
 
 	public function view($id)

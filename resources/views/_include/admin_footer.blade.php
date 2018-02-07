@@ -8,6 +8,11 @@
 <script src="/js/common/jquery.datetimepicker.full.min.js"></script>
 @endif
 
+@if (isset($daterangepicker) && ($daterangepicker == true))
+<script src="/js/common/moment.min.js"></script>
+<script src="/js/common/daterangepicker.js"></script>
+@endif
+
 <script src="/js/common/rakuhin.js"></script>
 
 @if (isset($js_list))
