@@ -1,6 +1,6 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'month',
+		'id'				=> 'report_month',
 		'title'				=> 'Month table',
 	]
 )

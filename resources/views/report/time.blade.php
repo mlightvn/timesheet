@@ -1,8 +1,8 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'time',
+		'id'				=> 'report_time',
 		'title'				=> 'Time table',
-		'css'				=> 'time',
+		'css'				=> 'report/time',
 	]
 )
 
@@ -145,5 +145,5 @@
 
 
 @include('_include.admin_footer', [
-		'js'				=> 'time',
+		'js'				=> 'report/time',
 ])

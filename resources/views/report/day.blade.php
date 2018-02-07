@@ -1,8 +1,8 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'day',
+		'id'				=> 'report_day',
 		'title'				=> 'Day table',
-		'css'				=> 'day',
+		'css'				=> 'report/day',
 	]
 )
 
@@ -38,6 +38,7 @@
 			<tr class="w3-brown">
 				<th nowrap="nowrap">日</th>
 				<th>時間</th>
+				<th>Description</th>
 				<th></th>
 			</tr>
 			</thead>
@@ -51,6 +52,8 @@
 					<div class="{{ ((intval($arrWorkingDay['minutes']) >= 480) || ($arrWorkingDay['is_holiday'])) ? 'w3-text-green' : 'w3-text-red' }}">
 					{{ $arrWorkingDay["hour_label"] }} 
 					</div>
+				</td>
+				<td>
 				</td>
 				<td>
 					<a href="/admin/report/time?date={{ $sRequestYearMonth . '-' . $day }}"><span class="glyphicon glyphicon-info-sign"></span></a>
@@ -83,5 +86,5 @@
 
 
 @include('_include.admin_footer', [
-	"js"			=> "day",
+	"js"			=> "report/day",
 ])

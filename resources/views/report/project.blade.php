@@ -1,8 +1,8 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'task',
+		'id'				=> 'report_project',
 		'title'				=> 'Task table',
-		'css'				=> 'task',
+		'css'				=> 'report/project',
 	]
 )
 
@@ -133,5 +133,5 @@
 
 
 @include('_include.admin_footer', [
-	"js"			=> "task",
+	"js"			=> "report/project",
 ])

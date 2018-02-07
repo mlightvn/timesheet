@@ -4,7 +4,6 @@ $(function() {
 		, changeYear: true
 		, inline: true
 
-		// , dateFormat: 'yy-mm'
 		, monthNames: [ "1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月" ]
 		, monthNamesShort: [ "1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月" ]
 		, dayNames: [ "日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日" ]
@@ -19,7 +18,8 @@ $(function() {
 	}) // YYYY/MM/DD をセット
 	.datepicker("setDate", $('#sRequestDate').val())
 	.datepicker("option", "onChangeMonthYear", function (year, month) {
-			window.location.href = "/admin/report/day?year_month=" + year + "-" + (month < 10 ? ("0" + month) : month);
+			var report_user_id = $("#report_user_id").val();
+			window.location.href = "/report/project?user_id=" + report_user_id + "&year_month=" + year + "-" + (month < 10 ? ("0" + month) : month);
 		})
 	;
 
