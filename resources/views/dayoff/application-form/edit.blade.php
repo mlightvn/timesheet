@@ -100,7 +100,7 @@
 				@if ($data["view_mode"] == true)
 				{{-- $model['date_range'] --}}
 				@else
-				<input type="text" id="date_range" class="form-control" placeholder="YYYY-MM-DD - YYYY-MM-DD" daterangepicker="daterangepicker" readonly="readonly">
+				<input type="text" id="date_range" name="date_range" class="form-control" placeholder="YYYY-MM-DD - YYYY-MM-DD" daterangepicker="daterangepicker" readonly="readonly">
 				@endif
 			</td>
 		</tr>

@@ -33,11 +33,20 @@ class ApplicationFormController extends Controller {
 
 	public function add()
 	{
+// $date_start 		= new \DateTime("2018-02-18");
+// $date_end 			= new \DateTime("2018-02-22");
+// $date_diff 			= $date_end->diff($date_start);
+// dd($date_diff);
+
+// $applied_date_s = $date_start->format('Y-m-d');
+// dd($applied_date_s);
+
+		$url = $this->url_pattern . '.edit';
+
 		// if($this->form_input && (count($this->form_input) > 0)){ // Submit
 		// 	unset($this->model->applied_user_name);
 		// }
 
-		$this->model->status = 0; // Applied
 		$this->model->organization_id = $this->organization_id;
 		$this->model->applied_user_id = \Auth::id();
 		$this->data['applied_user_name'] = \Auth::user()->name;
@@ -50,26 +59,36 @@ class ApplicationFormController extends Controller {
 		$this->data["template_list"] = $template_list;
 
 		$is_submit = false;
-		// if(isset($this->form_input["status"])){
-		// 	unset($this->form_input["status"]);
-		// }
+
 		if(isset($this->form_input["date_range"])){
 			$is_submit = true;
 
 			$date_range = isset($this->form_input["date_range"]) ? $this->form_input["date_range"] : NULL;
 			unset($this->form_input["date_range"]); // in order not to insert into DB, release this variable
 
-			$date_start = NULL;
-			$date_end = NULL;
+			$date_start_s = NULL;
+			$date_end_s = NULL;
 			if($date_range){
 				$dates = explode(" - ", $date_range);
 				$length = count($dates);
-				$date_start = ($length > 1) ? $dates[0] : NULL;
-				$date_end = ($length > 2) ? $dates[1] : NULL;
+				$date_start_s = ($length >= 1) ? $dates[0] : NULL;
+				$date_end_s = ($length >= 2) ? $dates[1] : NULL;
 			}
 
-			if($date_start){
-				return parent::add();
+			if($date_start_s && $date_end_s){
+				// Insert into Application Form table
+				$this->model->fill($this->form_input);
+				$this->model->save();
+
+				$application_form_id = $this->model->id;
+
+				$this->applicationDateInsert($application_form_id, $date_start_s, $date_end_s);
+
+				$alert_type = "success";
+				$message = "新規作成完了";
+
+				$url = "/" . str_replace(".", "/", $this->url_pattern) . "/" . $application_form_id . "view";
+				return redirect($url)->with(["message"=>$message, "alert_type" => $alert_type]);
 			}else{
 				$alert_type = "error";
 				$message = "日付を必ず入力してください。";
@@ -77,27 +96,25 @@ class ApplicationFormController extends Controller {
 				return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>$message, "alert_type" => $alert_type]);
 			}
 		}
+
 		return parent::add();
 	}
 
 	private function applicationDateInsert($application_form_id, $date_start_s, $date_end_s)
 	{
-		$model = new \App\Model\ApplicationDate();
-		$model->application_form_id = $application_form_id;
-		$model->status = 0;
+		$date_start 		= new \DateTime($date_start_s);
+		$date_end 			= new \DateTime($date_end_s);
+		$iDate 				= $date_start;
 
-		// if(!$is_insert){ // 更新の場合
-		// 	// 最初、古データ削除
-		// 	$model = $model->where("application_form_id", "=", $application_form_id);
-		// 	$model->delete();
-		// }
-
-		$date_start 		= new Date($date_start_s); // DateTime
-		$date_end 			= new Date($date_end_s);
-		$date_diff 			= $date_end->diff($date_start);
-		for ($iDate = $date_start; $iDate  < $date_end; $iDate = date('Y-m-d', strtotime($iDate . ' +1 day'))) { 
-			$model->applied_date = $iDate->format('Y-m-d');
+		for ($applied_date_s = $date_start_s; $applied_date_s <= $date_end_s;) {
+			$model 							= new \App\Model\ApplicationDate();
+			$model->application_form_id 	= $application_form_id;
+			$model->status 					= 0;
+			$model->applied_date 			= $applied_date_s;
 			$model->save();
+
+			$applied_date_s 				= date('Y-m-d', strtotime($applied_date_s . ' +1 day'));
+			$iDate 							= new \DateTime($applied_date_s);
 		}
 
 	}
@@ -108,10 +125,10 @@ class ApplicationFormController extends Controller {
 		$model = $model->join("users", "application_form.applied_user_id", "=", "users.id");
 		$model = $model->select(["application_form.*",
 			\DB::raw("users.name AS APPLIED_USER_NAME"),
-			\DB::raw("CASE application_form.status WHEN 1 THEN 'Approved'
-						WHEN 2 THEN 'Rejected'
-						ELSE ''
-						END AS STATUS_LABEL"),
+			// \DB::raw("CASE application_form.status WHEN 1 THEN 'Approved'
+			// 			WHEN 2 THEN 'Rejected'
+			// 			ELSE ''
+			// 			END AS STATUS_LABEL"),
 		]);
 		$model = $model->where("application_form.id", "=", $id);
 		$model = $model->first();
