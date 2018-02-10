@@ -1,39 +1,38 @@
 $(document).ready(function(){
 
-	start_date = moment().add(1, 'days');
-	end_date = moment().add(1, 'days');
+	$date_list_a = {};
 
 	/*
 	 * Document:
 	 *   http://xdsoft.net/jqplugins/datetimepicker/
 	 *   http://www.daterangepicker.com/
+	 *   https://jqueryui.com/datepicker/#inline
 	 */
-	$('[daterangepicker=daterangepicker]').daterangepicker({
-			  lang: "en"
+	$('[datepicker=datepicker]').datepicker({
+			  minDate: 0
+			, dateFormat: 'yy-mm-dd'
 
-			// , startDate: start_date
-			// , endDate: end_date
-			, minDate: 0
+			, onSelect: function (dateText, inst) {
+				$date_list_a[dateText] = 1;
+				date_list_o = $('#date_list');
 
-			, showDropdowns: true
-			// , step: 30
-			// , mask: true
-			, timepicker: false
-			// , timePickerIncrement: 5
-			, locale: {
-				// format: 'YYYY-MM-DD HH:mm'
-				format: 'YYYY-MM-DD'
+				date_list_s = "";
+				$.each($date_list_a, function(index, value) {
+					if(date_list_s == ""){
+						date_list_s = index;
+					}else{
+						date_list_s += "\n" + index;
+					}
+				});
+
+				date_list_o.val(date_list_s);
 			}
 	});
 
-	// $('input[daterangepicker=daterangepicker]').on('apply.daterangepicker', function(ev, picker) {
-	// });
-
-	// $('input[daterangepicker=daterangepicker]').on('cancel.daterangepicker', function(ev, picker) {
-	// });
-
-
-
+	$('[action=clear]').click(function(event) {
+		object_name = $(this).val();
+		$('#' + object_name).val('');
+	});
 
 	$('#application-template').change(function(event) {
 		application_template_id = this.value;

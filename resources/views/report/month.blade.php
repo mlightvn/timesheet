@@ -1,7 +1,8 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'report_month',
-		'title'				=> 'Month table',
+		'id'					=> 'report_month',
+		'title'					=> 'Month table',
+		'datepicker'			=> true,
 	]
 )
 
@@ -68,4 +69,5 @@
 
 
 @include('_include.admin_footer', [
+	'datepicker'			=> true,
 ])

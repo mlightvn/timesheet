@@ -132,7 +132,7 @@ $(document).ready(function(){
 	}
 
 	$( "#datepicker" ).datepicker({
-			changeMonth: true
+			  changeMonth: true
 			, changeYear: true
 			, onSelect: function (dateText, inst) {
 					var date = $(this).val();

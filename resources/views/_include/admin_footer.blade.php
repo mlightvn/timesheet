@@ -13,6 +13,10 @@
 <script src="/js/common/daterangepicker.js"></script>
 @endif
 
+@if (isset($datepicker) && ($datepicker == true))
+<script src="/js/common/jquery-ui.js"></script>
+@endif
+
 <script src="/js/common/rakuhin.js"></script>
 
 @if (isset($js_list))

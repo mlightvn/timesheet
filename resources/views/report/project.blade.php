@@ -3,6 +3,7 @@
 		'id'				=> 'report_project',
 		'title'				=> 'Task table',
 		'css'				=> 'report/project',
+		'datepicker'			=> true,
 	]
 )
 
@@ -133,5 +134,6 @@
 
 
 @include('_include.admin_footer', [
-	"js"			=> "report/project",
+	"js"				=> "report/project",
+	'datepicker'		=> true,
 ])

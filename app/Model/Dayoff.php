@@ -12,6 +12,7 @@ class Dayoff extends Model
 		'name',
 		'description',
 		'applied_user_id',
+		'date_list',
 		// 'approved_user_id',
 		// 'datetime_from',
 		// 'datetime_to',

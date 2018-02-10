@@ -13,7 +13,7 @@
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
 
 @if(session("message"))
-	@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message")), "alert_type" => (isset($alert_type) ? $alert_type : session("alert_type"))])
+	@include('_include.alert_message')
 @endif
 
 <div class="w3-row">
@@ -29,7 +29,6 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>Started Date</th>
 			<th>Application</th>
 			<th>状態</th>
 			<th>登録者</th>
@@ -37,17 +36,14 @@
 			<th></th>
 		</tr>
 		</thead>
-		<tr class="@{{ model.STATUS_COLOR }}" ng-repeat="model in model_list">
+		<tr ng-repeat="model in model_list">
 			<td>
 				@{{ model.id }}
 			</td>
 			<td>
-				@{{ model.datetime_from }}
-			</td>
-			<td>
 				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fa fa-eye"></i> @{{ model.name }}</a>
 			</td>
-			<td>
+			<td class="@{{ model.STATUS_COLOR }}">
 				@{{ model.STATUS_LABEL }}
 			</td>
 			<td>

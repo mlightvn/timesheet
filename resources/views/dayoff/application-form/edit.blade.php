@@ -1,16 +1,12 @@
 @include('_include.admin_header',
 	[
 		'id'					=> 'dayoff_application_form',
-		'daterangepicker'		=> true,
+		'datepicker'			=> true,
 	]
 )
 
 <div class="w3-row">
-	@if ($data["view_mode"] == true)
 	<h1>各種申請</h1>
-	@else
-	<h1>各種申請</h1>
-	@endif
 	<br>
 </div>
 
@@ -21,11 +17,20 @@
 </div>
 
 <div class="w3-row">
-	{!! Form::model($model, ['ng-app'=>'']) !!}
-	{!! Form::hidden('id') !!}
+{{--
+	@if ($data["view_mode"] == true)
+		<form method="POST" action="{{ $data['url_pattern'] . '/' . $model->id }}/approve" accept-charset="UTF-8">
+			{{ csrf_field() }}
+	@else
+	@endif
+--}}
+
+	{!! Form::model($model) !!}
+
+	{{ Form::hidden('id', $model->id) }}
 
 	@if(isset($message) || session("message"))
-		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
+		@include('_include.alert_message')
 	@endif
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
@@ -51,16 +56,9 @@
 			<td>
 				@if ($data["view_mode"] == true)
 				{{ $model['name'] }}
-					@if ($model["status"] == "1")
-						<span class="badge w3-green">
-					@elseif ($model["status"] == "2")
-						<span class="badge w3-gray">
-					@else
-						<span>
-					@endif
-					{{ $model['STATUS_LABEL'] }}</span>
+					<span class="badge {{$model->STATUS_COLOR}}">{{ $model->STATUS_LABEL }}</span>
 				@else
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'required'=>'required']) !!}
+					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'required'=>'required']) !!}
 				@endif
 			</td>
 		</tr>
@@ -72,7 +70,7 @@
 			@endif
 			<td>
 				@if ($data["view_mode"] == true)
-				{!! nl2br(e($model['description'])) !!}
+				{!! nl2br(e($model->description)) !!}
 				@else
 				{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報']) !!}
 				@endif
@@ -91,16 +89,52 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('date_range', '日付') !!} <span class="w3-text-red">※</span></th>
+			<th>{!! Form::label('date_list', '日付') !!} <span class="w3-text-red">※</span></th>
 			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="date_range"><i class="fa fa-copy"></i></button>
+			<th><button type="button" name="btnCopy" value="date_list"><i class="fa fa-copy"></i></button>
 			</th>
 			@endif
 			<td>
 				@if ($data["view_mode"] == true)
-				{{-- $model['date_range'] --}}
+					{!! nl2br(e($model->date_list)) !!}
+
+{{--
+				<table class="timesheet_table w3-table-all w3-striped w3-bordered">
+					<thead>
+						<tr>
+							<th>日付</th>
+							<th>却下・同意</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($data["date_list"] as $key => $date)
+						<tr>
+							<td>{{$date["applied_date"]}}</td>
+							<td>
+								<!-- Rounded switch -->
+								<label class="switch">
+									<input type="checkbox" id="applied_date[{{$date['applied_date']}}]" name="applied_date[{{$date['applied_date']}}]" value="{{$date['applied_date']}}" {{($date['status'] == 1) ? 'checked' : ''}}>
+									<span class="slider round"></span>
+								</label>
+
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+--}}
+
 				@else
-				<input type="text" id="date_range" name="date_range" class="form-control" placeholder="YYYY-MM-DD - YYYY-MM-DD" daterangepicker="daterangepicker" readonly="readonly">
+				<div class="w3-row s12 m12 l12">
+					<div class="w3-col s12 m4 l4">
+						<div id="datepicker" datepicker="datepicker"></div>
+					</div>
+					<div class="w3-col s12 m8 l8">
+						<textarea name="date_list" id="date_list" class="form-control" rows="10" readonly="readonly" maxlength="255"></textarea>
+						<br>
+						<button type="button" class="w3-button w3-brown" action="clear" value="date_list"><i class="fa fa-close"></i></button>
+					</div>
+				</div>
 				@endif
 			</td>
 		</tr>
@@ -108,32 +142,11 @@
 		@if ($data["view_mode"] == true)
 		<tr>
 			<th>{!! Form::label('status', '状態') !!}</th>
-			<td class="{{ ($model['status'] == '1') ? 'w3-green' : (($model['status'] == '2') ? 'w3-gray' : '') }}">
+			<td class="{{$model->STATUS_COLOR}}">
 				{{ $model['STATUS_LABEL'] }}
 			</td>
 		</tr>
 		@endif
-
-{{--
-		<tr>
-			<th>{!! Form::label('approved_user_id', 'Approver') !!}</th>
-			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="approved_user_id"><i class="fa fa-copy"></i></button></th>
-			<td>
-				{!! Form::text('approved_user_id', null, ['class'=>'form-control', 'placeholder'=>'Approver']) !!}
-			</td>
-		</tr>
-
-		<tr>
-			<th>{!! Form::label('status', '状態') !!}</th>
-			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="status"><i class="fa fa-copy"></i></button></th>
-			@endif
-			<td>
-				{!! Form::select('status', ['0'=>'Applied', '1'=>'Approved', '2'=>'Rejected', ], NULL, ['class'=>'form-control']) !!}
-			</td>
-		</tr>
---}}
 
 		@if ($model->status == 0)
 		<tfoot>
@@ -142,10 +155,10 @@
 				<div class="w3-center">
 					@if ($data["view_mode"] == true)
 						@if ( $logged_in_user->permission_flag == "Manager" || ($logged_in_user->id == $model->applied_user_id))
-						<a href="{{ $data['url_pattern'] }}/{{$model->id}}/reject" class="w3-button w3-gray w3-xlarge">　　<span class="fa fa-close"></span>　却下　　</a>
+						<a class="w3-button w3-gray w3-xlarge" href="{{ $data['url_pattern'] }}/{{$model->id}}/reject">　　<span class="fa fa-close"></span>　却下　　</a>
 						@endif
 						@if ( $logged_in_user->permission_flag == "Manager" )
-						<a href="{{ $data['url_pattern'] }}/{{$model->id}}/approve" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-check"></span>　同意　　</a>
+						<a class="w3-button w3-brown w3-xlarge"href="{{ $data['url_pattern'] }}/{{$model->id}}/approve">　　<span class="fa fa-check"></span>　同意　　</a>
 						@endif
 					@else
 					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span>　登録　　</button>
@@ -164,5 +177,5 @@
 @include('_include.admin_footer', [
 	'id'					=>'dayoff_application_form',
 	'js'					=>'dayoff/application_form',
-	'daterangepicker'		=> true,
+	'datepicker'			=> true,
 ])

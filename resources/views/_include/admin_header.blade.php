@@ -37,9 +37,8 @@
 	<link rel="stylesheet" href="/css/common/daterangepicker.css">
 	@endif
 
-	@if (in_array($id, array("report_time", "report_day", "report_project", "report_holiday")))
+	@if (isset($datepicker) && ($datepicker == true))
 	<link rel="stylesheet" href="/css/common/jquery-ui.css">
-	<script src="/js/common/jquery-ui.js"></script>
 	@endif
 
 	@if (isset($css))

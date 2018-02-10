@@ -3,6 +3,7 @@
 		'id'				=> 'report_time',
 		'title'				=> 'Time table',
 		'css'				=> 'report/time',
+		'datepicker'		=> true,
 	]
 )
 
@@ -146,4 +147,5 @@
 
 @include('_include.admin_footer', [
 		'js'				=> 'report/time',
+		'datepicker'		=> true,
 ])

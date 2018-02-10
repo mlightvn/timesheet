@@ -16,7 +16,7 @@ class Controller extends \App\Http\Controllers\Controller
 	protected function querySetup()
 	{
 		$orderBy_a = array();
-		$orderBy_a["id"] = "ASC";
-		$this->data["request_data"]["orderBy"] = $orderBy_a;
+		$orderBy_a["id"] 							= "DESC";
+		$this->data["request_data"]["orderBy"] 		= $orderBy_a;
 	}
 }

@@ -53,32 +53,7 @@ class DayController extends Controller {
 		$arrHolidayList = $this->getHolidays($this->sRequestYearMonth);
 		$is_holiday_data_exist = (count($arrHolidayList) > 0);
 
-		// ApplicationForm
-		{
-			$application_form_model = ApplicationForm();
-			$application_form_model = $application_form_model->where("status", "=", 1); // Approved
-			$application_form_model = $application_form_model->where("applied_user_id", "=", $user_id);
-
-			$whereRaw = "
-					('{REQUEST_MONTH_START_DATE}' <= DATE_FORMAT(datetime_from, '%Y-%m-%d') 
-				AND (DATE_FORMAT(datetime_from, '%Y-%m-%d') <= '{REQUEST_MONTH_END_DATE}'
-			";
-			$whereRaw = str_replace("{REQUEST_MONTH_START_DATE}", $this->sRequestYearMonth . "-01", $whereRaw);
-			$whereRaw = str_replace("{REQUEST_MONTH_END_DATE}", $this->sDbRequestDate, $whereRaw);
-			$application_form_model = $application_form_model->whereRaw(\\DB::raw($whereRaw));
-
-			$application_form_model = $application_form_model->select([
-				"*",
-				\DB::raw("DATE_FORMAT(datetime_from, '%Y-%m-%d') AS DATE_FROM"),
-				\DB::raw("DATE_FORMAT(datetime_to, '%Y-%m-%d') AS DATE_TO"),
-			]);
-
-			$form_list = $application_form_model->get();
-			$application_form_list = array();
-			// foreach ($form_list as $key => $form) {
-			// 	$application_form_list[$form["datetime_from"]]
-			// }
-		}
+		$application_form_list = $this->getApplicationFormList($user_id, $this->sRequestYearMonth);
 
 		// arrWorkingDays
 		for ($day=1; $day <= $this->lastDayOfMonth; $day++) {
@@ -96,6 +71,13 @@ class DayController extends Controller {
 			$arrWorkingDays[$day]["day"] = $day;
 			$arrWorkingDays[$day]["minutes"] = 0;
 			$arrWorkingDays[$day]["hour_label"] = "00:00";
+
+			if(isset($application_form_list[$day])){
+				$arrWorkingDays[$day]["application_title"] = $application_form_list[$day]->name;
+			}else{
+				$arrWorkingDays[$day]["application_title"] = "";
+			}
+
 		}
 		foreach ($arrWorkingMinutes as $key => $oWorkingMinutes) {
 			if($oWorkingMinutes->total_working_minutes > 0){
@@ -134,6 +116,36 @@ class DayController extends Controller {
 						, "total_working_hours_label" 		=> $total_working_hours_label
 						, "total_working_minutes" 			=> $total_working_minutes
 				]);
+	}
+
+	private function getApplicationFormList($applied_user_id, $applied_year_month)
+	{
+		$model = new \App\Model\ApplicationForm();
+
+		$model = $model->join("application_date", function($join){
+			$join->on("application_date.application_form_id", 		"=", "application_form.id")
+				 ->on("application_date.organization_id", 			"=", "application_form.organization_id")
+			;
+		});
+
+		$model = $model->where("application_form.applied_user_id", "=", $applied_user_id);
+		$model = $model->where("application_form.date_list", "LIKE", "%" . $applied_year_month . "%");
+		$model = $model->where("application_form.status", "=", "1"); //Approve
+
+		$model = $model->select([
+			"application_form.*",
+			"application_date.applied_date",
+			\DB::raw("DAY(application_date.applied_date) AS 'APPLIED_DAY'"),
+		]);
+
+		$model_list = $model->get();
+
+		$return_list = array();
+		foreach ($model_list as $key => $model) {
+			$return_list[$model["APPLIED_DAY"]] = $model;
+		}
+
+		return $return_list;
 	}
 
 	public function getWorkingMinutes($year_month)

@@ -1,13 +1,16 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'report_day',
-		'title'				=> 'Day table',
-		'css'				=> 'report/day',
+		'id'					=> 'report_day',
+		'title'					=> 'Day table',
+		'css'					=> 'report/day',
+		'datepicker'			=> true,
 	]
 )
 
 		<form action="{{ $data['url_pattern'] }}" method="post">
 			{{ csrf_field() }}
+
+			<input type="hidden" id="data_source_url" value="/api/report/day">
 
 			<input type="hidden" name="sRequestYearMonth" value="{{ $sRequestYearMonth }}">
 			<input type="hidden" id="sRequestDate" name="sRequestDate" value="{{ $sDbRequestDate }}">
@@ -24,9 +27,12 @@
 		</div>
 
 		<div id="divMessageBorder" class="container w3-responsive">
-			<div class="w3-row w3-col s12 m12 l12">
-				<div class="w3-center">
-						<span id="datepicker"></span>
+			<div class="w3-row">
+				<div class="w3-col s12 m4 l4">
+					<span id="datepicker"></span>
+				</div>
+				<div class="w3-col s12 m8 l8">
+					<button type="button" class="w3-button w3-brown" ng-click="reset()"><i class="fa fa-refresh"></i></button>
 				</div>
 			</div>
 			<br><br><br>
@@ -53,7 +59,7 @@
 					{{ $arrWorkingDay["hour_label"] }} 
 					</div>
 				</td>
-				<td>
+				<td>{{ $arrWorkingDay['application_title'] }}
 				</td>
 				<td>
 					<a href="/admin/report/time?date={{ $sRequestYearMonth . '-' . $day }}"><span class="glyphicon glyphicon-info-sign"></span></a>
@@ -86,5 +92,6 @@
 
 
 @include('_include.admin_footer', [
-	"js"			=> "report/day",
+	"js"					=> "report/day",
+	'datepicker'			=> true,
 ])
