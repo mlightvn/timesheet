@@ -19,8 +19,22 @@ $(function() {
 	}) // YYYY/MM/DD をセット
 	.datepicker("setDate", $('#sRequestDate').val())
 	.datepicker("option", "onChangeMonthYear", function (year, month) {
-			window.location.href = "/report/day?year_month=" + year + "-" + (month < 10 ? ("0" + month) : month);
+			year_month = year + "-" + (month < 10 ? ("0" + month) : month);
+			$argument = {page:1,year_month:year_month};
+			angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope().get($argument);
 		})
 	;
+
+	$('[action="reset"]').click(function(event) {
+		$('#datepicker').datepicker('setDate', null);
+
+		$current_date = new Date();
+		year = $current_date.getFullYear();
+		month = $current_date.getMonth();
+
+		year_month = year + "-" + (month < 10 ? ("0" + month) : month);
+		$argument = {page:1,year_month:year_month};
+		angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope().get($argument);
+	});
 
 });

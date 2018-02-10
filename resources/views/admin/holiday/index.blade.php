@@ -45,17 +45,17 @@
 				</td>
 				<td>
 				<label class="switch">
-					<input type="checkbox" name="holiday[{{ substr($record->date, 0, 10) }}][is_holiday]" value="{{ ($record->is_holiday ? $record->is_holiday : 0) }}" {!! ($record->is_holiday) ? 'checked="checked"' : '' !!} {!! ($logged_in_user->permission_flag == "Manager") ? '' : 'disabled="disabled"'!!}>
+					<input type="checkbox" name="holiday[{{ substr($record->date, 0, 10) }}][is_holiday]" value="{{ ($record->is_holiday ? $record->is_holiday : 0) }}" {!! ($record->is_holiday) ? 'checked="checked"' : '' !!} {!! (($logged_in_user->permission_flag == "Manager") || ($logged_in_user->permission_flag == "Administrator")) ? '' : 'disabled="disabled"'!!}>
 					<span class="slider round"></span>
 				</label>
 				</td>
 				<td>
-					<input type="text" name="holiday[{{ substr($record->date, 0, 10) }}][name]" value="{{ $record->name }}" class="form-control" {!! ($logged_in_user->permission_flag == "Manager") ? '' : 'readonly="readonly"'!!}>
+					<input type="text" name="holiday[{{ substr($record->date, 0, 10) }}][name]" value="{{ $record->name }}" class="form-control" {!! (($logged_in_user->permission_flag == "Manager") || ($logged_in_user->permission_flag == "Administrator")) ? '' : 'readonly="readonly"'!!}>
 				</td>
 			</tr>
 			@endforeach
 
-			@if($logged_in_user->permission_flag == "Manager")
+			@if(($logged_in_user->permission_flag == "Manager") || ($logged_in_user->permission_flag == "Administrator"))
 			<tfoot>
 			<tr>
 				<td colspan="3">

@@ -31,7 +31,7 @@ function loadData($argument) {
 					.then(
 						function($response) { // 成功
 							$scope.model_list = $response.data.data;
-	// console.log($response.data);
+// console.log($response.data);
 
 							$scope.last_page   = $response.data.last_page;
 							$scope.current_page  = $response.data.current_page;

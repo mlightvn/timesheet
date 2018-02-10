@@ -7,15 +7,17 @@
 	]
 )
 
+<div ng-app="myApp" ng-controller="myCtrl">
+
 		<form action="{{ $data['url_pattern'] }}" method="post">
 			{{ csrf_field() }}
 
 			<input type="hidden" id="data_source_url" value="/api/report/day">
 
-			<input type="hidden" name="sRequestYearMonth" value="{{ $sRequestYearMonth }}">
-			<input type="hidden" id="sRequestDate" name="sRequestDate" value="{{ $sDbRequestDate }}">
-			<input type="hidden" id="iTotalWorkingMinutes" name="iTotalWorkingMinutes" value="{{ $total_working_minutes }}">
-			<input type="hidden" id="sTotalWorkingHoursLabel" name="sTotalWorkingHoursLabel" value="{{ $total_working_hours_label }}">
+			<input type="hidden" name="sRequestYearMonth" value="@{{ model_list.sRequestYearMonth }}">
+			<input type="hidden" id="sRequestDate" name="sRequestDate" value="@{{ model_list.sDbRequestDate }}">
+			<input type="hidden" id="iTotalWorkingMinutes" name="iTotalWorkingMinutes" value="@{{ model_list.total_working_minutes }}">
+			<input type="hidden" id="sTotalWorkingHoursLabel" name="sTotalWorkingHoursLabel" value="@{{ model_list.total_working_hours_label }}">
 
 		<div id="divMessageBorder" class="container w3-responsive w3-hide">
 			<div class="w3-row w3-col s12 m12 l12 w3-border w3-border-green">
@@ -32,7 +34,7 @@
 					<span id="datepicker"></span>
 				</div>
 				<div class="w3-col s12 m8 l8">
-					<button type="button" class="w3-button w3-brown" ng-click="reset()"><i class="fa fa-refresh"></i></button>
+					<button type="button" class="w3-button w3-brown" action="reset"><i class="fa fa-refresh"></i></button>
 				</div>
 			</div>
 			<br><br><br>
@@ -41,36 +43,34 @@
 		<div class="w3-responsive">
 		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
-			<tr class="w3-brown">
-				<th nowrap="nowrap">日</th>
-				<th>時間</th>
-				<th>Description</th>
-				<th></th>
-			</tr>
+				<tr class="w3-brown">
+					<th nowrap="nowrap">日</th>
+					<th>時間</th>
+					<th>Description</th>
+					<th></th>
+				</tr>
 			</thead>
 
-			@foreach($arrWorkingDays as $day => $arrWorkingDay)
-			<tr {!! ($arrWorkingDay['is_holiday']) ? 'class="w3-gray"' : '' !!}>
+			<tr class="@{{ model.status_color }}" ng-repeat="model in model_list.arrWorkingDays">
 				<td align="right">
-					<a href="/admin/report/time?date={{ $sRequestYearMonth . '-' . $day }}" title="{{ $arrWorkingDay['name'] }}">{{ $day }} <span class="glyphicon glyphicon-new-window"></span></a>
+					<a href="@{{ model.TIME_PAGE_URL }}" title="@{{ model.name }}"><span ng-bind="model.day"></span> <span class="glyphicon glyphicon-new-window"></span></a>
 				</td>
 				<td>
-					<div class="{{ ((intval($arrWorkingDay['minutes']) >= 480) || ($arrWorkingDay['is_holiday'])) ? 'w3-text-green' : 'w3-text-red' }}">
-					{{ $arrWorkingDay["hour_label"] }} 
-					</div>
-				</td>
-				<td>{{ $arrWorkingDay['application_title'] }}
+					<span class="@{{ model.hour_color }}" ng-bind="model.hour_label"></span>
 				</td>
 				<td>
-					<a href="/admin/report/time?date={{ $sRequestYearMonth . '-' . $day }}"><span class="glyphicon glyphicon-info-sign"></span></a>
+					<span ng-bind="model.application_title"></span>
+				</td>
+				<td>
+					<a href="@{{ model.TIME_PAGE_URL }}"><span class="glyphicon glyphicon-info-sign"></span></a>
 				</td>
 			</tr>
-			@endforeach
-
 			<tr>
 				<td align="right">
 				</td>
-				<td><label class="w3-xlarge">{{ $total_working_hours_label }}</label>
+				<td><label class="w3-xlarge" ng-bind="model_list.total_working_hours_label"></label>
+				</td>
+				<td>
 				</td>
 				<td>
 				</td>
@@ -78,9 +78,9 @@
 
 			<tfoot>
 			<tr>
-				<td colspan="3">
+				<td colspan="4">
 					<div class="w3-center">
-						<button type="button" onclick="window.open('/admin/report/day_download_{{ $requestYear }}_{{ $requestMonth }}','_blank');" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-download"></span> ダウンロード　　</button>
+						<button type="button" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-download"></span> ダウンロード　　</button>
 					</div>
 				</td>
 			</tr>
@@ -90,8 +90,10 @@
 		<br>
 		</div>
 
+</div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
 
 @include('_include.admin_footer', [
 	"js"					=> "report/day",
+	'js_list'				=> true,
 	'datepicker'			=> true,
 ])
