@@ -19,4 +19,5 @@ class Controller extends \App\Http\Controllers\Controller
 		$orderBy_a["id"] 							= "DESC";
 		$this->data["request_data"]["orderBy"] 		= $orderBy_a;
 	}
+
 }

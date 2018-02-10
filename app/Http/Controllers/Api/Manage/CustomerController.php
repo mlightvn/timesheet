@@ -15,6 +15,14 @@ class CustomerController extends \App\Http\Controllers\Api\Controller {
 		$this->model->organization_id 		= $this->organization_id;
 	}
 
+	protected function querySetup()
+	{
+		$orderBy_a = array();
+		$orderBy_a["is_deleted"] 					= "ASC";
+		$orderBy_a["id"] 							= "DESC";
+		$this->data["request_data"]["orderBy"] 		= $orderBy_a;
+	}
+
 	protected function getModelList()
 	{
 		$model = parent::getModelList();

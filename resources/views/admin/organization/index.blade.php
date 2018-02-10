@@ -35,7 +35,7 @@
 		</tr>
 		</thead>
 
-		<tr class="" ng-repeat="model in model_list">
+		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td>@{{ model.id }}</td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> @{{ model.name }}</a>
