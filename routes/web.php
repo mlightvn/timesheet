@@ -61,9 +61,6 @@ Route::group(['prefix' => 'dayoff'], function()
 		Route::get('{id}/view', 'Dayoff\ApplicationFormController@view')->where('id', '[0-9]+');
 		Route::get('{id}/reject', 'Dayoff\ApplicationFormController@reject')->where('id', '[0-9]+');
 		Route::get('{id}/approve', 'Dayoff\ApplicationFormController@approve')->where('id', '[0-9]+');
-		// Route::group(['prefix' => '{id}'], function()
-		// {
-		// });
 	});
 });
 

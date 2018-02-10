@@ -12,12 +12,7 @@ class ApplicationFormController extends Controller {
 		parent::init();
 
 		$this->model = new ApplicationForm();
-		// $this->model->organization_id = $this->organization_id;
-		// $this->model->status = 0; //Applied
-		// $this->model->applied_user_id = \Auth::id();
 		$this->data['applied_user_name'] = "";
-		// $this->model->datetime_from = date("Y-m-d 00:00");
-		// $this->model->datetime_to = date("Y-m-d 23:00");
 		$this->data["view_mode"] = false;
 
 		$column_list = array();

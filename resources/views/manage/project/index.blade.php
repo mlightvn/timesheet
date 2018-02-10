@@ -40,9 +40,9 @@
 		</thead>
 
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
-			<td>@{{ model.id }}</td>
+			<td><span ng-bind="model.id"></span></td>
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<td>@{{ model.organization_name }}</td>
+			<td><span ng-bind="model.organization_name"></span></td>
 			@endif
 			<td>
 				<label class="switch">
@@ -50,7 +50,7 @@
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}">@{{ model.name }}</a></td>
+			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" ng-bind="model.name"></a></td>
 			<td>
 				<label class="switch">
 					<input type="checkbox" name="project[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT">

@@ -34,6 +34,14 @@
 		</tr>
 
 		<tr>
+			<th>{!! Form::label('development_flag', '環境') !!}</th>
+			<th><button type="button" name="btnCopy" value="development_flag"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::select('development_flag', ['0'=>'本番', '1'=>'ステージング', '2'=>'開発', ], NULL, ['class'=>'form-control']) !!}
+			</td>
+		</tr>
+
+		<tr>
 			<th>{!! Form::label('url', 'url') !!}</th>
 			<th><button type="button" name="btnCopy" value="url"><i class="fa fa-copy"></i></button></th>
 			<td>
@@ -112,14 +120,6 @@
 			<th><button type="button" name="btnCopy" value="db_description"><i class="fa fa-copy"></i></button></th>
 			<td>
 				{!! Form::textarea('db_description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細']) !!}
-			</td>
-		</tr>
-
-		<tr>
-			<th>{!! Form::label('development_flag', '環境') !!}</th>
-			<th><button type="button" name="btnCopy" value="development_flag"><i class="fa fa-copy"></i></button></th>
-			<td>
-				{!! Form::select('development_flag', ['0'=>'本番', '1'=>'ステージング', '2'=>'開発', ], NULL, ['class'=>'form-control']) !!}
 			</td>
 		</tr>
 

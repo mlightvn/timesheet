@@ -37,13 +37,13 @@
 		</thead>
 
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
-			<td>@{{ model.id }}</td>
+			<td><span ng-bind="model.id"></span></td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span> @{{ model.name }}</a><br>
-				生年月日: @{{ model.birthday }}<br>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span> <span ng-bind="model.name"></span></a><br>
+				生年月日: <span ng-bind="model.birthday"></span><br>
 			</td>
-			<td><a href="mailto:@{{ model.email }}"><span class="fa fa-envelope"></span> @{{ model.email }}</a></td>
-			<td><a href="callto:@{{ model.phone }}">@{{ model.phone }}</a></td>
+			<td><a href="mailto:@{{ model.email }}"><span class="fa fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
+			<td><a href="tel:@{{ model.phone }}" ng-bind="model.phone"></a></td>
 
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>

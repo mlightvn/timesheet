@@ -36,19 +36,19 @@
 		</thead>
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td>
-				@{{ model.id }}
+				<span ng-bind="model.id"></span>
 			</td>
 			<td>
-				<a href="?development_flag=@{{ model.development_flag }}"><i class="fa fa-search"></i> @{{ model.development_flag_label }}</a></td>
+				<a href="?development_flag=@{{ model.development_flag }}"><i class="fa fa-search"></i> <span ng-bind="model.development_flag_label"></span></a></td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> @{{ model.name }}</a><br><br>
-				サイト： <a href="@{{ model.url }}">@{{ model.url }}</a><br>
-				管理： <a href="@{{ model.admin_url }}">@{{ model.admin_url }}</a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> <span ng-bind="model.name"></span></a><br><br>
+				サイト： <a href="@{{ model.url }}"><span ng-bind="model.url"></span></a><br>
+				管理： <a href="@{{ model.admin_url }}"><span ng-bind="model.admin_url"></span></a>
 			</td>
 			<td>
-				SSH： @{{ model.ssh_access_command }}
+				SSH： <span ng-bind="model.ssh_access_command"></span>
 				<br>
-				DB： @{{ model.db_access_command }}
+				DB： <span ng-bind="model.db_access_command"></span>
 			</td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>

@@ -42,9 +42,9 @@
 		</tr>
 		</thead>
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
-			<td>@{{ model.id }}</td>
+			<td><span ng-bind="model.id"></span></td>
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<td>@{{ model.organization_name }}</td>
+			<td><span ng-bind="model.organization_name"></span></td>
 			@endif
 			<td>
 			<span ng-if="model.permission_flag == 'Administrator'">
@@ -60,26 +60,26 @@
 			&nbsp;
 
 				<span ng-if="model.id == '{{ $logged_in_user->id }}'">
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> @{{ model.name }}</a>
+					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> <span ng-bind="model.name"></span></a>
 				</span>
 
 				<span ng-if="model.id != '{{ $logged_in_user->id }}'">
 					@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
 					<span ng-if="model.permission_flag != 'Administrator'">
-						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> @{{ model.name }}</a>
+						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> <span ng-bind="model.name"></span></a>
 					</span>
 					<span ng-if="model.permission_flag == 'Administrator'">
-						@{{ model.name }}
+						<span ng-bind="model.name"></span>
 					</span>
 					@else
-						@{{ model.name }}
+						<span ng-bind="model.name"></span>
 					@endif
 				</span>
 
 
 			</td>
-			<td>@{{ model.session_name }}</td>
-			<td><a href="mailto:@{{ model.email }}"><span class="glyphicon glyphicon-envelope"></span> @{{ model.email }}</a></td>
+			<td><span ng-bind="model.session_name"></span></td>
+			<td><a href="mailto:@{{ model.email }}"><span class="glyphicon glyphicon-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
 			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
 			@endif
