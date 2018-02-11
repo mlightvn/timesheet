@@ -36,6 +36,7 @@
 			<th>部署</th>
 			<th>email</th>
 			@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
+			<th>Dayoff</th>
 			<th>レポート</th>
 			@endif
 			<th></th>
@@ -81,6 +82,7 @@
 			<td><span ng-bind="model.session_name"></span></td>
 			<td><a href="mailto:@{{ model.email }}"><span class="glyphicon glyphicon-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
+			<td><span ng-bind="model.dayoff"></span></td>
 			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
 			@endif
 			<td>

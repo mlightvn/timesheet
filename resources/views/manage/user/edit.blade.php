@@ -79,6 +79,18 @@
 			</td>
 		</tr>
 		@endif
+
+		<tr>
+			<th>{!! Form::label('dayoff', 'Dayoff') !!}</th>
+			<td>
+				@if(in_array($logged_in_user->permission_flag, array("Manager")))
+					{!! Form::input('number', 'dayoff', null, ['class'=>'form-control', 'placeholder'=>'0']) !!}
+				@else
+					{{ $model->dayoff }}
+				@endif
+			</td>
+		</tr>
+
 		<tfoot>
 		<tr>
 			<td colspan="2">

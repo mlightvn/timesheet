@@ -314,10 +314,22 @@ class Controller extends BaseController
 			, DB::raw("organization.name AS organization_name")
 			, DB::raw("session.name AS session_name")
 			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS")
+			, DB::raw("users.id 		AS user_id")
 		]);
 
 		$table = $table->leftJoin("session", "users.session_id", "=", "session.id");
 		$table = $table->leftJoin("organization", "users.organization_id", "=", "organization.id");
+		// $table = $table->leftJoin("dayoff", function ($join)
+		// {
+		// 	$join->on("users.id", 					"=", "dayoff.user_id")
+		// 		 ->on("users.organization_id", 		"=", "dayoff.organization_id")
+		// 		 ->on("dayoff.year_month", 			"=", \DB::raw("
+		// 		 	CONCAT(
+		// 		 			YEAR(CURRENT_DATE()), '-', LPAD(MONTH(CURRENT_DATE()), 2, '0')
+		// 		 		)
+		// 		 	"))
+		// 	;
+		// });
 
 		if($id){
 			$table = $table->where("users.id", "=", $id);
@@ -331,10 +343,10 @@ class Controller extends BaseController
 
 		if($keyword){
 			$where = " (
-							   (users.id = '{KEYWORD}')
-							OR (users.email LIKE '%{KEYWORD}%')
-							OR (users.name LIKE '%{KEYWORD}%')
-							OR (session.name LIKE '%{KEYWORD}%')
+							   (users.id 		= '{KEYWORD}')
+							OR (users.email 	LIKE '%{KEYWORD}%')
+							OR (users.name 		LIKE '%{KEYWORD}%')
+							OR (session.name 	LIKE '%{KEYWORD}%')
 						)";
 			$where = str_replace("{KEYWORD}", $keyword, $where);
 

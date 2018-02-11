@@ -15,7 +15,6 @@
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black"><span class="fa fa-calendar"></span> 休暇・有給 <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="/dayoff/dayoff" class="w3-bar-item w3-button w3-hover-black">休暇・有給</a>
 			<a href="/dayoff/application-form" class="w3-bar-item w3-button w3-hover-black">各種申請</a>
 			<a href="/report/day" class="w3-bar-item w3-button w3-hover-black">休暇履歴</a>
 		</div>

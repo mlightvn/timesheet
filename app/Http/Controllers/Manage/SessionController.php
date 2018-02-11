@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Manage;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Model\Session;
 
 class SessionController extends Controller {
