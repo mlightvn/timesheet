@@ -4,6 +4,7 @@
 	]
 )
 
+@if (in_array($logged_in_user->permission_flag, array("Administrator")))
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
@@ -18,9 +19,7 @@
 
 <div class="w3-row">
 	<button class="w3-button w3-brown" ng-click="reset()"><span class="fa fa-list"></span></button>&nbsp;
-	@if ( $logged_in_user->permission_flag == "Administrator" )
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
-	@endif
 	<br><br>
 
 	<input type="hidden" id="data_source_url" value="/api/admin/organization">
@@ -42,20 +41,9 @@
 			</td>
 			<td><a href="@{{ model.website }}" target="_blank">@{{ model.website }}</a></td>
 			<td>
-			@if (in_array($logged_in_user->permission_flag, array("Manager")))
-			<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
-			@else
-			<span class="glyphicon glyphicon-pencil"></span> 
-			@endif
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
 
-			@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
-				<span ng-if="model.is_deleted == true">
-					| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><span class="fa fa-recycle w3-text-green"></span></a>
-				</span>
-				<span ng-if="model.is_deleted == false">
-					| <a href="{{ $data['url_pattern'] }}/delete/@{{ model.id }}"><span class="fa fa-trash w3-text-red"></span></a>
-				</span>
-			@endif
+				| <a href="@{{model.RECOVER_OR_DELETE_URL}}"><span class="@{{ model.RECOVER_OR_DELETE_ICON }} @{{ model.RECOVER_OR_DELETE_COLOR }}"></span></a>
 			</td>
 		</tr>
 
@@ -67,6 +55,11 @@
 </div>
 
 </div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
+@else
+<div class="w3-row">
+	<h1 class="w3-text-red">許可なし</h1>
+</div>
+@endif
 
 @include('_include.admin_footer', [
 	'js_list'	=> true,

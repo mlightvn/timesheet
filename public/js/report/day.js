@@ -37,4 +37,8 @@ $(function() {
 		angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope().get($argument);
 	});
 
+	$('[action="download"]').click(function(event) {
+		url = $(this).val();
+		window.open(url,'_blank');
+	});
 });

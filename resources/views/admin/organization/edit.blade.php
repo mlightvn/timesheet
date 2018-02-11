@@ -4,15 +4,14 @@
 	]
 )
 
+@if (in_array($logged_in_user->permission_flag, array("Administrator")))
 <div class="w3-row">
 	<h1>ユーザー</h1>
 	<br>
 </div>
 
 <div class="w3-row">
-	@if ( $logged_in_user->permission_flag == "Administrator" )
 	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	@endif
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	<br><br>
 </div>
@@ -52,11 +51,6 @@
 			</td>
 		</tr>
 
-{{--
-		@if(in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-		@endif
-	--}}
-
 		<tfoot>
 		<tr>
 			<td colspan="2">
@@ -70,5 +64,10 @@
 	<br>
 	{!! Form::close() !!}
 </div>
+@else
+<div class="w3-row">
+	<h1 class="w3-text-red">許可なし</h1>
+</div>
+@endif
 
 @include('_include.admin_footer')
