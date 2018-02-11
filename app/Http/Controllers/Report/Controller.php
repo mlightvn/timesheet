@@ -97,7 +97,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		$taskSheet["on_task"] 			= $arrOnTasks;
 
 		$data["taskSheet"] 	= $taskSheet;
-		\Excel::create($filename, function($excel) use($data) {
+		$excel = \Excel::create($filename, function($excel) use($data) {
 			$excel->sheet('Sheetname', function($sheet) use($data) {
 				$taskSheet 			= $data["taskSheet"];
 
@@ -164,7 +164,8 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 			$excel->setCreator('Nguyen Nam')->setCompany(env("APP_COMP_NAME"));
 
 			$excel->setDescription($data["filename"]);
-		})->export('xlsx');
+		});
+		$excel->export('xlsx');
 		// ERR_INVALID_RESPONSE
 		// 
 	}

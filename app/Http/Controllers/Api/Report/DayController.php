@@ -116,6 +116,7 @@ class DayController extends \App\Http\Controllers\Api\Controller {
 		$data["arrWorkingDays"] 					= $arrWorkingDays;
 		$data["total_working_hours_label"] 			= $total_working_hours_label;
 		$data["total_working_minutes"] 				= $total_working_minutes;
+		$data["download_url"] 						= "/report/day_download_" . $this->sRequestYearMonth;
 
 		$return_data["data"] 						= $data;
 

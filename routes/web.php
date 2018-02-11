@@ -29,7 +29,7 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 	Route::post('time', 'Report\TimeController@regist');
 
 	Route::get('day', 'Report\DayController@index');
-	Route::get('day_download_{year}_{month}', 'Report\DayController@download');
+	Route::get('day_download_{year}-{month}', 'Report\DayController@download');
 
 	Route::get('month', 'Report\MonthController@index');
 
@@ -107,9 +107,6 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		});
 	});
 
-	// Route::group(['prefix' => 'dayoff'], function(){
-
-	// });
 	Route::group(['prefix' => 'application-form'], function(){
 		Route::get('', 'Api\ApplicationFormController@list');
 		Route::get('list', 'Api\ApplicationFormController@list');

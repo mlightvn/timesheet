@@ -80,7 +80,7 @@
 			<tr>
 				<td colspan="4">
 					<div class="w3-center">
-						<button type="button" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-download"></span> ダウンロード　　</button>
+						<a type="button" href="@{{model_list.download_url}}" target="_blank" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-download"></span> ダウンロード　　</a>
 					</div>
 				</td>
 			</tr>

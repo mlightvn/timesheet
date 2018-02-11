@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Api\Admin;
 
-use Illuminate\Http\Request;
 use App\Model\Organization;
 
 class OrganizationController extends \App\Http\Controllers\Api\Controller {
@@ -10,23 +9,26 @@ class OrganizationController extends \App\Http\Controllers\Api\Controller {
 		parent::init();
 
 		$this->model = new Organization();
-		$this->url_pattern = "admin.organization";
-		$this->data["url_pattern"] = "/admin/organization";
 	}
 
-	public function list()
+	protected function querySetup()
 	{
-		$url = $this->url_pattern . '.index';
+		$orderBy_a = array();
+		$orderBy_a["is_deleted"] 					= "ASC";
+		$orderBy_a["id"] 							= "ASC";
+		$this->data["request_data"]["orderBy"] 		= $orderBy_a;
+	}
 
-		$keyword = null;
-		if(isset($this->form_input["keyword"])){
-			$keyword = $this->form_input["keyword"];
-		}
-		$this->data["keyword"] = $keyword;
+	protected function getModelList()
+	{
+		$model = parent::getModelList();
 
-		$arrSessions = $this->getSessions(true, NULL, NULL, $keyword);
+		$model = $model->select([
+					"organization.*",
+					\DB::raw("CASE organization.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+		]);
 
-		return $this->toJson($arrSessions);
+		return $model;
 	}
 
 }

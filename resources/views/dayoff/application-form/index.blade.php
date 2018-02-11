@@ -38,19 +38,19 @@
 		</thead>
 		<tr ng-repeat="model in model_list">
 			<td>
-				@{{ model.id }}
+				<span ng-bind="model.id"></span>
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fa fa-eye"></i> @{{ model.name }}</a>
+				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fa fa-eye"></i> <span ng-bind="model.name"></span></a>
 			</td>
 			<td class="@{{ model.STATUS_COLOR }}">
-				@{{ model.STATUS_LABEL }}
+				<span ng-bind="model.STATUS_LABEL"></span>
 			</td>
 			<td>
-				@{{ model.APPLIED_USER_NAME }}
+				<span ng-bind="model.APPLIED_USER_NAME"></span>
 			</td>
 			<td>
-				@{{ model.APPROVED_USER_NAME }}
+				<span ng-bind="model.APPROVED_USER_NAME"></span>
 			</td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fa fa-eye"></i></a>
