@@ -72,27 +72,42 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 	Route::group(['prefix' => 'domain'], function(){
 		Route::get('', 'Api\DomainController@list');
 		Route::get('list', 'Api\DomainController@list');
+
+		Route::get('{id}/delete' 		, 'Api\DomainController@delete')->where('id', '[0-9]+');
+		Route::get('{id}/recover' 		, 'Api\DomainController@recover')->where('id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'manage'], function(){
 		Route::group(['prefix' => 'user'], function(){
 			Route::get('', 'Api\Manage\UserController@list');
 			Route::get('list', 'Api\Manage\UserController@list');
+
+			Route::get('{id}/delete' 		, 'Api\Manage\UserController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\Manage\UserController@recover')->where('id', '[0-9]+');
 		});
 
 		Route::group(['prefix' => 'customer'], function(){
 			Route::get('', 'Api\Manage\CustomerController@list');
 			Route::get('list', 'Api\Manage\CustomerController@list');
+
+			Route::get('{id}/delete' 		, 'Api\Manage\CustomerController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\Manage\CustomerController@recover')->where('id', '[0-9]+');
 		});
 
 		Route::group(['prefix' => 'project'], function(){
 			Route::get('', 'Api\Manage\ProjectController@list');
 			Route::get('list', 'Api\Manage\ProjectController@list');
+
+			Route::get('{id}/delete' 		, 'Api\Manage\ProjectController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\Manage\ProjectController@recover')->where('id', '[0-9]+');
 		});
 
 		Route::group(['prefix' => 'session'], function(){
 			Route::get('', 'Api\Manage\SessionController@list');
 			Route::get('list', 'Api\Manage\SessionController@list');
+
+			Route::get('{id}/delete' 		, 'Api\Manage\SessionController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\Manage\SessionController@recover')->where('id', '[0-9]+');
 		});
 
 	});
@@ -107,6 +122,9 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		Route::get('list', 'Api\ApplicationTemplateController@list');
 
 		Route::get('get/{id}', 'Api\ApplicationTemplateController@get')->where('id', '[0-9]+');
+
+		Route::get('{id}/delete' 		, 'Api\ApplicationTemplateController@delete')->where('id', '[0-9]+');
+		Route::get('{id}/recover' 		, 'Api\ApplicationTemplateController@recover')->where('id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'admin'], function(){
@@ -114,6 +132,9 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		Route::group(['prefix' => 'organization'], function(){
 			Route::get('', 'Api\Admin\OrganizationController@list');
 			Route::get('list', 'Api\Admin\OrganizationController@list');
+
+			Route::get('{id}/delete' 		, 'Api\Admin\OrganizationController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\Admin\OrganizationController@recover')->where('id', '[0-9]+');
 		});
 	});
 

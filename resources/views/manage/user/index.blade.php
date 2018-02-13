@@ -105,12 +105,7 @@
 				</span>
 
 				@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
-					<span ng-if="model.is_deleted == true">
-						| <a href="{{ $data['url_pattern'] }}/recover/@{{ model.id }}"><span class="fa fa-recycle w3-text-green"></span></a>
-					</span>
-					<span ng-if="model.is_deleted == false">
-						| <a href="{{ $data['url_pattern'] }}/delete/@{{ model.id }}"><span class="fa fa-trash w3-text-red"></span></a>
-					</span>
+					| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
 				@endif
 			</td>
 		</tr>

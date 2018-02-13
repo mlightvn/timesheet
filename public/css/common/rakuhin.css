@@ -1,3 +1,7 @@
 .raku-textbox-asterisk{
 	-webkit-text-security: disc;
 }
+
+.raku-cursor-hand{
+	cursor: pointer;
+}

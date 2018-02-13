@@ -30,6 +30,8 @@ class ApplicationTemplateController extends \App\Http\Controllers\Api\Controller
 		$model = $model->select([
 					"application_template.*",
 					\DB::raw("CASE application_template.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+					\DB::raw("CASE application_template.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
+					\DB::raw("CASE application_template.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS"),
 		]);
 
 		return $model;

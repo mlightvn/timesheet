@@ -4,8 +4,8 @@ function loadData($argument) {
 	app.controller('myCtrl', function($scope, $http) {
 		$scope.get = function ($argument) {
 			$(document).ready(function(){
-				keyword 					= $('#keyword').val();
-				data_source_url 			= $('#data_source_url').val();
+				keyword 								= $('#keyword').val();
+				data_source_url 						= $('#data_source_url').val();
 
 				if(!$argument){
 					$argument 							= {};
@@ -47,6 +47,7 @@ function loadData($argument) {
 
 						}, function ($response) { // エラー発生
 							// $scope.myWelcome = $response.statusText;
+console.log("get: error");
 console.log($response);
 						}
 					);
@@ -68,6 +69,75 @@ console.log($response);
 				$argument = {page: 1};
 				$scope.get($argument);
 			});
+		};
+
+		$scope.delete = function(id){
+			$(document).ready(function(){
+				$argument 							= {};
+
+				data_source_url 					= $('#data_source_url').val();
+				url 								= data_source_url + "/" + id + "/delete";
+				// $argument["data_source_url"] 		= url;
+				config = {
+					// params: $argument,
+					method : 'GET',
+					headers : {'Accept' : 'application/json'}
+				};
+
+				$http.get(url , config)
+					.then(
+						function($response) { // 成功
+							// $scope.model_list = $response.data.data;
+// console.log($response);
+							$argument = {page: 1};
+							$scope.get($argument);
+
+						}, function ($response) { // エラー発生
+							// $scope.myWelcome = $response.statusText;
+console.log("delete: error");
+console.log($response);
+						}
+					);
+			});
+		};
+
+		$scope.recover = function(id){
+			$(document).ready(function(){
+				$argument 							= {};
+
+				data_source_url 					= $('#data_source_url').val();
+				url 								= data_source_url + "/" + id + "/recover";
+				// $argument["data_source_url"] 		= url;
+				config = {
+					// params: $argument,
+					method : 'GET',
+					headers : {'Accept' : 'application/json'}
+				};
+
+				$http.get(url , config)
+					.then(
+						function($response) { // 成功
+							// $scope.model_list = $response.data.data;
+// console.log($response);
+							$argument = {page: 1};
+							$scope.get($argument);
+
+						}, function ($response) { // エラー発生
+							// $scope.myWelcome = $response.statusText;
+console.log("recover: error");
+console.log($response);
+						}
+					);
+
+			});
+		};
+
+		$scope.delete_recover = function(id, delete_flag){
+			if(delete_flag){
+				$scope.delete(id);
+			}else{
+				$scope.recover(id);
+			}
 		};
 
 		$scope.get($argument);
@@ -103,3 +173,20 @@ function pagination(app, $argument) {
 }
 
 loadData();
+
+// $(function() {
+// // $(document).ready(function(){
+
+// 	$('[action="recover"]').click(function(event) {
+// 		model_id = $(this).attr("value");
+// 		$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
+// 		$scope.recover(model_id);
+// 	});
+
+// 	$('[action="delete"]').click(function(event) {
+// 		model_id = $(this).attr("value");
+// 		$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
+// 		$scope.delete(model_id);
+// 	});
+
+// });

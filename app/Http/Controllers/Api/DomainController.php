@@ -42,6 +42,11 @@ class DomainController extends Controller {
 						END AS 'development_flag_label'
 					"),
 				\DB::raw("CASE domain.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+				\DB::raw("CASE domain.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
+				\DB::raw("CASE domain.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS"),
+				// \DB::raw("CASE domain.is_deleted WHEN 1 THEN CONCAT('/api/domain/', domain.id, '/recover') ELSE CONCAT('/api/domain/', domain.id, '/delete') END AS DELETED_RECOVER_URL"),
+				// \DB::raw("CASE domain.is_deleted WHEN 1 THEN CONCAT('recover(', domain.id, ')') ELSE CONCAT('delete(', domain.id, ')') END AS DELETED_RECOVER_FUNCTION"),
+				// \DB::raw("CASE domain.is_deleted WHEN 1 THEN 'recover' ELSE 'delete' END AS ACTION"),
 		]);
 
 		if($keyword){

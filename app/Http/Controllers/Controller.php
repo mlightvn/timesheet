@@ -268,6 +268,8 @@ class Controller extends BaseController
 				"project.*", 
 				\DB::raw("organization.name AS organization_name"),
 				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+				\DB::raw("CASE project.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
+				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS"),
 				\DB::raw("user_project.project_id AS SELF_PROJECT"),
 			]);
 
@@ -313,7 +315,11 @@ class Controller extends BaseController
 			  "users.*"
 			, DB::raw("organization.name AS organization_name")
 			, DB::raw("session.name AS session_name")
+
 			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS")
+			, DB::raw("CASE users.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION")
+			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS")
+
 			, DB::raw("users.id 		AS user_id")
 		]);
 
@@ -377,6 +383,8 @@ class Controller extends BaseController
 				"session.*", 
 				DB::raw("organization.name AS organization_name"),
 				DB::raw("CASE session.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+				\DB::raw("CASE session.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
+				\DB::raw("CASE session.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS"),
 			]);
 
 		$table = $table->leftJoin("organization", "session.organization_id", "=", "organization.id");

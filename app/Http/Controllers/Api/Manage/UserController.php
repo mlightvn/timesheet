@@ -29,4 +29,8 @@ class UserController extends \App\Http\Controllers\Api\Controller {
 		return $this->toJson($arrUsers);
 	}
 
+	// protected function querySetup()
+	// {
+	// }
+
 }
