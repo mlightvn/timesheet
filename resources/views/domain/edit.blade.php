@@ -16,6 +16,14 @@
 </div>
 
 <div class="w3-row">
+
+	if(isset($model))
+	<div class="w3-bar w3-brown">
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}/edit/{{ $model.id }}">Domain</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}/edit/{{ $model.id }}/upload">Key file</a>
+	</div>
+	@endif
+
 	{!! Form::model($model, ['ng-app'=>'', 'ng-init'=>"url='" . $model->url . "';admin_url='" . $model->admin_url . "';repository_url='" . $model->repository_url . "'"]) !!}
 	{!! Form::hidden('id') !!}
 	{!! Form::hidden('organization_id') !!}
@@ -69,7 +77,8 @@
 			<th>{!! Form::label('admin_password', '管理のパスワード') !!}</th>
 			<th><button type="button" name="btnCopy" value="admin_password"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::password('admin_password', ['class'=>'form-control raku-textbox-asterisk', 'placeholder'=>'管理のパスワード', 'autocomplete'=>'off', 'current-password'=>'off']) !!}
+				<input type="password" id="dummypass" style="display: none;" />
+				{!! Form::password('admin_password', ['class'=>'form-control raku-textbox-asterisk', 'placeholder'=>'管理のパスワード', 'autocomplete'=>'off', 'current-password'=>'off', 'readonly'=>'readonly']) !!}
 			</td>
 		</tr>
 
