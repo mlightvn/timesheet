@@ -62,6 +62,8 @@ Route::group(['prefix' => 'domain', 'middleware' => ['admin']], function()
 	Route::match(["get", "post"], 'edit/{id}', 'DomainController@edit')->where('id', '[0-9]+');
 	Route::get('delete/{id}', 'DomainController@delete')->where('id', '[0-9]+');
 	Route::get('recover/{id}', 'DomainController@recover')->where('id', '[0-9]+');
+
+	Route::match(["get", "post"], 'edit/{id}/upload', 'DomainController@upload');
 });
 
 Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
