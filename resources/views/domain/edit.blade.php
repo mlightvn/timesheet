@@ -17,10 +17,10 @@
 
 <div class="w3-row">
 
-	if(isset($model))
-	<div class="w3-bar w3-brown">
-		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}/edit/{{ $model.id }}">Domain</a>
-		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}/edit/{{ $model.id }}/upload">Key file</a>
+	@if(isset($model))
+	<div class="w3-bar w3-light-gray">
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}">Domain</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}/upload">Key file</a>
 	</div>
 	@endif
 
