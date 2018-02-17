@@ -318,9 +318,17 @@ class Controller extends BaseController
 
 			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS")
 			, DB::raw("CASE users.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION")
-			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS")
+			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON")
+			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-text-green' ELSE 'w3-text-red' END AS DELETED_RECOVER_COLOR")
 
 			, DB::raw("users.id 		AS user_id")
+			, DB::raw("
+				CASE users.permission_flag 
+					WHEN 'Administrator' THEN 'fa fa-ambulance w3-text-red'
+					WHEN 'Manager' THEN 'glyphicon glyphicon-king'
+					ELSE 'glyphicon glyphicon-pawn'
+				END AS ICON_CLASS
+				")
 		]);
 
 		$table = $table->leftJoin("session", "users.session_id", "=", "session.id");

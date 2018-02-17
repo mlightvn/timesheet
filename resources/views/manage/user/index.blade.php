@@ -48,17 +48,8 @@
 			<td><span ng-bind="model.organization_name"></span></td>
 			@endif
 			<td>
-			<span ng-if="model.permission_flag == 'Administrator'">
-				<span class="fa fa-ambulance w3-text-red"></span> 
-			</span>
-			<span ng-if="model.permission_flag == 'Manager'">
-			<span class="glyphicon glyphicon-king"></span> 
-			</span>
-			<span ng-if="model.permission_flag == 'Member'">
-				<span class="glyphicon glyphicon-pawn"></span> 
-			</span>
-
-			&nbsp;
+				<span class="@{{ model.ICON_CLASS }}"></span>
+				&nbsp;
 
 				<span ng-if="model.id == '{{ $logged_in_user->id }}'">
 					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> <span ng-bind="model.name"></span></a>
@@ -105,7 +96,14 @@
 				</span>
 
 				@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
-					| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
+					|
+					<span ng-if="model.permission_flag != 'Administrator'">
+						<a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a>
+					</span>
+					<span ng-if="model.permission_flag == 'Administrator'">
+						<i class="@{{model.DELETED_RECOVER_ICON}}"></i>
+					</span>
+
 				@endif
 			</td>
 		</tr>
