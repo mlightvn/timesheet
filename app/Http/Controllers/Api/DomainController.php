@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Model\Domain;
 
 class DomainController extends Controller {

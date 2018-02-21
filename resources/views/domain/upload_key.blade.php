@@ -12,18 +12,31 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fa fa-list"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
 	<br><br>
 </div>
 
 <div class="w3-row">
+
+	@if(isset($model))
+	<div class="w3-bar w3-light-gray">
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}">Domain</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}/upload">Key file</a>
+	</div>
+	@endif
+
 	@if(isset($message) || session("message"))
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
 	@endif
 
-	<form action="{{ $data['url_pattern'] }}/upload" method="post" enctype="multipart/form-data">
-	{{ csrf_field() }}
+	<form method="post" enctype="multipart/form-data">
+		{{ csrf_field() }}
+		{!! Form::hidden('domain_id', $model->id) !!}
+		{!! Form::hidden('organization_id', $model->organization_id) !!}
+		<input name="_method" type="hidden" value="PATCH">
+
+		<input type="hidden" id="data_source_url" value="/api/domain/key_file?domain_id={{$model->id}}">
 
 		<div class="col-xs-4">
 
@@ -38,7 +51,7 @@
 					<button type="button" class="btn btn-block fileUploadBtn" onclick="$('#selectFileUpload').click();"><i class="fa fa-folder-open fa-fw"></i> CSVファイル選択</button>
 				</div>
 				<!--<form name="selectFileUpload">-->
-					<input type="file" id="selectFileUpload" style="display:none;" onchange="alert(document.getElementByID("selectFileUpload").value);">
+					<input type="file" id="selectFileUpload" name="selectFileUpload[]" style="display:none;" multiple="multiple">
 				<!--</form>-->
 			</div>
 
@@ -51,10 +64,10 @@
 			<th>ファイル名</th>
 			<th>削除</th>
 		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td><a href="javascript:void(0);"><i class="fa fa-trash"></i></a></td>
+		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
+			<td><span ng-bind="model.id"></span></td>
+			<td><span ng-bind="model.name"></span></td>
+			<td><a href="javascript:void(0);"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a></td>
 		</tr>
 	</table>
 
@@ -62,4 +75,7 @@
 
 </div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
 
-@include('_include.admin_footer')
+@include('_include.admin_footer', [
+	'js'					=> 'domain_key_file',
+	'js_list'				=> true,
+])

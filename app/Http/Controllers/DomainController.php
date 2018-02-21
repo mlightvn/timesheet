@@ -22,16 +22,13 @@ class DomainController extends Controller {
 		$this->data["url_pattern"] 			= "/domain";
 	}
 
-	public function upload()
+	public function upload($domain_id)
 	{
-		if(isset($this->form_input) && (count($this->form_input) > 0)){ // Submit
-			$model = new \App\Model\DomainKeyFile();
-			$model->fill($this->form_input);
-			$model->save();
-		}
+		$model = new \App\Model\Domain();
+		$model = $model->find($domain_id);
 
 		$url = $this->data["url_pattern"] . "/upload_key";
-		return view($url, ["data"=>$this->data]);
+		return view($url, ["data"=>$this->data, "model"=>$model]);
 	}
 
 }

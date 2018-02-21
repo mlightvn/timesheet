@@ -1,13 +1,13 @@
 @include('_include.user_header',
 	[
-		'id'				=> 'domain_list',
+		'id'				=> 'cashflow_list',
 	]
 )
 
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>ドメイン一覧</h1>
+	<h1>Cash Flow一覧</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -23,14 +23,15 @@
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
-	<input type="hidden" id="data_source_url" value="/api/domain">
+	<input type="hidden" id="data_source_url" value="/api/cashflow">
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>環境</th>
-			<th>ドメイン名</th>
-			<th>SSHとDB接続</th>
+			<th>Title</th>
+			<th>Cash Out</th>
+			<th>Cash In</th>
+			<th>Remain amount</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -39,22 +40,19 @@
 				<span ng-bind="model.id"></span>
 			</td>
 			<td>
-				<a href="?development_flag=@{{ model.development_flag }}"><i class="fa fa-search"></i> <span ng-bind="model.development_flag_label"></span></a></td>
-			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> <span ng-bind="model.name"></span></a><br><br>
-				サイト： <a href="@{{ model.url }}"><span ng-bind="model.url"></span></a><br>
-				管理： <a href="@{{ model.admin_url }}"><span ng-bind="model.admin_url"></span></a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> <span ng-bind="model.name"></span></a>
 			</td>
 			<td>
-				SSH： <span ng-bind="model.ssh_access_command"></span>
-				<br>
-				DB： <span ng-bind="model.db_access_command"></span>
+				<span ng-bind="model.AMOUNT_OUT"></span>
+			</td>
+			<td>
+				<span ng-bind="model.AMOUNT_IN"></span>
+			</td>
+			<td>
 			</td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
-				@if(in_array($logged_in_user->permission_flag, array("Member", "Manager")))
-				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
-				@endif
+			</td>
 		</tr>
 
 	</table>
