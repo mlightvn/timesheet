@@ -28,6 +28,8 @@ class CashFlowController extends Controller {
 				$in_out_flag = 0;
 			}
 			$this->model->in_out_flag = $in_out_flag;
+		}else{
+			$this->model->in_out_flag = 1; // default: cash out
 		}
 
 		return parent::add();
