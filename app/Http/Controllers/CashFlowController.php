@@ -20,8 +20,9 @@ class CashFlowController extends Controller {
 	public function add()
 	{
 		if(isset($this->form_input) && (count($this->form_input) > 0)){
-			$in_out_flag = $this->form_input["in_out_flag"];
-			if($in_out_flag == "on"){
+			$in_out_flag = isset($this->form_input["in_out_flag"]) ? $this->form_input["in_out_flag"] : 0;
+
+			if($in_out_flag === "on"){
 				$in_out_flag = 1;
 			}else{
 				$in_out_flag = 0;
@@ -35,15 +36,14 @@ class CashFlowController extends Controller {
 	public function edit($id)
 	{
 		if(isset($this->form_input) && (count($this->form_input) > 0)){
-			$in_out_flag = $this->form_input["in_out_flag"];
-			if($in_out_flag == "on"){
+			$in_out_flag = isset($this->form_input["in_out_flag"]) ? $this->form_input["in_out_flag"] : 0;
+
+			if($in_out_flag === "on"){
 				$in_out_flag = 1;
 			}else{
 				$in_out_flag = 0;
 			}
 			$this->form_input["in_out_flag"] = $in_out_flag;
-			// $this->model = $this->model->find($id);
-			// $this->model->in_out_flag = $in_out_flag;
 		}
 
 		return parent::edit($id);
