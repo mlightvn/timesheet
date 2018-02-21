@@ -52,6 +52,9 @@
 			<th>{!! Form::label('amount', 'amount') !!}</th>
 			<th><button type="button" name="btnCopy" value="amount"><i class="fa fa-copy"></i></button></th>
 			<td>
+				{{--
+				https://developer.mozilla.org/ja/docs/Web/HTML/Element/Input/number
+				--}}
 				{!! Form::number('amount', NULL, ['class'=>'form-control', 'step'=>'any']) !!}
 			</td>
 		</tr>
