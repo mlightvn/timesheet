@@ -28,7 +28,7 @@ class DomainController extends Controller {
 		$model = $model->find($domain_id);
 
 		$url = $this->data["url_pattern"] . "/upload_key";
-		return view($url, ["data"=>$this->data, "model"=>$model]);
+		return view($url, ["data"=>$this->data, "model"=>$model, "logged_in_user"=>$this->logged_in_user]);
 	}
 
 }

@@ -5,7 +5,6 @@ use App\Model\DomainKeyFile;
 
 class DomainKeyFileController extends Controller {
 
-
 	protected function init()
 	{
 		parent::init();
@@ -33,97 +32,108 @@ class DomainKeyFileController extends Controller {
 
 	public function upload()
 	{
-return $this->toJson($this->form_input);
+		$response = array("status"=>0, "message"=>"Success");
 
-// 		if(isset($this->form_input["domain_id"])){
-// 			$domain_id = $this->form_input["domain_id"];
-// 			$this->model->domain_id = $domain_id;
-// 		}
-// $response = array("status"=>99, "message"=>"domain_id: " . $this->model->domain_id);
-// return $this->toJson($response);
+		if(isset($this->form_input["domain_id"])){
+			$domain_id 							= $this->form_input["domain_id"];
+			$this->model->domain_id 			= $domain_id;
+		}
+
+		if(isset($this->form_input["organization_id"])){
+			$organization_id 					= $this->form_input["organization_id"];
+			$this->model->organization_id 		= $organization_id;
+		}
+
+		if (isset($_FILES['file'])) {
+
+			$length = count($_FILES['file']["name"]);
+			for ($i=0; $i < $length; $i++)
+			{
+				$file = $_FILES['file'];
+				$max_file_size = 100000;
+				if($file["size"][$i] > $max_file_size){ // 100KB files can be uploaded.
+					$response["status"] 				= 2;
+					$response["message"] 				= "File size is too big (larger than " . $max_file_size . ").";
+
+					return $this->toJson($response);
+				}
+
+				switch ($file['error'][$i]) {
+					case UPLOAD_ERR_OK:
+						break;
+					case UPLOAD_ERR_NO_FILE:
+						$response["status"] 			= 1;
+						$response["message"] 			= "No file to upload.";
+					case UPLOAD_ERR_INI_SIZE:
+					case UPLOAD_ERR_FORM_SIZE:
+						$response["status"] 			= 2;
+						$response["message"] 			= "File size is too big.";
+					default:
+						$response["status"] 			= 99;
+						$response["message"] 			= "Unknown.";
+				}
+
+				if($response["status"] != 0){
+					return $this->toJson($response);
+				}
+
+				//ファイルをアップロードディレクトリに格納
+				if (is_uploaded_file($file["tmp_name"][$i])) {
+					$directory_path = storage_path() . env("UPLOAD_FOLDER_DOMAIN");
+					$directory_path = $directory_path . $this->model->organization_id;
+					if(!file_exists($directory_path)){
+						mkdir($directory_path, 0775, TRUE);
+					}
+
+					$directory_path = storage_path() . env("UPLOAD_FOLDER_DOMAIN");
+					$directory_path = $directory_path . $this->model->organization_id . "/" . $this->model->domain_id;
+					if(!file_exists($directory_path)){
+						mkdir($directory_path, 0775, TRUE);
+					}
+
+					//アップロードファイル名
+					$file_name = $file["name"][$i];
+					$file_path = $directory_path . "/" . $file_name;
+
+					if (move_uploaded_file($file["tmp_name"][$i], $file_path)) {
+						// chmod($file_path, 0666);
+
+						$model = new DomainKeyFile();
+						$model->organization_id 			= $this->organization_id;
+						$model->domain_id 					= $this->model->domain_id;
+						$model->name 						= $file_name;
+						$model->save();
+					} else {
+						throw new RuntimeException('ファイルをアップロードできません。');
+					}
+				} else {
+					throw new RuntimeException('ファイルが選択されていません。');
+				}
+				//保存されたか確認
+				if(!file_exists($file_path)){
+					throw new RuntimeException('ファイルの保存に失敗しました。');
+				}
+			}
+		}else{
+			$response["status"] 			= 1;
+			$response["message"] 			= "No file to upload.";
+		}
+
+		return $this->toJson($response);
 	}
 
-// 	public function upload()
-// 	{
-// // $response = array("status"=>99, "message"=>"domain_id: " . $model->domain_id);
-// // return $this->toJson($response);
-// 		$response = array("status"=>0, "message"=>"Success");
+	public function delete($id)
+	{
 
-// 		if (isset($_FILES['file']['error']) && is_int($_FILES['file']['error'])) {
-// // $response = array("status"=>99, "message"=>"99. Unknown");
-// // return $this->toJson($response);
+		$model = new DomainKeyFile();
+		$model = $model->find($id);
+		$file_name = $model->name;
+		$model->delete();
 
-// 			// $files = $_FILES['file'];
-// 			$length = count($_FILES['file']["name"]);
-// 			for ($i=0; $i < $length; $i++)
-// 			{
-// 				$file = $_FILES['file'];
-// 				if($file["size"][$i] < 100000){ // 100KB files can be uploaded.
-// 					$response = array("status"=>2, "message"=>"File size is too big.");
-
-// 					return $this->toJson($response);
-// 				}
-
-// 				switch ($file['error'][$i]) {
-// 					case UPLOAD_ERR_OK:
-// 						break;
-// 					case UPLOAD_ERR_NO_FILE:
-// 						$response = array("status"=>1, "message"=>"No file to upload.");
-// 						// throw new RuntimeException('ファイルが選択されていません。');
-// 					case UPLOAD_ERR_INI_SIZE:
-// 					case UPLOAD_ERR_FORM_SIZE:
-// 						$response = array("status"=>2, "message"=>"File size is too big.");
-// 						// throw new RuntimeException('ファイルサイズが大きすぎます。');
-// 					default:
-// 						$response = array("status"=>99, "message"=>"Unknown");
-// 						// throw new RuntimeException('その他のエラーが発生しました。');
-// 				}
-
-// 				if($response["status"] != 0){
-// 					return $this->toJson($response);
-// 				}
-
-// 				// //アップロードされたファイルの種類をチェックする
-// 				// $finfo = finfo_open(FILEINFO_MIME_TYPE);
-// 				// $file_type = $file["type"];
-// 				// $upload_mime_type = finfo_file($finfo, $_FILES["file"]["tmp_name"]);
-// 				// finfo_close($finfo);
-// 				// if (
-// 				// 	!in_array($file_type, ["application/vnd.ms-excel", "application/vnd.msexcel", "text/plain", "text/csv", "text/tsv", "text/comma-separated-values", "application/csv"]) //csv
-// 				// ){
-// 				// 	throw new RuntimeException('アップロードできないファイルの種類です。');
-// 				// }
-
-// 				//ファイルをアップロードディレクトリに格納
-// 				if (is_uploaded_file($file["tmp_name"][$i])) {
-// 					$directory_path = storage_path() . env("UPLOAD_FOLDER_DOMAIN");
-// 					$directory_path = $directory_path . $this->model->domain_id;
-// 					if(!file_exists($directory_path)){
-// 						mkdir($directory_path, 0775, TRUE);
-// 					}
-// 					//アップロードファイル名
-// 					$file_name = $file["name"][$i];
-// 					$file_path = $directory_path . "/" . $file_name;
-// 					// $file_fullpath = $file_path;
-
-// 					if (move_uploaded_file($file["tmp_name"], $file_path)) {
-// 						chmod($file_path, 0666);
-// 					} else {
-// 						throw new RuntimeException('ファイルをアップロードできません。');
-// 					}
-// 				} else {
-// 					throw new RuntimeException('ファイルが選択されていません。');
-// 				}
-// 				//保存されたか確認
-// 				if(!file_exists($file_path)){
-// 					throw new RuntimeException('ファイルの保存に失敗しました。');
-// 				}
-// 			}
-// 		}else{
-// 			$response = array("status"=>1, "message"=>"No file to upload.");
-// 		}
-
-// 		return $this->toJson($response);
-// 	}
+		$directory_path = storage_path() . env("UPLOAD_FOLDER_DOMAIN");
+		$directory_path = $directory_path . $model->organization_id . "/" . $model->domain_id;
+		$file_path = $directory_path . "/" . $file_name;
+		unlink($file_path);
+	}
 
 }

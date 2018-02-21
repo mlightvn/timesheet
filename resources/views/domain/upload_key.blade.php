@@ -34,9 +34,9 @@
 		{{ csrf_field() }}
 		{!! Form::hidden('domain_id', $model->id) !!}
 		{!! Form::hidden('organization_id', $model->organization_id) !!}
-		<input name="_method" type="hidden" value="PATCH">
 
-		<input type="hidden" id="data_source_url" value="/api/domain/key_file?domain_id={{$model->id}}">
+		<input type="hidden" id="data_source_url" value="/api/domain/key_file/list?domain_id={{$model->id}}">
+		<input type="hidden" id="data_source_url_delete" value="/api/domain/key_file">
 
 		<div class="col-xs-4">
 
@@ -61,13 +61,13 @@
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<tr class="w3-brown">
 			<th>#</th>
-			<th>ファイル名</th>
-			<th>削除</th>
+			<th>Filename</th>
+			<th></th>
 		</tr>
-		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
+		<tr ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
 			<td><span ng-bind="model.name"></span></td>
-			<td><a href="javascript:void(0);"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a></td>
+			<td><a href="javascript:void(0);" ng-click="delete(model.id)"><i class="fa fa-trash w3-text-red"></i></a></td>
 		</tr>
 	</table>
 

@@ -97,9 +97,11 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		Route::get('{id}/recover' 		, 'Api\DomainController@recover')->where('id', '[0-9]+');
 
 		Route::group(['prefix' => 'key_file'], function(){
-			Route::get('' 				, 'Api\DomainKeyFileController@list');
-			// Route::match(['get', 'post'], 'upload' 		, 'Api\DomainKeyFileController@upload');
-			Route::post('upload-key' 		, 'Api\DomainKeyFileController@upload');
+			Route::get('' 					, 'Api\DomainKeyFileController@list');
+			Route::get('list' 				, 'Api\DomainKeyFileController@list');
+
+			Route::post('upload' 			, 'Api\DomainKeyFileController@upload');
+			Route::get('{id}/delete' 		, 'Api\DomainKeyFileController@delete')->where('id', '[0-9]+');
 		});
 	});
 

@@ -17,8 +17,6 @@ function loadData($argument) {
 					$argument["data_source_url"] 		= data_source_url;
 				}
 
-				// $argument = {data_source_url: data_source_url, keyword: keyword, page: page};
-
 				url = $argument["data_source_url"];
 				config = {
 					params: $argument,
@@ -75,7 +73,12 @@ console.log($response);
 			$(document).ready(function(){
 				$argument 							= {};
 
-				data_source_url 					= $('#data_source_url').val();
+				$data_source_url_delete 				= ($('#data_source_url_delete')) ? $('#data_source_url_delete') : null;
+				if($data_source_url_delete){
+					data_source_url 					= $data_source_url_delete.val();
+				}else{
+					data_source_url 					= $('#data_source_url').val();
+				}
 				url 								= data_source_url + "/" + id + "/delete";
 				// $argument["data_source_url"] 		= url;
 				config = {

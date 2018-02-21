@@ -31,6 +31,14 @@
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'企業名', 'required'=>'required']) !!}
 			</td>
 		</tr>
+
+		<tr>
+			<th>{!! Form::label('slug', 'Slug※') !!}</th>
+			<td>
+				{!! Form::text('slug', null, ['class'=>'form-control', 'placeholder'=>'slug', 'required'=>'required']) !!}
+			</td>
+		</tr>
+
 		<tr>
 			<th>代表取締役社長</th>
 			<td>
