@@ -26,9 +26,12 @@
 	</div>
 	@endif
 
-	@if(isset($message) || session("message"))
-		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
-	@endif
+	<br>
+	<div id="divAlertBox" class="alert w3-hide">
+		<span class="closebtn">&times;</span>
+		<div id="divMessage"></div>
+	</div>
+	<br>
 
 	<form method="post" enctype="multipart/form-data">
 		{{ csrf_field() }}

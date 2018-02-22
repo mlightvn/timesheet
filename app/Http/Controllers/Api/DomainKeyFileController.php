@@ -32,7 +32,7 @@ class DomainKeyFileController extends Controller {
 
 	public function upload()
 	{
-		$response = array("status"=>0, "message"=>"Success");
+		$response = array("status"=>0, "message"=>"Success", "color_class"=>"w3-green");
 
 		if(isset($this->form_input["domain_id"])){
 			$domain_id 							= $this->form_input["domain_id"];
@@ -95,28 +95,44 @@ class DomainKeyFileController extends Controller {
 					$file_name = $file["name"][$i];
 					$file_path = $directory_path . "/" . $file_name;
 
-					if (move_uploaded_file($file["tmp_name"][$i], $file_path)) {
-						// chmod($file_path, 0666);
+					if(file_exists($file_path)){
+						$response["status"] 			= 3;
+						$response["message"] 			= "File is existing. Delete remote file before re-upload.";
+					}else{
+						if (move_uploaded_file($file["tmp_name"][$i], $file_path)) {
+							// chmod($file_path, 0666);
 
-						$model = new DomainKeyFile();
-						$model->organization_id 			= $this->organization_id;
-						$model->domain_id 					= $this->model->domain_id;
-						$model->name 						= $file_name;
-						$model->save();
-					} else {
-						throw new RuntimeException('ファイルをアップロードできません。');
+							$model = new DomainKeyFile();
+							$model->organization_id 			= $this->organization_id;
+							$model->domain_id 					= $this->model->domain_id;
+							$model->name 						= $file_name;
+							$model->save();
+						} else {
+							$response["status"] 			= 99;
+							$response["message"] 			= "Unknown. Check your server.";
+							// throw new RuntimeException('ファイルをアップロードできません。');
+						}
 					}
+
 				} else {
-					throw new RuntimeException('ファイルが選択されていません。');
+					$response["status"] 			= 1;
+					$response["message"] 			= "No file to upload.";
+					// throw new RuntimeException('ファイルが選択されていません。');
 				}
-				//保存されたか確認
-				if(!file_exists($file_path)){
-					throw new RuntimeException('ファイルの保存に失敗しました。');
-				}
+				// //保存されたか確認
+				// if(!file_exists($file_path)){
+				// 	$response["status"] 			= 3;
+				// 	$response["message"] 			= "File is existing. Delete remote file before re-upload.";
+				// 	// throw new RuntimeException('ファイルの保存に失敗しました。');
+				// }
 			}
 		}else{
 			$response["status"] 			= 1;
 			$response["message"] 			= "No file to upload.";
+		}
+
+		if($response["status"] != 0){
+			$response["color_class"] = "";
 		}
 
 		return $this->toJson($response);

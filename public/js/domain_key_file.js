@@ -1,83 +1,10 @@
 $(document).ready(function(){
 
-	// $('.fileUploadBtn').click(function(event) {
-	// 	FileUpload(event);
-	// });
-
 	$('#selectFileUpload').change(function ($event) {
 		FileUpload($event);
 	});
 
-// 	$('[action=delete]').click(function(event) {
-// console.log("action delete");
-// return;
-// 		value = $(this).attr("value");
-// 		url = '/api/domain/key_file/delete/' + value;
-
-// 		$.ajax({
-// 			url: url,
-// 			type: 'GET',
-// 			dataType: 'json',
-// 			data: {id: value}
-// 		})
-// 		.done(function($response) {
-// 			console.log("success");
-// console.log($response);
-
-// 			$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
-// 			$scope.get();
-// 		})
-// 		.fail(function() {
-// 			console.log("error");
-// 		})
-// 		// .always(function() {
-// 		// 	console.log("complete");
-// 		// });
-
-// 	});
-
 });
-
-// function deleteData(argument) {
-// 	$(document).ready(function(){
-// 		$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
-// 		$scope.delete = function (argument) {
-// 			if(!$argument["id"]){
-// 				$argument["id"] 				= id;
-// 			}else{
-// console.log("no id to delete.");
-// 				return;
-// 			}
-
-// 			url = '/api/domain/key_file/delete/' + id;
-
-// 			config = {
-// 				params: $argument,
-// 				method : 'GET',
-// 				headers : {'Accept' : 'application/json'}
-// 			};
-
-// 			$.ajax({
-// 				url: url,
-// 				type: 'GET',
-// 				dataType: 'json',
-// 				data: {id: value}
-// 			})
-// 			.done(function($response) {
-// 				console.log("success");
-// console.log($response);
-
-// 				$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
-// 				$scope.get();
-// 			})
-
-// 		};
-
-// 	});
-
-// }
-
-// deleteData();
 
 // ブラウザ上でファイルを展開する挙動を抑止
 function onDragOver($event) {
@@ -140,8 +67,11 @@ function FileUpload($event) {
 			console.log("done function");
 // console.log($response);
 
-			$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
-			$scope.get();
+			$('#divAlertBox').removeClass('w3-hide');
+			$('#divAlertBox').removeClass('w3-green');
+			// $('#divAlertBox').removeClass('w3-red');
+			$('#divAlertBox').addClass($response["color_class"]);
+			$('#divMessage').text($response["message"]);
 
 		})
 		.fail(function($response) {
@@ -149,6 +79,13 @@ function FileUpload($event) {
 // console.log($response);
 		})
 		;
+
+		// reload data
+		$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
+		$scope.get();
+
+		// $event.target.value = '';
+		$('#selectFileUpload').val(null);
 
 	});
 
