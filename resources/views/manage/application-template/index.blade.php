@@ -1,6 +1,6 @@
 @include('_include.user_header',
 	[
-		'id'				=> 'manage_application_template',
+		'id'				=> 'manage-application-template',
 	]
 )
 
@@ -57,6 +57,6 @@
 </div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
 
 @include('_include.user_footer', [
-		'id'				=> 'manage_application_template',
+		'id'				=> 'manage-application-template',
 		'js_list'			=> true,
 ])

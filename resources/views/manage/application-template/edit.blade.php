@@ -1,6 +1,6 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'manage_application_template',
+		'id'				=> 'manage-application-template',
 	]
 )
 
@@ -55,6 +55,6 @@
 </div>
 
 @include('_include.admin_footer', [
-	'id'			=>'manage_application_template',
+	'id'			=>'manage-application-template',
 	'js'			=>'manage/application_template',
 ])

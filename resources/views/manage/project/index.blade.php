@@ -1,6 +1,6 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'task_list',
+		'id'				=> 'manage_project',
 	]
 )
 

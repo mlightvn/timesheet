@@ -8,7 +8,7 @@
 			<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_time') ? 'w3-gray' : ''}}">工数入力画面</a>
 			<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}">日別工数集計</a>
 			<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_month') ? 'w3-gray' : ''}}">月別工数集計</a>
-			<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_task') ? 'w3-gray' : ''}}">プロジェクト別工数集計</a>
+			<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_project') ? 'w3-gray' : ''}}">プロジェクト別工数集計</a>
 			<a href="/report/session" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_session') ? 'w3-gray' : ''}}">部署</a>
 		</div>
 	</div>
@@ -27,12 +27,12 @@
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">設定 <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> 会員</a>
+			<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'manage_user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> 会員</a>
 
-			<a href="/manage/customer" class="w3-bar-item w3-button w3-hover-black"><i class="fa fa-address-card" aria-hidden="true"></i> 顧客</a>
+			<a href="/manage/customer" class="w3-bar-item w3-button {{ ($id == 'manage_customer') ? 'w3-gray' : ''}}"><i class="fa fa-address-card" aria-hidden="true"></i> 顧客</a>
 
-			<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'task_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> プロジェクト</a>
-			<a href="/manage/session" class="w3-bar-item w3-button {{ ($id == 'session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
+			<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'manage_project') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> プロジェクト</a>
+			<a href="/manage/session" class="w3-bar-item w3-button {{ ($id == 'manage_session') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> 部署</a>
 
 			@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
 			<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> Application Templates</a>
