@@ -33,6 +33,15 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 
 	Route::get('month', 'Report\MonthController@index');
 
+
+	Route::group(['prefix' => 'session'], function()
+	{
+		Route::get('', 'Report\SessionController@index');
+		Route::get('index', 'Report\SessionController@index');
+
+		Route::get('{session_id}/download/{year}-{month}', 'Report\SessionController@reportDownload')->where('session_id', '[0-9]+');
+	});
+
 	Route::get('project', 'Report\ProjectController@index');
 	Route::get('project_download_{year}_{month}', 'Report\ProjectController@download');
 });

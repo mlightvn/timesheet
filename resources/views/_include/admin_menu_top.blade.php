@@ -9,6 +9,7 @@
 			<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}">日別工数集計</a>
 			<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_month') ? 'w3-gray' : ''}}">月別工数集計</a>
 			<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_task') ? 'w3-gray' : ''}}">プロジェクト別工数集計</a>
+			<a href="/report/session" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_session') ? 'w3-gray' : ''}}">部署</a>
 		</div>
 	</div>
 
