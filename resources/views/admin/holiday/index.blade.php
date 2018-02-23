@@ -3,6 +3,7 @@
 		'id'				=> 'holiday',
 		'title'				=> '祭日・祝日・休日',
 		'css'				=> 'holiday',
+		"datepicker" 		=> true,
 	]
 )
 
@@ -74,4 +75,5 @@
 
 @include('_include.admin_footer', [
 	"js"			=> "holiday",
+	"datepicker" 	=> true,
 ])

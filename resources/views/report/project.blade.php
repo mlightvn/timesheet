@@ -1,8 +1,8 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'report_project',
-		'title'				=> 'Task table',
-		'css'				=> 'report/project',
+		'id'					=> 'report_project',
+		'title'					=> 'Task table',
+		'css'					=> 'report/project',
 		'datepicker'			=> true,
 	]
 )
