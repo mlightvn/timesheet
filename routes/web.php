@@ -164,14 +164,33 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		Route::get('{id}/recover' 		, 'Api\ApplicationTemplateController@recover')->where('id', '[0-9]+');
 	});
 
-	Route::group(['prefix' => 'admin'], function(){
+	// Route::group(['prefix' => 'admin'], function(){
+
+	// 	Route::group(['prefix' => 'organization'], function(){
+	// 		Route::get('', 'Api\Admin\OrganizationController@list');
+	// 		Route::get('list', 'Api\Admin\OrganizationController@list');
+
+	// 		Route::get('{id}/delete' 		, 'Api\Admin\OrganizationController@delete')->where('id', '[0-9]+');
+	// 		Route::get('{id}/recover' 		, 'Api\Admin\OrganizationController@recover')->where('id', '[0-9]+');
+	// 	});
+	// });
+
+	Route::group(['prefix' => 'master'], function(){
+
+		Route::group(['prefix' => 'user'], function(){
+			Route::get('', 'Api\Master\UserController@list');
+			Route::get('list', 'Api\Master\UserController@list');
+
+			Route::get('{id}/delete' 		, 'Api\Master\UserController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\Master\UserController@recover')->where('id', '[0-9]+');
+		});
 
 		Route::group(['prefix' => 'organization'], function(){
-			Route::get('', 'Api\Admin\OrganizationController@list');
-			Route::get('list', 'Api\Admin\OrganizationController@list');
+			Route::get('', 'Api\Master\OrganizationController@list');
+			Route::get('list', 'Api\Master\OrganizationController@list');
 
-			Route::get('{id}/delete' 		, 'Api\Admin\OrganizationController@delete')->where('id', '[0-9]+');
-			Route::get('{id}/recover' 		, 'Api\Admin\OrganizationController@recover')->where('id', '[0-9]+');
+			Route::get('{id}/delete' 		, 'Api\Master\OrganizationController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\Master\OrganizationController@recover')->where('id', '[0-9]+');
 		});
 	});
 
@@ -240,45 +259,94 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 	});
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
+// Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
+// {
+// 	// Route::auth();
+
+// 	Route::get('', 'Admin\Controller@dashboard');
+// 	Route::get('index', 'Admin\Controller@dashboard');
+
+// 	Route::group(['prefix' => 'organization'], function()
+// 	{
+// 		Route::get('', 'Admin\OrganizationController@list');
+// 		Route::get('list', 'Admin\OrganizationController@list');
+
+// 		Route::match(["get", "post"], 'add', 'Admin\OrganizationController@add');
+// 		Route::match(["get", "post"], 'edit/{id}', 'Admin\OrganizationController@edit')->where('id', '[0-9]+');
+
+// 		// Route::get('delete/{id}', 'Admin\OrganizationController@delete')->where('id', '[0-9]+');
+// 		// Route::get('recover/{id}', 'Admin\OrganizationController@recover')->where('id', '[0-9]+');
+// 	});
+
+// 	Route::group(['prefix' => 'holiday'], function()
+// 	{
+// 		Route::get('', 'Admin\HolidayController@list');
+// 		Route::get('list', 'Admin\HolidayController@list');
+
+// 		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
+// 		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
+// 		// Route::get('delete/{date}', 'Admin\HolidayController@delete');
+
+// 		Route::post('update', 'Admin\HolidayController@update');
+// 	});
+
+// 	Route::group(['prefix' => 'api'], function()
+// 	{
+// 		Route::get('list/{object_type}', 'Admin\ApiController@list');
+// 		Route::get('list/{object_type}/{keyword}', 'Admin\ApiController@list');
+// 		Route::get('get/{object_type}/{id}', 'Admin\ApiController@get')->where('id', '[0-9]+');
+
+// 		Route::post('add/{object_type}', 'Admin\ApiController@add');
+// 		Route::post('edit/{object_type}/{id}', 'Admin\ApiController@edit');
+// 	});
+
+// });
+
+Route::group(['prefix' => 'master', 'middleware' => ['admin']], function()
 {
 	// Route::auth();
 
-	Route::get('', 'Admin\Controller@dashboard');
-	Route::get('index', 'Admin\Controller@dashboard');
+	Route::get('', 'Master\Controller@dashboard');
+	Route::get('index', 'Master\Controller@dashboard');
+
+	Route::group(['prefix' => 'user'], function()
+	{
+
+		Route::get('', 'Master\UserController@list');
+		Route::get('list', 'Master\UserController@list');
+
+		Route::match(["get", "post"], 'add', 'Master\UserController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Master\UserController@edit')->where('id', '[0-9]+');
+	});
 
 	Route::group(['prefix' => 'organization'], function()
 	{
-		Route::get('', 'Admin\OrganizationController@list');
-		Route::get('list', 'Admin\OrganizationController@list');
+		Route::get('', 'Master\OrganizationController@list');
+		Route::get('list', 'Master\OrganizationController@list');
 
-		Route::match(["get", "post"], 'add', 'Admin\OrganizationController@add');
-		Route::match(["get", "post"], 'edit/{id}', 'Admin\OrganizationController@edit')->where('id', '[0-9]+');
-
-		// Route::get('delete/{id}', 'Admin\OrganizationController@delete')->where('id', '[0-9]+');
-		// Route::get('recover/{id}', 'Admin\OrganizationController@recover')->where('id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Master\OrganizationController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'Master\OrganizationController@edit')->where('id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'holiday'], function()
 	{
-		Route::get('', 'Admin\HolidayController@list');
-		Route::get('list', 'Admin\HolidayController@list');
+		Route::get('', 'Master\HolidayController@list');
+		Route::get('list', 'Master\HolidayController@list');
 
-		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
-		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
-		// Route::get('delete/{date}', 'Admin\HolidayController@delete');
+		Route::match(["get", "post"], 'add', 'Master\HolidayController@add');
+		Route::match(["get", "post"], 'add', 'Master\HolidayController@add');
 
-		Route::post('update', 'Admin\HolidayController@update');
+		Route::post('update', 'Master\HolidayController@update');
 	});
 
 	Route::group(['prefix' => 'api'], function()
 	{
-		Route::get('list/{object_type}', 'Admin\ApiController@list');
-		Route::get('list/{object_type}/{keyword}', 'Admin\ApiController@list');
-		Route::get('get/{object_type}/{id}', 'Admin\ApiController@get')->where('id', '[0-9]+');
+		Route::get('list/{object_type}', 'Master\ApiController@list');
+		Route::get('list/{object_type}/{keyword}', 'Master\ApiController@list');
+		Route::get('get/{object_type}/{id}', 'Master\ApiController@get')->where('id', '[0-9]+');
 
-		Route::post('add/{object_type}', 'Admin\ApiController@add');
-		Route::post('edit/{object_type}/{id}', 'Admin\ApiController@edit');
+		Route::post('add/{object_type}', 'Master\ApiController@add');
+		Route::post('edit/{object_type}/{id}', 'Master\ApiController@edit');
 	});
 
 });

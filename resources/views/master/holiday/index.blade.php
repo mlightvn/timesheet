@@ -1,6 +1,6 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'holiday',
+		'id'				=> 'master_holiday',
 		'title'				=> '祭日・祝日・休日',
 		'css'				=> 'holiday',
 		"datepicker" 		=> true,

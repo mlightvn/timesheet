@@ -1,6 +1,5 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Master;
 
-use Illuminate\Http\Request;
 use App\Model\Organization;
 
 class OrganizationController extends Controller {
@@ -10,8 +9,8 @@ class OrganizationController extends Controller {
 		parent::init();
 
 		$this->model = new Organization();
-		$this->url_pattern = "admin.organization";
-		$this->data["url_pattern"] = "/admin/organization";
+		$this->url_pattern = "master.organization";
+		$this->data["url_pattern"] = "/master/organization";
 	}
 
 	public function list()

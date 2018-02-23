@@ -75,9 +75,9 @@ class Controller extends BaseController
 
 	protected function getModelList()
 	{
-		$this->querySetup();
-
 		$table_name = $this->model->getTable();
+
+		$this->querySetup();
 
 		if(isset($this->data["request_data"]["where"]["column_list"])){
 			$column_list = $this->data["request_data"]["where"]["column_list"];
@@ -367,7 +367,7 @@ class Controller extends BaseController
 			$table = $table->whereRaw($where);
 		}
 
-		if(\Auth::user()->permission_flag != "Administrator"){
+		if(\Auth::user()->permission_flag != "Master"){
 			$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 		}
 

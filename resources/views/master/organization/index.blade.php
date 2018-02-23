@@ -1,6 +1,6 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'organization',
+		'id'				=> 'master_organization',
 	]
 )
 

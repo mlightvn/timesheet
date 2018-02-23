@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
 use App\Model\Holiday;
@@ -13,8 +13,8 @@ class HolidayController extends Controller {
 	{
 		parent::init();
 
-		$this->url_pattern = "admin.holiday";
-		$this->data["url_pattern"] = "/admin/holiday";
+		$this->url_pattern = "master.holiday";
+		$this->data["url_pattern"] = "/master/holiday";
 
 		$form_input = $this->form_input;
 		if(isset($form_input["year_month"])){
