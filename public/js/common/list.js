@@ -71,16 +71,17 @@ console.log($response);
 
 		$scope.delete = function(id){
 			$(document).ready(function(){
-				$argument 							= {};
+				$argument 								= {};
 
 				$data_source_url_delete 				= ($('#data_source_url_delete')) ? $('#data_source_url_delete') : null;
-				if($data_source_url_delete){
+
+				if($data_source_url_delete.length){
 					data_source_url 					= $data_source_url_delete.val();
 				}else{
 					data_source_url 					= $('#data_source_url').val();
 				}
-				url 								= data_source_url + "/" + id + "/delete";
-				// $argument["data_source_url"] 		= url;
+
+				url 									= data_source_url + "/" + id + "/delete";
 				config = {
 					// params: $argument,
 					method : 'GET',
