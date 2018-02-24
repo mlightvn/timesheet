@@ -12,17 +12,19 @@ class UserController extends Controller {
 		$this->model = new User();
 
 		// 新規追加画面、デフォルトの価値を定義
-		$this->model->organization_id 		= $this->organization_id;
-		$this->url_pattern = "manage.user";
-		$this->data["url_pattern"] = "/manage/user";
+		$this->model->organization_id 			= $this->organization_id;
+		$this->url_pattern 						= "manage.user";
+		$this->data["url_pattern"] 				= "/manage/user";
 	}
 
 	public function add()
 	{
 		$arrSelectSessions = $this->getSelectSessions();
-		$this->data["arrSelectSessions"] = $arrSelectSessions;
+		$this->data["arrSelectSessions"] 		= $arrSelectSessions;
 
-		if($this->logged_in_user->permission_flag == "Manager"){
+		$permission_flag = $this->logged_in_user->permission_flag;
+		if(in_array($permission_flag, array("Owner", "Manager"))){
+			$this->model->permission_flag 		= "Member";
 			return parent::add();
 		}else{
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。"]);
@@ -48,25 +50,35 @@ class UserController extends Controller {
 		}
 
 		if($this->form_input){ // Submit
-			$is_manager = $this->logged_in_user->permission_flag;
-			if(($is_manager == "Manager") || ($this->logged_in_user->id == $this->form_input["id"])){
-				if(empty($this->form_input["password"])){
-					unset($this->form_input["password"]);
-				}
+			$permission_flag = $this->logged_in_user->permission_flag;
 
-				if(isset($this->form_input["permission_flag"])){
-					$this->form_input["permission_flag"] = "Manager";
-				}else{
-					$this->form_input["permission_flag"] = "Member";
-				}
+			if(($this->model instanceof \App\Model\User) && ($this->logged_in_user->id != 1) && ($id == 1))
+			{
 
-				$this->model->fill($this->form_input);
-				$this->model->update();
-				$alert_type = "success";
-				$message = "修正完了。";
+				// $alert_type = "alert";
+				$message = "Permission Denied.";
+
 			}else{
-				$message = "ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。";
+				$is_allow_edit = (
+						in_array($permission_flag, array("Owner", "Manager"))
+						|| ($this->logged_in_user->id == $id)
+					);
+
+				if($is_allow_edit){
+					if(empty($this->form_input["password"])){
+						unset($this->form_input["password"]);
+					}
+
+					$this->model->fill($this->form_input);
+					$this->model->update();
+					$alert_type = "success";
+					$message = "修正完了。";
+				}else{
+					$message = "ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。";
+				}
+
 			}
+
 		}
 
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);

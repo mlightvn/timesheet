@@ -114,6 +114,34 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		});
 	});
 
+	Route::group(['prefix' => 'user'], function(){
+		Route::group(['prefix' => 'user'], function(){
+			Route::get('', 'Api\User\UserController@list');
+			Route::get('list', 'Api\User\UserController@list');
+		});
+
+		Route::group(['prefix' => 'customer'], function(){
+			Route::get('', 'Api\User\CustomerController@list');
+			Route::get('list', 'Api\User\CustomerController@list');
+
+			Route::get('{id}/delete' 		, 'Api\User\CustomerController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\User\CustomerController@recover')->where('id', '[0-9]+');
+		});
+
+		Route::group(['prefix' => 'project'], function(){
+			Route::get('', 'Api\User\ProjectController@list');
+			Route::get('list', 'Api\User\ProjectController@list');
+
+		});
+
+		Route::group(['prefix' => 'session'], function(){
+			Route::get('', 'Api\User\SessionController@list');
+			Route::get('list', 'Api\User\SessionController@list');
+
+		});
+
+	});
+
 	Route::group(['prefix' => 'manage'], function(){
 		Route::group(['prefix' => 'user'], function(){
 			Route::get('', 'Api\Manage\UserController@list');
@@ -121,14 +149,6 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 
 			Route::get('{id}/delete' 		, 'Api\Manage\UserController@delete')->where('id', '[0-9]+');
 			Route::get('{id}/recover' 		, 'Api\Manage\UserController@recover')->where('id', '[0-9]+');
-		});
-
-		Route::group(['prefix' => 'customer'], function(){
-			Route::get('', 'Api\Manage\CustomerController@list');
-			Route::get('list', 'Api\Manage\CustomerController@list');
-
-			Route::get('{id}/delete' 		, 'Api\Manage\CustomerController@delete')->where('id', '[0-9]+');
-			Route::get('{id}/recover' 		, 'Api\Manage\CustomerController@recover')->where('id', '[0-9]+');
 		});
 
 		Route::group(['prefix' => 'project'], function(){
@@ -196,6 +216,44 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 
 });
 
+Route::group(['prefix' => 'user', 'middleware' => ['admin']], function()
+{
+	Route::group(['prefix' => 'project'], function()
+	{
+		Route::get('', 'User\ProjectController@list');
+		Route::get('list', 'User\ProjectController@list');
+
+		Route::match(["get", "post"], 'add', 'User\ProjectController@add');
+		Route::match(["get", "post"], 'edit/{id}', 'User\ProjectController@edit')->where('id', '[0-9]+');
+
+	});
+
+	Route::group(['prefix' => 'user'], function()
+	{
+		Route::get('', 'User\UserController@list');
+		Route::get('list', 'User\UserController@list');
+
+		Route::match(["get", "post"], 'edit/{user_id}', 'User\UserController@edit')->where('user_id', '[0-9]+'); // edit self information
+	});
+
+	Route::group(['prefix' => 'customer'], function()
+	{
+		Route::get('', 'User\CustomerController@list');
+		Route::get('list', 'User\CustomerController@list');
+
+		Route::match(["get", "post"], 'add', 'User\CustomerController@add');
+		Route::match(["get", "post"], 'edit/{user_id}', 'User\CustomerController@edit')->where('user_id', '[0-9]+');
+
+	});
+
+	Route::group(['prefix' => 'session'], function()
+	{
+		Route::get('', 'User\SessionController@list');
+		Route::get('list', 'User\SessionController@list');
+	});
+
+});
+
 Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 {
 	Route::group(['prefix' => 'project'], function()
@@ -220,18 +278,6 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 		Route::match(["get", "post"], 'edit/{user_id}', 'Manage\UserController@edit')->where('user_id', '[0-9]+');
 		// Route::get('delete/{user_id}', 'Manage\UserController@delete')->where('user_id', '[0-9]+');
 		// Route::get('recover/{user_id}', 'Manage\UserController@recover')->where('user_id', '[0-9]+');
-	});
-
-	Route::group(['prefix' => 'customer'], function()
-	{
-		Route::get('', 'Manage\CustomerController@list');
-		Route::get('list', 'Manage\CustomerController@list');
-
-		Route::match(["get", "post"], 'add', 'Manage\CustomerController@add');
-		Route::match(["get", "post"], 'edit/{user_id}', 'Manage\CustomerController@edit')->where('user_id', '[0-9]+');
-
-		// Route::get('delete/{user_id}', 'Manage\CustomerController@delete')->where('user_id', '[0-9]+');
-		// Route::get('recover/{user_id}', 'Manage\CustomerController@recover')->where('user_id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'session'], function()

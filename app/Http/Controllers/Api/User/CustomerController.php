@@ -1,6 +1,5 @@
-<?php namespace App\Http\Controllers\Api\Manage;
+<?php namespace App\Http\Controllers\Api\User;
 
-use Illuminate\Http\Request;
 use App\Model\Customer;
 
 class CustomerController extends \App\Http\Controllers\Api\Controller {

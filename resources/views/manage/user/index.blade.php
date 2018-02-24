@@ -18,7 +18,7 @@
 
 <div class="w3-row">
 	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="glyphicon glyphicon-list"></span></button>&nbsp;
-	@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
+	@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
 	@endif
 	<br><br>
@@ -29,9 +29,6 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<th>企業名</th>
-			@endif
 			<th>ユーザー名</th>
 			<th>部署</th>
 			<th>email</th>
@@ -44,30 +41,30 @@
 		</thead>
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
-			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<td><span ng-bind="model.organization_name"></span></td>
-			@endif
 			<td>
 				<span class="@{{ model.ICON_CLASS }}"></span>
 				&nbsp;
 
-				<span ng-if="model.id == '{{ $logged_in_user->id }}'">
+				@if ( $logged_in_user->permission_flag == "Owner" )
 					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> <span ng-bind="model.name"></span></a>
-				</span>
-
-				<span ng-if="model.id != '{{ $logged_in_user->id }}'">
-					@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
-					<span ng-if="model.permission_flag != 'Administrator'">
+				@elseif( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
+					<span ng-if="model.id == '{{ $logged_in_user->id }}'">
 						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> <span ng-bind="model.name"></span></a>
 					</span>
-					<span ng-if="model.permission_flag == 'Administrator'">
-						<span ng-bind="model.name"></span>
-					</span>
-					@else
-						<span ng-bind="model.name"></span>
-					@endif
-				</span>
 
+					<span ng-if="model.id != '{{ $logged_in_user->id }}'">
+						@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
+						<span ng-if="model.permission_flag != 'Administrator'">
+							<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> <span ng-bind="model.name"></span></a>
+						</span>
+						<span ng-if="model.permission_flag == 'Administrator'">
+							<span ng-bind="model.name"></span>
+						</span>
+						@else
+							<span ng-bind="model.name"></span>
+						@endif
+					</span>
+				@endif
 
 			</td>
 			<td><span ng-bind="model.session_name"></span></td>
@@ -78,31 +75,29 @@
 			@endif
 			<td>
 
-				<span ng-if="model.id == '{{ $logged_in_user->id }}'">
+				@if ( $logged_in_user->permission_flag == "Owner" )
 					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
-				</span>
-
-				<span ng-if="model.id != '{{ $logged_in_user->id }}'">
-					@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
-					<span ng-if="model.permission_flag != 'Administrator'">
+				@elseif( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
+					<span ng-if="model.id == '{{ $logged_in_user->id }}'">
 						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
 					</span>
-					<span ng-if="model.permission_flag == 'Administrator'">
-						<span class="glyphicon glyphicon-pencil"></span>
-					</span>
-					@else
-						<span class="glyphicon glyphicon-pencil"></span>
-					@endif
-				</span>
 
-				@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
-					|
-					<span ng-if="model.permission_flag != 'Administrator'">
-						<a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a>
+					<span ng-if="model.id != '{{ $logged_in_user->id }}'">
+						@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
+						<span ng-if="model.permission_flag != 'Administrator'">
+							<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+						</span>
+						<span ng-if="model.permission_flag == 'Administrator'">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</span>
+						@else
+							<span class="glyphicon glyphicon-pencil"></span>
+						@endif
 					</span>
-					<span ng-if="model.permission_flag == 'Administrator'">
-						<i class="@{{model.DELETED_RECOVER_ICON}}"></i>
-					</span>
+				@endif
+
+				@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
+					| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a>
 
 				@endif
 			</td>

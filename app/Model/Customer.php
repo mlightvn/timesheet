@@ -9,10 +9,13 @@ class Customer extends User
 		'id',
 		'organization_id',
 		'email',
+		'sub_email',
 		'name',
 		'gender',
 		'birthday',
+		'tel',
 		'phone',
+		'description',
 
 		'remember_token',
 

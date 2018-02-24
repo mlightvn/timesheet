@@ -663,22 +663,33 @@ class Controller extends BaseController
 		// $this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
 		// $this->model = $this->model->first();
 
-
 		if(!$this->model){
 			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"データが存在していませんから、追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}
 
 		if($this->form_input){ // Submit
 			$form_input = $this->form_input;
+			$permission_flag = $form_input["permission_flag"];
 
-			$this->model->fill($this->form_input);
-			$this->model->update();
-			$alert_type = "success";
-			$message = "データが修正完了。";
+			if(($this->model instanceof \App\Model\User) && ($this->logged_in_user->id != 1) && ($id == 1))
+			{
+
+				$alert_type = "alert";
+				$message = "Permission Denied.";
+
+			}else{
+				$this->model->fill($this->form_input);
+				$this->model->update();
+				$alert_type = "success";
+				$message = "データが修正完了。";
+
+			}
 		}
 
 		// $this->blade_url = "/" . str_replace(".", "/", $this->blade_url);
 		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
+
+
 	}
 
 	public function delete($id)

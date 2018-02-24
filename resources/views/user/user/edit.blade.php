@@ -1,6 +1,6 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'manage_user',
+		'id'				=> 'user_user',
 	]
 )
 
@@ -11,9 +11,6 @@
 
 <div class="w3-row">
 	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	@if(in_array($logged_in_user->permission_flag, array("Owner", "Administrator", "Manager")))
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
-	@endif
 	<br><br>
 </div>
 
@@ -60,39 +57,11 @@
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'名前', 'required'=>'required']) !!}
 			</td>
 		</tr>
-		@if(in_array($logged_in_user->permission_flag, array("Owner", "Manager")))
-		<tr>
-			<th>{!! Form::label('permission_flag', '管理フラグ') !!}</th>
-			<td>
-				{!! Form::radio('permission_flag', 'Member', true, ['class'=>'', 'id'=>'permission_flag[0]']) !!}
-				<label for="permission_flag[0]" class="radio-inline control-label">Member</label>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-
-				{!! Form::radio('permission_flag', 'Manager', true, ['class'=>'', 'id'=>'permission_flag[1]']) !!}
-				<label for="permission_flag[1]" class="radio-inline control-label">Manager</label>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-
-				{!! Form::radio('permission_flag', 'Administrator', true, ['class'=>'', 'id'=>'permission_flag[2]']) !!}
-				<label for="permission_flag[2]" class="radio-inline control-label">Administrator</label>
-			</td>
-		</tr>
-
-		<tr>
-			<th>{!! Form::label('session_id', '部署') !!}</th>
-			<td>
-				{!! Form::select('session_id', $data["arrSelectSessions"]["items"], NULL, ['class'=>'form-control', 'placeholder'=>'▼下記の項目を選択してください。'], $data["arrSelectSessions"]["deletedItemStyles"]) !!}
-			</td>
-		</tr>
-		@endif
 
 		<tr>
 			<th>{!! Form::label('dayoff', 'Dayoff') !!}</th>
 			<td>
-				@if(in_array($logged_in_user->permission_flag, array("Owner", "Administrator", "Manager")))
-					{!! Form::input('number', 'dayoff', null, ['class'=>'form-control', 'placeholder'=>'0']) !!}
-				@else
-					{{ $model->dayoff }}
-				@endif
+				{{ $model->dayoff }}
 			</td>
 		</tr>
 
