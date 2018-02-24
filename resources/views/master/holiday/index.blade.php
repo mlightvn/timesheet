@@ -1,4 +1,4 @@
-@include('_include.admin_header',
+@include('_include.master.header',
 	[
 		'id'				=> 'master_holiday',
 		'title'				=> '祭日・祝日・休日',
@@ -73,7 +73,7 @@
 		</div>
 
 
-@include('_include.admin_footer', [
+@include('_include.master.footer', [
 	"js"			=> "holiday",
 	"datepicker" 	=> true,
 ])

@@ -1,6 +1,6 @@
-@include('_include.admin_header',
+@include('_include.master.header',
 	[
-		'id'				=> 'manage_user',
+		'id'				=> 'master_user',
 	]
 )
 
@@ -10,14 +10,12 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	@if(in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
-	@endif
+	<a href="{{ $data['url_pattern'] }}?permission=Owner" class="w3-button w3-brown"><span class="fa fa-list"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
 	<br><br>
 </div>
 
-<div class="w3-row">
+<div class="w3-row rakuhin">
 	{!! Form::model($model) !!}
 	{!! Form::hidden('id') !!}
 	{!! Form::hidden('organization_id') !!}
@@ -60,36 +58,33 @@
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'名前', 'required'=>'required']) !!}
 			</td>
 		</tr>
-		@if(in_array($logged_in_user->permission_flag, array("Manager")))
-		<tr>
-			<th>{!! Form::label('permission_flag', '管理フラグ') !!}</th>
-			<td>
-				<!-- Rounded switch -->
-				<label class="switch">
-					{!! Form::checkbox('permission_flag', "Manager", ($model->permission_flag == "Manager" ? 1 : 0), ['placeholder'=>'管理フラグ']) !!}
-					<span class="slider round"></span>
-				</label>
-			</td>
-		</tr>
 
-		<tr>
-			<th>{!! Form::label('session_id', '部署') !!}</th>
+		@if($model->id != 1)
+			<th></th>
 			<td>
-				{!! Form::select('session_id', $data["arrSelectSessions"]["items"], NULL, ['class'=>'form-control', 'placeholder'=>'▼下記の項目を選択してください。'], $data["arrSelectSessions"]["deletedItemStyles"]) !!}
+				{!! Form::radio('permission_flag', 'Member', true, ['class'=>'', 'id'=>'permission_flag[0]']) !!}
+				<label for="permission_flag[0]" class="radio-inline control-label">Member</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+
+				{!! Form::radio('permission_flag', 'Manager', true, ['class'=>'', 'id'=>'permission_flag[1]']) !!}
+				<label for="permission_flag[1]" class="radio-inline control-label">Manager</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+
+				{!! Form::radio('permission_flag', 'Administrator', true, ['class'=>'', 'id'=>'permission_flag[2]']) !!}
+				<label for="permission_flag[2]" class="radio-inline control-label">Administrator</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+
+				{!! Form::radio('permission_flag', 'Owner', true, ['class'=>'', 'id'=>'permission_flag[3]']) !!}
+				<label for="permission_flag[3]" class="radio-inline control-label">Owner</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+
+				{!! Form::radio('permission_flag', 'Master', true, ['class'=>'', 'id'=>'permission_flag[4]']) !!}
+				<label for="permission_flag[4]" class="radio-inline control-label">Master</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+
 			</td>
 		</tr>
 		@endif
-
-		<tr>
-			<th>{!! Form::label('dayoff', 'Dayoff') !!}</th>
-			<td>
-				@if(in_array($logged_in_user->permission_flag, array("Manager")))
-					{!! Form::input('number', 'dayoff', null, ['class'=>'form-control', 'placeholder'=>'0']) !!}
-				@else
-					{{ $model->dayoff }}
-				@endif
-			</td>
-		</tr>
 
 		<tfoot>
 		<tr>
@@ -105,4 +100,4 @@
 	{!! Form::close() !!}
 </div>
 
-@include('_include.admin_footer')
+@include('_include.master.footer')

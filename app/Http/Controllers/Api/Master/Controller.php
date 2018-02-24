@@ -22,24 +22,24 @@ class Controller extends \App\Http\Controllers\Api\Controller
 		return $this->logged_in_user;
 	}
 
-	protected function querySetup()
-	{
-		parent::querySetup();
+	// protected function querySetup()
+	// {
+	// 	$table_name = $this->model->getTable();
 
-		$table_name = $this->model->getTable();
+	// 	parent::querySetup();
 
-		$permission_flag = "";
-		if(isset($this->form_input["permission"])){
-			// DBの価値に変換
-			$permission_flag = $this->form_input["permission"];
-			if($permission_flag == "master"){
-				$this->model = $this->model->where($table_name . ".permission_flag", "=", "Master");
-			}else{
-				$this->model = $this->model->where($table_name . ".permission_flag", "<>", "Master");
-			}
+	// 	$permission_flag = "";
+	// 	if(isset($this->form_input["permission"])){
+	// 		// DBの価値に変換
+	// 		$permission_flag = $this->form_input["permission"];
+	// 		if(in_array($permission_flag, array("Master", "Owner"))){
+	// 			$this->model = $this->model->where($table_name . ".permission_flag", "=", $permission_flag);
+	// 		}else{
+	// 			$this->model = $this->model->where($table_name . ".permission_flag", "<>", "Master");
+	// 		}
 
 
-		}
-	}
+	// 	}
+	// }
 
 }

@@ -1,0 +1,68 @@
+<div class="w3-bar w3-brown w3-border">
+	<a href="/" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-time"></span> {{ env("APP_NAME") }}</a>
+
+	@if(isset($logged_in_user))
+	<a href="/master/user?permission=Owner" class="w3-bar-item w3-button {{ ($id == 'master_user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> 会員</a>
+	<a href="/master/organization" class="w3-bar-item w3-button {{ ($id == 'master_organization') ? 'w3-gray' : ''}}"><span class="fa fa-bank"></span> 企業</a>
+
+{{--
+	<div class="w3-dropdown-hover w3-brown">
+		<button class="w3-button w3-brown w3-hover-black">設定 <span class="fa fa-caret-down"></span></button>
+		<div class="w3-dropdown-content w3-bar-block w3-card-4">
+			<a href="/master/manage/user" class="w3-bar-item w3-button {{ ($id == 'manage_user') ? 'w3-gray' : ''}}"><span class="fa fa-user"></span> 会員</a>
+
+			<a href="/master/manage/customer" class="w3-bar-item w3-button {{ ($id == 'manage_customer') ? 'w3-gray' : ''}}"><i class="fa fa-address-card" aria-hidden="true"></i> 顧客</a>
+
+		</div>
+	</div>
+--}}
+
+		@if ( $logged_in_user->permission_flag == "Master" )
+	<div class="w3-dropdown-hover w3-brown">
+		<button class="w3-button w3-brown w3-hover-black">マスタ <span class="fa fa-caret-down"></span></button>
+		<div class="w3-dropdown-content w3-bar-block w3-card-4">
+			<a href="/master/holiday" class="w3-bar-item w3-button"><span class="fa fa-calendar"></span> 祭日・祝日・休日</a>
+
+			<a href="/bin/pullSourceCode" class="w3-bar-item w3-button" target="_blank"><span class="fa fa-git"></span> プルコード</a>
+		</div>
+	</div>
+		@endif
+
+	@endif
+
+	<a href="javascript:void(0);" onclick="donate()" class="w3-btn w3-green">Donate <span class="glyphicon glyphicon-apple"></span></a>
+
+	<div class="w3-right">
+		@if(isset($logged_in_user))
+		<span class="w3-bar-item">ようこそ</span>
+		<div class="w3-dropdown-hover w3-brown">
+			<button class="w3-button w3-brown">
+				<div class="chip">
+					<img src="/common/images/avatar_male.png" alt="{{ $logged_in_user->name }}">
+					{{ $logged_in_user->name }}
+					<span class="fa fa-caret-down"></span>
+				</div>
+			</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a href="/manage/user/edit/{{ $logged_in_user->id }}" class="w3-bar-item w3-button"><span class="fa fa-user"></span> プロフィール修正</a>
+
+{{--
+				@if ( $logged_in_user->permission_flag == "Administrator" )
+				<a href="/admin" class="w3-bar-item w3-button">管理画面</a>
+				@endif
+--}}
+
+				@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
+				<a href="/profile/organization/edit" class="w3-bar-item w3-button">企業修正</a>
+				@endif
+				<a href="/profile/organization/info" class="w3-bar-item w3-button">企業情報</a>
+				<a href="/logout" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-log-out"></span> ログアウト</a>
+			</div>
+		</div>
+		@else
+		<a href="/login" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'login')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-log-in"></span> ログイン</a>
+		<a href="/register" class="w3-bar-item w3-button {{ (isset($id) && ($id == 'register')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-log-in"></span> 登録</a>
+		@endif
+	</div>
+</div>
+<br>

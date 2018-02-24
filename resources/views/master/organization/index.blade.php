@@ -1,10 +1,10 @@
-@include('_include.admin_header',
+@include('_include.master.header',
 	[
 		'id'				=> 'master_organization',
 	]
 )
 
-@if (in_array($logged_in_user->permission_flag, array("Administrator")))
+@if (in_array($logged_in_user->permission_flag, array("Master")))
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
@@ -17,17 +17,24 @@
 	@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message")), "alert_type" => (isset($alert_type) ? $alert_type : session("alert_type"))])
 @endif
 
+<br>
+<div id="divAlertBox" class="alert w3-hide">
+	<span class="closebtn">&times;</span>
+	<div id="divMessage"></div>
+</div>
+<br>
+
 <div class="w3-row">
 	<button class="w3-button w3-brown" ng-click="reset()"><span class="fa fa-list"></span></button>&nbsp;
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
 	<br><br>
 
-	<input type="hidden" id="data_source_url" value="/api/admin/organization">
+	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
 
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
-			<th>ID</th>
+			<th>#</th>
 			<th>企業名</th>
 			<th>Website</th>
 			<th></th>
@@ -43,7 +50,7 @@
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
 
-				| <a href="@{{model.RECOVER_OR_DELETE_URL}}"><span class="@{{ model.RECOVER_OR_DELETE_ICON }} @{{ model.RECOVER_OR_DELETE_COLOR }}"></span></a>
+				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a>
 			</td>
 		</tr>
 
@@ -61,6 +68,6 @@
 </div>
 @endif
 
-@include('_include.admin_footer', [
+@include('_include.master.footer', [
 	'js_list'	=> true,
 ])

@@ -51,7 +51,7 @@
 <div class="w3-container">
 	<div class="w3-row">
 		<div class="w3-col s12 m12 l12">
-			@include('_include.admin_menu_top', [
+			@include('_include.master.menu_top', [
 				'id'				=> (isset($id) ? $id : "home"),
 			])
 		</div>

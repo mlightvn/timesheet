@@ -70,10 +70,18 @@ console.log($response);
 		};
 
 		$scope.delete = function(id){
+			$scope.delete_recover(id, 1);
+		};
+
+		$scope.recover = function(id){
+			$scope.delete_recover(id, 0);
+		};
+
+		$scope.delete_recover = function(id, delete_flag){
 			$(document).ready(function(){
 				$argument 								= {};
 
-				$data_source_url_delete 				= ($('#data_source_url_delete')) ? $('#data_source_url_delete') : null;
+				$data_source_url_delete 				= $('#data_source_url_delete');
 
 				if($data_source_url_delete.length){
 					data_source_url 					= $data_source_url_delete.val();
@@ -81,7 +89,11 @@ console.log($response);
 					data_source_url 					= $('#data_source_url').val();
 				}
 
-				url 									= data_source_url + "/" + id + "/delete";
+				if(delete_flag){
+					url 									= data_source_url + "/" + id + "/delete";
+				}else{
+					url 									= data_source_url + "/" + id + "/recover";
+				}
 				config = {
 					// params: $argument,
 					method : 'GET',
@@ -93,55 +105,26 @@ console.log($response);
 						function($response) { // 成功
 							// $scope.model_list = $response.data.data;
 // console.log($response);
+
+							if($response.data.status == 0){
+								$('#divAlertBox').addClass('success');
+							}else{
+								$('#divAlertBox').removeClass('success');
+							}
+							$('#divAlertBox').removeClass('w3-hide');
+							$('#divMessage').text($response.data.message);
+
 							$argument = {page: 1};
 							$scope.get($argument);
 
 						}, function ($response) { // エラー発生
 							// $scope.myWelcome = $response.statusText;
-console.log("delete: error");
+console.log("delete_recover: error");
 console.log($response);
 						}
 					);
 			});
-		};
 
-		$scope.recover = function(id){
-			$(document).ready(function(){
-				$argument 							= {};
-
-				data_source_url 					= $('#data_source_url').val();
-				url 								= data_source_url + "/" + id + "/recover";
-				// $argument["data_source_url"] 		= url;
-				config = {
-					// params: $argument,
-					method : 'GET',
-					headers : {'Accept' : 'application/json'}
-				};
-
-				$http.get(url , config)
-					.then(
-						function($response) { // 成功
-							// $scope.model_list = $response.data.data;
-// console.log($response);
-							$argument = {page: 1};
-							$scope.get($argument);
-
-						}, function ($response) { // エラー発生
-							// $scope.myWelcome = $response.statusText;
-console.log("recover: error");
-console.log($response);
-						}
-					);
-
-			});
-		};
-
-		$scope.delete_recover = function(id, delete_flag){
-			if(delete_flag){
-				$scope.delete(id);
-			}else{
-				$scope.recover(id);
-			}
 		};
 
 		$scope.get($argument);

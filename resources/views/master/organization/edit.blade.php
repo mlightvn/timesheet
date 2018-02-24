@@ -1,4 +1,4 @@
-@include('_include.admin_header',
+@include('_include.master.header',
 	[
 		'id'				=> 'master_organization',
 	]
@@ -78,4 +78,4 @@
 </div>
 @endif
 
-@include('_include.admin_footer')
+@include('_include.master.footer')

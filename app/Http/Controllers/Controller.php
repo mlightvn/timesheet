@@ -324,8 +324,10 @@ class Controller extends BaseController
 			, DB::raw("users.id 		AS user_id")
 			, DB::raw("
 				CASE users.permission_flag 
-					WHEN 'Administrator' THEN 'fa fa-ambulance w3-text-red'
-					WHEN 'Manager' THEN 'glyphicon glyphicon-king'
+					WHEN 'Master' THEN 'fa fa-empire w3-text-red'
+					WHEN 'Owner' THEN 'glyphicon glyphicon-king'
+					WHEN 'Administrator' THEN 'glyphicon glyphicon-knight'
+					WHEN 'Manager' THEN 'glyphicon glyphicon-queen'
 					ELSE 'glyphicon glyphicon-pawn'
 				END AS ICON_CLASS
 				")
@@ -694,14 +696,22 @@ class Controller extends BaseController
 		if(!in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"))){
 			$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
 		}else{
-			if($this->logical_delete){
-				$this->model->is_deleted = 1;
-				$this->model->update();
+			if($this->model instanceof \App\Model\User){
+				$this->model = $this->model->whereRaw(\DB::raw('users.id <> 1'));
+
+				$alert_type = "alert";
+				$message = "Permission Denied.";
 			}else{
-				$this->model->delete();
+				if($this->logical_delete){
+					$this->model->is_deleted = 1;
+					$this->model->update();
+				}else{
+					$this->model->delete();
+				}
+
+				$alert_type = "success";
+				$message = "データが削除完了。";
 			}
-			$alert_type = "success";
-			$message = "データが削除完了。";
 		}
 
 		return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message, "alert_type" => $alert_type]);
