@@ -18,7 +18,8 @@ $(function() {
 	})
 	.datepicker("setDate", $('#sRequestDate').val())
 	.datepicker("option", "onChangeMonthYear", function (year, month) {
-			window.location.href = "/admin/holiday?year_month=" + year + "-" + (month < 10 ? ("0" + month) : month);
+			data_source_url = $('#data_source_url').val();
+			window.location.href = data_source_url + "?year_month=" + year + "-" + (month < 10 ? ("0" + month) : month);
 		})
 	;
 

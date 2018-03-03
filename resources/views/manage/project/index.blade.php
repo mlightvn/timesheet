@@ -17,8 +17,8 @@
 @endif
 
 <div class="w3-row">
-	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="glyphicon glyphicon-list"></span></button>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="fa fa-list"></span></button>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
 	<br><br>
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
@@ -29,9 +29,6 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<th>企業名</th>
-			@endif
 			<th>休憩のフラグ</th>
 			<th>プロジェクト</th>
 			<th>自分のプロジェクト</th>
@@ -41,23 +38,24 @@
 
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
-			@if ( in_array($logged_in_user->permission_flag, array("Administrator")) )
-			<td><span ng-bind="model.organization_name"></span></td>
-			@endif
 			<td>
 				<label class="switch">
 					<input type="checkbox" name="project[@{{ model.id }}][is_off]" ng-checked="model.is_off" value="1" {{ ($logged_in_user->permission_flag == "Member") ? 'disabled="disabled' : '' }}>
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" ng-bind="model.name"></a></td>
+			<td>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" ng-bind="model.name"></a>
+				<br>
+				<span ng-bind="model.description"></span>
+			</td>
 			<td>
 				<label class="switch">
 					<input type="checkbox" name="project[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT">
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>
 				@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
 				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
 				@endif

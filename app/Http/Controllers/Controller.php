@@ -669,7 +669,6 @@ class Controller extends BaseController
 
 		if($this->form_input){ // Submit
 			$form_input = $this->form_input;
-			$permission_flag = $form_input["permission_flag"];
 
 			if(($this->model instanceof \App\Model\User) && ($this->logged_in_user->id != 1) && ($id == 1))
 			{

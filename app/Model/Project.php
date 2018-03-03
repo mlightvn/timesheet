@@ -10,6 +10,7 @@ class Project extends Model
 		'id',
 		'organization_id',
 		'name',
+		'description',
 		'is_off',			// '0': FALSE, '1': TRUE
 	];
 

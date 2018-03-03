@@ -13,6 +13,7 @@
 
 			<input type="hidden" name="sRequestYearMonth" value="{{ $sRequestYearMonth }}">
 			<input type="hidden" id="sRequestDate" name="sRequestDate" value="{{ $sDbRequestDate }}">
+			<input type="hidden" id="data_source_url" value="{{ $data['url_pattern'] }}">
 
 			<div class="w3-row w3-col s12 m12 l12">
 				<div class="w3-center">
@@ -28,8 +29,6 @@
 			@endif
 
 		<div class="w3-row">
-		<a href="/admin/holiday" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-		<br><br>
 		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 			<tr class="w3-brown">
@@ -46,17 +45,16 @@
 				</td>
 				<td>
 				<label class="switch">
-					<input type="checkbox" name="holiday[{{ substr($record->date, 0, 10) }}][is_holiday]" value="{{ ($record->is_holiday ? $record->is_holiday : 0) }}" {!! ($record->is_holiday) ? 'checked="checked"' : '' !!} {!! (($logged_in_user->permission_flag == "Manager") || ($logged_in_user->permission_flag == "Administrator")) ? '' : 'disabled="disabled"'!!}>
+					<input type="checkbox" name="holiday[{{ substr($record->date, 0, 10) }}][is_holiday]" value="{{ ($record->is_holiday ? $record->is_holiday : 0) }}" {!! ($record->is_holiday) ? 'checked="checked"' : '' !!}>
 					<span class="slider round"></span>
 				</label>
 				</td>
 				<td>
-					<input type="text" name="holiday[{{ substr($record->date, 0, 10) }}][name]" value="{{ $record->name }}" class="form-control" {!! (($logged_in_user->permission_flag == "Manager") || ($logged_in_user->permission_flag == "Administrator")) ? '' : 'readonly="readonly"'!!}>
+					<input type="text" name="holiday[{{ substr($record->date, 0, 10) }}][name]" value="{{ $record->name }}" class="form-control">
 				</td>
 			</tr>
 			@endforeach
 
-			@if(($logged_in_user->permission_flag == "Manager") || ($logged_in_user->permission_flag == "Administrator"))
 			<tfoot>
 			<tr>
 				<td colspan="3">
@@ -66,7 +64,6 @@
 				</td>
 			</tr>
 			</tfoot>
-			@endif
 		</table>
 		</form>
 		<br>
@@ -74,6 +71,6 @@
 
 
 @include('_include.master.footer', [
-	"js"			=> "holiday",
+	"js"			=> "master/holiday",
 	"datepicker" 	=> true,
 ])

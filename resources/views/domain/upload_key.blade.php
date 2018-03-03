@@ -69,7 +69,9 @@
 		</tr>
 		<tr ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
-			<td><span ng-bind="model.name"></span></td>
+			<td>
+				<a href="/storage/domain/@{{model.organization_id}}/@{{model.domain_id}}/@{{model.name}}" ng-bind="model.name" download="download"></a>
+			</td>
 			<td><a href="javascript:void(0);" ng-click="delete(model.id)"><i class="fa fa-trash w3-text-red"></i></a></td>
 		</tr>
 	</table>

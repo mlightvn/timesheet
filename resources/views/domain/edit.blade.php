@@ -33,6 +33,12 @@
 	@endif
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
+
+		<tr>
+			<td colspan="3"><h2>Domain</h2>
+			</td>
+		</tr>
+
 		<tr>
 			<th>{!! Form::label('name', 'ドメイン名') !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
@@ -77,14 +83,25 @@
 			<th>{!! Form::label('admin_password', '管理のパスワード') !!}</th>
 			<th><button type="button" name="btnCopy" value="admin_password"><i class="fa fa-copy"></i></button></th>
 			<td>
-				<input type="password" id="dummypass" style="display: none;" />
-				{!! Form::password('admin_password', ['class'=>'form-control raku-textbox-asterisk', 'placeholder'=>'管理のパスワード', 'autocomplete'=>'off', 'current-password'=>'off', 'readonly'=>'readonly']) !!}
+				<input type="password" id="admin_password" name="admin_password" value="{{ $model->admin_password }}" class="form-control raku-textbox-asterisk" autocomplete="off" current-password="off">
 			</td>
 		</tr>
 
+		<tr>
+			<th>{!! Form::label('description', 'Detail') !!}</th>
+			<th><button type="button" name="btnCopy" value="description"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細']) !!}
+			</td>
+		</tr>
 
 		<tr>
-			<th>{!! Form::label('repository_url', 'repository_url') !!}</th>
+			<td colspan="3"><h2>Repository (GitHub, BitBucket, ...)</h2>
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('repository_url', 'Repository url') !!}</th>
 			<th><button type="button" name="btnCopy" value="repository_url"><i class="fa fa-copy"></i></button></th>
 			<td>
 				{!! Form::input('url', 'repository_url', NULL, ['class'=>'form-control', 'placeholder'=>'http(s)://', 'ng-model'=>'repository_url']) !!}
@@ -93,15 +110,36 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('description', '詳細情報') !!}</th>
-			<th><button type="button" name="btnCopy" value="description"><i class="fa fa-copy"></i></button></th>
+			<th>{!! Form::label('repository_username', 'Username') !!}</th>
+			<th><button type="button" name="btnCopy" value="repository_username"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細']) !!}
+				{!! Form::text('repository_username', NULL, ['class'=>'form-control']) !!}
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('ssh_access_command', 'SSH接続') !!}</th>
+			<th>{!! Form::label('repository_password', 'Password') !!}</th>
+			<th><button type="button" name="btnCopy" value="repository_password"><i class="fa fa-copy"></i></button></th>
+			<td>
+				<input type="password" id="repository_password" name="repository_password" value="{{$model->repository_password}}" class="form-control raku-textbox-asterisk" autocomplete="off" current-password="off">
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('repository_description', 'Detail') !!}</th>
+			<th><button type="button" name="btnCopy" value="repository_description"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::textarea('repository_description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細']) !!}
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><h2>SSH</h2>
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('ssh_access_command', 'SSH connection') !!}</th>
 			<th><button type="button" name="btnCopy" value="ssh_access_command"><i class="fa fa-copy"></i></button></th>
 			<td>
 				{!! Form::text('ssh_access_command', NULL, ['class'=>'form-control', 'placeholder'=>'SSH接続']) !!}
@@ -109,15 +147,42 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('ssh_description', 'SSH情報') !!}</th>
-			<th><button type="button" name="btnCopy" value="ssh_description"><i class="fa fa-copy"></i></button></th>
+			<th>{!! Form::label('ssh_host', 'Host') !!}</th>
+			<th><button type="button" name="btnCopy" value="ssh_host"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::textarea('ssh_description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細']) !!}
+				{!! Form::text('ssh_host', null, ['class'=>'form-control', 'placeholder'=>'Username']) !!}
+			</td>
+		</tr>
+		<tr>
+			<th>{!! Form::label('ssh_username', 'Username') !!}</th>
+			<th><button type="button" name="btnCopy" value="ssh_username"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('ssh_username', null, ['class'=>'form-control', 'placeholder'=>'Username']) !!}
+			</td>
+		</tr>
+		<tr>
+			<th>{!! Form::label('ssh_password', 'Password') !!}</th>
+			<th><button type="button" name="btnCopy" value="ssh_password"><i class="fa fa-copy"></i></button></th>
+			<td>
+				<input type="password" id="ssh_password" name="ssh_password" value="{{$model->ssh_password}}" class="form-control raku-textbox-asterisk" autocomplete="off" current-password="off">
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('db_access_command', 'DB接続') !!}</th>
+			<th>{!! Form::label('ssh_description', 'Detail') !!}</th>
+			<th><button type="button" name="btnCopy" value="ssh_description"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::textarea('ssh_description', NULL, ['class'=>'form-control', 'placeholder'=>'Detail']) !!}
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><h2>Database information</h2>
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('db_access_command', 'DB connection') !!}</th>
 			<th><button type="button" name="btnCopy" value="db_access_command"><i class="fa fa-copy"></i></button></th>
 			<td>
 				{!! Form::text('db_access_command', NULL, ['class'=>'form-control', 'placeholder'=>'DB接続']) !!}
@@ -125,7 +190,39 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('db_description', 'DB情報') !!}</th>
+			<th>{!! Form::label('db_host', 'Host') !!}</th>
+			<th><button type="button" name="btnCopy" value="db_host"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('db_host', NULL, ['class'=>'form-control']) !!}
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('db_name', 'Database name') !!}</th>
+			<th><button type="button" name="btnCopy" value="db_name"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('db_name', NULL, ['class'=>'form-control']) !!}
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('db_username', 'User name') !!}</th>
+			<th><button type="button" name="btnCopy" value="db_username"><i class="fa fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('db_username', NULL, ['class'=>'form-control']) !!}
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('db_password', 'Password') !!}</th>
+			<th><button type="button" name="btnCopy" value="db_password"><i class="fa fa-copy"></i></button></th>
+			<td>
+				<input type="password" id="db_password" name="db_password" value="{{$model->db_password}}" class="form-control raku-textbox-asterisk" autocomplete="off" current-password="off">
+			</td>
+		</tr>
+
+		<tr>
+			<th>{!! Form::label('db_description', 'Detail') !!}</th>
 			<th><button type="button" name="btnCopy" value="db_description"><i class="fa fa-copy"></i></button></th>
 			<td>
 				{!! Form::textarea('db_description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細']) !!}

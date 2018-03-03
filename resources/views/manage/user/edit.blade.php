@@ -74,6 +74,12 @@
 
 				{!! Form::radio('permission_flag', 'Administrator', true, ['class'=>'', 'id'=>'permission_flag[2]']) !!}
 				<label for="permission_flag[2]" class="radio-inline control-label">Administrator</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+
+				@if($model->permission_flag == "Owner")
+				{!! Form::radio('permission_flag', 'Owner', true, ['class'=>'', 'id'=>'permission_flag[3]']) !!}
+				<label for="permission_flag[3]" class="radio-inline control-label">Owner</label>
+				@endif
 			</td>
 		</tr>
 

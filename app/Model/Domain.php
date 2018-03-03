@@ -14,12 +14,26 @@ class Domain extends Model
 		'admin_url',
 		'admin_username',
 		'admin_password',
-		'repository_url',
 		'description',
+
 		'ssh_access_command',
 		'ssh_description',
+		'ssh_host',
+		'ssh_username',
+		'ssh_password',
+
+		'repository_url',
+		'repository_username',
+		'repository_password',
+		'repository_description',
+
+		'db_host',
+		'db_name',
+		'db_username',
+		'db_password',
 		'db_access_command',
 		'db_description',
+
 		'development_flag', // 0: production, 1: Staging, 2: development
 		'is_deleted',
 	];

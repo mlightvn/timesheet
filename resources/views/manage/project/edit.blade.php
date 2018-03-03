@@ -31,6 +31,14 @@
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'プロジェクト名', 'required'=>'required']) !!}
 			</td>
 		</tr>
+
+		<tr>
+			<th>{!! Form::label('description', 'Description') !!}</th>
+			<td>
+				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>'Description', 'required'=>'required']) !!}
+			</td>
+		</tr>
+
 		@if(isset($model->id))
 		<tr>
 			<th>{!! Form::label('user_id', '自分のプロジェクト') !!}</th>

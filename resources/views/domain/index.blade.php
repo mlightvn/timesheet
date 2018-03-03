@@ -42,13 +42,15 @@
 				<a href="?development_flag=@{{ model.development_flag }}"><i class="fa fa-search"></i> <span ng-bind="model.development_flag_label"></span></a></td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> <span ng-bind="model.name"></span></a><br><br>
-				サイト： <a href="@{{ model.url }}"><span ng-bind="model.url"></span></a><br>
-				管理： <a href="@{{ model.admin_url }}"><span ng-bind="model.admin_url"></span></a>
+				サイト： <a href="@{{ model.url }}" target="_blank"><span ng-bind="model.url"></span></a><br>
+				管理： <a href="@{{ model.admin_url }}" target="_blank"><span ng-bind="model.admin_url"></span></a>
 			</td>
 			<td>
 				SSH： <span ng-bind="model.ssh_access_command"></span>
 				<br>
 				DB： <span ng-bind="model.db_access_command"></span>
+				<br>
+				Respository： <a href="@{{ model.repository_url }}" target="_blank"><span ng-bind="model.repository_url"></span></a>
 			</td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>

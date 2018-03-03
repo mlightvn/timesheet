@@ -79,13 +79,13 @@ class DomainKeyFileController extends Controller {
 
 				//ファイルをアップロードディレクトリに格納
 				if (is_uploaded_file($file["tmp_name"][$i])) {
-					$directory_path = storage_path() . env("UPLOAD_FOLDER_DOMAIN");
+					$directory_path = public_path() . env("UPLOAD_FOLDER_DOMAIN");
 					$directory_path = $directory_path . $this->model->organization_id;
 					if(!file_exists($directory_path)){
 						mkdir($directory_path, 0775, TRUE);
 					}
 
-					$directory_path = storage_path() . env("UPLOAD_FOLDER_DOMAIN");
+					$directory_path = public_path() . env("UPLOAD_FOLDER_DOMAIN");
 					$directory_path = $directory_path . $this->model->organization_id . "/" . $this->model->domain_id;
 					if(!file_exists($directory_path)){
 						mkdir($directory_path, 0775, TRUE);
@@ -146,7 +146,7 @@ class DomainKeyFileController extends Controller {
 		$file_name = $model->name;
 		$model->delete();
 
-		$directory_path = storage_path() . env("UPLOAD_FOLDER_DOMAIN");
+		$directory_path = public_path() . env("UPLOAD_FOLDER_DOMAIN");
 		$directory_path = $directory_path . $model->organization_id . "/" . $model->domain_id;
 		$file_path = $directory_path . "/" . $file_name;
 		unlink($file_path);
