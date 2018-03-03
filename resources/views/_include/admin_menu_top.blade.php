@@ -26,7 +26,6 @@
 	<a href="/cashflow" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'cashflow_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> Cashflow</a>
 	<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> ドメイン</a>
 
-	@if ( in_array($logged_in_user->permission_flag, array("Owner", "Administrator", "Manager", "Member")) )
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">設定 <span class="fa fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -38,7 +37,6 @@
 			<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fa fa-list"></span> Application Templates</a>
 		</div>
 	</div>
-	@endif
 
 	@if ($logged_in_user->permission_flag == "Master")
 	<a href="/master" class="w3-bar-item w3-button w3-hover-black"><span class="fa fa-empire"></span> マスタ</a>
