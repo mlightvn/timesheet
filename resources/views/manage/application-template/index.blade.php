@@ -18,7 +18,9 @@
 
 <div class="w3-row">
 	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="glyphicon glyphicon-list"></span></button>&nbsp;
+	@if($logged_in_user->permission_flag != "Member")
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	@endif
 	<br><br>
 
 	{{ csrf_field() }}
