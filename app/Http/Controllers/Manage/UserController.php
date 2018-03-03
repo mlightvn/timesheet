@@ -104,4 +104,27 @@ class UserController extends Controller {
 
 		return $arrResult;
 	}
+
+	public function view($id)
+	{
+		$this->blade_url = $this->url_pattern . '.view';
+		$message = NULL;
+		$alert_type = NULL;
+
+		$this->model = $this->model->join("session", "session.id", "=", "users.session_id");
+		$this->model = $this->model->where("users.id", "=", $id);
+		$this->model = $this->model->select([
+				"users.*",
+				\DB::raw("session.name AS session_name"),
+		]);
+		$this->model = $this->model->first();
+
+		if(!$this->model){
+			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"データが存在していませんので、追加画面に遷移しました。", "alert_type" => $alert_type]);
+		}
+
+		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model]);
+
+	}
+
 }

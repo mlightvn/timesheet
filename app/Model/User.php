@@ -24,13 +24,18 @@ class User extends Authenticatable
 		'id',
 		'organization_id',
 		'email',
+		'sub_email',
 		'password',
 		'name',
-		'permission_flag', // Administrator: admin of website, Manager: representative of organization, "member" : workers, staff at organization
+		'permission_flag', // Master: admin of website, Owner: representative/owner of organization, Manager, Administrator: Manager, "member" : workers, staff at organization
 		'session_id',
-		// 'gender',
-		// 'birthday',
-		// 'phone',
+
+		'dayoff',
+		'gender',
+		'birthday',
+		'tel',
+		'phone',
+		'description',
 
 		'remember_token',
 

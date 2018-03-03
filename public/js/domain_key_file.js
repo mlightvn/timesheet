@@ -69,7 +69,7 @@ function FileUpload($event) {
 
 			$('#divAlertBox').removeClass('w3-hide');
 			$('#divAlertBox').removeClass('w3-green');
-			// $('#divAlertBox').removeClass('w3-red');
+
 			$('#divAlertBox').addClass($response["color_class"]);
 			$('#divMessage').text($response["message"]);
 

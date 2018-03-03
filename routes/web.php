@@ -114,18 +114,18 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		});
 	});
 
+	Route::group(['prefix' => 'customer'], function(){
+		Route::get('', 'Api\CustomerController@list');
+		Route::get('list', 'Api\CustomerController@list');
+
+		Route::get('{id}/delete' 		, 'Api\CustomerController@delete')->where('id', '[0-9]+');
+		Route::get('{id}/recover' 		, 'Api\CustomerController@recover')->where('id', '[0-9]+');
+	});
+
 	Route::group(['prefix' => 'user'], function(){
 		Route::group(['prefix' => 'user'], function(){
 			Route::get('', 'Api\User\UserController@list');
 			Route::get('list', 'Api\User\UserController@list');
-		});
-
-		Route::group(['prefix' => 'customer'], function(){
-			Route::get('', 'Api\User\CustomerController@list');
-			Route::get('list', 'Api\User\CustomerController@list');
-
-			Route::get('{id}/delete' 		, 'Api\User\CustomerController@delete')->where('id', '[0-9]+');
-			Route::get('{id}/recover' 		, 'Api\User\CustomerController@recover')->where('id', '[0-9]+');
 		});
 
 		Route::group(['prefix' => 'project'], function(){
@@ -184,17 +184,6 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 		Route::get('{id}/recover' 		, 'Api\ApplicationTemplateController@recover')->where('id', '[0-9]+');
 	});
 
-	// Route::group(['prefix' => 'admin'], function(){
-
-	// 	Route::group(['prefix' => 'organization'], function(){
-	// 		Route::get('', 'Api\Admin\OrganizationController@list');
-	// 		Route::get('list', 'Api\Admin\OrganizationController@list');
-
-	// 		Route::get('{id}/delete' 		, 'Api\Admin\OrganizationController@delete')->where('id', '[0-9]+');
-	// 		Route::get('{id}/recover' 		, 'Api\Admin\OrganizationController@recover')->where('id', '[0-9]+');
-	// 	});
-	// });
-
 	Route::group(['prefix' => 'master'], function(){
 
 		Route::group(['prefix' => 'user'], function(){
@@ -216,41 +205,13 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 
 });
 
-Route::group(['prefix' => 'user', 'middleware' => ['admin']], function()
+Route::group(['prefix' => 'customer'], function()
 {
-	Route::group(['prefix' => 'project'], function()
-	{
-		Route::get('', 'User\ProjectController@list');
-		Route::get('list', 'User\ProjectController@list');
+	Route::get('', 'CustomerController@list');
+	Route::get('list', 'CustomerController@list');
 
-		Route::match(["get", "post"], 'add', 'User\ProjectController@add');
-		Route::match(["get", "post"], 'edit/{id}', 'User\ProjectController@edit')->where('id', '[0-9]+');
-
-	});
-
-	Route::group(['prefix' => 'user'], function()
-	{
-		Route::get('', 'User\UserController@list');
-		Route::get('list', 'User\UserController@list');
-
-		Route::match(["get", "post"], 'edit/{user_id}', 'User\UserController@edit')->where('user_id', '[0-9]+'); // edit self information
-	});
-
-	Route::group(['prefix' => 'customer'], function()
-	{
-		Route::get('', 'User\CustomerController@list');
-		Route::get('list', 'User\CustomerController@list');
-
-		Route::match(["get", "post"], 'add', 'User\CustomerController@add');
-		Route::match(["get", "post"], 'edit/{user_id}', 'User\CustomerController@edit')->where('user_id', '[0-9]+');
-
-	});
-
-	Route::group(['prefix' => 'session'], function()
-	{
-		Route::get('', 'User\SessionController@list');
-		Route::get('list', 'User\SessionController@list');
-	});
+	Route::match(["get", "post"], 'add', 'CustomerController@add');
+	Route::match(["get", "post"], 'edit/{user_id}', 'CustomerController@edit')->where('user_id', '[0-9]+');
 
 });
 
@@ -263,8 +224,6 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 
 		Route::match(["get", "post"], 'add', 'Manage\ProjectController@add');
 		Route::match(["get", "post"], 'edit/{id}', 'Manage\ProjectController@edit')->where('id', '[0-9]+');
-		// Route::get('delete/{id}', 'Manage\ProjectController@delete')->where('id', '[0-9]+');
-		// Route::get('recover/{id}', 'Manage\ProjectController@recover')->where('id', '[0-9]+');
 
 		Route::post('update', 'Manage\ProjectController@update');
 	});
@@ -276,8 +235,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 
 		Route::match(["get", "post"], 'add', 'Manage\UserController@add');
 		Route::match(["get", "post"], 'edit/{user_id}', 'Manage\UserController@edit')->where('user_id', '[0-9]+');
-		// Route::get('delete/{user_id}', 'Manage\UserController@delete')->where('user_id', '[0-9]+');
-		// Route::get('recover/{user_id}', 'Manage\UserController@recover')->where('user_id', '[0-9]+');
+		Route::get('view/{user_id}', 'Manage\UserController@view')->where('user_id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'session'], function()
@@ -288,8 +246,6 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 		Route::match(["get", "post"], 'add', 'Manage\SessionController@add');
 		Route::match(["get", "post"], 'edit/{session_id}', 'Manage\SessionController@edit')->where('session_id', '[0-9]+');
 
-		// Route::get('delete/{session_id}', 'Manage\SessionController@delete')->where('session_id', '[0-9]+');
-		// Route::get('recover/{session_id}', 'Manage\SessionController@recover')->where('session_id', '[0-9]+');
 	});
 
 	Route::group(['prefix' => 'application-template'], function()
@@ -300,57 +256,11 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 		Route::match(["get", "post"], 'add', 'Manage\ApplicationTemplateController@add');
 		Route::match(["get", "post"], 'edit/{id}', 'Manage\ApplicationTemplateController@edit')->where('id', '[0-9]+');
 
-		// Route::get('delete/{id}', 'Manage\ApplicationTemplateController@delete')->where('id', '[0-9]+');
-		// Route::get('recover/{id}', 'Manage\ApplicationTemplateController@recover')->where('id', '[0-9]+');
 	});
 });
 
-// Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function()
-// {
-// 	// Route::auth();
-
-// 	Route::get('', 'Admin\Controller@dashboard');
-// 	Route::get('index', 'Admin\Controller@dashboard');
-
-// 	Route::group(['prefix' => 'organization'], function()
-// 	{
-// 		Route::get('', 'Admin\OrganizationController@list');
-// 		Route::get('list', 'Admin\OrganizationController@list');
-
-// 		Route::match(["get", "post"], 'add', 'Admin\OrganizationController@add');
-// 		Route::match(["get", "post"], 'edit/{id}', 'Admin\OrganizationController@edit')->where('id', '[0-9]+');
-
-// 		// Route::get('delete/{id}', 'Admin\OrganizationController@delete')->where('id', '[0-9]+');
-// 		// Route::get('recover/{id}', 'Admin\OrganizationController@recover')->where('id', '[0-9]+');
-// 	});
-
-// 	Route::group(['prefix' => 'holiday'], function()
-// 	{
-// 		Route::get('', 'Admin\HolidayController@list');
-// 		Route::get('list', 'Admin\HolidayController@list');
-
-// 		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
-// 		Route::match(["get", "post"], 'add', 'Admin\HolidayController@add');
-// 		// Route::get('delete/{date}', 'Admin\HolidayController@delete');
-
-// 		Route::post('update', 'Admin\HolidayController@update');
-// 	});
-
-// 	Route::group(['prefix' => 'api'], function()
-// 	{
-// 		Route::get('list/{object_type}', 'Admin\ApiController@list');
-// 		Route::get('list/{object_type}/{keyword}', 'Admin\ApiController@list');
-// 		Route::get('get/{object_type}/{id}', 'Admin\ApiController@get')->where('id', '[0-9]+');
-
-// 		Route::post('add/{object_type}', 'Admin\ApiController@add');
-// 		Route::post('edit/{object_type}/{id}', 'Admin\ApiController@edit');
-// 	});
-
-// });
-
 Route::group(['prefix' => 'master', 'middleware' => ['admin']], function()
 {
-	// Route::auth();
 
 	Route::get('', 'Master\Controller@dashboard');
 	Route::get('index', 'Master\Controller@dashboard');

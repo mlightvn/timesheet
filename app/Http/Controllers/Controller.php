@@ -688,6 +688,22 @@ class Controller extends BaseController
 		// $this->blade_url = "/" . str_replace(".", "/", $this->blade_url);
 		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
 
+	}
+
+	public function view($id)
+	{
+		$this->blade_url = $this->url_pattern . '.view';
+		$message = NULL;
+		$alert_type = NULL;
+
+		$this->model = $this->model->find($id);
+
+		if(!$this->model){
+			$url = "/" . str_replace(".", "/", $this->url_pattern);
+			return redirect($url)->with(["message"=>"データが存在していませんので、追加画面に遷移しました。", "alert_type" => $alert_type]);
+		}
+
+		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model]);
 
 	}
 

@@ -65,7 +65,7 @@
 						@endif
 					</span>
 				@else
-					<span ng-bind="model.name"></span>
+					<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><span class="fa fa-eye"></span> <span ng-bind="model.name"></span></a>
 				@endif
 
 			</td>

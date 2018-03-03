@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Api\User;
+<?php namespace App\Http\Controllers\Api;
 
 use App\Model\Customer;
 

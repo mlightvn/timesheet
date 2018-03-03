@@ -1,13 +1,13 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'user_user',
+		'id'				=> 'user_customer',
 	]
 )
 
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>ユーザー一覧</h1>
+	<h1>顧客一覧</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -18,9 +18,7 @@
 
 <div class="w3-row">
 	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="glyphicon glyphicon-list"></span></button>&nbsp;
-	@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
-	@endif
 	<br><br>
 
 	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
@@ -30,42 +28,24 @@
 		<tr class="w3-brown">
 			<th>ID</th>
 			<th>ユーザー名</th>
-			<th>部署</th>
 			<th>email</th>
-			@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
-			<th>Dayoff</th>
-			<th>レポート</th>
-			@endif
+			<th>携帯・電話番号</th>
 			<th></th>
 		</tr>
 		</thead>
+
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
 			<td>
-				<span class="@{{ model.ICON_CLASS }}"></span>
-				&nbsp;
-
-				<span ng-if="model.id == '{{ $logged_in_user->id }}'">
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span> <span ng-bind="model.name"></span></a>
-				</span>
-
-				<span ng-if="model.id != '{{ $logged_in_user->id }}'">
-					<span ng-bind="model.name"></span>
-				</span>
-
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span> <span ng-bind="model.name"></span></a><br>
+				生年月日: <span ng-bind="model.birthday"></span><br>
 			</td>
-			<td><span ng-bind="model.session_name"></span></td>
-			<td>
-				<a href="mailto:@{{ model.email }}"><span class="glyphicon glyphicon-envelope"></span> <span ng-bind="model.email"></span></a>
-			</td>
-			<td>
-				<span ng-if="model.id == '{{ $logged_in_user->id }}'">
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
-				</span>
+			<td><a href="mailto:@{{ model.email }}"><span class="fa fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
+			<td><a href="tel:@{{ model.phone }}" ng-bind="model.phone"></a></td>
 
-				<span ng-if="model.id != '{{ $logged_in_user->id }}'">
-					<span class="glyphicon glyphicon-pencil"></span>
-				</span>
+			<td>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>
+				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
 			</td>
 		</tr>
 	</table>

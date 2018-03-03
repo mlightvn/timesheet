@@ -11,7 +11,9 @@
 
 <div class="w3-row">
 	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
+	@if($logged_in_user->permission_flag != "Member")
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	@endif
 	<br><br>
 </div>
 
@@ -28,7 +30,11 @@
 			<th>{!! Form::label('name', 'タイトル') !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'required'=>'required']) !!}
+				@if($logged_in_user->permission_flag == "Member")
+					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'readonly'=>'readonly']) !!}
+				@else
+					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'required'=>'required']) !!}
+				@endif
 			</td>
 		</tr>
 
@@ -36,10 +42,15 @@
 			<th>{!! Form::label('description', '詳細情報') !!}</th>
 			<th><button type="button" name="btnCopy" value="description"><i class="fa fa-copy"></i></button></th>
 			<td>
-				{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報']) !!}
+				@if($logged_in_user->permission_flag == "Member")
+					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報', 'readonly'=>'readonly']) !!}
+				@else
+					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報']) !!}
+				@endif
 			</td>
 		</tr>
 
+		@if($logged_in_user->permission_flag != "Member")
 		<tfoot>
 		<tr>
 			<td colspan="3">
@@ -49,6 +60,7 @@
 			</td>
 		</tr>
 		</tfoot>
+		@endif
 	</table>
 	<br>
 	{!! Form::close() !!}

@@ -87,7 +87,6 @@
 			</td>
 		</tr>
 
-
 		<tfoot>
 		<tr>
 			<td colspan="2">
@@ -103,6 +102,6 @@
 </div>
 
 @include('_include.admin_footer', [
-	'js'						=> 'user/customer',
+	'js'						=> 'common/datepicker',
 	'datepicker' 				=> true,
 ])
