@@ -1,5 +1,5 @@
 <div class="w3-bar w3-brown w3-border">
-	<a href="/" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-time"></span> {{ env("APP_NAME") }}</a>
+	<a href="/dashboard" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="glyphicon glyphicon-time"></span> {{ env("APP_NAME") }}</a>
 
 	@if(isset($logged_in_user))
 	<div class="w3-dropdown-hover w3-brown">

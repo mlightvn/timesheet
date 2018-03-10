@@ -24,6 +24,12 @@ Route::post('login', 'Controller@authenticate');
 Route::any('logout', 'Controller@logout');
 // Route::any('register', 'Controller@register');
 
+Route::group(['prefix' => 'dashboard', 'middleware' => ['admin']], function(){
+	Route::get('', 'DashboardController@index');
+	Route::post('index', 'DashboardController@regist');
+
+});
+
 Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 	Route::get('time', 'Report\TimeController@index');
 	Route::post('time', 'Report\TimeController@regist');
