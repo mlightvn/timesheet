@@ -198,8 +198,8 @@ class MonthController extends \App\Http\Controllers\Api\WorkTime\Controller {
 			"work_datetime.*",
 
 			\DB::raw("DAY(work_datetime.date) AS 'day'"),
-			\DB::raw("CONCAT(HOUR(work_datetime.time_in), ':', MINUTE(work_datetime.time_in)) AS 'time_in_label'"),
-			\DB::raw("CONCAT(HOUR(work_datetime.time_out), ':', MINUTE(work_datetime.time_out)) AS 'time_out_label'"),
+			\DB::raw("TIME_FORMAT(time_in, '%H:%i') AS 'time_in_label'"),
+			\DB::raw("TIME_FORMAT(time_out, '%H:%i') AS 'time_out_label'"),
 
 			\DB::raw("
 					(
@@ -242,7 +242,7 @@ class MonthController extends \App\Http\Controllers\Api\WorkTime\Controller {
 				"),
 
 			\DB::raw("
-				CONCAT(HOUR(work_datetime.`work_hour`), ':', MINUTE(work_datetime.`work_hour`)) AS 'WORK_HOUR_LABEL'
+				TIME_FORMAT(work_datetime.`work_hour`, '%H:%i') AS 'WORK_HOUR_LABEL'
 				"),
 
 		]);

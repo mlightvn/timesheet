@@ -22,8 +22,8 @@
 					</tr>
 					<tr>
 						<td>
-							@if($workDateTime->time_in)
-							<span id="workTimeIn">{{$workDateTime->time_in}}</span>
+							@if($workDateTime->time_in_label)
+							<span id="workTimeIn">{{$workDateTime->time_in_label}}</span>
 							@else
 							<span id="workTimeIn"></span>
 							<button type="button" class="w3-button w3-brown" id="check-in"><i class="fas fa-sign-in-alt"></i> Check In</button>
@@ -31,8 +31,8 @@
 						</td>
 						<td></td>
 						<td>
-							@if($workDateTime->time_out)
-							<span id="workTimeOut">{{$workDateTime->time_out}}</span>
+							@if($workDateTime->time_out_label)
+							<span id="workTimeOut">{{$workDateTime->time_out_label}}</span>
 							@else
 							<span id="workTimeOut"></span>
 							<button type="button" class="w3-button w3-brown" id="check-out">Check Out <i class="fas fa-sign-out-alt"></i></button>

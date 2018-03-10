@@ -78,6 +78,12 @@ class Controller extends BaseController
 		$model = $model->where("organization_id", "=", $this->organization_id);
 		$model = $model->where("user_id", "=", $this->user_id);
 		$model = $model->where("date", "=", $cur_date);
+		$model = $model->select([
+			"*",
+
+			\DB::raw("TIME_FORMAT(time_in, '%H:%i') AS 'time_in_label'"),
+			\DB::raw("TIME_FORMAT(time_out, '%H:%i') AS 'time_out_label'"),
+		]);
 		$model = $model->first();
 
 		return $model;
