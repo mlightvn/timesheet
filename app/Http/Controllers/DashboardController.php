@@ -4,7 +4,8 @@ class DashboardController extends Controller {
 
 	protected function init()
 	{
-		$this->middleware('auth');
+		// $this->middleware('auth');
+		$this->middleware('admin');
 
 		parent::init();
 

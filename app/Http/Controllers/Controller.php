@@ -30,7 +30,7 @@ class Controller extends BaseController
 	protected $logged_in_user;
 	protected $organization_id = NULL;
 	protected $logical_delete = true;
-	// protected $redirectTo = '/';
+	// protected $redirectTo = '/dashboard';
 
 	public function __construct(Request $request)
 	{
@@ -67,6 +67,16 @@ class Controller extends BaseController
 		}
 
 		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
+	}
+
+	public function workCheckIn()
+	{
+		# code...
+	}
+
+	public function workCheckOut()
+	{
+		# code...
 	}
 
 	protected function querySetup()

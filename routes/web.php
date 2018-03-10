@@ -25,8 +25,8 @@ Route::any('logout', 'Controller@logout');
 // Route::any('register', 'Controller@register');
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['admin']], function(){
-	Route::get('', 'DashboardController@index');
-	Route::post('index', 'DashboardController@regist');
+	Route::get('', 'DashboardController@dashboard');
+	Route::post('index', 'DashboardController@dashboard');
 
 });
 

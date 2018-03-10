@@ -13,7 +13,7 @@
 	<meta name="keywords" content="{{ (!empty($keyword) ? $keyword : env('APP_KEYWORDS')) }}">
 
 	<link rel="stylesheet" href="/css/common/w3.css">
-	<link rel="stylesheet" href="/css/common/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/common/fontawesome-all.min.css">
 	<link rel="stylesheet" href="/css/common/bootstrap.min.css">
 {{--
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">

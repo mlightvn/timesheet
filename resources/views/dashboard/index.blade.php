@@ -16,7 +16,7 @@
 	<div class="w3-col s12 m12 l12 w3-center">
 		<button class="w3-button w3-brown w3-xxlarge"><i class="fas fa-sign-in-alt"></i> Check In</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<button class="w3-button w3-brown w3-xxlarge">Check Out</button>
+		<button class="w3-button w3-brown w3-xxlarge">Check Out <i class="fas fa-sign-out-alt"></i></button>
 	</div>
 
 </div>

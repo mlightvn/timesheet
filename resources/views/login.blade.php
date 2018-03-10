@@ -41,7 +41,7 @@
 		</tr>
 
 		<tr>
-			<td colspan="2"><div class="w3-center"><button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;ログイン　　</button></div></td>
+			<td colspan="2"><div class="w3-center"><button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-sign-in-alt"></span>&nbsp;&nbsp;ログイン　　</button></div></td>
 		</tr>
 	</table>
 	{!! Form::close() !!}
