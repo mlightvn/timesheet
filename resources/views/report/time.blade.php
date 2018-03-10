@@ -133,7 +133,7 @@
 			<tr>
 				<td colspan="2">
 					<div class="w3-center">
-						<button type="button" id="btnReportSubmit" class="btn w3-button w3-brown w3-xlarge ">　　<span class="fa fa-save"></span> 登録　　</button>
+						<button type="button" id="btnReportSubmit" class="btn w3-button w3-brown w3-xlarge ">　　<span class="fas fa-save"></span> 登録　　</button>
 					</div>
 				</td>
 			</tr>

@@ -11,8 +11,8 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fa fa-list"></span></a>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 </div>
 
@@ -29,7 +29,7 @@
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
 			<th>{!! Form::label('name', 'Title') !!} <span class="w3-text-red">※</span></th>
-			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>
 			<td>
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Title', 'required'=>'required']) !!}
 			</td>
@@ -37,7 +37,7 @@
 
 		<tr>
 			<th>{!! Form::label('in_out_flag', 'Cash out') !!}</th>
-			<th><button type="button" name="btnCopy" value="in_out_flag"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="in_out_flag"><i class="fas fa-copy"></i></button></th>
 			<td>
 				<!-- Rounded switch -->
 				<label class="switch">
@@ -50,7 +50,7 @@
 
 		<tr>
 			<th>{!! Form::label('amount', 'amount') !!}</th>
-			<th><button type="button" name="btnCopy" value="amount"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="amount"><i class="fas fa-copy"></i></button></th>
 			<td>
 				{{--
 				https://developer.mozilla.org/ja/docs/Web/HTML/Element/Input/number
@@ -61,7 +61,7 @@
 
 		<tr>
 			<th>{!! Form::label('datetime', 'datetime') !!}</th>
-			<th><button type="button" name="btnCopy" value="datetime"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="datetime"><i class="fas fa-copy"></i></button></th>
 			<td>
 				{!! Form::text('datetime', NULL, ['class'=>'form-control', 'datetimepicker'=>'datetimepicker', 'readonly'=>'readonly']) !!}
 			</td>
@@ -71,7 +71,7 @@
 		<tr>
 			<td colspan="3">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span>　登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　登録　　</button>
 				</div>
 			</td>
 		</tr>

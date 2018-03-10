@@ -17,8 +17,8 @@
 @endif
 
 <div class="w3-row">
-	<button class="w3-button w3-brown" ng-click="reset()"><span class="fa fa-list"></span></button>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<button class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
@@ -39,9 +39,9 @@
 				<span ng-bind="model.id"></span>
 			</td>
 			<td>
-				<a href="?development_flag=@{{ model.development_flag }}"><i class="fa fa-search"></i> <span ng-bind="model.development_flag_label"></span></a></td>
+				<a href="?development_flag=@{{ model.development_flag }}"><i class="fas fa-search"></i> <span ng-bind="model.development_flag_label"></span></a></td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> <span ng-bind="model.name"></span></a><br><br>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i> <span ng-bind="model.name"></span></a><br><br>
 				サイト： <a href="@{{ model.url }}" target="_blank"><span ng-bind="model.url"></span></a><br>
 				管理： <a href="@{{ model.admin_url }}" target="_blank"><span ng-bind="model.admin_url"></span></a>
 			</td>
@@ -53,7 +53,7 @@
 				Respository： <a href="@{{ model.repository_url }}" target="_blank"><span ng-bind="model.repository_url"></span></a>
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i></a>
 				@if(in_array($logged_in_user->permission_flag, array("Member", "Manager")))
 				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
 				@endif

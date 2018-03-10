@@ -12,8 +12,8 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fa fa-list"></span></a>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 </div>
 
@@ -45,13 +45,13 @@
 
 			<div class="panel panel-default panel-body" ondragover="onDragOver(event)" ondrop="onDrop(event)">
 				<div class="droparea col-xs-12 text-center">
-					<i class="fa fa-cloud-upload fa-cloud-upload-org-silver fa-4x"></i>
+					<i class="fas fa-cloud-upload-alt fa-cloud-upload-org-silver fa-4x"></i>
 					<div class="progress progress-striped fileUploadBar active">
 						<div class="progress-bar" style="width: 0%"></div>
 					</div>
 					<label class="control-label label-text-silver fileUploadLabel">ここに添付ファイルを
 						<br/>ドロップしてください</label>
-					<button type="button" class="btn btn-block fileUploadBtn" onclick="$('#selectFileUpload').click();"><i class="fa fa-folder-open fa-fw"></i> CSVファイル選択</button>
+					<button type="button" class="btn btn-block fileUploadBtn" onclick="$('#selectFileUpload').click();"><i class="fas fa-folder-open fa-fw"></i> CSVファイル選択</button>
 				</div>
 				<!--<form name="selectFileUpload">-->
 					<input type="file" id="selectFileUpload" name="selectFileUpload[]" style="display:none;" multiple="multiple">
@@ -72,7 +72,7 @@
 			<td>
 				<a href="/storage/domain/@{{model.organization_id}}/@{{model.domain_id}}/@{{model.name}}" ng-bind="model.name" download="download"></a>
 			</td>
-			<td><a href="javascript:void(0);" ng-click="delete(model.id)"><i class="fa fa-trash w3-text-red"></i></a></td>
+			<td><a href="javascript:void(0);" ng-click="delete(model.id)"><i class="fas fa-trash-alt w3-text-red"></i></a></td>
 		</tr>
 	</table>
 

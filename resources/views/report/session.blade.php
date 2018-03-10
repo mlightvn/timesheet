@@ -36,8 +36,8 @@
 			{{ $session->name }}
 			</td>
 			@if ($logged_in_user->permission_flag == "Manager")
-			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['prev_yearmonth'] }}"><span class="fa fa-download"></span></a></td>
-			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['curr_yearmonth'] }}"><span class="fa fa-download"></span></a></td>
+			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['prev_yearmonth'] }}"><span class="fas fa-cloud-download-alt"></span></a></td>
+			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['curr_yearmonth'] }}"><span class="fas fa-cloud-download-alt"></span></a></td>
 			@endif
 		</tr>
 		@endforeach

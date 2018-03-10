@@ -10,8 +10,8 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}?permission=Owner" class="w3-button w3-brown"><span class="fa fa-list"></span></a>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}?permission=Owner" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 </div>
 
@@ -90,7 +90,7 @@
 		<tr>
 			<td colspan="2">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span>　登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　登録　　</button>
 				</div>
 			</td>
 		</tr>

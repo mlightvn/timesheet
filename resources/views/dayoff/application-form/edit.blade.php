@@ -39,7 +39,7 @@
 		<tr>
 			<th>{!! Form::label('application-template', 'Template') !!}</th>
 			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>
 			@endif
 			<td>
 				{!! Form::select('application-template', $data['template_list'], null, ['class'=>'form-control', 'required'=>'required']) !!}
@@ -51,7 +51,7 @@
 		<tr>
 			<th>{!! Form::label('name', 'タイトル') !!} <span class="w3-text-red">※</span></th>
 			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>
 			@endif
 			<td>
 				@if ($data["view_mode"] == true)
@@ -66,7 +66,7 @@
 		<tr>
 			<th>{!! Form::label('description', '詳細情報') !!}</th>
 			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="description"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="description"><i class="fas fa-copy"></i></button></th>
 			@endif
 			<td>
 				@if ($data["view_mode"] == true)
@@ -80,7 +80,7 @@
 		<tr>
 			<th>{!! Form::label('applied_user_id', 'Applied User') !!}</th>
 			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="applied_user_id"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="applied_user_id"><i class="fas fa-copy"></i></button></th>
 			@endif
 			<td>
 				{{ $data['applied_user_name'] }}
@@ -91,7 +91,7 @@
 		<tr>
 			<th>{!! Form::label('date_list', '日付') !!} <span class="w3-text-red">※</span></th>
 			@if ($data["view_mode"] !== true)
-			<th><button type="button" name="btnCopy" value="date_list"><i class="fa fa-copy"></i></button>
+			<th><button type="button" name="btnCopy" value="date_list"><i class="fas fa-copy"></i></button>
 			</th>
 			@endif
 			<td>
@@ -132,7 +132,7 @@
 					<div class="w3-col s12 m8 l8">
 						<textarea name="date_list" id="date_list" class="form-control" rows="10" readonly="readonly" maxlength="255"></textarea>
 						<br>
-						<button type="button" class="w3-button w3-brown" action="clear" value="date_list"><i class="fa fa-close"></i></button>
+						<button type="button" class="w3-button w3-brown" action="clear" value="date_list"><i class="fas fa-times"></i></button>
 					</div>
 				</div>
 				@endif
@@ -155,13 +155,13 @@
 				<div class="w3-center">
 					@if ($data["view_mode"] == true)
 						@if ( $logged_in_user->permission_flag == "Manager" || ($logged_in_user->id == $model->applied_user_id))
-						<a class="w3-button w3-gray w3-xlarge" href="{{ $data['url_pattern'] }}/{{$model->id}}/reject">　　<span class="fa fa-close"></span>　却下　　</a>
+						<a class="w3-button w3-gray w3-xlarge" href="{{ $data['url_pattern'] }}/{{$model->id}}/reject">　　<span class="fas fa-times"></span>　却下　　</a>
 						@endif
 						@if ( $logged_in_user->permission_flag == "Manager" )
-						<a class="w3-button w3-brown w3-xlarge"href="{{ $data['url_pattern'] }}/{{$model->id}}/approve">　　<span class="fa fa-check"></span>　同意　　</a>
+						<a class="w3-button w3-brown w3-xlarge"href="{{ $data['url_pattern'] }}/{{$model->id}}/approve">　　<span class="fas fa-check"></span>　同意　　</a>
 						@endif
 					@else
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span>　登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　登録　　</button>
 					@endif
 				</div>
 			</td>

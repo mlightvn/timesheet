@@ -41,7 +41,7 @@
 				<span ng-bind="model.id"></span>
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fa fa-eye"></i> <span ng-bind="model.name"></span></a>
+				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fas fa-eye-slash"></i> <span ng-bind="model.name"></span></a>
 			</td>
 			<td class="@{{ model.STATUS_COLOR }}">
 				<span ng-bind="model.STATUS_LABEL"></span>
@@ -53,7 +53,7 @@
 				<span ng-bind="model.APPROVED_USER_NAME"></span>
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fa fa-eye"></i></a>
+				<a href="{{ $data['url_pattern'] }}/@{{ model.id }}/view"><i class="fas fa-eye-slash"></i></a>
 			</td>
 		</tr>
 

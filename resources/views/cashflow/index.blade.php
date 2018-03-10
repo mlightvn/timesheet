@@ -17,8 +17,8 @@
 @endif
 
 <div class="w3-row">
-	<button class="w3-button w3-brown" ng-click="reset()"><span class="fa fa-list"></span></button>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<button class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
@@ -40,7 +40,7 @@
 				<span ng-bind="model.id"></span>
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i> <span ng-bind="model.name"></span></a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i> <span ng-bind="model.name"></span></a>
 			</td>
 			<td>
 				<span ng-bind="model.AMOUNT_OUT"></span>
@@ -51,7 +51,7 @@
 			<td>
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fa fa-pencil"></i></a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i></a>
 			</td>
 		</tr>
 

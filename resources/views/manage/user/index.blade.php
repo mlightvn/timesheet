@@ -17,9 +17,9 @@
 @endif
 
 <div class="w3-row">
-	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="fa fa-list"></span></button>&nbsp;
+	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
 	@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager", "Administrator")) )
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
 
@@ -46,16 +46,16 @@
 				&nbsp;
 
 				@if ( $logged_in_user->permission_flag == "Owner" )
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span> <span ng-bind="model.name"></span></a>
+					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
 				@elseif( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
 					<span ng-if="model.id == '{{ $logged_in_user->id }}'">
-						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span> <span ng-bind="model.name"></span></a>
+						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
 					</span>
 
 					<span ng-if="model.id != '{{ $logged_in_user->id }}'">
 						@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
 						<span ng-if="model.permission_flag != 'Administrator'">
-							<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span> <span ng-bind="model.name"></span></a>
+							<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
 						</span>
 						<span ng-if="model.permission_flag == 'Administrator'">
 							<span ng-bind="model.name"></span>
@@ -65,35 +65,35 @@
 						@endif
 					</span>
 				@else
-					<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><span class="fa fa-eye"></span> <span ng-bind="model.name"></span></a>
+					<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><span class="fas fa-eye-slash"></span> <span ng-bind="model.name"></span></a>
 				@endif
 
 			</td>
 			<td><span ng-bind="model.session_name"></span></td>
-			<td><a href="mailto:@{{ model.email }}"><span class="fa fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
+			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			@if ( in_array($logged_in_user->permission_flag, array("Manager")) )
 			<td><span ng-bind="model.dayoff"></span></td>
-			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fa fa-file-o" aria-hidden="true"></span> プロジェクトのレポート</a></td>
+			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fas fa-table" aria-hidden="true"></span> プロジェクトのレポート</a></td>
 			@endif
 			<td>
 
 				@if ( $logged_in_user->permission_flag == "Owner" )
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>
+					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
 				@elseif( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
 					<span ng-if="model.id == '{{ $logged_in_user->id }}'">
-						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>
+						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
 					</span>
 
 					<span ng-if="model.id != '{{ $logged_in_user->id }}'">
 						@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
 						<span ng-if="model.permission_flag != 'Administrator'">
-							<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>
+							<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
 						</span>
 						<span ng-if="model.permission_flag == 'Administrator'">
-							<span class="fa fa-pencil"></span>
+							<span class="fas fa-pencil-alt"></span>
 						</span>
 						@else
-							<span class="fa fa-pencil"></span>
+							<span class="fas fa-pencil-alt"></span>
 						@endif
 					</span>
 				@endif

@@ -14,7 +14,7 @@
 				<input placeholder="{{ $requestYear }}" class="w3-input w3-border" name="year" type="number" value="{{ $requestYear }}">
 			</div>
 			<div class="w3-col s4 m3 l3">
-				<button type="submit" class="w3-button w3-brown"><span class="fa fa-refresh"></span></button>
+				<button type="submit" class="w3-button w3-brown"><span class="fas fa-sync-alt"></span></button>
 			</div>
 		</div>
 		<br><br>
@@ -46,7 +46,7 @@
 				<td>
 					<a href="/admin/report/day?year_month={{ $requestYear }}-{{ str_pad($month_key, 2, '0', STR_PAD_LEFT) }}"><span class="glyphicon glyphicon-info-sign"></span></a> 
 					| 
-					<a href="day_download_{{ $requestYear }}-{{ $month_key }}"><span class="fa fa-download"></span></a>
+					<a href="day_download_{{ $requestYear }}-{{ $month_key }}"><span class="fas fa-cloud-download-alt"></span></a>
 				</td>
 			</tr>
 			@endforeach
@@ -54,7 +54,7 @@
 			<tr>
 				<td colspan="3">
 					<div class="w3-center">
-						<button type="button" disabled="disabled" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-download"></span> ダウンロード　　</button>
+						<button type="button" disabled="disabled" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> ダウンロード　　</button>
 					</div>
 				</td>
 			</tr>

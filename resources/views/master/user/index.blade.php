@@ -61,13 +61,13 @@
 				<span class="@{{ model.ICON_CLASS }}"></span>
 				&nbsp;
 
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span> <span ng-bind="model.name"></span></a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
 
 			</td>
-			<td><a href="mailto:@{{ model.email }}"><span class="fa fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
+			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			<td>
 				@if(isset($data['permission_flag']) && (in_array($data['permission_flag'], array('Master', 'Owner'))))
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>
+					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
 
 					| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a>
 				@endif

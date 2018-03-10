@@ -7,8 +7,8 @@
 					<input class="w3-input w3-border" id="keyword" name="keyword" type="text" placeholder="検索キーワード" value="{{ (isset($keyword) ? $keyword : '') }}">
 				</div>
 				<div class="w3-col s4 m3 l3">
-					<button type="submit" class="w3-button w3-brown"><span class="glyphicon glyphicon-search"></span></button>
-					<button type="reset" class="w3-button w3-brown"><span class="glyphicon glyphicon-refresh"></span></button>
+					<button type="submit" class="w3-button w3-brown"><span class="fas fa-search"></span></button>
+					<button type="reset" class="w3-button w3-brown"><span class="fas fa-sync-alt"></span></button>
 				</div>
 			</div>
 

@@ -15,9 +15,9 @@
 @endif
 
 <div class="w3-row">
-	<button class="w3-button w3-brown" ng-click="reset()"><span class="fa fa-list"></span></button>&nbsp;
+	<button class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
 	@if ( $logged_in_user->permission_flag == "Administrator" )
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
@@ -43,9 +43,9 @@
 			@if ( $logged_in_user->permission_flag == "Administrator" )
 				@if ( $model->permission_flag != "Administrator" )
 					@if ($model->is_deleted)
-				| <a href="{{ $data['url_pattern'] }}/recover/{{ $model->id }}"><span class="fa fa-recycle w3-text-green"></span></a>
+				| <a href="{{ $data['url_pattern'] }}/recover/{{ $model->id }}"><span class="fas fa-recycle w3-text-green"></span></a>
 					@else
-				| <a href="{{ $data['url_pattern'] }}/delete/{{ $model->id }}"><span class="fa fa-trash w3-text-red"></span></a>
+				| <a href="{{ $data['url_pattern'] }}/delete/{{ $model->id }}"><span class="fas fa-trash-alt w3-text-red"></span></a>
 					@endif
 				@endif
 			@endif

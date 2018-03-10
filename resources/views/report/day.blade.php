@@ -34,7 +34,7 @@
 					<span id="datepicker"></span>
 				</div>
 				<div class="w3-col s12 m8 l8">
-					<button type="button" class="w3-button w3-brown" action="reset"><i class="fa fa-refresh"></i></button>
+					<button type="button" class="w3-button w3-brown" action="reset"><i class="fas fa-sync-alt"></i></button>
 				</div>
 			</div>
 			<br><br><br>
@@ -80,7 +80,7 @@
 			<tr>
 				<td colspan="4">
 					<div class="w3-center">
-						<button type="button" action="download" value="@{{model_list.download_url}}" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-download"></span> ダウンロード　　</button>
+						<button type="button" action="download" value="@{{model_list.download_url}}" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> ダウンロード　　</button>
 					</div>
 				</td>
 			</tr>

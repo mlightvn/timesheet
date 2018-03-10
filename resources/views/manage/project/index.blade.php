@@ -17,8 +17,8 @@
 @endif
 
 <div class="w3-row">
-	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="fa fa-list"></span></button>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fa fa-plus"></span></a>
+	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
@@ -55,7 +55,7 @@
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fa fa-pencil"></span></a>
+			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
 				@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
 				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
 				@endif
@@ -66,7 +66,7 @@
 		<tr>
 			<td colspan="5">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span> 登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span> 登録　　</button>
 				</div>
 			</td>
 		</tr>

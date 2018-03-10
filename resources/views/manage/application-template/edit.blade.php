@@ -28,7 +28,7 @@
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
 			<th>{!! Form::label('name', 'タイトル') !!} <span class="w3-text-red">※</span></th>
-			<th><button type="button" name="btnCopy" value="name"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>
 			<td>
 				@if($logged_in_user->permission_flag == "Member")
 					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'readonly'=>'readonly']) !!}
@@ -40,7 +40,7 @@
 
 		<tr>
 			<th>{!! Form::label('description', '詳細情報') !!}</th>
-			<th><button type="button" name="btnCopy" value="description"><i class="fa fa-copy"></i></button></th>
+			<th><button type="button" name="btnCopy" value="description"><i class="fas fa-copy"></i></button></th>
 			<td>
 				@if($logged_in_user->permission_flag == "Member")
 					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報', 'readonly'=>'readonly']) !!}
@@ -55,7 +55,7 @@
 		<tr>
 			<td colspan="3">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fa fa-pencil"></span>　登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　登録　　</button>
 				</div>
 			</td>
 		</tr>
