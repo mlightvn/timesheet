@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'UserController@index');
-Route::get('index', 'UserController@index');
+Route::get('/', 'HomeController@index');
+Route::get('index', 'HomeController@index');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
