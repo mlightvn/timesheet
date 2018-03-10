@@ -52,6 +52,10 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 	Route::get('project_download_{year}_{month}', 'Report\ProjectController@download');
 });
 
+Route::group(['prefix' => 'work-time'], function(){
+	Route::get('month', 'WorkTime\MonthController@index');
+});
+
 Route::group(['prefix' => 'dayoff'], function()
 {
 	Route::get('', 'Dayoff\Controller@dashboard');
@@ -63,8 +67,9 @@ Route::group(['prefix' => 'dayoff'], function()
 
 		Route::match(["get", "post"], 'add', 'Dayoff\ApplicationFormController@add');
 		Route::get('{id}/view', 'Dayoff\ApplicationFormController@view')->where('id', '[0-9]+');
-		// Route::get('{id}/reject', 'Dayoff\ApplicationFormController@reject')->where('id', '[0-9]+');
-		// Route::get('{id}/approve', 'Dayoff\ApplicationFormController@approve')->where('id', '[0-9]+');
+
+		Route::get('{id}/reject', 'Dayoff\ApplicationFormController@reject')->where('id', '[0-9]+');
+		Route::get('{id}/approve', 'Dayoff\ApplicationFormController@approve')->where('id', '[0-9]+');
 	});
 });
 
@@ -101,6 +106,10 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 
 	Route::group(['prefix' => 'report'], function(){
 		Route::get('day', 'Api\Report\DayController@list');
+	});
+
+	Route::group(['prefix' => 'work-time'], function(){
+		Route::get('month', 'Api\WorkTime\MonthController@list');
 	});
 
 	Route::group(['prefix' => 'cashflow'], function(){

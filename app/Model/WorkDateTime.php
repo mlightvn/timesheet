@@ -12,6 +12,7 @@ class WorkDateTime extends Model
 		'user_id',
 		'time_in',
 		'time_out',
+		'work_hour',
 		'description',
 	];
 

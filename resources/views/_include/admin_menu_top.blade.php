@@ -14,6 +14,13 @@
 	</div>
 
 	<div class="w3-dropdown-hover w3-brown">
+		<button class="w3-button w3-brown w3-hover-black"><span class="fas fa-file-powerpoint"></span> Work time <span class="fas fa-caret-down"></span></button>
+		<div class="w3-dropdown-content w3-bar-block w3-card-4">
+			<a href="/work-time/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'work_time_month') ? 'w3-gray' : ''}}">Month</a>
+		</div>
+	</div>
+
+	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black"><span class="fas fa-calendar"></span> 休暇・有給 <span class="fas fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/dayoff/application-form" class="w3-bar-item w3-button w3-hover-black">各種申請</a>
