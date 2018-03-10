@@ -1,11 +1,8 @@
 @include('_include.user_header',
 	[
-		'id'				=> 'domain_list',
+		'id'				=> 'dashboard',
 	]
 )
-
-<div ng-app="myApp" ng-controller="myCtrl">
-
 
 @if(session("message"))
 	@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message")), "alert_type" => (isset($alert_type) ? $alert_type : session("alert_type"))])
@@ -14,16 +11,40 @@
 <div class="w3-row">
 
 	<div class="w3-col s12 m12 l12 w3-center">
-		<button class="w3-button w3-brown w3-xxlarge"><i class="fas fa-sign-in-alt"></i> Check In</button>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<button class="w3-button w3-brown w3-xxlarge">Check Out <i class="fas fa-sign-out-alt"></i></button>
+		<form method="post">
+			<table class="w3-table w3-center w3-xxlarge">
+				<tr class="w3-light-gray">
+					<th>Check in</th>
+					<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					<th>Check out</th>
+				</tr>
+				<tr>
+					<td>
+						@if($workDateTime->time_in)
+						<span id="workTimeIn">{{$workDateTime->time_in}}</span>
+						@else
+						<span id="workTimeIn"></span>
+						<button type="button" class="w3-button w3-brown" id="check-in"><i class="fas fa-sign-in-alt"></i> Check In</button>
+						@endif
+					</td>
+					<td></td>
+					<td>
+						@if($workDateTime->time_out)
+						<span id="workTimeOut">{{$workDateTime->time_out}}</span>
+						@else
+						<span id="workTimeOut"></span>
+						<button type="button" class="w3-button w3-brown" id="check-out">Check Out <i class="fas fa-sign-out-alt"></i></button>
+						@endif
+					</td>
+				</tr>
+			</table>
+
+		</form>
 	</div>
 
 </div>
 
-</div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
-
 @include('_include.user_footer', [
-		'id'				=> 'domain',
-		'js_list'			=> true,
+		'id'				=> 'dashboard',
+		'js'				=> 'dashboard',
 ])

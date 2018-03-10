@@ -13,4 +13,16 @@ class DashboardController extends Controller {
 		$this->data["url_pattern"] 			= "/dashboard";
 	}
 
+	public function dashboard()
+	{
+		$url = $this->url_pattern . '.index';
+
+		$workDateTime = $this->getCurrentWorkDateTime();
+		if(!$workDateTime){
+			$workDateTime = new \App\Model\WorkDateTime();
+		}
+
+		return view($url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, 'workDateTime'=>$workDateTime]);
+	}
+
 }

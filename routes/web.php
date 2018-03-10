@@ -94,6 +94,11 @@ Route::group(['prefix' => 'domain', 'middleware' => ['admin']], function()
 });
 
 Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
+	Route::group(['prefix' => 'work'], function(){
+		Route::any('check-in', 'Api\Controller@workCheckIn');
+		Route::any('check-out', 'Api\Controller@workCheckOut');
+	});
+
 	Route::group(['prefix' => 'report'], function(){
 		Route::get('day', 'Api\Report\DayController@list');
 	});

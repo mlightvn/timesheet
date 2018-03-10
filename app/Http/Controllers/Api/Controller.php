@@ -57,4 +57,31 @@ class Controller extends \App\Http\Controllers\Controller
 		return $this->toJson($data);
 	}
 
+	public function workCheckIn()
+	{
+		$workCheckIn = parent::workCheckIn();
+
+		$result = array("status" => 0, "message" => "success");
+		if(!$workCheckIn){
+			$result = array("status" => 1, "message" => "unknown");
+
+		}
+
+		return response()->json($result);
+	}
+
+	public function workCheckOut()
+	{
+		$workCheckOut = parent::workCheckOut();
+
+		$result = array("status" => 0, "message" => "success");
+		if(!$workCheckOut){
+			$result = array("status" => 1, "message" => "unknown");
+
+		}
+
+		return response()->json($result);
+
+	}
+
 }

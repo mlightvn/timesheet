@@ -69,14 +69,68 @@ class Controller extends BaseController
 		return view($this->blade_url, array('data'=>$this->data, "logged_in_user"=>$this->logged_in_user));
 	}
 
+	public function getCurrentWorkDateTime()
+	{
+		$model = new \App\Model\WorkDateTime();
+
+		$cur_date = date("Y-m-d");
+
+		$model = $model->where("organization_id", "=", $this->organization_id);
+		$model = $model->where("user_id", "=", $this->user_id);
+		$model = $model->where("date", "=", $cur_date);
+		$model = $model->first();
+
+		return $model;
+	}
+
 	public function workCheckIn()
 	{
-		# code...
+		$model = new \App\Model\WorkDateTime();
+
+		$cur_date = date("Y-m-d");
+
+		$model = $model->where("organization_id", "=", $this->organization_id);
+		$model = $model->where("user_id", "=", $this->user_id);
+		$model = $model->where("date", "=", $cur_date);
+		$model = $model->first();
+
+		if($model){
+			return false;
+		}
+
+		unset($model);
+
+		$model = new \App\Model\WorkDateTime();
+
+		$model->organization_id = $this->organization_id;
+		$model->user_id = $this->user_id;
+		$model->date = date("Y-m-d");
+		$model->time_in = date("H:i:s");
+		$model->save();
+
+		return true;
 	}
 
 	public function workCheckOut()
 	{
-		# code...
+		$model = new \App\Model\WorkDateTime();
+
+		$cur_date = date("Y-m-d");
+		$cur_time = date("H:i:s");
+
+		$model = $model->where("organization_id", "=", $this->organization_id);
+		$model = $model->where("user_id", "=", $this->user_id);
+		$model = $model->where("date", "=", $cur_date);
+		$record = $model->first();
+
+		if($record){
+			$model->update(['time_out' => $cur_time]);
+
+			return true;
+		}
+
+		return false;
+
 	}
 
 	protected function querySetup()
