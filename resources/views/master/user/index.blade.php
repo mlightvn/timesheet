@@ -67,9 +67,11 @@
 			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			<td>
 				@if(isset($data['permission_flag']) && (in_array($data['permission_flag'], array('Master', 'Owner'))))
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
+					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 
-					| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a>
+					<span ng-if="model.id != 1">
+						| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
+					</span>
 				@endif
 			</td>
 		</tr>

@@ -339,7 +339,8 @@ class Controller extends BaseController
 				\DB::raw("organization.name AS organization_name"),
 				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
 				\DB::raw("CASE project.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
-				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS"),
+				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON"),
+				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR"),
 				\DB::raw("user_project.project_id AS SELF_PROJECT"),
 			]);
 
@@ -389,12 +390,12 @@ class Controller extends BaseController
 			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS")
 			, DB::raw("CASE users.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION")
 			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON")
-			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-text-green' ELSE 'w3-text-red' END AS DELETED_RECOVER_COLOR")
+			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR")
 
 			, DB::raw("users.id 		AS user_id")
 			, DB::raw("
 				CASE users.permission_flag 
-					WHEN 'Master' THEN 'fa fa-empire w3-text-red'
+					WHEN 'Master' THEN 'fab fa-empire w3-text-red'
 					WHEN 'Owner' THEN 'glyphicon glyphicon-king'
 					WHEN 'Administrator' THEN 'glyphicon glyphicon-knight'
 					WHEN 'Manager' THEN 'glyphicon glyphicon-queen'
@@ -464,7 +465,8 @@ class Controller extends BaseController
 				DB::raw("organization.name AS organization_name"),
 				DB::raw("CASE session.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
 				\DB::raw("CASE session.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
-				\DB::raw("CASE session.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS"),
+				\DB::raw("CASE session.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON"),
+				\DB::raw("CASE session.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR"),
 			]);
 
 		$table = $table->leftJoin("organization", "session.organization_id", "=", "organization.id");

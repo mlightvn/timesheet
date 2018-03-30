@@ -18,7 +18,7 @@
 
 <div class="w3-row">
 	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
-	@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
+	@if (in_array($logged_in_user->permission_flag, array("Owner", "Administrator", "Manager")))
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
@@ -38,18 +38,18 @@
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
 			<td>
-			@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-			<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" ng-bind="model.name"></a>
-			@else
-			<span ng-bind="model.name"></span>
-			@endif
+				@if (in_array($logged_in_user->permission_flag, array("Owner", "Administrator", "Manager")))
+				<a ng-href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" ng-bind="model.name"></a>
+				@else
+				<span ng-bind="model.name"></span>
+				@endif
 			</td>
 			<td>
-			@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-			<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a> 
+				@if (in_array($logged_in_user->permission_flag, array("Owner", "Administrator", "Manager")))
+				<a ng-href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a> 
 
-			| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
-			@endif
+				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
+				@endif
 			</td>
 		</tr>
 

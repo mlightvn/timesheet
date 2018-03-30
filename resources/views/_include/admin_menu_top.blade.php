@@ -32,6 +32,7 @@
 
 	<a href="/cashflow" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'cashflow_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> Cashflow</a>
 	<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> ドメイン</a>
+	<a href="/bookmark" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'bookmark_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> Bookmark</a>
 
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black">設定 <span class="fas fa-caret-down"></span></button>

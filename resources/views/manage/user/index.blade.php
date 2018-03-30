@@ -65,7 +65,7 @@
 						@endif
 					</span>
 				@else
-					<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><span class="fas fa-eye-slash"></span> <span ng-bind="model.name"></span></a>
+					<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><span class="fas fa-eye"></span> <span ng-bind="model.name"></span></a>
 				@endif
 
 			</td>
@@ -78,16 +78,16 @@
 			<td>
 
 				@if ( $logged_in_user->permission_flag == "Owner" )
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
+					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 				@elseif( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
 					<span ng-if="model.id == '{{ $logged_in_user->id }}'">
-						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
+						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 					</span>
 
 					<span ng-if="model.id != '{{ $logged_in_user->id }}'">
 						@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
 						<span ng-if="model.permission_flag != 'Administrator'">
-							<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
+							<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 						</span>
 						<span ng-if="model.permission_flag == 'Administrator'">
 							<span class="fas fa-pencil-alt"></span>
@@ -99,7 +99,9 @@
 				@endif
 
 				@if ( in_array($logged_in_user->permission_flag, array("Owner", "Manager")) )
-					| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_ICON}} @{{model.DELETED_RECOVER_COLOR}}"></i></a>
+					<span ng-if="model.id != 1">
+					| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
+					</span>
 
 				@endif
 			</td>

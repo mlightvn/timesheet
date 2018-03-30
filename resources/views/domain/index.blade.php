@@ -23,7 +23,7 @@
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
-	<input type="hidden" id="data_source_url" value="/api/domain">
+	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
@@ -41,7 +41,12 @@
 			<td>
 				<a href="?development_flag=@{{ model.development_flag }}"><i class="fas fa-search"></i> <span ng-bind="model.development_flag_label"></span></a></td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i> <span ng-bind="model.name"></span></a><br><br>
+				@if(in_array($logged_in_user->permission_flag, array("Member")))
+				<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><i class="fas fa-eye"></i> <span ng-bind="model.name"></span>（★開発中★）</a>
+				@else
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i> <span ng-bind="model.name"></span></a>
+				@endif
+				<br><br>
 				サイト： <a href="@{{ model.url }}" target="_blank"><span ng-bind="model.url"></span></a><br>
 				管理： <a href="@{{ model.admin_url }}" target="_blank"><span ng-bind="model.admin_url"></span></a>
 			</td>
@@ -53,9 +58,11 @@
 				Respository： <a href="@{{ model.repository_url }}" target="_blank"><span ng-bind="model.repository_url"></span></a>
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i></a>
-				@if(in_array($logged_in_user->permission_flag, array("Member", "Manager")))
-				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
+				@if(in_array($logged_in_user->permission_flag, array("Member")))
+				<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}" class="btn w3-brown btn-xs"><i class="fas fa-eye"></i></a>
+				@else
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><i class="fas fa-pencil-alt"></i></a>
+				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
 				@endif
 		</tr>
 

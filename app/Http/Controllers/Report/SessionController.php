@@ -21,7 +21,7 @@ class SessionController extends Controller {
 		$this->blade_url = $this->url_pattern . '.session';
 		$url = $this->url_pattern . '.session';
 
-		$prev_yearmonth = date('Y-m', strtotime('last month'));
+		$prev_yearmonth = date('Y-m', strtotime('first day of previous month'));
 		$curr_yearmonth = date('Y-m');
 
 		$data["logged_in_user"] = $this->logged_in_user;

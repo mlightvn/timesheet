@@ -23,7 +23,7 @@
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
-	<input type="hidden" id="data_source_url" value="/api/manage/project">
+	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
 
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
@@ -55,10 +55,8 @@
 					<span class="slider round"></span>
 				</label>
 			</td>
-			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span></a>
-				@if (in_array($logged_in_user->permission_flag, array("Administrator", "Manager")))
-				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)"><i class="@{{model.DELETED_RECOVER_CLASS}}"></i></a>
-				@endif
+			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
+				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
 			</td>
 		</tr>
 

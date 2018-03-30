@@ -29,7 +29,7 @@ class OrganizationController extends \App\Http\Controllers\Api\Controller {
 					, \DB::raw("CASE organization.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS")
 					, \DB::raw("CASE organization.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION")
 					, \DB::raw("CASE organization.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON")
-					, \DB::raw("CASE organization.is_deleted WHEN 1 THEN 'w3-text-green' ELSE 'w3-text-red' END AS DELETED_RECOVER_COLOR")
+					, \DB::raw("CASE organization.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR")
 		]);
 
 		return $model;

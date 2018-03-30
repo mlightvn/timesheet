@@ -187,21 +187,23 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 			Route::get('{id}/recover' 		, 'Api\Manage\SessionController@recover')->where('id', '[0-9]+');
 		});
 
+		Route::group(['prefix' => 'application-template'], function(){
+			Route::get('', 'Api\ApplicationTemplateController@list');
+			Route::get('list', 'Api\ApplicationTemplateController@list');
+
+			Route::get('get/{id}', 'Api\ApplicationTemplateController@get')->where('id', '[0-9]+');
+
+			Route::get('{id}/delete' 		, 'Api\ApplicationTemplateController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\ApplicationTemplateController@recover')->where('id', '[0-9]+');
+		});
+
 	});
 
-	Route::group(['prefix' => 'application-form'], function(){
-		Route::get('', 'Api\ApplicationFormController@list');
-		Route::get('list', 'Api\ApplicationFormController@list');
-	});
-
-	Route::group(['prefix' => 'application-template'], function(){
-		Route::get('', 'Api\ApplicationTemplateController@list');
-		Route::get('list', 'Api\ApplicationTemplateController@list');
-
-		Route::get('get/{id}', 'Api\ApplicationTemplateController@get')->where('id', '[0-9]+');
-
-		Route::get('{id}/delete' 		, 'Api\ApplicationTemplateController@delete')->where('id', '[0-9]+');
-		Route::get('{id}/recover' 		, 'Api\ApplicationTemplateController@recover')->where('id', '[0-9]+');
+	Route::group(['prefix' => 'dayoff'], function(){
+		Route::group(['prefix' => 'application-form'], function(){
+			Route::get('', 'Api\ApplicationFormController@list');
+			Route::get('list', 'Api\ApplicationFormController@list');
+		});
 	});
 
 	Route::group(['prefix' => 'master'], function(){
@@ -221,6 +223,14 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 			Route::get('{id}/delete' 		, 'Api\Master\OrganizationController@delete')->where('id', '[0-9]+');
 			Route::get('{id}/recover' 		, 'Api\Master\OrganizationController@recover')->where('id', '[0-9]+');
 		});
+	});
+
+	Route::group(['prefix' => 'bookmark'], function(){
+		Route::get('', 'Api\BookmarkController@list');
+		Route::get('list', 'Api\BookmarkController@list');
+
+		Route::get('{id}/delete' 		, 'Api\BookmarkController@delete')->where('id', '[0-9]+');
+		Route::get('{id}/recover' 		, 'Api\BookmarkController@recover')->where('id', '[0-9]+');
 	});
 
 });
@@ -324,6 +334,15 @@ Route::group(['prefix' => 'master', 'middleware' => ['admin']], function()
 		Route::post('add/{object_type}', 'Master\ApiController@add');
 		Route::post('edit/{object_type}/{id}', 'Master\ApiController@edit');
 	});
+
+});
+
+Route::group(['prefix' => 'bookmark'], function(){
+	Route::get('', 'BookmarkController@list');
+	Route::get('list', 'BookmarkController@list');
+
+	Route::match(["get", "post"], 'add', 'BookmarkController@add');
+	Route::match(["get", "post"], 'edit/{id}', 'BookmarkController@edit');
 
 });
 

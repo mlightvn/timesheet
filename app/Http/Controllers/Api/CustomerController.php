@@ -30,7 +30,8 @@ class CustomerController extends \App\Http\Controllers\Api\Controller {
 					"customer.*",
 					\DB::raw("CASE customer.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
 					\DB::raw("CASE customer.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
-					\DB::raw("CASE customer.is_deleted WHEN 1 THEN 'fa fa-recycle w3-text-green' ELSE 'fa fa-trash w3-text-red' END AS DELETED_RECOVER_CLASS"),
+					\DB::raw("CASE customer.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON"),
+					\DB::raw("CASE customer.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR"),
 		]);
 		$model = $model->where("organization_id", "=", $this->organization_id);
 

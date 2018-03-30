@@ -69,12 +69,12 @@ class UserController extends Controller {
 							END
 						END AS DELETED_RECOVER_ICON
 					")
-			, \DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-text-green' ELSE 'w3-text-red' END AS DELETED_RECOVER_COLOR")
+			, \DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR")
 
 			, \DB::raw("users.id 		AS user_id")
 			, \DB::raw("
 				CASE users.permission_flag 
-					WHEN 'Master' THEN 'fa fa-empire w3-text-red'
+					WHEN 'Master' THEN 'fab fa-empire w3-text-red'
 					WHEN 'Owner' THEN 'glyphicon glyphicon-king'
 					WHEN 'Administrator' THEN 'glyphicon glyphicon-knight'
 					WHEN 'Manager' THEN 'glyphicon glyphicon-queen'

@@ -12,7 +12,7 @@
 		<form action="{{ $data['url_pattern'] }}" method="post">
 			{{ csrf_field() }}
 
-			<input type="hidden" id="data_source_url" value="/api/report/day">
+			<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
 
 			<input type="hidden" name="sRequestYearMonth" value="@{{ model_list.sRequestYearMonth }}">
 			<input type="hidden" id="sRequestDate" name="sRequestDate" value="@{{ model_list.sDbRequestDate }}">

@@ -23,7 +23,7 @@
 
 	{{ csrf_field() }}
 
-	<input type="hidden" id="data_source_url" value="/api/application-form">
+	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
 
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
