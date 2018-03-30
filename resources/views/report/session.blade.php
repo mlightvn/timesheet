@@ -36,8 +36,8 @@
 			{{ $session->name }}
 			</td>
 			@if (in_array($logged_in_user->permission_flag, array("Owner", "Manager")))
-			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['prev_yearmonth'] }}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a></td>
-			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['curr_yearmonth'] }}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a></td>
+			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['prev_yearmonth'] }}" class="w3-text-brown" onclick="return false;"><span class="fas fa-cloud-download-alt"></span>（★開発中★）</a></td>
+			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['curr_yearmonth'] }}" class="w3-text-brown" onclick="return false;"><span class="fas fa-cloud-download-alt"></span>（★開発中★）</a></td>
 			@endif
 		</tr>
 		@endforeach
