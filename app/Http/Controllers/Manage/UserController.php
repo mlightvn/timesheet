@@ -45,7 +45,12 @@ class UserController extends Controller {
 		$message = NULL;
 		$alert_type = NULL;
 
-		if(!$this->model){
+		$exist_flag = true;
+		$exist_flag = ($this->model) ? true : false;
+		if($exist_flag){
+			$exist_flag = (($this->model->organization_id == $this->organization_id) ? true : false);
+		}
+		if(!$exist_flag){
 			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"ユーザーが存在していませんので、ユーザー追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}
 

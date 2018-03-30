@@ -735,7 +735,12 @@ class Controller extends BaseController
 		// $this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
 		// $this->model = $this->model->first();
 
-		if(!$this->model){
+		$exist_flag = true;
+		$exist_flag = ($this->model) ? true : false;
+		if($exist_flag){
+			$exist_flag = (($this->model->organization_id == $this->organization_id) ? true : false);
+		}
+		if(!$exist_flag){
 			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"データが存在していませんから、追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}
 
