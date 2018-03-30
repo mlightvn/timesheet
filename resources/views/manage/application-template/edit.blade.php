@@ -68,5 +68,4 @@
 
 @include('_include.admin_footer', [
 	'id'			=>'manage-application-template',
-	'js'			=>'manage/application_template',
 ])

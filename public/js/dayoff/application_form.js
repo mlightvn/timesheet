@@ -38,7 +38,7 @@ $(document).ready(function(){
 		application_template_id = this.value;
 
 		$.ajax({
-			url: '/api/application-template/get/' + application_template_id,
+			url: '/api/manage/application-template/get/' + application_template_id,
 			type: 'GET',
 			dataType: 'json',
 			data: {},

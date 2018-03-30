@@ -51,7 +51,7 @@
 			<td>
 			</td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i></a>
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><i class="fas fa-pencil-alt"></i></a>
 			</td>
 		</tr>
 

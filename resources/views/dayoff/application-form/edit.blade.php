@@ -126,10 +126,10 @@
 
 				@else
 				<div class="w3-row s12 m12 l12">
-					<div class="w3-col s12 m4 l4">
+					<div class="w3-col s12 m6 l4">
 						<div id="datepicker" datepicker="datepicker"></div>
 					</div>
-					<div class="w3-col s12 m8 l8">
+					<div class="w3-col s12 m6 l8">
 						<textarea name="date_list" id="date_list" class="form-control" rows="10" readonly="readonly" maxlength="255"></textarea>
 						<br>
 						<button type="button" class="w3-button w3-brown" action="clear" value="date_list"><i class="fas fa-times"></i></button>
