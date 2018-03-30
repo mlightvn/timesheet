@@ -44,9 +44,9 @@
 
 				</td>
 				<td>
-					<a href="/admin/report/day?year_month={{ $requestYear }}-{{ str_pad($month_key, 2, '0', STR_PAD_LEFT) }}"><span class="glyphicon glyphicon-info-sign"></span></a> 
+					<a href="/admin/report/day?year_month={{ $requestYear }}-{{ str_pad($month_key, 2, '0', STR_PAD_LEFT) }}" class="w3-text-brown"><span class="glyphicon glyphicon-info-sign"></span></a> 
 					| 
-					<a href="day_download_{{ $requestYear }}-{{ $month_key }}"><span class="fas fa-cloud-download-alt"></span></a>
+					<a href="day_download_{{ $requestYear }}-{{ $month_key }}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a>
 				</td>
 			</tr>
 			@endforeach
