@@ -186,7 +186,7 @@ class MonthController extends \App\Http\Controllers\Api\WorkTime\Controller {
 	{
 		$model = new WorkDateTime();
 
-		$model = $model->join("holiday", "holiday.date", "=", "work_datetime.date");
+		$model = $model->leftJoin("holiday", "holiday.date", "=", "work_datetime.date");
 
 		$model = $model->where("organization_id", "=", $this->organization_id);
 		$model = $model->where("user_id", "=", $user_id);
