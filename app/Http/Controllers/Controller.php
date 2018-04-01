@@ -95,23 +95,17 @@ class Controller extends BaseController
 
 		$cur_date = date("Y-m-d");
 
-		$model = $model->where("organization_id", "=", $this->organization_id);
-		$model = $model->where("user_id", "=", $this->user_id);
-		$model = $model->where("date", "=", $cur_date);
-		$model = $model->first();
+		$model = $model->firstOrNew([
+			"organization_id" 		=> $this->organization_id,
+			"user_id" 				=> $this->user_id,
+			"date" 					=> $cur_date,
+		]);
 
-		if($model){
-			return false;
-		}
+		$model->organization_id 	= $this->organization_id;
+		$model->user_id 			= $this->user_id;
+		$model->date 				= date("Y-m-d");
+		$model->time_in 			= date("H:i:s");
 
-		unset($model);
-
-		$model = new \App\Model\WorkDateTime();
-
-		$model->organization_id = $this->organization_id;
-		$model->user_id = $this->user_id;
-		$model->date = date("Y-m-d");
-		$model->time_in = date("H:i:s");
 		$model->save();
 
 		return true;
@@ -122,20 +116,18 @@ class Controller extends BaseController
 		$model = new \App\Model\WorkDateTime();
 
 		$cur_date = date("Y-m-d");
-		$cur_time = date("H:i:s");
+		// $cur_time = date("H:i:s");
 
-		$model = $model->where("organization_id", "=", $this->organization_id);
-		$model = $model->where("user_id", "=", $this->user_id);
-		$model = $model->where("date", "=", $cur_date);
-		$record = $model->first();
+		$model = $model->where("organization_id" 		, "=", $this->organization_id);
+		$model = $model->where("user_id" 				, "=", $this->user_id);
+		$model = $model->where("date"					, "=", $cur_date); // CURRENT_DATE
 
-		if($record){
-			$model->update(['time_out' => $cur_time]);
+		$model->update(array(
+			'time_out' 			=> \DB::raw('CURRENT_TIME'),
+			'work_hour' 		=> \DB::raw('TIMEDIFF(CURRENT_TIME, time_in)'),
+		));
 
-			return true;
-		}
-
-		return false;
+		return true;
 
 	}
 
