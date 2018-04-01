@@ -39,14 +39,13 @@ class UserController extends Controller {
 		$this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
 		$this->model = $this->model->first();
 
-		$arrSelectSessions = $this->getSelectSessions();
-		$this->data["arrSelectSessions"] = $arrSelectSessions;
-
 		$message = NULL;
 		$alert_type = NULL;
 
+		// Check model exist
 		$exist_flag = true;
 		$exist_flag = ($this->model) ? true : false;
+		// Check same organization
 		if($exist_flag){
 			$exist_flag = (($this->model->organization_id == $this->organization_id) ? true : false);
 		}
@@ -54,7 +53,25 @@ class UserController extends Controller {
 			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"ユーザーが存在していませんので、ユーザー追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}
 
-		if($this->form_input){ // Submit
+		// Allow changing permission flag
+		$allow_change_permission = false;
+		if($this->logged_in_user->permission_flag == "Owner"){
+			$allow_change_permission = true;
+		}else{
+			if(in_array($this->logged_in_user->permission_flag, array("Manager", "Administrator"))){
+				if(in_array($this->model->permission_flag, array("Manager", "Administrator", "Member"))){
+					$allow_change_permission = true;
+				}
+			}
+		}
+		$this->data["allow_change_permission"] = $allow_change_permission;
+
+		// get session list
+		$arrSelectSessions = $this->getSelectSessions();
+		$this->data["arrSelectSessions"] = $arrSelectSessions;
+
+		// Submit
+		if($this->form_input){
 			$permission_flag = $this->logged_in_user->permission_flag;
 
 			if(($this->model instanceof \App\Model\User) && ($this->logged_in_user->id != 1) && ($id == 1))

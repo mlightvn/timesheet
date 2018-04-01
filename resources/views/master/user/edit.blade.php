@@ -60,6 +60,7 @@
 		</tr>
 
 		@if($model->id != 1)
+		<tr>
 			<th></th>
 			<td>
 				{!! Form::radio('permission_flag', 'Member', true, ['class'=>'', 'id'=>'permission_flag[0]']) !!}

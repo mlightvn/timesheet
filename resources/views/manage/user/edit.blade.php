@@ -61,10 +61,12 @@
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'名前', 'required'=>'required']) !!}
 			</td>
 		</tr>
-		@if(in_array($logged_in_user->permission_flag, array("Owner", "Manager")))
+
 		<tr>
 			<th>{!! Form::label('permission_flag', '管理フラグ') !!}</th>
 			<td>
+		@if(($model->id != 1) && ($model->organization_id != 1))
+			@if($data["allow_change_permission"] == true)
 				{!! Form::radio('permission_flag', 'Member', true, ['class'=>'', 'id'=>'permission_flag[0]']) !!}
 				<label for="permission_flag[0]" class="radio-inline control-label">Member</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;
@@ -77,10 +79,14 @@
 				<label for="permission_flag[2]" class="radio-inline control-label">Administrator</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 
-				@if($model->permission_flag == "Owner")
+				@if($logged_in_user->permission_flag == "Owner")
 				{!! Form::radio('permission_flag', 'Owner', true, ['class'=>'', 'id'=>'permission_flag[3]']) !!}
 				<label for="permission_flag[3]" class="radio-inline control-label">Owner</label>
 				@endif
+			@else
+				{{ $model->permission_flag }}
+			@endif
+		@endif
 			</td>
 		</tr>
 
@@ -90,7 +96,6 @@
 				{!! Form::select('session_id', $data["arrSelectSessions"]["items"], NULL, ['class'=>'form-control', 'placeholder'=>'▼下記の項目を選択してください。'], $data["arrSelectSessions"]["deletedItemStyles"]) !!}
 			</td>
 		</tr>
-		@endif
 
 		<tr>
 			<th>{!! Form::label('dayoff', 'Dayoff') !!}</th>
