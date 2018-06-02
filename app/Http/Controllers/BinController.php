@@ -47,6 +47,7 @@ class BinController extends Controller {
 
 	public function pullSourceCode(){
 		$this->blade_url = $this->url_pattern . '/pullSourceCode';
+		$this->data["url_pattern"] = $this->blade_url;
 
 		$username = \Request::input('username');
 		$password = \Request::input('password');
