@@ -9,7 +9,7 @@ class OrganizationController extends \App\Http\Controllers\Api\Controller {
 		parent::init();
 
 		$this->model = new Organization();
-		$this->data['url_pattern'] = "/admin/organization";
+		$this->data['url_pattern'] = "/master/organization";
 	}
 
 	protected function querySetup()

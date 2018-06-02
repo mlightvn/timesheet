@@ -52,6 +52,9 @@
 
 	@endif
 
+	<a href="/promotion" class="w3-bar-item w3-button"><i class="fas fa-gift"></i> Promotion</a>
+	<a href="/price" class="w3-bar-item w3-button"><i class="fas fa-dollar-sign"></i> お支払い</a>
+
 	<a href="javascript:void(0);" onclick="donate()" class="w3-btn w3-green">Donate <span class="glyphicon glyphicon-apple"></span></a>
 
 	<div class="w3-right">

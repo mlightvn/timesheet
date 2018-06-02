@@ -5,6 +5,7 @@
 	<a href="/master/user?permission=Owner" class="w3-bar-item w3-button {{ ($id == 'master_user') ? 'w3-gray' : ''}}"><span class="fas fa-user"></span> 会員</a>
 	<a href="/master/organization" class="w3-bar-item w3-button {{ ($id == 'master_organization') ? 'w3-gray' : ''}}"><span class="fas fa-building"></span> 企業</a>
 	<a href="/master/promotion" class="w3-bar-item w3-button {{ ($id == 'master_promotion') ? 'w3-gray' : ''}}"><i class="fas fa-gift"></i> Promotion</a>
+	<a href="/master/price" class="w3-bar-item w3-button {{ ($id == 'master_price') ? 'w3-gray' : ''}}"><i class="fas fa-dollar-sign"></i> Price</a>
 
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black"><i class="fab fa-empire"></i> マスタ <span class="fas fa-caret-down"></span></button>

@@ -223,6 +223,15 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 			Route::get('{id}/delete' 		, 'Api\Master\OrganizationController@delete')->where('id', '[0-9]+');
 			Route::get('{id}/recover' 		, 'Api\Master\OrganizationController@recover')->where('id', '[0-9]+');
 		});
+
+		Route::group(['prefix' => 'price'], function(){
+			Route::get('', 'Api\Master\PriceController@list');
+			Route::get('list', 'Api\Master\PriceController@list');
+
+			Route::get('{id}/delete' 		, 'Api\Master\PriceController@delete')->where('id', '[0-9]+');
+			Route::get('{id}/recover' 		, 'Api\Master\PriceController@recover')->where('id', '[0-9]+');
+		});
+
 	});
 
 	Route::group(['prefix' => 'bookmark'], function(){
@@ -231,6 +240,19 @@ Route::group(['prefix' => 'api', 'middleware' => ['admin']], function(){
 
 		Route::get('{id}/delete' 		, 'Api\BookmarkController@delete')->where('id', '[0-9]+');
 		Route::get('{id}/recover' 		, 'Api\BookmarkController@recover')->where('id', '[0-9]+');
+	});
+
+});
+
+Route::group(['prefix' => 'api'], function(){
+	Route::group(['prefix' => 'promotion'], function(){
+		Route::get('', 'Api\PromotionController@list');
+		Route::get('list', 'Api\PromotionController@list');
+	});
+
+	Route::group(['prefix' => 'price'], function(){
+		Route::get('', 'Api\PriceController@list');
+		Route::get('list', 'Api\PriceController@list');
 	});
 
 });
@@ -325,6 +347,14 @@ Route::group(['prefix' => 'master', 'middleware' => ['admin']], function()
 		Route::post('update', 'Master\HolidayController@update');
 	});
 
+	Route::group(['prefix' => 'price'], function(){
+		Route::get('', 'Master\PriceController@list');
+		Route::get('list', 'Master\PriceController@list');
+
+		Route::get('{id}/delete' 		, 'Master\PriceController@delete')->where('id', '[0-9]+');
+		Route::get('{id}/recover' 		, 'Master\PriceController@recover')->where('id', '[0-9]+');
+	});
+
 	Route::group(['prefix' => 'api'], function()
 	{
 		Route::get('list/{object_type}', 'Master\ApiController@list');
@@ -360,5 +390,13 @@ Route::group(['prefix' => 'bin', 'middleware' => ['admin']], function()
 
 	Route::get('sendMessageToChatwork', 'BinController@sendMessageToChatwork');
 	Route::match(['get', 'post'], 'pullSourceCode', 'BinController@pullSourceCode');
+
+});
+
+Route::group(['prefix' => 'price'], function(){
+	Route::get('', 'PriceController@list');
+
+	// Route::match(["get", "post"], 'add', 'PriceController@add');
+	// Route::match(["get", "post"], 'edit/{id}', 'PriceController@edit');
 
 });
