@@ -20,6 +20,7 @@ class DomainController extends Controller {
 
 		$this->url_pattern 					= "domain";
 		$this->data["url_pattern"] 			= "/domain";
+		$this->data['development_flag'] 	= $this->request->development_flag;
 	}
 
 	public function upload($domain_id)

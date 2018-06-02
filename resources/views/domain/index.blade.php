@@ -21,9 +21,17 @@
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 
+	<div class="w3-bar w3-light-gray">
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}">All</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=1">Production</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=2">Staging</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=3">Development</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=4">Others</a>
+	</div>
+
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
 	{{ csrf_field() }}
-	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
+	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}{{(isset($data['development_flag']) ? ('?development_flag=' . $data['development_flag']) : '')}}">
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">

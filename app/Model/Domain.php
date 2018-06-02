@@ -34,7 +34,7 @@ class Domain extends Model
 		'db_access_command',
 		'db_description',
 
-		'development_flag', // 0: production, 1: Staging, 2: development
+		'development_flag', // 1: production, 2: Staging, 3: development, 4: Others
 		'is_deleted',
 	];
 

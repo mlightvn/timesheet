@@ -35,9 +35,9 @@ class DomainController extends Controller {
 
 		$this->model = $this->model->select(["*"
 				, \DB::raw("
-						CASE development_flag WHEN 0 THEN '本番'
-							WHEN 1 THEN 'ステージング'
-							WHEN 2 THEN '開発'
+						CASE development_flag WHEN 1 THEN '本番'
+							WHEN 2 THEN 'ステージング'
+							WHEN 3 THEN '開発'
 							ELSE '不定義'
 						END AS 'development_flag_label'
 					"),
@@ -66,19 +66,19 @@ class DomainController extends Controller {
 							  {
 									switch ($keyword) {
 										case '本番':
-											$development_flag = 0;
-											break;
-
-										case 'ステージング':
 											$development_flag = 1;
 											break;
 
-										case '開発':
+										case 'ステージング':
 											$development_flag = 2;
 											break;
 
-										default: // 不定義
+										case '開発':
 											$development_flag = 3;
+											break;
+
+										default: // 不定義
+											$development_flag = 4;
 											break;
 									}
 
