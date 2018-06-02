@@ -396,7 +396,4 @@ Route::group(['prefix' => 'bin', 'middleware' => ['admin']], function()
 Route::group(['prefix' => 'price'], function(){
 	Route::get('', 'PriceController@list');
 
-	// Route::match(["get", "post"], 'add', 'PriceController@add');
-	// Route::match(["get", "post"], 'edit/{id}', 'PriceController@edit');
-
 });
