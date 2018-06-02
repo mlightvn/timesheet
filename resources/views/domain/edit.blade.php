@@ -51,7 +51,7 @@
 			<th>{!! Form::label('development_flag', '環境') !!}</th>
 			<th><button type="button" name="btnCopy" value="development_flag"><i class="fas fa-copy"></i></button></th>
 			<td>
-				{!! Form::select('development_flag', ['0'=>'本番', '1'=>'ステージング', '2'=>'開発', ], NULL, ['class'=>'form-control']) !!}
+				{!! Form::select('development_flag', ['1'=>'本番', '2'=>'ステージング', '3'=>'開発', '4'=>'その他'], NULL, ['class'=>'form-control']) !!}
 			</td>
 		</tr>
 
