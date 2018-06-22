@@ -65,5 +65,37 @@
 
 /* ====================== Radio Button <<END>> ====================== */
 
+/* ====================== Light Hover Effect <<START>> ====================== */
+.light-glow{
+    position: relative;
+
+}
+
+.light-glow:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: #ffee10;
+    transition: .5s;
+    transform: scale();
+    z-index: -1;
+}
+
+.light-glow:hover:before{
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ffee10;
+}
+
+.light-glow:hover{
+    color: #ffee10;
+    box-shadow: 0 0 5px #ffee10;
+    text-shadow: 0 0 5px #ffee10;
+}
+
+/* ====================== Light Hover Effect <<END>> ====================== */
 
 

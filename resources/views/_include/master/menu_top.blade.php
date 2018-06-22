@@ -8,7 +8,7 @@
 	<a href="/master/price" class="w3-bar-item w3-button {{ ($id == 'master_price') ? 'w3-gray' : ''}}"><i class="fas fa-dollar-sign"></i> Price</a>
 
 	<div class="w3-dropdown-hover w3-brown">
-		<button class="w3-button w3-brown w3-hover-black"><i class="fab fa-empire"></i> マスタ <span class="fas fa-caret-down"></span></button>
+		<button class="w3-button w3-brown w3-hover-black light-glow"><i class="fab fa-empire"></i> マスタ <span class="fas fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/master/holiday" class="w3-bar-item w3-button"><span class="fas fa-calendar"></span> 祭日・祝日・休日</a>
 
