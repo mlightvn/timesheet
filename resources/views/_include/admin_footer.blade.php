@@ -34,5 +34,38 @@
 	<a href="/" class="w3-text-white w3-hover-text-red">{{ env("APP_NAME") }}</a>
 </footer>
 </div>
+
+@if(date('Y/m/d H:i:s') <= '2018/09/31 23:59:59')
+<div class="fireworks">
+	<aside id="library">
+		<img src="/plugins/fireworks/big-glow.png" id="big-glow" />
+		<img src="/plugins/fireworks/small-glow.png" id="small-glow" />
+	</aside>
+
+</div>
+
+<script>
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          window.oRequestAnimationFrame      ||
+          window.msRequestAnimationFrame     ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+</script>
+<script src="/js/plugins/fireworks.js"></script>
+
+@elseif(date('Y/m/d H:i:s') <= '2019/02/28 23:59:59')
+<div class="snow">
+	<canvas id="canvas"></canvas>
+
+</div>
+<script src="/js/plugins/snow.js"></script>
+
+@endif
+
 </body>
 </html>
