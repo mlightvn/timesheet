@@ -45,11 +45,13 @@
 	<link rel="stylesheet" href="/css/{{ $css }}.css">
 	@endif
 
+{{--
 	@if(date('Y/m/d H:i:s') <= '2018/09/31 23:59:59')
 	<link rel="stylesheet" href="/css/plugins/fireworks.css">
 	@elseif(date('Y/m/d H:i:s') <= '2019/02/28 23:59:59')
 	<link rel="stylesheet" href="/css/plugins/snow.css">
 	@endif
+--}}
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-84660939-6"></script>

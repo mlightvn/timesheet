@@ -35,6 +35,7 @@
 </footer>
 </div>
 
+{{--
 @if(date('Y/m/d H:i:s') <= '2018/09/31 23:59:59')
 <div class="fireworks">
 	<aside id="library">
@@ -66,6 +67,7 @@ window.requestAnimFrame = (function(){
 <script src="/js/plugins/snow.js"></script>
 
 @endif
+--}}
 
 </body>
 </html>
