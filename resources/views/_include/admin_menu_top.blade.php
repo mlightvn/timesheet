@@ -47,7 +47,7 @@
 	</div>
 
 	@if ($logged_in_user->permission_flag == "Master")
-	<a href="/master" class="w3-bar-item w3-button w3-hover-black"><span class="fab fa-empire"></span> マスタ</a>
+	<a href="/master" class="w3-bar-item w3-button w3-hover-black light-glow"><span class="fab fa-empire"></span> マスタ</a>
 	@endif
 
 	@endif
