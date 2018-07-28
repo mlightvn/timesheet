@@ -40,7 +40,7 @@
 			<td><span ng-bind="model.id"></span></td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="project[@{{ model.id }}][is_off]" ng-checked="model.is_off" value="1" {{ ($logged_in_user->permission_flag == "Member") ? 'disabled="disabled' : '' }}>
+					<input type="checkbox" name="project[@{{ model.id }}][is_off]" ng-checked="model.is_off" value="1" disabled="disabled">
 					<span class="slider round"></span>
 				</label>
 			</td>
@@ -51,7 +51,7 @@
 			</td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="project[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT">
+					<input type="checkbox" name="project[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT" disabled="disabled">
 					<span class="slider round"></span>
 				</label>
 			</td>
@@ -59,7 +59,7 @@
 				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
 			</td>
 		</tr>
-
+{{--
 		<tfoot>
 		<tr>
 			<td colspan="5">
@@ -69,6 +69,7 @@
 			</td>
 		</tr>
 		</tfoot>
+--}}
 	</table>
 	</form>
 	<br>

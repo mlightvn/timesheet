@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>プロジェクト一</h1>
+	<h1>プロジェクト</h1>
 	<br>
 </div>
 
@@ -35,7 +35,7 @@
 		<tr>
 			<th>{!! Form::label('description', 'Description') !!}</th>
 			<td>
-				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>'Description', 'required'=>'required']) !!}
+				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>'Description']) !!}
 			</td>
 		</tr>
 
@@ -50,7 +50,7 @@
 			</td>
 		</tr>
 		@endif
-		@if($logged_in_user->permission_flag == "Manager")
+		@if($logged_in_user->permission_flag !== "Member")
 		<tr>
 			<th>{!! Form::label('is_off', '休憩プロジェクト') !!}</th>
 			<td>
