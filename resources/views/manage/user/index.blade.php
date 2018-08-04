@@ -42,6 +42,7 @@
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
 			<td>
+				<img ng-hide="model.profile_picture == null" ng-src="@{{ '/upload/user/' + model.profile_picture}}" alt="" width="30px" >
 				<span class="@{{ model.ICON_CLASS }}"></span>
 				&nbsp;
 
