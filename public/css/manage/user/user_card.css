@@ -1,0 +1,19 @@
+.user_card_upload .input_file{
+	display:none;
+}
+
+.user_card_upload label.picture {
+	color: white;
+	background-color: red;
+	border-radius: 4px;
+	padding: 4px 8px;
+	position: relative;
+	margin-top: -25px;
+	float: right;
+	text-align: right;
+}
+
+.user_card_upload label.picture:hover {
+	background-color: #795548;
+	cursor: pointer;
+}

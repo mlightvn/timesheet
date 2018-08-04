@@ -97,6 +97,9 @@ Route::group(['prefix' => '', 'middleware' => ['admin']], function(){
 
 			Route::get('{id}/delete' 		, 'Api\Manage\UserController@delete')->where('id', '[0-9]+');
 			Route::get('{id}/recover' 		, 'Api\Manage\UserController@recover')->where('id', '[0-9]+');
+
+			Route::any('picture/{user_id}'	, 'Api\Manage\UserController@uploadPicture')->where('id', '[0-9]+');
+
 		});
 
 		Route::group(['prefix' => 'project'], function(){

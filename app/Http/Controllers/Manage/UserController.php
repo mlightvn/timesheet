@@ -149,4 +149,37 @@ class UserController extends Controller {
 
 	}
 
+	public function editLoginInfo($id)
+	{
+		$url = $this->url_pattern . '.login_info';
+		$this->model = $this->model->find($id);
+		$arrSelectSessions = $this->getSelectSessions();
+		$this->data["arrSelectSessions"] = $arrSelectSessions;
+
+		$message = NULL;
+		$alert_type = NULL;
+
+		if(!$this->model){
+			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"ユーザーが存在していませんから、ユーザー追加画面に遷移しました。", "alert_type" => $alert_type]);
+		}
+
+		if($this->form_input){ // Submit
+			$is_manager = $this->logged_in_user->session_is_manager;
+			if(($is_manager == "Manager") || ($this->logged_in_user->id == $this->form_input["id"])){
+				if(empty($this->form_input["password"])){
+					unset($this->form_input["password"]);
+				}
+
+				$this->model->fill($this->form_input);
+				$this->model->update();
+				$alert_type = "success";
+				$message = "修正完了。";
+			}else{
+				$message = "ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。";
+			}
+		}
+
+		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
+	}
+
 }

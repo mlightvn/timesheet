@@ -152,6 +152,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 
 		Route::match(["get", "post"], 'add', 'Manage\UserController@add');
 		Route::match(["get", "post"], 'edit/{user_id}', 'Manage\UserController@edit')->where('user_id', '[0-9]+');
+		Route::match(["get", "post"], 'login-info/{user_id}', 'Manage\UserController@editLoginInfo')->where('user_id', '[0-9]+');
 		Route::get('view/{user_id}', 'Manage\UserController@view')->where('user_id', '[0-9]+');
 	});
 

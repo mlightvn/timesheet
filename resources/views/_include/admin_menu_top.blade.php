@@ -70,7 +70,14 @@
 		<div class="w3-dropdown-hover w3-brown">
 			<button class="w3-button w3-brown">
 				<div class="chip">
-					<img src="/common/images/avatar_male.png" alt="{{ $logged_in_user->name }}">
+					<img id="profile_picture" name="profile_picture"
+						@if($logged_in_user->profile_picture)
+							src="/upload/user/{{$logged_in_user->profile_picture}}"
+						@else
+							src="/common/images/avatar_male.png"
+						@endif
+						alt="{{$logged_in_user->name}}" width="30px"
+					>
 					{{ $logged_in_user->name }}
 					<span class="fas fa-caret-down"></span>
 				</div>
