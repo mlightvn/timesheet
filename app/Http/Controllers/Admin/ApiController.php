@@ -115,7 +115,7 @@ return $json;
 			$arrRet = array("status" => "not_exist", "message" => "データ（ID: " . $id . "）が存在していません。");
 		}
 
-		if($this->logged_in_user->permission_flag != "Manager"){
+		if($this->logged_in_user->role != "Manager"){
 			$arrRet = array("status" => "no_delete_permision", "message" => "権限がありませんので、データ（ID: " . $id . "）が削除できません。");
 		}else{
 			$physical_delete = $this->form_input["physical_delete"];
@@ -145,7 +145,7 @@ return $json;
 			$arrRet = array("status" => "not_exist", "message" => "データ（ID: " . $id . "）が存在していません。");
 		}
 
-		if($this->logged_in_user->permission_flag != "Manager"){
+		if($this->logged_in_user->role != "Manager"){
 			$arrRet = array("status" => "no_permision", "message" => "権限がありませんので、データ（ID: " . $id . "）が復元できません。");
 		}else{
 			$this->model->is_deleted = 0;

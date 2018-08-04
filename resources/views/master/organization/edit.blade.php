@@ -4,15 +4,15 @@
 	]
 )
 
-@if (in_array($logged_in_user->permission_flag, array("Administrator")))
+@if (in_array($logged_in_user->role, array("Manager")))
 <div class="w3-row">
 	<h1>ユーザー</h1>
 	<br>
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 </div>
 

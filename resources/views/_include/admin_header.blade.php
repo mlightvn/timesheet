@@ -15,9 +15,6 @@
 	<link rel="stylesheet" href="/css/common/w3.css">
 	<link rel="stylesheet" href="/css/common/fontawesome-all.min.css">
 	<link rel="stylesheet" href="/css/common/bootstrap.min.css">
-{{--
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
---}}
 
 	<link rel="stylesheet" href="/css/common/rakuhin.checkbox.css">
 	<link rel="stylesheet" href="/css/common/rakuhin.css">

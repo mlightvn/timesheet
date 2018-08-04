@@ -1,11 +1,11 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'manage_project',
+		'id'				=> 'manage_project_task',
 	]
 )
 
 <div class="w3-row">
-	<h1>プロジェクト</h1>
+	<h1>タスク</h1>
 	<br>
 </div>
 
@@ -26,30 +26,30 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('name', 'プロジェクト名') !!}</th>
+			<th>{!! Form::label('project_id', 'プロジェクト') !!}</th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'プロジェクト名', 'required'=>'required']) !!}
+				<select name="project_id" id="project_id" class="form-control" placeholder='稼働プロジェクト' required='required'>
+					@foreach($data["projectList"] as $project_id => $project)
+					<option value="{{ $project->id }}" class="{{ ($project->is_deleted) ? 'w3-gray' : '' }}" {{ ($project->id == $model->project_id) ? 'selected="selected"' : '' }}>{{ $project->name }}</option>
+					@endforeach
+				</select>
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('description', 'Description') !!}</th>
+			<th>{!! Form::label('name', 'タスク') !!}</th>
 			<td>
-				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>'Description']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タスク', 'required'=>'required']) !!}
 			</td>
 		</tr>
 
-		@if(isset($model->id))
 		<tr>
-			<th>{!! Form::label('user_id', '自分のプロジェクト') !!}</th>
+			<th>{!! Form::label('description', '備考') !!}</th>
 			<td>
-				<label class="switch">
-					{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }}
-					<span class="slider round"></span>
-				</label>
+				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>'備考']) !!}
 			</td>
 		</tr>
-		@endif
+
 		<tfoot>
 		<tr>
 			<td colspan="2">

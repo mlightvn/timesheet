@@ -22,7 +22,7 @@
 		<tr class="w3-brown">
 			<th>#</th>
 			<th>部署</th>
-			@if (in_array($logged_in_user->permission_flag, array("Owner", "Manager")))
+			@if (in_array($logged_in_user->role, array("Owner", "Manager")))
 			<th>先月のレポート<br>{{ $data['prev_yearmonth'] }}</th>
 			<th>当月のレポート<br>{{ $data['curr_yearmonth'] }}</th>
 			@endif
@@ -35,7 +35,7 @@
 			<td>
 			{{ $session->name }}
 			</td>
-			@if (in_array($logged_in_user->permission_flag, array("Owner", "Manager")))
+			@if (in_array($logged_in_user->role, array("Owner", "Manager")))
 			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['prev_yearmonth'] }}" class="w3-text-brown" onclick="return false;"><span class="fas fa-cloud-download-alt"></span>（★開発中★）</a></td>
 			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['curr_yearmonth'] }}" class="w3-text-brown" onclick="return false;"><span class="fas fa-cloud-download-alt"></span>（★開発中★）</a></td>
 			@endif

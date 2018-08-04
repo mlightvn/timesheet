@@ -16,7 +16,7 @@
 
 <div class="w3-row">
 	<button class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
-	@if ( $logged_in_user->permission_flag == "Administrator" )
+	@if ( $logged_in_user->role == "Owner" )
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
@@ -37,11 +37,11 @@
 			</td>
 			<td><a href="{{ $model->website }}" target="_blank">{{ $model->website }}</a></td>
 			<td>
-			@if (($logged_in_user->permission_flag == "Administrator") || ($logged_in_user->id == $model->id) )
-				<a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><span class="glyphicon glyphicon-pencil"></span></a> 
+			@if (($logged_in_user->role == "Owner") || ($logged_in_user->id == $model->id) )
+				<a href="{{ $data['url_pattern'] }}/edit/{{ $model->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
 			@endif
-			@if ( $logged_in_user->permission_flag == "Administrator" )
-				@if ( $model->permission_flag != "Administrator" )
+			@if ( $logged_in_user->role == "Owner" )
+				@if ( $model->role != "Owner" )
 					@if ($model->is_deleted)
 				| <a href="{{ $data['url_pattern'] }}/recover/{{ $model->id }}"><span class="fas fa-recycle w3-text-green"></span></a>
 					@else

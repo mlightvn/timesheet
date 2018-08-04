@@ -35,7 +35,7 @@ class SessionController extends Controller {
 
 	public function add()
 	{
-		if(in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"))){
+		if(in_array($this->logged_in_user->role, array("Manager"))){
 			return parent::add();
 		}else{
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"セッションの追加修正削除に関しては、システム管理者までお問い合わせください。"]);
@@ -55,7 +55,7 @@ class SessionController extends Controller {
 		}
 
 		if($this->form_input){ // Submit
-			$is_manager = in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"));
+			$is_manager = in_array($this->logged_in_user->role, array("Manager"));
 			if($is_manager){
 
 				$this->model->fill($this->form_input);

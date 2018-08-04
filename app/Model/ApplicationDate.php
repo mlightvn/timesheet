@@ -2,9 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ApplicationDate extends Model
+class ApplicationDate extends BaseModel
 {
 	protected $fillable = [
 		'application_form_id',
@@ -16,4 +14,13 @@ class ApplicationDate extends Model
 	protected $table = 'application_date';
 	// protected $primaryKey = ['application_form_id', 'applied_date',];
 	public $incrementing = false;
+
+	protected function init()
+	{
+		parent::init();
+
+		$this->search_columns = ["application_form_id", "applied_date"];
+
+	}
+
 }

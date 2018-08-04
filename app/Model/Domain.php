@@ -2,9 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Domain extends Model
+class Domain extends BaseModel
 {
 	protected $fillable = [
 		'id',
@@ -39,4 +37,15 @@ class Domain extends Model
 	];
 
 	protected $table = 'domain';
+
+	protected function init()
+	{
+		parent::init();
+
+		$this->organization_id = \Auth::user()->organization_id;
+		$this->is_deleted = "is_deleted";
+		$this->search_columns = $this->fillable;
+
+	}
+
 }

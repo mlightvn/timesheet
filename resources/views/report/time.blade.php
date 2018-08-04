@@ -28,17 +28,9 @@
 			<br>
 		</div>
 
-		@foreach($arrOffTasks as $key => $task)
-			<input type="hidden" id="input_task[{{ $task->project_id }}][is_off]" name="input_task[{{ $task->project_id }}][is_off]" value="1">
-			@foreach ($task->timeline as $timeKey => $timeFlag)
-			<input type="hidden" id="input_task[{{ $task->project_id }}][{{ $timeKey }}]" name="input_task[{{ $task->project_id }}][{{ $timeKey }}]" value="{{ $timeFlag }}">
-			@endforeach
-		@endforeach
-
-		@foreach($arrOnTasks as $key => $task)
-			<input type="hidden" id="input_task[{{ $task->project_id }}][is_off]" name="input_task[{{ $task->project_id }}][is_off]" value="0">
-			@foreach ($task->timeline as $timeKey => $timeFlag)
-			<input type="hidden" id="input_task[{{ $task->project_id }}][{{ $timeKey }}]" name="input_task[{{ $task->project_id }}][{{ $timeKey }}]" value="{{ $timeFlag }}">
+		@foreach($data["arrAllTasks"] as $key => $model)
+			@foreach ($model->timeline as $timeKey => $timeFlag)
+			<input type="hidden" id="input_task[{{ $model->project_task_id }}][{{ $timeKey }}]" name="input_task[{{ $model->project_task_id }}][{{ $timeKey }}]" value="{{ $timeFlag }}">
 			@endforeach
 		@endforeach
 
@@ -46,15 +38,9 @@
 		<div class="w3-responsive">
 		<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered w3-tiny">
 		<thead>
-			<tr>
-				<td colspan="{{ $iTimesLength + 3 }}"><h2>稼働</h2></td>
-			</tr>
-
 			<tr class="w3-brown">
-				<th>
-					<input type="checkbox" id="chkTopAll">
-				</th>
-				<th nowrap="nowrap">プロジェクト</th>
+				<th nowrap="nowrap" width="200px">プロジェクト</th>
+				<th nowrap="nowrap" width="200px">タスク</th>
 				@foreach ($arrTimes as $timeKey => $time)
 				<th>{{ $time }}</th>
 				@endforeach
@@ -62,16 +48,14 @@
 			</tr>
 			</thead>
 
-			@foreach($arrOnTasks as $key => $task)
-			<tr class="{{ ($task->is_deleted) ? 'w3-gray' : '' }}">
-				<td>
-					<input type="checkbox" id="chkTop[{{ $key }}]">
-				</td>
-				<td nowrap="nowrap" width="200px">{{ $task->name }}</td>
-				@foreach ($task->timeline as $timeKey => $timeFlag)
-					<td id="task[{{ $task->id }}][{{ $timeKey }}]" class="timesheet valign center {{ ($timeFlag == 1) ? 'w3-green' : '' }}">{{ ($timeFlag == 1) ? '30分' : '' }}</td>
+			@foreach($data["arrAllTasks"] as $key => $model)
+			<tr class="{{$model->DELETED_CSS_CLASS}}">
+				<td nowrap="nowrap">{{ $model->project_name }}</td>
+				<td>{{ $model->project_task_name }}</td>
+				@foreach ($model->timeline as $timeKey => $timeFlag)
+					<td id="task[{{ $model->project_task_id }}][{{ $timeKey }}]" class="timesheet valign center {{ ($timeFlag == 1) ? 'w3-green' : '' }}">{{ ($timeFlag == 1) ? '30分' : '' }}</td>
 				@endforeach
-				<td id="hourSum[{{ $task->id }}]">00:00</td>
+				<td id="hourSum[{{ $model->project_task_id }}]">00:00</td>
 			</tr>
 			@endforeach
 			<tfoot>
@@ -82,43 +66,6 @@
 			</tfoot>
 		</table>
 
-		<br><br>
-		<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered w3-tiny">
-			<thead>
-			<tr>
-				<td colspan="{{ $iTimesLength + 3 }}"><h2>休憩</h2></td>
-			</tr>
-			<tr class="w3-brown">
-				<th>
-					<input type="checkbox" id="chkTopAll">
-				</th>
-				<th nowrap="nowrap">プロジェクト</th>
-				@foreach ($arrTimes as $timeKey => $time)
-				<th>{{ $time }}</th>
-				@endforeach
-				<th></th>
-			</tr>
-			</thead>
-
-			@foreach($arrOffTasks as $key => $task)
-			<tr class="{{ ($task->is_deleted) ? 'w3-gray' : '' }}">
-				<td>
-					<input type="checkbox" id="chkTop[{{ $key }}]">
-				</td>
-				<td nowrap="nowrap" width="200px"><span>{{ $task->name }}</span></td>
-				@foreach ($task->timeline as $timeKey => $timeFlag)
-					<td id="task[{{ $task->id }}][{{ $timeKey }}]" class="timesheet valign center {{ ($timeFlag == 1) ? 'w3-green' : '' }}">{{ ($timeFlag == 1) ? '30分' : '' }}</td>
-				@endforeach
-				<td id="hourSum[{{ $task->id }}]">00:00</td>
-			</tr>
-			@endforeach
-			<tfoot>
-			<tr>
-				<td colspan="{{ $iTimesLength + 2 }}"><span class="w3-right w3-medium">合計</span></td>
-				<td><span class="w3-medium" id="divAllOffWorkingHours">00:00</span></td>
-			</tr>
-			</tfoot>
-		</table>
 		<br><br>
 		</div>
 

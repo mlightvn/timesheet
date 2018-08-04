@@ -1,7 +1,8 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
-use App\Model\Project;
+// use App\Model\Project;
+use App\Model\ProjectTask;
 use App\Model\WorkingDate;
 use App\Model\WorkingTime;
 
@@ -35,37 +36,36 @@ class TimeController extends Controller {
 		$arrTimes = $this->getWorkingTimeLabelList();
 		$timeLength = count($arrTimes);
 
-		$arrOffTasks = $this->getTimeSheetDataByWorkingTaskFlag($user_id, FALSE);
-		$arrOnTasks = $this->getTimeSheetDataByWorkingTaskFlag($user_id, TRUE);
-// dd($arrOnTasks);
+		$arrAllTasks = $this->getTimeSheetData($user_id);
+// dd($arrAllTasks);
 		// Assign variables for user screen
 		$data = $this->data;
 		$times["list"] = $arrTimes;
 		$times["length"] = $timeLength;
 		$data["times"] = $times;
 		$data["sDbRequestDate"] = $this->sDbRequestDate;
-		$data["arrOffTasks"] = $arrOffTasks;
-		$data["arrOnTasks"] = $arrOnTasks;
+		$data["arrAllTasks"] = $arrAllTasks;
 		$data["logged_in_user"] = $this->logged_in_user;
 
 		$this->data = $data;
 
-		return view("/" . str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "arrTimes"=>$arrTimes, "iTimesLength"=>$timeLength, "arrOffTasks"=>$arrOffTasks, "arrOnTasks"=>$arrOnTasks, "logged_in_user" => $this->logged_in_user, "sDbRequestDate"=> $this->sDbRequestDate, ]);
+		return view("/" . str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "arrTimes"=>$arrTimes, "iTimesLength"=>$timeLength, "logged_in_user" => $this->logged_in_user, "sDbRequestDate"=> $this->sDbRequestDate, ]);
 	}
 
-	private function getTimeSheetDataByWorkingTaskFlag($user_id, $is_on = TRUE)
+	private function getTimeSheetData($user_id)
 	{
-		$is_off = !$is_on;
-
 		$arrTimes = $this->getWorkingTimeLabelList();
-		$arrTasks = $this->getUserProjectList($user_id, NULL, $is_off);
+
+		$projectTask = new ProjectTask();
+		$arrTasks = $projectTask->getAllList($user_id, NULL, NULL, FALSE);
 
 		// Get Working Times from DB, and put into array to show on user screen
 		$arrData = array();
 		// $iTotalMinutes = 0;
+		$workingTime = new WorkingTime();
 		foreach ($arrTasks as $taskKey => $task) {
-			$oWorkingTimeList = $this->getWorkingTimeList($user_id, $task->id, $this->sDbRequestDate);
-// dd($oWorkingTimeList);
+			$oWorkingTimeList = $workingTime->getTimeSheetList($user_id, $task->project_task_id, $this->sDbRequestDate);
+
 			$timeLine = array();
 			foreach ($arrTimes as $timeKey => $time) {
 				$timeLine[$timeKey] = 0;
@@ -82,7 +82,7 @@ class TimeController extends Controller {
 			}
 			// $iTotalMinutes *= 30;
 
-			$arrData[$task->id] = $timeLine;
+			$arrData[$task->project_task_id] = $timeLine;
 			$arrTasks[$taskKey]->timeline = $timeLine;
 		}
 		// $arrTasks["totalMinutes"] = $iTotalMinutes;
@@ -90,7 +90,7 @@ class TimeController extends Controller {
 		return $arrTasks;
 	}
 
-	public function regist()
+	public function register()
 	{
 		$alert_type = "success";
 		$message = "工数入力完了。";
@@ -107,7 +107,6 @@ class TimeController extends Controller {
 		}
 
 		$organization_id = $this->logged_in_user->organization_id;
-// echo($organization_id);exit;
 		$arrInputWorkingTime = $this->form_input["input_task"];
 
 		// 追加するために、最初、working_timeのデータを削除
@@ -126,30 +125,28 @@ class TimeController extends Controller {
 		$dbWorkingDate->delete();
 		unset($dbWorkingDate);
 
-		foreach ($arrInputWorkingTime as $project_id => $arrWorkingTimes) {
+		foreach ($arrInputWorkingTime as $project_task_id => $arrWorkingTimes) {
 			$working_minutes = 0;
 			foreach ($arrWorkingTimes as $timeKey => $timeValue) {
-				if($timeKey != "is_off"){
-					if($timeValue == 1){ // 追加
-						$working_minutes++;
-						$sDbTime = $this->timeKey2DbTime($timeKey);
+				if($timeValue == 1){ // 追加
+					$working_minutes++;
+					$sDbTime = $this->timeKey2DbTime($timeKey);
 
-						$dbWorkingTime 						= new WorkingTime();
-						$dbWorkingTime->organization_id 	= $organization_id;
-						$dbWorkingTime->project_id 			= $project_id;
-						$dbWorkingTime->user_id 			= $this->logged_in_user->id;
-						$dbWorkingTime->date 				= $this->sDbRequestDate;
-						$dbWorkingTime->time 				= $sDbTime;
+					$dbWorkingTime 						= new WorkingTime();
+					$dbWorkingTime->organization_id 	= $organization_id;
+					$dbWorkingTime->project_task_id 	= $project_task_id;
+					$dbWorkingTime->user_id 			= $this->logged_in_user->id;
+					$dbWorkingTime->date 				= $this->sDbRequestDate;
+					$dbWorkingTime->time 				= $sDbTime;
 
-						$dbWorkingTime->save(); // 追加
-						unset($dbWorkingTime);
-					}
+					$dbWorkingTime->save(); // 追加
+					unset($dbWorkingTime);
 				}
 			}
 
 			$dbWorkingDate = new WorkingDate();
 			$dbWorkingDate->organization_id 			= $organization_id;
-			$dbWorkingDate->project_id 					= $project_id;
+			$dbWorkingDate->project_task_id 			= $project_task_id;
 			$dbWorkingDate->user_id 					= $this->logged_in_user->id;
 			$dbWorkingDate->date 						= $this->sDbRequestDate;
 			$dbWorkingDate->working_minutes 			= ($working_minutes * 30);

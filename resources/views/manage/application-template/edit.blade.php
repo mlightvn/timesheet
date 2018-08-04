@@ -10,9 +10,9 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	@if($logged_in_user->permission_flag != "Member")
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	@if($logged_in_user->role != "Member")
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
 </div>
@@ -30,7 +30,7 @@
 			<th>{!! Form::label('name', 'タイトル') !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>
 			<td>
-				@if($logged_in_user->permission_flag == "Member")
+				@if($logged_in_user->role == "Member")
 					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'readonly'=>'readonly']) !!}
 				@else
 					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'required'=>'required']) !!}
@@ -42,7 +42,7 @@
 			<th>{!! Form::label('description', '詳細情報') !!}</th>
 			<th><button type="button" name="btnCopy" value="description"><i class="fas fa-copy"></i></button></th>
 			<td>
-				@if($logged_in_user->permission_flag == "Member")
+				@if($logged_in_user->role == "Member")
 					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報', 'readonly'=>'readonly']) !!}
 				@else
 					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報']) !!}
@@ -50,7 +50,7 @@
 			</td>
 		</tr>
 
-		@if($logged_in_user->permission_flag != "Member")
+		@if($logged_in_user->role != "Member")
 		<tfoot>
 		<tr>
 			<td colspan="3">

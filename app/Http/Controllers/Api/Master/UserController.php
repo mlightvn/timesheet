@@ -19,14 +19,14 @@ class UserController extends Controller {
 
 		parent::querySetup();
 
-		$permission_flag = "";
+		$role = "";
 		if(isset($this->form_input["permission"])){
 			// DBの価値に変換
-			$permission_flag = $this->form_input["permission"];
-			if(in_array($permission_flag, array("Master", "Owner"))){
-				$this->model = $this->model->where($table_name . ".permission_flag", "=", $permission_flag);
+			$role = $this->form_input["permission"];
+			if(in_array($role, array("Master", "Owner"))){
+				$this->model = $this->model->where($table_name . ".role", "=", $role);
 			}else{
-				$this->model = $this->model->whereRaw(\DB::raw($table_name . ".permission_flag NOT IN ('Master', 'Owner')"));
+				$this->model = $this->model->whereRaw(\DB::raw($table_name . ".role NOT IN ('Master', 'Owner')"));
 			}
 
 		}
@@ -73,7 +73,7 @@ class UserController extends Controller {
 
 			, \DB::raw("users.id 		AS user_id")
 			, \DB::raw("
-				CASE users.permission_flag 
+				CASE users.role
 					WHEN 'Master' THEN 'fab fa-empire w3-text-red'
 					WHEN 'Owner' THEN 'glyphicon glyphicon-king'
 					WHEN 'Administrator' THEN 'glyphicon glyphicon-knight'

@@ -2,9 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ApplicationForm extends Model
+class ApplicationForm extends BaseModel
 {
 	protected $fillable = [
 		'id',
@@ -19,4 +17,15 @@ class ApplicationForm extends Model
 	];
 
 	protected $table = 'application_form';
+
+	protected function init()
+	{
+		parent::init();
+
+		$this->organization_id = \Auth::user()->organization_id;
+		$this->is_deleted = "is_deleted";
+		$this->search_columns = ["id", "name", "description", "date_list"];
+
+	}
+
 }

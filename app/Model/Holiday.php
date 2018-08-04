@@ -2,9 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Holiday extends Model
+class Holiday extends BaseModel
 {
 	protected $fillable = [
 		'date',

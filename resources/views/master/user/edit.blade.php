@@ -63,24 +63,20 @@
 		<tr>
 			<th></th>
 			<td>
-				{!! Form::radio('permission_flag', 'Member', true, ['class'=>'', 'id'=>'permission_flag[0]']) !!}
-				<label for="permission_flag[0]" class="radio-inline control-label">Member</label>
+				{!! Form::radio('role', 'Member', true, ['class'=>'', 'id'=>'role[0]']) !!}
+				<label for="role[0]" class="radio-inline control-label">Member</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 
-				{!! Form::radio('permission_flag', 'Manager', true, ['class'=>'', 'id'=>'permission_flag[1]']) !!}
-				<label for="permission_flag[1]" class="radio-inline control-label">Manager</label>
+				{!! Form::radio('role', 'Manager', true, ['class'=>'', 'id'=>'role[1]']) !!}
+				<label for="role[1]" class="radio-inline control-label">Manager</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 
-				{!! Form::radio('permission_flag', 'Administrator', true, ['class'=>'', 'id'=>'permission_flag[2]']) !!}
-				<label for="permission_flag[2]" class="radio-inline control-label">Administrator</label>
+				{!! Form::radio('role', 'Owner', true, ['class'=>'', 'id'=>'role[2]']) !!}
+				<label for="role[3]" class="radio-inline control-label">Owner</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 
-				{!! Form::radio('permission_flag', 'Owner', true, ['class'=>'', 'id'=>'permission_flag[3]']) !!}
-				<label for="permission_flag[3]" class="radio-inline control-label">Owner</label>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-
-				{!! Form::radio('permission_flag', 'Master', true, ['class'=>'', 'id'=>'permission_flag[4]']) !!}
-				<label for="permission_flag[4]" class="radio-inline control-label">Master</label>
+				{!! Form::radio('role', 'Master', true, ['class'=>'', 'id'=>'role[3]']) !!}
+				<label for="role[4]" class="radio-inline control-label">Master</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 
 			</td>

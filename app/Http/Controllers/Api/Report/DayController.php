@@ -166,7 +166,8 @@ class DayController extends \App\Http\Controllers\Api\Controller {
 				"
 			));
 		$dbWorkingDate = $dbWorkingDate->join("users", "working_date.user_id", "=", "users.id");
-		$dbWorkingDate = $dbWorkingDate->join("project", "working_date.project_id", "=", "project.id");
+		$dbWorkingDate = $dbWorkingDate->join("project_task", "working_date.project_task_id", "=", "project_task.id");
+		$dbWorkingDate = $dbWorkingDate->join("project", "project_task.project_id", "=", "project.id");
 
 		$dbWorkingDate = $dbWorkingDate->where("working_date.user_id", "LIKE", $this->logged_in_user->id);
 		$dbWorkingDate = $dbWorkingDate->where("working_date.date", "LIKE", $year_month . "%");

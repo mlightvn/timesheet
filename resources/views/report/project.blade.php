@@ -41,7 +41,8 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 			<tr class="w3-brown">
-				<th nowrap="nowrap">稼働のプロジェクト</th>
+				<th nowrap="nowrap">プロジェクト</th>
+				<th nowrap="nowrap">タスク</th>
 				<th>時間</th>
 			</tr>
 			</thead>
@@ -52,6 +53,9 @@
 					{{ $oTask->project_name }}
 				</td>
 				<td>
+					{{ $oTask->project_task_name }}
+				</td>
+				<td>
 					{{ $oTask->total_working_hours_label }}
 				</td>
 			</tr>
@@ -59,6 +63,8 @@
 
 			<tfoot>
 			<tr>
+				<td align="right">
+				</td>
 				<td align="right">
 				</td>
 				<td><label class="w3-xlarge">{{ $arrTaskSheet["on_task"]["total_working_hours_label"] }}</label>
@@ -68,42 +74,6 @@
 		</table>
 		@else
 		稼働のデータがありません。<br>
-		@endif
-		<br><br>
-		</div>
-
-		<div class="w3-responsive">
-		@if(count($arrTaskSheet["off_task"]) > 0)
-		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
-			<thead>
-			<tr class="w3-brown">
-				<th nowrap="nowrap">休憩のプロジェクト</th>
-				<th>時間</th>
-			</tr>
-			</thead>
-
-			@foreach($arrTaskSheet["off_task"]["task"] as $day => $oTask)
-			<tr>
-				<td>
-					{{ $oTask->project_name }}
-				</td>
-				<td>
-					{{ $oTask->total_working_hours_label }}
-				</td>
-			</tr>
-			@endforeach
-
-			<tfoot>
-			<tr>
-				<td align="right">
-				</td>
-				<td><label class="w3-xlarge">{{ $arrTaskSheet["off_task"]["total_working_hours_label"] }}</label>
-				</td>
-			</tr>
-			</tfoot>
-		</table>
-		@else
-		休憩のデータがありません。<br>
 		@endif
 		<br><br>
 		</div>

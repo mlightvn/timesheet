@@ -51,7 +51,8 @@ class ProjectController extends Controller {
 
 		$total_working_minutes = 0;
 
-		$arrTasks = $this->getProjectSheet($report_user_id, $this->requestYear, $this->requestMonth);
+		$workingDate = new WorkingDate();
+		$arrTasks = $workingDate->getTimeSheetList($report_user_id, $this->organization_id, $this->requestYear, $this->requestMonth);
 
 		$arrOffTaskSheet = array();
 		$arrOnTaskSheet = array();
@@ -64,13 +65,8 @@ class ProjectController extends Controller {
 
 		foreach ($arrTasks as $key => $oTask) {
 			$iWorkingMinutes = intval($oTask->total_working_minutes);
-			if($oTask->is_off == 1){
-				$arrOffTaskSheet["task"][$oTask->id] = $oTask;
-				$arrOffTaskSheet["total_minutes"] += $iWorkingMinutes;
-			}else{
-				$arrOnTaskSheet["task"][$oTask->id] = $oTask;
-				$arrOnTaskSheet["total_minutes"] += $iWorkingMinutes;
-			}
+			$arrOnTaskSheet["task"][$oTask->id] = $oTask;
+			$arrOnTaskSheet["total_minutes"] += $iWorkingMinutes;
 			$total_working_minutes += $iWorkingMinutes;
 		}
 		$total_working_hours_label = $this->minutes2HourLabel($total_working_minutes, "%02d時%02d分");

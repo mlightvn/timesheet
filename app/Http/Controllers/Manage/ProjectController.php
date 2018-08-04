@@ -84,7 +84,7 @@ class ProjectController extends Controller {
 		$table = $table->delete(); // delete all projects of current user
 		unset($table);
 
-		$is_manager = in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"));
+		$is_manager = in_array($this->logged_in_user->role, array("Manager"));
 		if($is_manager){
 			// Reset all is_off flag
 			$table = new Project();

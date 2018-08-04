@@ -29,7 +29,6 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>休憩のフラグ</th>
 			<th>プロジェクト</th>
 			<th>自分のプロジェクト</th>
 			<th></th>
@@ -38,12 +37,6 @@
 
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
-			<td>
-				<label class="switch">
-					<input type="checkbox" name="project[@{{ model.id }}][is_off]" ng-checked="model.is_off" value="1" disabled="disabled">
-					<span class="slider round"></span>
-				</label>
-			</td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" ng-bind="model.name"></a>
 				<br>
@@ -56,7 +49,9 @@
 				</label>
 			</td>
 			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
+				@if($logged_in_user->role != "Member")
 				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
+				@endif
 			</td>
 		</tr>
 {{--

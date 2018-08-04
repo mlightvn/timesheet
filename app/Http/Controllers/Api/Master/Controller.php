@@ -12,8 +12,8 @@ class Controller extends \App\Http\Controllers\Api\Controller
 			abort(404);
 			exit;
 		}else{
-			$permission_flag = $this->logged_in_user->permission_flag;
-			if($permission_flag != "Master"){
+			$role = $this->logged_in_user->role;
+			if($role != "Master"){
 				abort(404);
 				exit;
 			}
@@ -28,14 +28,14 @@ class Controller extends \App\Http\Controllers\Api\Controller
 
 	// 	parent::querySetup();
 
-	// 	$permission_flag = "";
+	// 	$role = "";
 	// 	if(isset($this->form_input["permission"])){
 	// 		// DBの価値に変換
-	// 		$permission_flag = $this->form_input["permission"];
-	// 		if(in_array($permission_flag, array("Master", "Owner"))){
-	// 			$this->model = $this->model->where($table_name . ".permission_flag", "=", $permission_flag);
+	// 		$role = $this->form_input["permission"];
+	// 		if(in_array($role, array("Master", "Owner"))){
+	// 			$this->model = $this->model->where($table_name . ".role", "=", $role);
 	// 		}else{
-	// 			$this->model = $this->model->where($table_name . ".permission_flag", "<>", "Master");
+	// 			$this->model = $this->model->where($table_name . ".role", "<>", "Master");
 	// 		}
 
 

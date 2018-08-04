@@ -24,24 +24,24 @@
 <br>
 
 <div class="w3-row">
-	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="glyphicon glyphicon-list"></span></button>&nbsp;
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	<br><br>
 
-	@if(isset($data['permission_flag']))
-	<input type="hidden" id="permission_flag" name="permission_flag" value="{{ $data['permission_flag'] }}">
-	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}?permission={{ $data['permission_flag'] }}">
+	@if(isset($data['role']))
+	<input type="hidden" id="role" name="role" value="{{ $data['role'] }}">
+	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}?permission={{ $data['role'] }}">
 	@else
-	<input type="hidden" id="permission_flag" name="permission_flag" value="">
+	<input type="hidden" id="role" name="role" value="">
 	<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
 	@endif
 	<input type="hidden" id="data_source_url_delete" value="/api{{ $data['url_pattern'] }}">
 
 	<div class="w3-bar w3-light-gray">
-		<a class="w3-bar-item w3-button {{ (!isset($data['permission_flag'])) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}">All</a>
-		<a class="w3-bar-item w3-button {{ (isset($data['permission_flag']) && ($data['permission_flag'] == 'Master')) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}?permission=Master">Master</a>
-		<a class="w3-bar-item w3-button {{ (isset($data['permission_flag']) && ($data['permission_flag'] == 'Owner')) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}?permission=Owner">Owner</a>
-		<a class="w3-bar-item w3-button {{ (isset($data['permission_flag']) && ($data['permission_flag'] == 'Other')) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}?permission=Other">Other users</a>
+		<a class="w3-bar-item w3-button {{ (!isset($data['role'])) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}">All</a>
+		<a class="w3-bar-item w3-button {{ (isset($data['role']) && ($data['role'] == 'Master')) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}?permission=Master">Master</a>
+		<a class="w3-bar-item w3-button {{ (isset($data['role']) && ($data['role'] == 'Owner')) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}?permission=Owner">Owner</a>
+		<a class="w3-bar-item w3-button {{ (isset($data['role']) && ($data['role'] == 'Other')) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}?permission=Other">Other users</a>
 	</div>
 
 	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
@@ -66,7 +66,7 @@
 			</td>
 			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			<td>
-				@if(isset($data['permission_flag']) && (in_array($data['permission_flag'], array('Master', 'Owner'))))
+				@if(isset($data['role']) && (in_array($data['role'], array('Master', 'Owner'))))
 					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 
 					<span ng-if="model.id != 1">

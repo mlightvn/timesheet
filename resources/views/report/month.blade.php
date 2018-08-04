@@ -3,6 +3,7 @@
 		'id'					=> 'report_month',
 		'title'					=> 'Month table',
 		'datepicker'			=> true,
+		'css'					=> 'report/month',
 	]
 )
 
@@ -11,7 +12,7 @@
 	<div id="divMessageBorder" class="w3-container">
 		<div class="w3-row w3-col w3-section">
 			<div class="w3-col s8 m6 l6">
-				<input placeholder="{{ $requestYear }}" class="w3-input w3-border" name="year" type="number" value="{{ $requestYear }}">
+				<input placeholder="{{ $requestYear }}" class="datepicker w3-input w3-border" name="year" value="{{ $requestYear }}">
 			</div>
 			<div class="w3-col s4 m3 l3">
 				<button type="submit" class="w3-button w3-brown"><span class="fas fa-sync-alt"></span></button>
@@ -25,9 +26,11 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 			<thead>
 			<tr class="w3-brown">
+{{--
 				<th>
 					<input type="checkbox" id="chkMonthAll">
 				</th>
+--}}
 				<th nowrap="nowrap">月</th>
 				<th></th>
 			</tr>
@@ -35,7 +38,9 @@
 
 			@foreach($arrMonth as $month_key => $month_label)
 			<tr>
+{{--
 				<td><input type="checkbox" id="chkMonth[{{ $month_key }}]" name="chkMonth[{{ $month_key }}]">
+--}}
 				</td>
 				<td>
 					<a href="/admin/report/day?year_month={{ $requestYear }}-{{ str_pad($month_key, 2, '0', STR_PAD_LEFT) }}">
@@ -44,15 +49,13 @@
 
 				</td>
 				<td>
-					<a href="/admin/report/day?year_month={{ $requestYear }}-{{ str_pad($month_key, 2, '0', STR_PAD_LEFT) }}" class="w3-text-brown"><span class="glyphicon glyphicon-info-sign"></span></a> 
-					| 
 					<a href="day_download_{{ $requestYear }}-{{ $month_key }}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a>
 				</td>
 			</tr>
 			@endforeach
 			<tfoot>
 			<tr>
-				<td colspan="3">
+				<td colspan="2">
 					<div class="w3-center">
 						<button type="button" disabled="disabled" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> ダウンロード　　</button>
 					</div>
@@ -70,4 +73,5 @@
 
 @include('_include.admin_footer', [
 	'datepicker'			=> true,
+	'js'					=> 'report/month',
 ])

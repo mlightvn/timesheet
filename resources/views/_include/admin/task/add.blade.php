@@ -20,7 +20,7 @@
 						{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'プロジェクト名', 'required'=>'required']) !!}
 					</td>
 				</tr>
-				@if($logged_in_user->permission_flag == "Manager")
+				@if($logged_in_user->role == "Manager")
 				<tr>
 					<th>{!! Form::label('is_off', '休憩プロジェクト') !!}</th>
 					<td>

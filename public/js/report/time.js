@@ -195,7 +195,7 @@ $(document).ready(function(){
 		});
 
 		$.ajax({
-			url: '/report/time',
+			url: '/report/time/regist',
 			type: 'POST',
 			dataType: 'json',
 			data: $request_data,

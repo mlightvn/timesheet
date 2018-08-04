@@ -2,11 +2,10 @@ $(function() {
 	$( "#modalForm" ).submit(function( event ) {
 		event.preventDefault();
 
-		var $form = $( this );
-		data = $form.find( "input" );
-console.log(data);
-// console.log(data["is_off"]);
-console.log(data["#is_off"]);
+// 		var $form = $( this );
+// 		data = $form.find( "input" );
+// console.log(data);
+
 // 		if(!($("#is_off").checked)){
 // 			// delete data["is_off"];
 // 			data.remove($("#is_off"));

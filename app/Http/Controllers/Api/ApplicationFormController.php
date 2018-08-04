@@ -15,7 +15,7 @@ class ApplicationFormController extends \App\Http\Controllers\Api\Controller {
 	{
 		$column_list = array();
 		$column_list["application_form.organization_id"] = $this->organization_id;
-		if(isset($this->logged_in_user->permission_flag) && ($this->logged_in_user->permission_flag != "Manager")){
+		if(isset($this->logged_in_user->role) && ($this->logged_in_user->role != "Manager")){
 			$column_list["application_form.applied_user_id"] = \Auth::id();
 		}
 
@@ -42,7 +42,7 @@ class ApplicationFormController extends \App\Http\Controllers\Api\Controller {
 								WHEN 2 THEN 'Rejected'
 								END AS 'STATUS_LABEL'
 						"),
-					\DB::raw("CASE status 
+					\DB::raw("CASE status
 								WHEN 0 THEN ''
 								WHEN 1 THEN 'w3-green'
 								WHEN 2 THEN 'w3-gray'

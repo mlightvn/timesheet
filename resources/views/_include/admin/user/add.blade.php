@@ -43,13 +43,13 @@
 						<input class="form-control" placeholder="名前" required="required" name="name" type="text" value="" id="name">
 					</td>
 				</tr>
-				@if($logged_in_user->permission_flag == "Manager")
+				@if($logged_in_user->role == "Manager")
 				<tr>
-					<th>{!! Form::label('permission_flag', '管理フラグ') !!}</th>
+					<th>{!! Form::label('role', '管理フラグ') !!}</th>
 					<td>
 						<!-- Rounded switch -->
 						<label class="switch">
-							<input placeholder="管理フラグ" name="permission_flag" type="checkbox" value="Manager" id="permission_flag">
+							<input placeholder="管理フラグ" name="role" type="checkbox" value="Manager" id="role">
 							<span class="slider round"></span>
 						</label>
 					</td>

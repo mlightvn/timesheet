@@ -13,12 +13,14 @@
 		</div>
 	</div>
 
+{{--
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black"><span class="fas fa-file-powerpoint"></span> Work time <span class="fas fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/work-time/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'work_time_month') ? 'w3-gray' : ''}}">Month</a>
 		</div>
 	</div>
+--}}
 
 	<div class="w3-dropdown-hover w3-brown">
 		<button class="w3-button w3-brown w3-hover-black"><span class="fas fa-calendar"></span> 休暇・有給 <span class="fas fa-caret-down"></span></button>
@@ -28,32 +30,37 @@
 		</div>
 	</div>
 
+{{--
 	<a href="/customer" class="w3-bar-item w3-button {{ ($id == 'user_customer') ? 'w3-gray' : ''}}"><i class="fas fa-address-card" aria-hidden="true"></i> 顧客</a>
 
 	<a href="/cashflow" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'cashflow_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> Cashflow</a>
 	<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> ドメイン</a>
+--}}
 	<a href="/bookmark" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'bookmark_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> Bookmark</a>
 
 	<div class="w3-dropdown-hover w3-brown">
-		<button class="w3-button w3-brown w3-hover-black">設定 <span class="fas fa-caret-down"></span></button>
+		<button class="w3-button w3-brown w3-hover-black"><i class="fas fa-cogs"></i> <span class="fas fa-caret-down"></span></button>
 		<div class="w3-dropdown-content w3-bar-block w3-card-4">
 			<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'manage_user') ? 'w3-gray' : ''}}"><span class="fas fa-user"></span> 会員</a>
 
 			<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'manage_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> プロジェクト</a>
+			<a href="/manage/project_task" class="w3-bar-item w3-button {{ ($id == 'manage_project_task') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> タスク</a>
 			<a href="/manage/session" class="w3-bar-item w3-button {{ ($id == 'manage_session') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> 部署</a>
 
 			<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> Application Templates</a>
 		</div>
 	</div>
 
-	@if ($logged_in_user->permission_flag == "Master")
+	@if ($logged_in_user->role == "Master")
 	<a href="/master" class="w3-bar-item w3-button w3-hover-black light-glow"><span class="fab fa-empire"></span> マスタ</a>
 	@endif
 
 	@endif
 
+	@if (in_array($logged_in_user->role, array("Owner", 'Manager')))
 	<a href="/promotion" class="w3-bar-item w3-button"><i class="fas fa-gift"></i> Promotion</a>
 	<a href="/price" class="w3-bar-item w3-button"><i class="fas fa-dollar-sign"></i> お支払い</a>
+	@endif
 
 	<a href="javascript:void(0);" onclick="donate()" class="w3-btn w3-green">Donate <span class="glyphicon glyphicon-apple"></span></a>
 
@@ -69,19 +76,13 @@
 				</div>
 			</button>
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
-				@if ($logged_in_user->permission_flag == "Master")
+				@if ($logged_in_user->role == "Master")
 				<a href="/master" class="w3-bar-item w3-button w3-hover-black"><span class="fab fa-empire"></span> マスタ</a>
 				@endif
 
 				<a href="/manage/user/edit/{{ $logged_in_user->id }}" class="w3-bar-item w3-button"><span class="fas fa-user"></span> プロフィール修正</a>
 
-{{--
-				@if ( $logged_in_user->permission_flag == "Administrator" )
-				<a href="/admin" class="w3-bar-item w3-button">管理画面</a>
-				@endif
---}}
-
-				@if ( in_array($logged_in_user->permission_flag, array("Administrator", "Manager")) )
+				@if ( in_array($logged_in_user->role, array("Manager")) )
 				<a href="/profile/organization/edit" class="w3-bar-item w3-button"><i class="fas fa-building"></i> 企業修正</a>
 				@endif
 				<a href="/profile/organization/info" class="w3-bar-item w3-button"><i class="fas fa-building"></i> 企業情報</a>

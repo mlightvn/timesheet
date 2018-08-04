@@ -2,23 +2,26 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
-
-class Project extends Model
+class Project extends BaseModel
 {
-	// https://laravel.com/docs/5.6/eloquent
-	use SoftDeletes;
 
 	protected $fillable = [
 		'id',
 		'organization_id',
 		'name',
 		'description',
-		'is_off',			// '0': FALSE, '1': TRUE
 	];
 
-	protected $dates = ['deleted_at'];
-
 	protected $table = 'project';
+
+	protected function init()
+	{
+		parent::init();
+
+		$this->organization_id = \Auth::user()->organization_id;
+		$this->is_deleted = "is_deleted";
+		$this->search_columns = ["id", "name", "description"];
+
+	}
+
 }

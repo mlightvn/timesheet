@@ -17,7 +17,7 @@ class ApplicationFormController extends Controller {
 
 		$column_list = array();
 		$column_list["application_form.organization_id"] = $this->organization_id;
-		if(isset($this->logged_in_user->permission_flag) && ($this->logged_in_user->permission_flag != "Manager")){
+		if(isset($this->logged_in_user->role) && ($this->logged_in_user->role != "Manager")){
 			$column_list["application_form.applied_user_id"] = \Auth::id();
 		}
 		$this->data["request_data"]["where"]["column_list"] = $column_list;
@@ -147,7 +147,7 @@ class ApplicationFormController extends Controller {
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
-		if(!(($this->logged_in_user->permission_flag == "Manager") || ($model->applied_user_id == $this->user_id))){
+		if(!(($this->logged_in_user->role == "Manager") || ($model->applied_user_id == $this->user_id))){
 			$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
 		}else{
 			$model->status = $status;

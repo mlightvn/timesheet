@@ -23,8 +23,8 @@ class Controller extends \App\Http\Controllers\Controller {
 		if(!isset($this->logged_in_user)){
 			abort(404);
 		}else{
-			$permission_flag = $this->logged_in_user->permission_flag;
-			if($permission_flag != "Master"){
+			$role = $this->logged_in_user->role;
+			if($role != "Master"){
 				abort(404);
 				exit;
 			}

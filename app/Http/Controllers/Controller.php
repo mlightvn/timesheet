@@ -254,7 +254,7 @@ class Controller extends BaseController
 		$remember 		= isset($form_input['remember']);
 
 		$credentials = [
-				'email' 		=> $form_input['email'], 
+				'email' 		=> $form_input['email'],
 				'password' 		=> $form_input['password'], //auto-encrypt
 				'is_deleted' 	=> "0",
 			];
@@ -284,6 +284,20 @@ class Controller extends BaseController
 	public function getWorkingTimeLabelList($value='')
 	{
 		$arrTimes = array(
+						"0000"		=> "00:00",
+						"0030"		=> "00:30",
+						"0100"		=> "01:00",
+						"0130"		=> "01:30",
+						"0200"		=> "02:00",
+						"0230"		=> "02:30",
+						"0300"		=> "03:00",
+						"0330"		=> "03:30",
+						"0400"		=> "04:00",
+						"0430"		=> "04:30",
+						"0500"		=> "05:00",
+						"0530"		=> "05:30",
+						"0600"		=> "06:00",
+						"0630"		=> "06:30",
 						"0700"		=> "07:00",
 						"0730"		=> "07:30",
 						"0800"		=> "08:00",
@@ -327,7 +341,7 @@ class Controller extends BaseController
 		$table = DB::table('project');
 
 		$table = $table->select([
-				"project.*", 
+				"project.*",
 				\DB::raw("organization.name AS organization_name"),
 				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
 				\DB::raw("CASE project.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
@@ -359,7 +373,6 @@ class Controller extends BaseController
 		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
 		$table = $table->orderBy("project.is_deleted", "ASC");
-		$table = $table->orderBy("project.is_off", "ASC")->orderBy("project.id");
 		$table = $table->orderBy("project.id", "ASC");
 // dd($table->toSql());
 		if($isPagination){
@@ -386,7 +399,7 @@ class Controller extends BaseController
 
 			, DB::raw("users.id 		AS user_id")
 			, DB::raw("
-				CASE users.permission_flag 
+				CASE users.role
 					WHEN 'Master' THEN 'fab fa-empire w3-text-red'
 					WHEN 'Owner' THEN 'glyphicon glyphicon-king'
 					WHEN 'Administrator' THEN 'glyphicon glyphicon-knight'
@@ -432,7 +445,7 @@ class Controller extends BaseController
 			$table = $table->whereRaw($where);
 		}
 
-		if(\Auth::user()->permission_flag != "Master"){
+		if(\Auth::user()->role != "Master"){
 			$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 		}
 
@@ -453,7 +466,7 @@ class Controller extends BaseController
 		$table = DB::table('session');
 
 		$table = $table->select([
-				"session.*", 
+				"session.*",
 				DB::raw("organization.name AS organization_name"),
 				DB::raw("CASE session.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
 				\DB::raw("CASE session.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
@@ -493,36 +506,31 @@ class Controller extends BaseController
 		return $arrResult;
 	}
 
-	public function getUserProjectList($user_id = NULL, $project_id = NULL, $is_off = NULL)
-	{
-		$table = DB::table('user_project');
+	// public function getUserProjectList($user_id = NULL, $project_id = NULL)
+	// {
+	// 	$table = DB::table('user_project');
 
-		$table = $table->select(["user_project.*", "project.*", DB::raw("organization.name AS organization_name")]);
+	// 	$table = $table->select(["user_project.*", "project.*", DB::raw("organization.name AS organization_name")]);
 
-		$table = $table->join("project", "user_project.project_id", "=", "project.id");
-		$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
+	// 	$table = $table->join("project", "user_project.project_id", "=", "project.id");
+	// 	$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
 
-		if($user_id){
-			$table = $table->where("user_project.user_id", "=", $user_id);
-		}
-		if($project_id){
-			$table = $table->where("user_project.project_id", "=", $project_id);
-		}
+	// 	if($user_id){
+	// 		$table = $table->where("user_project.user_id", "=", $user_id);
+	// 	}
+	// 	if($project_id){
+	// 		$table = $table->where("user_project.project_id", "=", $project_id);
+	// 	}
 
-		if(!is_null($is_off)){
-			$is_off = ($is_off) ? 1 : 0;
-			$table = $table->where("project.is_off", "=", $is_off);
-		}
+	// 	$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
+	// 	$table = $table->where("project.is_deleted", "=", "0");
 
-		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
-		$table = $table->where("project.is_deleted", "=", "0");
+	// 	$table = $table->orderBy("project.is_deleted", "ASC");
+	// 	$table = $table->orderBy("user_project.project_priority", "DESC")->orderBy("project.id");
 
-		$table = $table->orderBy("project.is_deleted", "ASC");
-		$table = $table->orderBy("project.is_off", "DESC")->orderBy("user_project.project_priority", "DESC")->orderBy("project.id");
-
-		$arrResult = $table->get();
-		return $arrResult;
-	}
+	// 	$arrResult = $table->get();
+	// 	return $arrResult;
+	// }
 
 	public function getWorkingDateList($user_id = NULL, $date = NULL)
 	{
@@ -553,37 +561,39 @@ class Controller extends BaseController
 		return $arrResult;
 	}
 
-	public function getWorkingTimeList($user_id = NULL, $project_id = NULL, $date = NULL)
-	{
-		$table = DB::table('working_time');
+// 	public function getWorkingTimeList($user_id = NULL, $project_task_id = NULL, $date = NULL)
+// 	{
+// 		$table = DB::table('working_time');
 
-		$table = $table->select(["working_time.*", DB::raw("organization.name AS organization_name")]);
+// 		$table = $table->select(["working_time.*", DB::raw("organization.name AS organization_name")]);
 
-		$table = $table->leftJoin("organization", "working_time.organization_id", "=", "organization.id");
-		$table = $table->join("users", "working_time.user_id", "=", "users.id");
-		$table = $table->join("project", "working_time.project_id", "=", "project.id");
+// 		$table = $table->leftJoin("organization", "working_time.organization_id", "=", "organization.id");
+// 		$table = $table->join("users", "working_time.user_id", "=", "users.id");
+// 		$table = $table->join("project_task", "working_time.project_task_id", "=", "project_task.id");
+// 		$table = $table->join("project", "project.id", "=", "project_task.project_id");
 
-		if($user_id != NULL && $user_id != ""){
-			$table = $table->where("working_time.user_id", "=", $user_id);
-		}
-		if($project_id != NULL && $project_id != ""){
-			$table = $table->where("working_time.project_id", "=", $project_id);
-		}
-		if($date != NULL && $date != ""){
-			$table = $table->where("working_time.date", "=", $date);
-		}
+// 		if($user_id != NULL && $user_id != ""){
+// 			$table = $table->where("working_time.user_id", "=", $user_id);
+// 		}
+// 		if(isset($project_task_id) && !empty($project_task_id)){
+// 			$table = $table->where("working_time.project_task_id", "=", $project_task_id);
+// 		}
+// 		if($date != NULL && $date != ""){
+// 			$table = $table->where("working_time.date", "=", $date);
+// 		}
 
-		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
+// 		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
-		$table = $table->where("users.is_deleted", "=", "0");
-		$table = $table->where("project.is_deleted", "=", "0");
+// 		$table = $table->where("users.is_deleted", "=", "0");
+// 		$table = $table->where("project_task.is_deleted", "=", "0");
+// 		$table = $table->where("project.is_deleted", "=", "0");
 
-		$table = $table->orderBy("working_time.date");
-		$table = $table->orderBy("working_time.time");
-// dd($table->toSql());
-		$arrResult = $table->get();
-		return $arrResult;
-	}
+// 		$table = $table->orderBy("working_time.date");
+// 		$table = $table->orderBy("working_time.time");
+// // dd($table->toSql());
+// 		$arrResult = $table->get();
+// 		return $arrResult;
+// 	}
 
 	public function getHolidays($yearMonth = NULL)
 	{
@@ -788,7 +798,7 @@ class Controller extends BaseController
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
-		if(!in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"))){
+		if(!in_array($this->logged_in_user->role, array("Administrator", "Manager"))){
 			$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
 		}else{
 			if($this->model instanceof \App\Model\User){
@@ -825,7 +835,7 @@ class Controller extends BaseController
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(['data' => $this->data, 'message'=>$message]);
 		}
 
-		if(!in_array($this->logged_in_user->permission_flag, array("Administrator", "Manager"))){
+		if(!in_array($this->logged_in_user->role, array("Administrator", "Manager"))){
 			$message = "データの追加修正削除に関しては、システム管理者までお問い合わせください。";
 		}else{
 			$this->model->is_deleted = 0;

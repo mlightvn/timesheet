@@ -20,10 +20,10 @@ class UserController extends Controller {
 	{
 		parent::querySetup();
 
-		$permission_flag = "";
+		$role = "";
 		if(isset($this->form_input["permission"])){
 			// DBの価値に変換
-			$this->data['permission_flag'] = $this->form_input["permission"];
+			$this->data['role'] = $this->form_input["permission"];
 
 		}
 	}
@@ -33,7 +33,7 @@ class UserController extends Controller {
 	// 	$arrSelectSessions = $this->getSelectSessions();
 	// 	$this->data["arrSelectSessions"] = $arrSelectSessions;
 
-	// 	if($this->logged_in_user->permission_flag == "Manager"){
+	// 	if($this->logged_in_user->role == "Manager"){
 	// 		return parent::add();
 	// 	}else{
 	// 		return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。"]);
@@ -59,16 +59,16 @@ class UserController extends Controller {
 	// 	}
 
 	// 	if($this->form_input){ // Submit
-	// 		$is_manager = $this->logged_in_user->permission_flag;
+	// 		$is_manager = $this->logged_in_user->role;
 	// 		if(($is_manager == "Manager") || ($this->logged_in_user->id == $this->form_input["id"])){
 	// 			if(empty($this->form_input["password"])){
 	// 				unset($this->form_input["password"]);
 	// 			}
 
-	// 			if(isset($this->form_input["permission_flag"])){
-	// 				$this->form_input["permission_flag"] = "Manager";
+	// 			if(isset($this->form_input["role"])){
+	// 				$this->form_input["role"] = "Manager";
 	// 			}else{
-	// 				$this->form_input["permission_flag"] = "Member";
+	// 				$this->form_input["role"] = "Member";
 	// 			}
 
 	// 			$this->model->fill($this->form_input);

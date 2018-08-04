@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
+use App\Model\WorkingDate;
 
 class Controller extends \App\Http\Controllers\Admin\Controller {
 
@@ -76,17 +77,12 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		$data["user_name"] 			= $user_name;
 		$data["filename"] 			= $filename;
 
-		// $arrOffTaskList = $this->getProjectSheet($this->reportUser->id, $year, $month, NULL, 1);
-		$arrOnTaskList = $this->getProjectSheet($this->reportUser->id, $year, $month, NULL, 0);
+		$workingDate = new WorkingDate();
+		$arrOnTaskList = $workingDate->getTimeSheetList($this->reportUser->id, $this->organization_id, $year, $month);
 
 		$taskSheet 						= array();
 		// $arrOffTasks 					= array();
 		$arrOnTasks 					= array();
-
-		// $arrOffTasks["task"] 							= $arrOffTaskList;
-		// $arrOffTasks["task_label"] 						= "休憩時間";
-		// $arrOffTasks["total_minutes"] 					= 0;
-		// $arrOffTasks["total_working_hours_label"] 		= "";
 
 		$arrOnTasks["task"] 							= $arrOnTaskList;
 		$arrOnTasks["task_label"] 						= "稼働プロジェクト";
@@ -167,7 +163,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		});
 		$excel->export('xlsx');
 		// ERR_INVALID_RESPONSE
-		// 
+		//
 	}
 
 	public function writeSheetTable($sheet, $data, $start_row, &$minutes)
@@ -252,40 +248,39 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 			});
 	}
 
-	public function getProjectSheet($user_id, $year, $month = NULL, $day = NULL, $is_off = NULL)
-	{
-		$data = array();
-		$data["year"] 				= $year;
-		$data["month"] 				= $month;
-		$data["day"] 				= $day;
-		$data["date"] 				= $year . "-" . $month . "-" . $day;
-		$data["year_month"] 		= $year . "-" . $month;
+// 	public function getProjectSheet($user_id, $year, $month = NULL, $day = NULL, $is_off = NULL)
+// 	{
+// 		$data = array();
+// 		$data["year"] 				= $year;
+// 		$data["month"] 				= $month;
+// 		$data["day"] 				= $day;
+// 		$data["date"] 				= $year . "-" . $month . "-" . $day;
+// 		$data["year_month"] 		= $year . "-" . $month;
 
-		$workingDate = new \App\Model\WorkingDate();
+// 		$workingDate = new \App\Model\WorkingDate();
 
-		$workingDate = $workingDate->select(\DB::raw("
-				  project.id
-				, project.is_off
-				, working_date.user_id, SUM(working_date.working_minutes) AS 'total_working_minutes'
-				, CONCAT(LPAD(FLOOR(SUM(working_date.working_minutes) / 60), 2, '0'), ':', LPAD(MOD(SUM(working_date.working_minutes), 60), 2, '0')) AS 'total_working_hours_label'
-				, project.name AS 'project_name'
-				"
-			));
+// 		$workingDate = $workingDate->select(\DB::raw("
+// 				  project.id
+// 				, working_date.user_id, SUM(working_date.working_minutes) AS 'total_working_minutes'
+// 				, CONCAT(LPAD(FLOOR(SUM(working_date.working_minutes) / 60), 2, '0'), ':', LPAD(MOD(SUM(working_date.working_minutes), 60), 2, '0')) AS 'total_working_hours_label'
+// 				, project.name AS 'project_name'
+// 				, project_task.name AS 'project_task_name'
+// 				"
+// 			));
 
-		$workingDate = $workingDate->join("project", "working_date.project_id", "=", "project.id");
-		$workingDate = $workingDate->where("working_date.user_id", "=", $user_id);
-		if(!is_null($is_off) && in_array($is_off, array(0, 1))){
-			$workingDate = $workingDate->where("project.is_off", "=", $is_off);
-		}
-// dd($month);
-		$workingDate = $workingDate->where("working_date.organization_id", "=", $this->organization_id);
-		$workingDate = $workingDate->where("working_date.date", "LIKE", $year . "-" . $month . "-" . $day . "%");
-		$workingDate = $workingDate->where("working_date.working_minutes", ">", "0");
+// 		$workingDate = $workingDate->join("project_task", "working_date.project_task_id", "=", "project_task.id");
+// 		$workingDate = $workingDate->join("project", "project_task.project_id", "=", "project_task.project_id");
+// 		$workingDate = $workingDate->where("working_date.user_id", "=", $user_id);
+// 		$workingDate = $workingDate->where("working_date.organization_id", "=", $this->organization_id);
+// 		$workingDate = $workingDate->where("working_date.date", "LIKE", $year . "-" . $month . "-" . $day . "%");
+// 		$workingDate = $workingDate->where("working_date.working_minutes", ">", "0");
 
-		$workingDate = $workingDate->groupBy(["project.id", "project.is_off", "working_date.user_id", "project.name"]);
-		$workingDate = $workingDate->orderBy("project.is_off");
-// dd($workingDate->get());
-// dd($workingDate->toSql());
-		return $workingDate->get();
-	}
+// 		$workingDate = $workingDate->groupBy(["project.id", "working_date.user_id", "project.name", "project_task.name"]);
+// 		$workingDate = $workingDate->orderBy("project.id");
+// 		$workingDate = $workingDate->orderBy("project_task.id");
+// // dd($workingDate->get());
+// // dd($workingDate->toSql());
+// 		return $workingDate->get();
+// 	}
+
 }

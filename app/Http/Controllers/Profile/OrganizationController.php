@@ -39,8 +39,8 @@ class OrganizationController extends \App\Http\Controllers\Controller {
 
 	public function edit($id = NULL)
 	{
-		$permission_flag = $this->logged_in_user->permission_flag;
-		$is_manager = in_array($permission_flag, array("Administrator", "Manager"));
+		$role = $this->logged_in_user->role;
+		$is_manager = in_array($role, array("Manager"));
 		if(!$is_manager){
 			// return \Redirect::to('/admin/profile/organization/info');
 			return redirect('/admin/profile/organization/info');
@@ -63,8 +63,8 @@ class OrganizationController extends \App\Http\Controllers\Controller {
 		}
 
 		if($this->form_input){ // Submit
-			$permission_flag = $this->logged_in_user->permission_flag;
-			$is_manager = in_array($permission_flag, array("Administrator", "Manager"));
+			$role = $this->logged_in_user->role;
+			$is_manager = in_array($role, array("Manager"));
 			if($is_manager){
 				$this->model->fill($this->form_input);
 				$this->model->save();

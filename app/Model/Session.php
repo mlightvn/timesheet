@@ -2,9 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Session extends Model
+class Session extends BaseModel
 {
 	protected $fillable = [
 		'id',
@@ -13,4 +11,14 @@ class Session extends Model
 	];
 
 	protected $table = 'session';
+
+	protected function init()
+	{
+		parent::init();
+
+		$this->organization_id = \Auth::user()->organization_id;
+		$this->is_deleted = "is_deleted";
+		$this->search_columns = ["id", "name", "description"];
+
+	}
 }

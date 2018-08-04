@@ -22,9 +22,9 @@ class UserController extends Controller {
 		$arrSelectSessions = $this->getSelectSessions();
 		$this->data["arrSelectSessions"] 		= $arrSelectSessions;
 
-		$permission_flag = $this->logged_in_user->permission_flag;
-		if(in_array($permission_flag, array("Owner", "Manager"))){
-			$this->model->permission_flag 		= "Member";
+		$role = $this->logged_in_user->role;
+		if(in_array($role, array("Owner", "Manager"))){
+			$this->model->role 		= "Member";
 			return parent::add();
 		}else{
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。"]);
@@ -55,11 +55,11 @@ class UserController extends Controller {
 
 		// Allow changing permission flag
 		$allow_change_permission = false;
-		if($this->logged_in_user->permission_flag == "Owner"){
+		if($this->logged_in_user->role == "Owner"){
 			$allow_change_permission = true;
 		}else{
-			if(in_array($this->logged_in_user->permission_flag, array("Manager", "Administrator"))){
-				if(in_array($this->model->permission_flag, array("Manager", "Administrator", "Member"))){
+			if(in_array($this->logged_in_user->role, array("Manager"))){
+				if(in_array($this->model->role, array("Manager", "Member"))){
 					$allow_change_permission = true;
 				}
 			}
@@ -72,7 +72,7 @@ class UserController extends Controller {
 
 		// Submit
 		if($this->form_input){
-			$permission_flag = $this->logged_in_user->permission_flag;
+			$role = $this->logged_in_user->role;
 
 			if(($this->model instanceof \App\Model\User) && ($this->logged_in_user->id != 1) && ($id == 1))
 			{
@@ -82,7 +82,7 @@ class UserController extends Controller {
 
 			}else{
 				$is_allow_edit = (
-						in_array($permission_flag, array("Owner", "Manager"))
+						in_array($role, array("Owner", "Manager"))
 						|| ($this->logged_in_user->id == $id)
 					);
 

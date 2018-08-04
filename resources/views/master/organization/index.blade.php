@@ -4,7 +4,7 @@
 	]
 )
 
-@if (in_array($logged_in_user->permission_flag, array("Master")))
+@if (in_array($logged_in_user->role, array("Master")))
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
@@ -48,7 +48,7 @@
 			</td>
 			<td><a href="@{{ model.website }}" target="_blank">@{{ model.website }}</a></td>
 			<td>
-				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a> 
+				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 
 				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
 			</td>

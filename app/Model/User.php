@@ -27,7 +27,7 @@ class User extends Authenticatable
 		'sub_email',
 		'password',
 		'name',
-		'permission_flag', // Master: admin of website, Owner: representative/owner of organization, Manager, Administrator: Manager, "member" : workers, staff at organization
+		'role', // Master: admin of website, Owner: representative/owner of organization, Manager: Manager, "member" : workers, staff at organization
 		'session_id',
 
 		'dayoff',

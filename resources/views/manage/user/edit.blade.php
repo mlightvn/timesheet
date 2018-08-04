@@ -11,9 +11,9 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="glyphicon glyphicon-list"></span></a>&nbsp;
-	@if(in_array($logged_in_user->permission_flag, array("Owner", "Administrator", "Manager")))
-	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="glyphicon glyphicon-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	@if(in_array($logged_in_user->role, array("Owner", "Manager")))
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
 </div>
@@ -63,28 +63,24 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('permission_flag', '管理フラグ') !!}</th>
+			<th>{!! Form::label('role', '管理フラグ') !!}</th>
 			<td>
 		@if(($model->id != 1) && ($model->organization_id != 1))
 			@if($data["allow_change_permission"] == true)
-				{!! Form::radio('permission_flag', 'Member', true, ['class'=>'', 'id'=>'permission_flag[0]']) !!}
-				<label for="permission_flag[0]" class="radio-inline control-label">Member</label>
+				{!! Form::radio('role', 'Member', true, ['class'=>'', 'id'=>'role[0]']) !!}
+				<label for="role[0]" class="radio-inline control-label">Member</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 
-				{!! Form::radio('permission_flag', 'Manager', true, ['class'=>'', 'id'=>'permission_flag[1]']) !!}
-				<label for="permission_flag[1]" class="radio-inline control-label">Manager</label>
+				{!! Form::radio('role', 'Manager', true, ['class'=>'', 'id'=>'role[1]']) !!}
+				<label for="role[1]" class="radio-inline control-label">Manager</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 
-				{!! Form::radio('permission_flag', 'Administrator', true, ['class'=>'', 'id'=>'permission_flag[2]']) !!}
-				<label for="permission_flag[2]" class="radio-inline control-label">Administrator</label>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-
-				@if($logged_in_user->permission_flag == "Owner")
-				{!! Form::radio('permission_flag', 'Owner', true, ['class'=>'', 'id'=>'permission_flag[3]']) !!}
-				<label for="permission_flag[3]" class="radio-inline control-label">Owner</label>
+				@if($logged_in_user->role == "Owner")
+				{!! Form::radio('role', 'Owner', true, ['class'=>'', 'id'=>'role[2]']) !!}
+				<label for="role[3]" class="radio-inline control-label">Owner</label>
 				@endif
 			@else
-				{{ $model->permission_flag }}
+				{{ $model->role }}
 			@endif
 		@endif
 			</td>
@@ -100,7 +96,7 @@
 		<tr>
 			<th>{!! Form::label('dayoff', 'Dayoff') !!}</th>
 			<td>
-				@if(in_array($logged_in_user->permission_flag, array("Owner", "Administrator", "Manager")))
+				@if(in_array($logged_in_user->role, array("Owner", "Manager")))
 					{!! Form::input('number', 'dayoff', null, ['class'=>'form-control', 'placeholder'=>'0']) !!}
 				@else
 					{{ $model->dayoff }}
