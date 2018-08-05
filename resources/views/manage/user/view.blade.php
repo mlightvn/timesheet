@@ -38,7 +38,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th>パスワード</th>
+			<th>{{__('message.password')}}</th>
 			<td>
 				********
 		</tr>

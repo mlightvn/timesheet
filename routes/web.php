@@ -19,6 +19,12 @@ Route::get('index', 'HomeController@index');
 Auth::routes();
 Route::auth();
 
+
+// Route::get('{locale}', function ($locale) {
+//     App::setLocale($locale);
+
+// });
+
 Route::get('login', ['as' => 'login', 'uses' => 'Controller@login']);
 Route::post('login', 'Controller@authenticate');
 Route::any('logout', 'Controller@logout');
@@ -153,6 +159,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 		Route::match(["get", "post"], 'add', 'Manage\UserController@add');
 		Route::match(["get", "post"], 'edit/{user_id}', 'Manage\UserController@edit')->where('user_id', '[0-9]+');
 		Route::match(["get", "post"], 'login-info/{user_id}', 'Manage\UserController@editLoginInfo')->where('user_id', '[0-9]+');
+		Route::match(["get", "post"], 'language', 'Manage\UserController@language');
 		Route::get('view/{user_id}', 'Manage\UserController@view')->where('user_id', '[0-9]+');
 	});
 

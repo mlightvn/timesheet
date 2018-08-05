@@ -41,10 +41,13 @@
 
 				<ul class="nav nav-tabs nav-justified">
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">ユーザ情報</a>
+						<a class="nav-link active" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('message.user.info')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ action('Manage\UserController@editLoginInfo', ['user_id' => $model->id]) }}">ログイン情報</a>
+						<a class="nav-link" href="{{ action('Manage\UserController@editLoginInfo', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ action('Manage\UserController@language', ['user_id' => $model->id]) }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
 					</li>
 				</ul>
 
@@ -135,7 +138,7 @@
 					<tr>
 						<td colspan="2">
 							<div class="w3-center">
-								<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　登録　　</button>
+								<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　{{__('message.register')}}　　</button>
 							</div>
 						</td>
 					</tr>

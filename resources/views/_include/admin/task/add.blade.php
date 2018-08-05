@@ -6,7 +6,7 @@
 
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h2 class="modal-title">新規追加</h2>
+				<h2 class="modal-title">{{__('message.add')}}</h2>
 		</div>
 
 		<div id="alert" class="alert collapse">
@@ -35,7 +35,7 @@
 
 		</div>
 		<div class="modal-footer w3-center">
-			<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="glyphicon glyphicon-edit"></span>　登録　　</button>
+			<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="glyphicon glyphicon-edit"></span>　{{__('message.register')}}　　</button>
 		</div>
 		</form>
 	</div>

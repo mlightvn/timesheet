@@ -41,7 +41,7 @@ function loadData($argument) {
 								pages.push(i);
 							}
 
-							$scope.range = pages; 
+							$scope.range = pages;
 
 						}, function ($response) { // エラー発生
 							// $scope.myWelcome = $response.statusText;
@@ -139,16 +139,16 @@ function pagination(app, $argument) {
 
 	// https://docs.angularjs.org/guide/directive
 	app.directive('listPagination', function(){
-			template = 
+			template =
 					'<div ng-show="last_page > 1">'
-					+ 	'<ul class="pagination">'
-					+ 		'<li ng-show="1 < current_page"><a href="javascript:void(0)" ng-click="loadData(1, ' + keyword + ')">&laquo;</a></li>'
-					+ 		'<li ng-show="1 < current_page"><a href="javascript:void(0)" ng-click="loadData(current_page-1, ' + keyword + ')">&lsaquo;</a></li>'
-					+ 		'<li ng-repeat="i in range" ng-class="{active : current_page == i}">'
-					+ 		'<a href="javascript:void(0)" ng-click="loadData(i, ' + keyword + ')">{{i}}</a>'
+					+ 	'<ul class="pagination justify-content-center">'
+					+ 		'<li class="page-item" ng-show="1 < current_page"><a class="page-link" href="javascript:void(0)" ng-click="loadData(1, ' + keyword + ')">&laquo;</a></li>'
+					+ 		'<li class="page-item" ng-show="1 < current_page"><a class="page-link" href="javascript:void(0)" ng-click="loadData(current_page-1, ' + keyword + ')">&lsaquo;</a></li>'
+					+ 		'<li class="page-item" ng-repeat="i in range" ng-class="{active : current_page == i}">'
+					+ 		'	<a class="page-link" href="javascript:void(0)" ng-click="loadData(i, ' + keyword + ')">{{i}}</a>'
 					+ 		'</li>'
-					+ 		'<li ng-show="current_page < last_page"><a href="javascript:void(0)" ng-click="loadData(current_page+1, ' + keyword + ')">&rsaquo;</a></li>'
-					+ 		'<li ng-show="current_page < last_page"><a href="javascript:void(0)" ng-click="loadData(last_page, ' + keyword + ')">&raquo;</a></li>'
+					+ 		'<li class="page-item" ng-show="current_page < last_page"><a class="page-link" href="javascript:void(0)" ng-click="loadData(current_page+1, ' + keyword + ')">&rsaquo;</a></li>'
+					+ 		'<li class="page-item" ng-show="current_page < last_page"><a class="page-link" href="javascript:void(0)" ng-click="loadData(last_page, ' + keyword + ')">&raquo;</a></li>'
 					+ 	'</ul>'
 					+ '</div>'
 					;

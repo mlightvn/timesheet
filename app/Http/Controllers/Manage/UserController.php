@@ -182,4 +182,30 @@ class UserController extends Controller {
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}
 
+	public function language()
+	{
+		$id = $this->logged_in_user->id;
+		$url = $this->url_pattern . '.language';
+		$this->model = $this->model->find($id);
+		$arrSelectSessions = $this->getSelectSessions();
+		$this->data["arrSelectSessions"] = $arrSelectSessions;
+
+		$message = NULL;
+		$alert_type = NULL;
+
+		if(!$this->model){
+			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"ユーザーが存在していませんから、ユーザー追加画面に遷移しました。", "alert_type" => $alert_type]);
+		}
+
+		if(isset($this->form_input) && isset($this->form_input["language"])){ // Submit
+			$language = $this->form_input["language"];
+			\App::setLocale($language);
+
+			$alert_type = "success";
+			$message = "修正完了。";
+		}
+
+		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
+	}
+
 }

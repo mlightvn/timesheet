@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>各種申請一覧</h1>
+	<h1>{{__('message.menu.day_off.application_form')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -30,9 +30,9 @@
 		<tr class="w3-brown">
 			<th>ID</th>
 			<th>Application</th>
-			<th>状態</th>
-			<th>登録者</th>
-			<th>承認者</th>
+			<th>{{__('message.status')}}</th>
+			<th>{{__('message.applied_member')}}</th>
+			<th>{{__('message.allowed_member')}}</th>
 			<th></th>
 		</tr>
 		</thead>

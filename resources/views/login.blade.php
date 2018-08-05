@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1 class="w3-center">ログイン</h1>
+	<h1 class="w3-center">{{ __('message.login') }}</h1>
 	<br>
 </div>
 
@@ -20,7 +20,6 @@
 
 <div class="w3-row">
 	{!! Form::model($model) !!}
-	{{-- csrf_field() --}}
 
 	<table class="w3-table w3-bordered">
 		<tr>
@@ -28,7 +27,7 @@
 			<td><input type="email" name="email" class="w3-col s6 m6 l6" placeholder="user@coxanh.net"></td>
 		</tr>
 		<tr>
-			<td>パスワード</td>
+			<td>{{ __('message.password') }}</td>
 			<td><input type="password" name="password" class="w3-col s6 m6 l6" placeholder="password"></td>
 		</tr>
 		<tr>
@@ -41,7 +40,7 @@
 		</tr>
 
 		<tr>
-			<td colspan="2"><div class="w3-center"><button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-sign-in-alt"></span>&nbsp;&nbsp;ログイン　　</button></div></td>
+			<td colspan="2"><div class="w3-center"><button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-sign-in-alt"></span>&nbsp;&nbsp;{{ __('message.login') }}　　</button></div></td>
 		</tr>
 	</table>
 	{!! Form::close() !!}

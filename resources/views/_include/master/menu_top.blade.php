@@ -39,7 +39,7 @@
 		</div>
 		@else
 		<a href="/login" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'login')) ? 'w3-gray' : ''}}"><span class="fas fa-sign-in"></span> ログイン</a>
-		<a href="/register" class="w3-bar-item w3-button {{ (isset($id) && ($id == 'register')) ? 'w3-gray' : ''}}"><span class="fas fa-sign-in"></span> 登録</a>
+		<a href="/register" class="w3-bar-item w3-button {{ (isset($id) && ($id == 'register')) ? 'w3-gray' : ''}}"><span class="fas fa-sign-in"></span> {{__('message.register')}}</a>
 		@endif
 	</div>
 </div>

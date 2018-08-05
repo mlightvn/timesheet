@@ -1,0 +1,83 @@
+<?php
+
+return [
+	'APP_NAME' => '勤怠システム',
+
+	'hello'		=> 'ようこそ',
+	'login'		=> 'ログイン',
+	'logout'	=> 'ログアウト',
+	'register'	=> '登録',
+	'password'	=> 'パスワード',
+	'confirm_password'	=> '確認パスワード',
+
+	'status'	=> '状態',
+	'keyword'	=> 'キーワード',
+	'searched_keyword'	=> '検索キーワード',
+
+	'menu' => [
+		'report' => [
+			'report' 							=> 'レポート',
+			'input_time_screen' 				=> '工数入力画面',
+			'summary_by_day' 					=> '日別工数集計',
+			'summary_by_month' 					=> '月別工数集計',
+			'summary_by_project' 				=> 'プロジェクト別工数集計',
+			'summary_by_department' 			=> '部署',
+		],
+
+		'day_off' => [
+			'day_off' 							=> '休暇・有給',
+			'application_form'					=> '各種申請',
+			'applied_history'					=> '休暇履歴',
+		],
+
+		'customer' => [
+			'customer' 							=> '顧客',
+		]
+
+	],
+
+	'application_templates' 		=> 'Application Templates',
+
+	'applied_member'	=> '登録者',
+	'confirmed_member'	=> '確認者',
+	'allowed_member'	=> '承認者',
+
+	'list' 		=> '一覧',
+	'plus' 		=> 'Plus',
+	'add' 		=> '新規追加',
+	'edit' 		=> '編集',
+
+	'member' 			=> '会員',
+	'project' 			=> 'プロジェクト',
+	'task' 				=> 'タスク',
+	'department' 		=> '部署',
+	'master' 			=> 'マスタ',
+
+	'promotion' 		=> 'プロモーション',
+	'payment' 			=> 'お支払い',
+
+	'profile_edit' 		=> 'プロフィール修正',
+	'organization_edit' 		=> '企業修正',
+	'organization_info' 		=> '企業情報',
+
+	'register_user' 		=> 'ユーザ登録',
+	'delete_user' 			=> 'ユーザ削除',
+
+	'login_info'			=> 'ログイン情報',
+
+	'user' => [
+		'add'				=> '追加',
+		'info'				=> 'ユーザ情報',
+	],
+
+	'language' => [
+		'language'				=> '言語',
+		'vietnamese'			=> 'Tiếng Việt',
+		'english'				=> 'English',
+		'japanese'				=> '日本語',
+		'language_setting'		=> '言語設定',
+	],
+
+	'total'						=> '合計',
+
+];

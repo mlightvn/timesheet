@@ -161,7 +161,7 @@
 						<a class="w3-button w3-brown w3-xlarge"href="{{ $data['url_pattern'] }}/{{$model->id}}/approve">　　<span class="fas fa-check"></span>　同意　　</a>
 						@endif
 					@else
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　{{__('message.register')}}　　</button>
 					@endif
 				</div>
 			</td>

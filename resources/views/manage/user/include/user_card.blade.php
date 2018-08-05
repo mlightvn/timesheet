@@ -9,8 +9,8 @@
 				{!! Form::hidden('id') !!}
 				{!! Form::hidden('_method', 'POST') !!}
 
-				<label for="picture" class="picture" data-label="編集">
-					編集
+				<label for="picture" class="picture" data-label="{{__('message.edit')}}">
+					{{__('message.edit')}}
 					<input id="picture" name="picture" class="input_file" type="file" accept="image/*" required>
 				</label>
 			{!! Form::close() !!}

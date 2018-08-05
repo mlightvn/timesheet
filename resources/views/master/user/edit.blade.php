@@ -26,7 +26,7 @@
 
 	<table class="timesheet_table w3-table w3-bordered">
 		<tr class="w3-xlarge">
-			<th colspan="2">ログイン情報</th>
+			<th colspan="2">{{__('message.login_info')}}</th>
 		</tr>
 		<tr>
 			<th>{!! Form::label('email', 'email※') !!}</th>
@@ -35,14 +35,14 @@
 			</td>
 		</tr>
 		<tr>
-			<th>{!! Form::label('password', 'パスワード') !!}</th>
+			<th>{!! Form::label('password', __('message.password')) !!}</th>
 			<td>
 			@if($model->id)
-				{!! Form::password('password', ['placeholder'=>'パスワード', 'min'=>'8', 'max'=>'100', 'class'=>'form-control']) !!}
+				{!! Form::password('password', ['placeholder'=>'__('message.password'), 'min'=>'8', 'max'=>'100', 'class'=>'form-control']) !!}
 				<br>
 				<label class="w3-text-green">パスワードを入力しない場合は、パスワードが変わらないです。</label>
 			@else
-				{!! Form::password('password', ['placeholder'=>'パスワード', 'min'=>'8', 'max'=>'100', 'class'=>'form-control', 'required'=>'required']) !!}
+				{!! Form::password('password', ['placeholder'=>'__('message.password'), 'min'=>'8', 'max'=>'100', 'class'=>'form-control', 'required'=>'required']) !!}
 			</td>
 			@endif
 		</tr>
@@ -87,7 +87,7 @@
 		<tr>
 			<td colspan="2">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　登録　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　{{__('message.register')}}　　</button>
 				</div>
 			</td>
 		</tr>

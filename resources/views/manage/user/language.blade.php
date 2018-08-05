@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>ユーザー・ログイン情報</h1>
+	<h1>{{__('message.language.language_setting')}}</h1>
 	<br>
 </div>
 
@@ -40,44 +40,42 @@
 						<a class="nav-link" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('message.user.info')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ action('Manage\UserController@editLoginInfo', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
+						<a class="nav-link" href="{{ action('Manage\UserController@editLoginInfo', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ action('Manage\UserController@language', ['user_id' => $model->id]) }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
+						<a class="nav-link active" href="{{ action('Manage\UserController@language', ['user_id' => $model->id]) }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
 					</li>
 				</ul>
 
 				<table class="timesheet_table w3-table border shadow">
 					<tr>
-						<th>{!! Form::label('email', 'email※') !!}</th>
+						<th>{{__('message.language.language')}}</th>
 						<td>
-							{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'email', 'required'=>'required']) !!}
+							<div class="custom-control custom-radio">
+								<input type="radio" id="language_en" name="language" class="custom-control-input" value="en">
+								<label for="language_en">English</label>
+								<input type="radio" id="language_ja" name="language" class="custom-control-input" value="ja">
+								<label for="language_ja">日本語</label>
+{{--
+								<input type="radio" id="language_vi" name="language" class="custom-control-input" value="vi">
+								<label for="language_vi">Tiếng Việt</label>
+--}}
+
+							</div>
 						</td>
 					</tr>
-					<tr>
-					@if($model->id)
-						<th>{!! Form::label('password', __('message.password')) !!}</th>
-						<td>
-							{!! Form::password('password', ['placeholder'=>__('message.password'), 'min'=>'8', 'max'=>'100', 'class'=>'form-control']) !!}
-							<br>
-							<label class="w3-text-green">パスワードを入力しない場合は、パスワードが変わらないです。</label>
-						</td>
-					@else
-						<th>{!! Form::label('password', __('message.password') . '※') !!}</th>
-						<td>
-							{!! Form::password('password', ['placeholder'=>__('message.password'), 'min'=>'8', 'max'=>'100', 'class'=>'form-control', 'required'=>'required']) !!}
-						</td>
-					@endif
-					</tr>
+
 					<tfoot>
 					<tr>
-						<td colspan="2">
-							<div class="w3-center">
-								<button type="submit" class="btn w3-brown w3-xlarge">　　<span class="fas fa-hdd"></span>　{{__('message.register')}}　　</button>
+						<td></td>
+						<td>
+							<div>
+								<button type="submit" class="btn w3-brown w3-xlarge">　　<span class="fas fa-cloud-upload-alt"></span>　{{__('message.register')}}　　</button>
 							</div>
 						</td>
 					</tr>
 					</tfoot>
+
 				</table>
 				{!! Form::close() !!}
 

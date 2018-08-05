@@ -39,8 +39,8 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered w3-tiny">
 		<thead>
 			<tr class="w3-brown">
-				<th nowrap="nowrap" width="200px">プロジェクト</th>
-				<th nowrap="nowrap" width="200px">タスク</th>
+				<th nowrap="nowrap" width="200px">{{__('message.project')}}</th>
+				<th nowrap="nowrap" width="200px">{{__('message.task')}}</th>
 				@foreach ($arrTimes as $timeKey => $time)
 				<th>{{ $time }}</th>
 				@endforeach
@@ -60,7 +60,7 @@
 			@endforeach
 			<tfoot>
 			<tr>
-				<td colspan="{{ $iTimesLength + 2 }}"><span class="w3-right w3-medium">合計</span></td>
+				<td colspan="{{ $iTimesLength + 2 }}"><span class="w3-right w3-medium">{{__('message.total')}}</span></td>
 				<td><span class="w3-medium" id="divAllOnWorkingHours">00:00</span></td>
 			</tr>
 			</tfoot>
@@ -73,14 +73,14 @@
 		<br>
 		<table class="timesheet_table w3-table w3-bordered w3-tiny w3-center">
 			<tr>
-				<td><span class="w3-right w3-xlarge">合計</span></td>
+				<td><span class="w3-right w3-xlarge">{{__('message.total')}}</span></td>
 				<td><span class="w3-xlarge" id="divAllWorkingHours">00:00</span></td>
 			</tr>
 			<tfoot>
 			<tr>
 				<td colspan="2">
 					<div class="w3-center">
-						<button type="button" id="btnReportSubmit" class="btn w3-button w3-brown w3-xlarge ">　　<span class="fas fa-save"></span> 登録　　</button>
+						<button type="button" id="btnReportSubmit" class="btn w3-button w3-brown w3-xlarge ">　　<span class="fas fa-save"></span> {{__('message.register')}}　　</button>
 					</div>
 				</td>
 			</tr>

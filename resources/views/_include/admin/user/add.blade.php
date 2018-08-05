@@ -24,9 +24,9 @@
 					</td>
 				</tr>
 				<tr>
-					<th>{!! Form::label('password', 'パスワード') !!}</th>
+					<th>{!! Form::label('password', __('message.password')) !!}</th>
 					<td>
-						<input type="password" name="password" placeholder="パスワード" min="8" max="100" class="form-control">
+						<input type="password" name="password" placeholder="{{__('message.password')}}" min="8" max="100" class="form-control">
 						<br>
 						<label class="w3-text-green">パスワードを入力しない場合は、パスワードが変わらないです。</label>
 					</td>
@@ -66,7 +66,7 @@
 			<br>
 		</div>
 		<div class="modal-footer w3-center">
-			<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="glyphicon glyphicon-edit"></span>　登録　　</button>
+			<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="glyphicon glyphicon-edit"></span>　{{__('message.register')}}　　</button>
 		</div>
 		</form>
 	</div>
