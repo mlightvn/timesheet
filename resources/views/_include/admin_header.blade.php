@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<title>{{(!empty($title)) ? ($title . " | ") : ""}}{{ env("APP_NAME") }}</title>
+	<title>{{(!empty($title)) ? ($title . " | ") : ""}}{{ __("message.APP_NAME") }}</title>
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,6 +50,7 @@
 	@endif
 --}}
 
+@if(env('APP_ENV') == 'production')
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-84660939-6"></script>
 <script>
@@ -67,6 +68,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NBDVN44');</script>
 <!-- End Google Tag Manager -->
+
+@endif
 
 </head>
 
