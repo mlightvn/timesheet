@@ -231,6 +231,11 @@ class Controller extends BaseController
 			$this->data["logged_in_user"] = $this->logged_in_user;
 			$this->user_id = $this->logged_in_user->id;
 			$this->organization_id = $this->logged_in_user->organization_id;
+
+			\App::setLocale($this->logged_in_user->language);
+			if(isset($this->logged_in_user->timezone) && (!empty($this->logged_in_user->timezone))){
+				\Config::set('app.timezone', $this->logged_in_user->timezone);
+			}
 		}
 
 		return $this->logged_in_user;

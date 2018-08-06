@@ -201,8 +201,13 @@ class UserController extends Controller {
 			$language = $this->form_input["language"];
 			\App::setLocale($language);
 
+
+			$this->model->language = $this->form_input["language"];
+			$this->model->update();
+
 			$alert_type = "success";
 			$message = "修正完了。";
+
 		}
 
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);

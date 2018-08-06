@@ -52,9 +52,9 @@
 						<th>{{__('message.language.language')}}</th>
 						<td>
 							<div class="custom-control custom-radio">
-								<input type="radio" id="language_en" name="language" class="custom-control-input" value="en">
+								<input type="radio" id="language_en" name="language" class="custom-control-input" value="en" {{(($logged_in_user->language == 'en') ? 'checked="checked"' : '')}}>
 								<label for="language_en">English</label>
-								<input type="radio" id="language_ja" name="language" class="custom-control-input" value="ja">
+								<input type="radio" id="language_ja" name="language" class="custom-control-input" value="ja" {{(($logged_in_user->language == 'ja') ? 'checked="checked"' : '')}}>
 								<label for="language_ja">日本語</label>
 {{--
 								<input type="radio" id="language_vi" name="language" class="custom-control-input" value="vi">
