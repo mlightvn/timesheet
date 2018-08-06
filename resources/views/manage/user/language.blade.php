@@ -10,9 +10,9 @@
 </div>
 
 <div class="w3-row">
-	<a href="/admin/user" class="btn w3-brown"><span class="fas fa-th-list"></span></a>&nbsp;
-	@if ( $logged_in_user->session_is_manager == "Manager" )
-	<a href="/admin/user/add" class="btn w3-brown"><span class="fas fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}" class="btn w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	@if(in_array($logged_in_user->role, array("Owner", "Manager")))
+	<a href="{{ $data['url_pattern'] }}/add" class="btn w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
 </div>
@@ -40,10 +40,10 @@
 						<a class="nav-link" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('message.user.info')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ action('Manage\UserController@editLoginInfo', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
+						<a class="nav-link" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ action('Manage\UserController@language', ['user_id' => $model->id]) }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
+						<a class="nav-link active" href="{{ action('Manage\UserController@language') }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
 					</li>
 				</ul>
 

@@ -47,15 +47,15 @@
 				&nbsp;
 
 				@if ( $logged_in_user->role == "Owner" )
-					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
+					<a href="{{ $data['url_pattern'] }}/user-info/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
 				@elseif( in_array($logged_in_user->role, array("Manager")) )
 					<span ng-if="model.id == '{{ $logged_in_user->id }}'">
-						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
+						<a href="{{ $data['url_pattern'] }}/user-info/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
 					</span>
 
 					<span ng-if="model.id != '{{ $logged_in_user->id }}'">
 						@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
-						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
+						<a href="{{ $data['url_pattern'] }}/user-info/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
 						@else
 							<span ng-bind="model.name"></span>
 						@endif

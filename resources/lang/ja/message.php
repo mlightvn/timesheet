@@ -66,6 +66,7 @@ return [
 	'login_info'			=> 'ログイン情報',
 
 	'user' => [
+		'user'				=> 'ユーザ',
 		'add'				=> '追加',
 		'info'				=> 'ユーザ情報',
 	],

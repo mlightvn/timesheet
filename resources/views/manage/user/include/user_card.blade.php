@@ -19,7 +19,7 @@
 
 		<div class="card-body">
 			<h4 class="card-title">{{$model->name}}
-				@if($user->session_is_manager == "Manager")
+				@if($user->role == "Manager")
 					<i class="fas fa-user-secret text-primary"></i>
 				@else
 					<i class="fas fa-user-ninja"></i>

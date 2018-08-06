@@ -149,9 +149,9 @@ class UserController extends Controller {
 
 	}
 
-	public function editLoginInfo($id)
+	public function editUserInfo($id)
 	{
-		$url = $this->url_pattern . '.login_info';
+		$url = $this->url_pattern . '.user_info';
 		$this->model = $this->model->find($id);
 		$arrSelectSessions = $this->getSelectSessions();
 		$this->data["arrSelectSessions"] = $arrSelectSessions;
@@ -164,11 +164,8 @@ class UserController extends Controller {
 		}
 
 		if($this->form_input){ // Submit
-			$is_manager = $this->logged_in_user->session_is_manager;
-			if(($is_manager == "Manager") || ($this->logged_in_user->id == $this->form_input["id"])){
-				if(empty($this->form_input["password"])){
-					unset($this->form_input["password"]);
-				}
+			$role = $this->logged_in_user->role;
+			if((in_array($role, array("Owner", "Manager"))) || ($this->logged_in_user->id == $this->form_input["id"])){
 
 				$this->model->fill($this->form_input);
 				$this->model->update();

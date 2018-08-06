@@ -66,6 +66,7 @@ return [
 	'login_info'			=> 'Login information',
 
 	'user' => [
+		'user'				=> 'User',
 		'add'				=> 'Add',
 		'info'				=> 'User information',
 	],
