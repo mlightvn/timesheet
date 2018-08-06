@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>ユーザー一覧</h1>
+	<h1>{{__('message.user.list')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -29,10 +29,10 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>ユーザー名</th>
+			<th>{{__('message.user.name')}}</th>
 			<th>部署</th>
 			<th>email</th>
-			@if ( in_array($logged_in_user->role, array("Manager")) )
+			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<th>Dayoff</th>
 			<th>レポート</th>
 			@endif

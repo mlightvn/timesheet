@@ -69,6 +69,8 @@ return [
 		'user'				=> 'User',
 		'add'				=> 'Add',
 		'info'				=> 'User information',
+		'list'				=> 'User list',
+		'name'				=> 'User name',
 	],
 
 	'language' => [
