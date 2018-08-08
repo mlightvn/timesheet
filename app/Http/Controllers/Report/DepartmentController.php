@@ -1,25 +1,25 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
-use App\Model\Session;
+use App\Model\Department;
 
-class SessionController extends Controller {
+class DepartmentController extends Controller {
 
 	protected function init()
 	{
 		parent::init();
 
-		$this->model = new Session();
+		$this->model = new Department();
 
-		$this->blade_url = $this->url_pattern . '.session';
+		$this->blade_url = $this->url_pattern . '.department';
 		$this->data["url_pattern"] = "/" . str_replace(".", "/", $this->blade_url);
 
 	}
 
 	public function index()
 	{
-		$this->blade_url = $this->url_pattern . '.session';
-		$url = $this->url_pattern . '.session';
+		$this->blade_url = $this->url_pattern . '.department';
+		$url = $this->url_pattern . '.department';
 
 		$prev_yearmonth = date('Y-m', strtotime('first day of previous month'));
 		$curr_yearmonth = date('Y-m');
@@ -32,7 +32,7 @@ class SessionController extends Controller {
 		}
 		$this->data["keyword"] = $keyword;
 
-		$arrSessions = $this->getSessions(true, NULL, NULL, $keyword);
+		$arrSessions = $this->getDepartments(true, NULL, NULL, $keyword);
 
 		$this->data["prev_yearmonth"] = $prev_yearmonth;
 		$this->data["curr_yearmonth"] = $curr_yearmonth;
@@ -53,7 +53,7 @@ class SessionController extends Controller {
 		$this->downloadBy($params);
 	}
 
-	public function reportDownload($session_id, $year, $month = NULL)
+	public function reportDownload($department_id, $year, $month = NULL)
 	{
 		if(!$year){
 			$year = date('Y');
@@ -73,8 +73,8 @@ class SessionController extends Controller {
 				\DB::raw("users.id 					AS 'user_id'"),
 				\DB::raw("users.name 				AS 'user_name'"),
 		]);
-		$model = $model->join("users", "users.session_id", "=", "session.id");
-		$model = $model->where("session.id", "=", $session_id);
+		$model = $model->join("users", "users.department_id", "=", "session.id");
+		$model = $model->where("session.id", "=", $department_id);
 		$model = $model->where("session.is_deleted", "=", "0");
 		$model = $model->where("users.is_deleted", "=", "0");
 		$user_list = $model->get();

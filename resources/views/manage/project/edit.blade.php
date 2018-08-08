@@ -39,17 +39,6 @@
 			</td>
 		</tr>
 
-		@if(isset($model->id))
-		<tr>
-			<th>{!! Form::label('user_id', '自分のプロジェクト') !!}</th>
-			<td>
-				<label class="switch">
-					{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }}
-					<span class="slider round"></span>
-				</label>
-			</td>
-		</tr>
-		@endif
 		<tfoot>
 		<tr>
 			<td colspan="2">

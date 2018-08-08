@@ -46,12 +46,12 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 	Route::get('month', 'Report\MonthController@index');
 
 
-	Route::group(['prefix' => 'session'], function()
+	Route::group(['prefix' => 'department'], function()
 	{
-		Route::get('', 'Report\SessionController@index');
-		Route::get('index', 'Report\SessionController@index');
+		Route::get('', 'Report\DepartmentController@index');
+		Route::get('index', 'Report\DepartmentController@index');
 
-		Route::get('{session_id}/download/{year}-{month}', 'Report\SessionController@reportDownload')->where('session_id', '[0-9]+');
+		Route::get('{department_id}/download/{year}-{month}', 'Report\DepartmentController@reportDownload')->where('department_id', '[0-9]+');
 	});
 
 	Route::get('project', 'Report\ProjectController@index');
@@ -163,13 +163,13 @@ Route::group(['prefix' => 'manage', 'middleware' => ['admin']], function()
 		Route::get('view/{user_id}', 'Manage\UserController@view')->where('user_id', '[0-9]+');
 	});
 
-	Route::group(['prefix' => 'session'], function()
+	Route::group(['prefix' => 'department'], function()
 	{
-		Route::get('', 'Manage\SessionController@list');
-		Route::get('list', 'Manage\SessionController@list');
+		Route::get('', 'Manage\DepartmentController@list');
+		Route::get('list', 'Manage\DepartmentController@list');
 
-		Route::match(["get", "post"], 'add', 'Manage\SessionController@add');
-		Route::match(["get", "post"], 'edit/{session_id}', 'Manage\SessionController@edit')->where('session_id', '[0-9]+');
+		Route::match(["get", "post"], 'add', 'Manage\DepartmentController@add');
+		Route::match(["get", "post"], 'edit/{department_id}', 'Manage\DepartmentController@edit')->where('department_id', '[0-9]+');
 
 	});
 

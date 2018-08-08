@@ -341,7 +341,7 @@ class Controller extends BaseController
 		return $arrTimes;
 	}
 
-	public function getProjectListWithUser($isPagination, $user_id, $keyword = NULL)
+	public function getProjectListWithUser($isPagination, $keyword = NULL)
 	{
 		$table = DB::table('project');
 
@@ -352,18 +352,9 @@ class Controller extends BaseController
 				\DB::raw("CASE project.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
 				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON"),
 				\DB::raw("CASE project.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR"),
-				\DB::raw("user_project.project_id AS SELF_PROJECT"),
 			]);
 
 		$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
-
-		if($user_id != NULL && $user_id != ""){
-			$subQuery = "( SELECT * FROM user_project WHERE user_id = '" . $user_id . "') AS user_project ";
-
-			$table = $table->leftJoin(DB::raw($subQuery), "project.id", "=", "user_project.project_id");
-		}else{
-			$table = $table->leftJoin("user_project", "project.id", "=", "user_project.project_id");
-		}
 
 		if($keyword){
 			$where = " (
@@ -395,7 +386,7 @@ class Controller extends BaseController
 		$table = $table->select([
 			  "users.*"
 			, DB::raw("organization.name AS organization_name")
-			, DB::raw("session.name AS session_name")
+			, DB::raw("department.name AS department_name")
 
 			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS")
 			, DB::raw("CASE users.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION")
@@ -414,7 +405,7 @@ class Controller extends BaseController
 				")
 		]);
 
-		$table = $table->leftJoin("session", "users.session_id", "=", "session.id");
+		$table = $table->leftJoin("department", "users.department_id", "=", "department.id");
 		$table = $table->leftJoin("organization", "users.organization_id", "=", "organization.id");
 		// $table = $table->leftJoin("dayoff", function ($join)
 		// {
@@ -443,7 +434,7 @@ class Controller extends BaseController
 							   (users.id 		= '{KEYWORD}')
 							OR (users.email 	LIKE '%{KEYWORD}%')
 							OR (users.name 		LIKE '%{KEYWORD}%')
-							OR (session.name 	LIKE '%{KEYWORD}%')
+							OR (department.name 	LIKE '%{KEYWORD}%')
 						)";
 			$where = str_replace("{KEYWORD}", $keyword, $where);
 
@@ -466,23 +457,23 @@ class Controller extends BaseController
 		return $arrResult;
 	}
 
-	public function getSessions($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
+	public function getDepartments($isPagination, $id = NULL, $name = NULL, $keyword = NULL)
 	{
-		$table = DB::table('session');
+		$table = DB::table('department');
 
 		$table = $table->select([
-				"session.*",
+				"department.*",
 				DB::raw("organization.name AS organization_name"),
-				DB::raw("CASE session.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
-				\DB::raw("CASE session.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
-				\DB::raw("CASE session.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON"),
-				\DB::raw("CASE session.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR"),
+				DB::raw("CASE department.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS"),
+				\DB::raw("CASE department.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION"),
+				\DB::raw("CASE department.is_deleted WHEN 1 THEN 'fa fa-recycle' ELSE 'fa fa-trash' END AS DELETED_RECOVER_ICON"),
+				\DB::raw("CASE department.is_deleted WHEN 1 THEN 'w3-green' ELSE 'w3-red' END AS DELETED_RECOVER_COLOR"),
 			]);
 
-		$table = $table->leftJoin("organization", "session.organization_id", "=", "organization.id");
+		$table = $table->leftJoin("organization", "department.organization_id", "=", "organization.id");
 
 		if($id){
-			$table = $table->where("session.id", "=", $id);
+			$table = $table->where("department.id", "=", $id);
 		}
 		if($name){
 			$table = $table->where("name", "LIKE", "%" . $name . "%");
@@ -490,8 +481,8 @@ class Controller extends BaseController
 
 		if($keyword){
 			$where = " (
-							   (session.id = '{KEYWORD}')
-							OR (session.name LIKE '%{KEYWORD}%')
+							   (department.id = '{KEYWORD}')
+							OR (department.name LIKE '%{KEYWORD}%')
 						)";
 			$where = str_replace("{KEYWORD}", $keyword, $where);
 
@@ -513,25 +504,25 @@ class Controller extends BaseController
 
 	// public function getUserProjectList($user_id = NULL, $project_id = NULL)
 	// {
-	// 	$table = DB::table('user_project');
+	// 	$table = DB::table('user_task');
 
-	// 	$table = $table->select(["user_project.*", "project.*", DB::raw("organization.name AS organization_name")]);
+	// 	$table = $table->select(["user_task.*", "project.*", DB::raw("organization.name AS organization_name")]);
 
-	// 	$table = $table->join("project", "user_project.project_id", "=", "project.id");
+	// 	$table = $table->join("project", "user_task.task_id", "=", "project.id");
 	// 	$table = $table->leftJoin("organization", "project.organization_id", "=", "organization.id");
 
 	// 	if($user_id){
-	// 		$table = $table->where("user_project.user_id", "=", $user_id);
+	// 		$table = $table->where("user_task.user_id", "=", $user_id);
 	// 	}
 	// 	if($project_id){
-	// 		$table = $table->where("user_project.project_id", "=", $project_id);
+	// 		$table = $table->where("user_task.task_id", "=", $project_id);
 	// 	}
 
 	// 	$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 	// 	$table = $table->where("project.is_deleted", "=", "0");
 
 	// 	$table = $table->orderBy("project.is_deleted", "ASC");
-	// 	$table = $table->orderBy("user_project.project_priority", "DESC")->orderBy("project.id");
+	// 	$table = $table->orderBy("user_task.project_priority", "DESC")->orderBy("project.id");
 
 	// 	$arrResult = $table->get();
 	// 	return $arrResult;

@@ -29,8 +29,7 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>プロジェクト</th>
-			<th>自分のプロジェクト</th>
+			<th>{{__('message.project.project')}}</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -41,12 +40,6 @@
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" ng-bind="model.name"></a>
 				<br>
 				<span ng-bind="model.description"></span>
-			</td>
-			<td>
-				<label class="switch">
-					<input type="checkbox" name="project[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT" disabled="disabled">
-					<span class="slider round"></span>
-				</label>
 			</td>
 			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 				@if($logged_in_user->role != "Member")

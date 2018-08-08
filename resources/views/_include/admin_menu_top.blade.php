@@ -9,7 +9,7 @@
 				<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_day') }}</a>
 				<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_month') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_month') }}</a>
 				<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_project') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_project') }}</a>
-				<a href="/report/session" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_session') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_department') }}</a>
+				<a href="/report/department" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_department') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_department') }}</a>
 			</div>
 		</div>
 
@@ -45,7 +45,7 @@
 
 				<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'manage_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.project.project') }}</a>
 				<a href="/manage/project_task" class="w3-bar-item w3-button {{ ($id == 'manage_project_task') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.task.task') }}</a>
-				<a href="/manage/session" class="w3-bar-item w3-button {{ ($id == 'manage_session') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.department') }}</a>
+				<a href="/manage/department" class="w3-bar-item w3-button {{ ($id == 'manage_department') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.department') }}</a>
 
 				<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.application_templates') }}</a>
 

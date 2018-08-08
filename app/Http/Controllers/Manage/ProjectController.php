@@ -48,27 +48,11 @@ class ProjectController extends Controller {
 			$project->fill($form_input);
 			$project->update();
 
-			// update "user_project" table
-			$user_id = $this->logged_in_user->id;
+			$alert_type = "success";
+			$message = "修正完了。";
 
-			$user_project = new \App\Model\UserProject();
-			$user_project = $user_project->where("user_id", $user_id);
-			$user_project = $user_project->where("project_id", $project_id);
-			$user_project->delete();
-
-			if(isset($form_input["user_id"])){ // "on"
-				$user_project = new \App\Model\UserProject();
-				$user_project->user_id = $user_id;
-				$user_project->project_id = $project_id;
-				$user_project->save();
-
-				$alert_type = "success";
-				$message = "修正完了。";
-			}
 		}
 
-		$subQuery = "( SELECT * FROM user_project WHERE user_id = '" . $this->logged_in_user->id . "') AS user_project ";
-		$this->model = $this->model->leftJoin(\DB::raw($subQuery), "project.id", "=", "user_project.project_id");
 		$this->model = $this->model->first();
 
 		return view("/". str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);

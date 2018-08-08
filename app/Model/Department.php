@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class Session extends BaseModel
+class Department extends BaseModel
 {
 	protected $fillable = [
 		'id',
@@ -10,7 +10,7 @@ class Session extends BaseModel
 		'organization_id',
 	];
 
-	protected $table = 'session';
+	protected $table = 'department';
 
 	protected function init()
 	{

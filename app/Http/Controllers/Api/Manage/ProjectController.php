@@ -35,7 +35,7 @@ class ProjectController extends \App\Http\Controllers\Api\Controller {
 		}
 		$this->data["keyword"] = $keyword;
 
-		$arrTasks = $this->getProjectListWithUser(true, $this->user_id, $keyword);
+		$arrTasks = $this->getProjectListWithUser(true, $keyword);
 
 		return $this->toJson($arrTasks);
 	}

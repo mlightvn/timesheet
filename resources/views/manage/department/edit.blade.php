@@ -1,6 +1,6 @@
 @include('_include.admin_header',
 	[
-		'id'				=> 'manage_session',
+		'id'				=> 'manage_department',
 	]
 )
 

@@ -50,8 +50,14 @@
 
 			@foreach($data["arrAllTasks"] as $key => $model)
 			<tr class="{{$model->DELETED_CSS_CLASS}}">
-				<td nowrap="nowrap">{{ $model->project_name }}</td>
-				<td>{{ $model->project_task_name }}</td>
+				<td nowrap="nowrap">
+					{{ $model->project_name }}<br>
+					<small>{{ $model->project_description }}</small>
+				</td>
+				<td>
+					{{ $model->project_task_name }}<br>
+					<small>{{ $model->project_task_description }}</small>
+				</td>
 				@foreach ($model->timeline as $timeKey => $timeFlag)
 					<td id="task[{{ $model->project_task_id }}][{{ $timeKey }}]" class="timesheet valign center {{ ($timeFlag == 1) ? 'w3-green' : '' }}">{{ ($timeFlag == 1) ? '30分' : '' }}</td>
 				@endforeach

@@ -50,6 +50,28 @@
 			</td>
 		</tr>
 
+		<tr>
+			<th>{!! Form::label('user_id', '自分のタスク') !!}</th>
+			<td>
+				<label class="switch">
+					{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }}
+					<span class="slider round"></span>
+				</label>
+			</td>
+		</tr>
+
+		@if(in_array($logged_in_user->role, array("Owner", "Manager")))
+		<tr>
+			<th>{!! Form::label('excel_flag', 'Excel出力フラグ') !!}</th>
+			<td>
+				<label class="switch">
+					{{ Form::checkbox('excel_flag', NULL, NULL, ['id' => 'excel_flag']) }}
+					<span class="slider round"></span>
+				</label>
+			</td>
+		</tr>
+		@endif
+
 		<tfoot>
 		<tr>
 			<td colspan="2">

@@ -4,13 +4,12 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserTask extends Model
+class UserProjectTask extends Model
 {
 	protected $fillable = [
-		'organization_id',
 		'user_id',
-		'task_id',
+		'project_task_id',
 		'task_priority',	// 'Normal', 'Priority'
 	];
-	protected $table = 'user_task';
+	protected $table = 'user_project_task';
 }

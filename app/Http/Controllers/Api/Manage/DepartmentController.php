@@ -1,20 +1,20 @@
 <?php namespace App\Http\Controllers\Api\Manage;
 
 use Illuminate\Http\Request;
-use App\Model\Session;
+use App\Model\Department;
 
-class SessionController extends \App\Http\Controllers\Api\Controller {
+class DepartmentController extends \App\Http\Controllers\Api\Controller {
 
 	protected function init()
 	{
 		parent::init();
 
-		$this->model = new Session();
+		$this->model = new Department();
 
 		// 新規追加画面、デフォルトの価値を定義
 		$this->model->organization_id 		= $this->organization_id;
-		$this->url_pattern = "manage.session";
-		$this->data["url_pattern"] = "/manage/session";
+		$this->url_pattern = "manage.department";
+		$this->data["url_pattern"] = "/manage/department";
 		$this->logical_delete = true;
 	}
 
@@ -28,7 +28,7 @@ class SessionController extends \App\Http\Controllers\Api\Controller {
 		}
 		$this->data["keyword"] = $keyword;
 
-		$arrSessions = $this->getSessions(true, NULL, NULL, $keyword);
+		$arrSessions = $this->getDepartments(true, NULL, NULL, $keyword);
 
 		return $this->toJson($arrSessions);
 	}

@@ -29,8 +29,10 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>プロジェクト</th>
-			<th>タスク</th>
+			<th>{{__('message.project.project')}}</th>
+			<th>{{__('message.task.task')}}</th>
+			<th>自分のタスク</th>
+			<th>Excel出力フラグ</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -45,7 +47,19 @@
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.project_task_id }}" ng-bind="model.project_task_name"></a>
 				<br>
-				<small ng-bind="model.project_description"></small>
+				<small ng-bind="model.project_task_description"></small>
+			</td>
+			<td>
+				<label class="switch">
+					<input type="checkbox" name="project[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT" disabled="disabled">
+					<span class="slider round"></span>
+				</label>
+			</td>
+			<td>
+				<label class="switch">
+					<input type="checkbox" name="project[@{{ model.id }}][excel_flag]" ng-checked="model.excel_flag" disabled="disabled">
+					<span class="slider round"></span>
+				</label>
 			</td>
 			<td><a href="{{ $data['url_pattern'] }}/edit/@{{ model.project_task_id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 				@if($logged_in_user->role != "Member")
