@@ -30,7 +30,7 @@
 		<tr class="w3-brown">
 			<th>ID</th>
 			<th>{{__('message.user.name')}}</th>
-			<th>部署</th>
+			<th>{{__('message.department')}}</th>
 			<th>email</th>
 			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<th>Dayoff</th>
@@ -67,7 +67,7 @@
 			</td>
 			<td><span ng-bind="model.session_name"></span></td>
 			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
-			@if ( in_array($logged_in_user->role, array("Manager")) )
+			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<td><span ng-bind="model.dayoff"></span></td>
 			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fas fa-table" aria-hidden="true"></span> プロジェクトのレポート</a></td>
 			@endif

@@ -43,21 +43,27 @@
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
 				<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'manage_user') ? 'w3-gray' : ''}}"><span class="fas fa-user"></span> {{ __('message.member') }}</a>
 
-				<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'manage_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.project') }}</a>
-				<a href="/manage/project_task" class="w3-bar-item w3-button {{ ($id == 'manage_project_task') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.task') }}</a>
+				<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'manage_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.project.project') }}</a>
+				<a href="/manage/project_task" class="w3-bar-item w3-button {{ ($id == 'manage_project_task') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.task.task') }}</a>
 				<a href="/manage/session" class="w3-bar-item w3-button {{ ($id == 'manage_session') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.department') }}</a>
 
 				<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.application_templates') }}</a>
+
+				<a href="manage/user/language" class="w3-bar-item w3-button w3-border-top"><span class="fas fa-language"></span> {{__('message.language.language')}}</a>
 			</div>
 		</div>
 
 		@if ($logged_in_user->role == "Master")
-		<a href="/master" class="w3-bar-item w3-button w3-hover-black light-glow"><span class="fab fa-empire"></span> {{ __('message.master') }}</a>
+		<a href="/master" class="w3-bar-item w3-button w3-red w3-hover-blue light-glow"><span class="fab fa-empire"></span> {{ __('message.master') }}</a>
 		@endif
 
 		@if (in_array($logged_in_user->role, array("Owner", 'Manager')))
+{{--
 		<a href="/promotion" class="w3-bar-item w3-button"><i class="fas fa-gift"></i> {{ __('message.promotion') }}</a>
 		<a href="/price" class="w3-bar-item w3-button"><i class="fas fa-dollar-sign"></i> {{ __('message.payment') }}</a>
+--}}
+
+		<a href="javascript:void(0);" onclick="donate()" class="w3-btn w3-green"><i class="fas fa-dollar-sign"></i> {{ __('message.payment') }} <span class="glyphicon glyphicon-apple"></span></a>
 		@endif
 
 	@endif
@@ -90,12 +96,13 @@
 				@endif
 
 				<a href="/manage/user/edit/{{ $logged_in_user->id }}" class="w3-bar-item w3-button"><span class="fas fa-user"></span> {{ __('message.profile_edit') }}</a>
+				<a href="manage/user/language" class="w3-bar-item w3-button"><span class="fas fa-language"></span> {{__('message.language.language')}}</a>
 
-				@if ( in_array($logged_in_user->role, array("Manager")) )
+				<a href="/profile/organization/info" class="w3-bar-item w3-button w3-border-top"><i class="fas fa-building"></i> {{ __('message.organization_info') }}</a>
+				@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 				<a href="/profile/organization/edit" class="w3-bar-item w3-button"><i class="fas fa-building"></i> {{ __('message.organization_edit') }}</a>
 				@endif
-				<a href="/profile/organization/info" class="w3-bar-item w3-button"><i class="fas fa-building"></i> {{ __('message.organization_info') }}</a>
-				<a href="/logout" class="w3-bar-item w3-button"><span class="fas fa-sign-out-alt"></span> {{ __('message.logout') }}</a>
+				<a href="/logout" class="w3-bar-item w3-button w3-border-top"><span class="fas fa-sign-out-alt"></span> {{ __('message.logout') }}</a>
 			</div>
 		</div>
 		@else

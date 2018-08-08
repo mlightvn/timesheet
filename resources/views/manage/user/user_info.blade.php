@@ -49,22 +49,24 @@
 					<li class="nav-item">
 						<a class="nav-link active" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('message.user.info')}}</a>
 					</li>
+					@if(in_array($logged_in_user->role, array("Owner", "Manager")) || ($logged_in_user->id == $model->id))
 					<li class="nav-item">
 						<a class="nav-link" href="{{ action('Manage\UserController@language') }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
 					</li>
+					@endif
 				</ul>
 				@endif
 
 				<table class="timesheet_table w3-table w3-bordered">
 					<tr>
-						<th>{!! Form::label('name', '名前※') !!}</th>
+						<th>{!! Form::label('name', __('message.user.name')) !!} <span class="w3-text-red">※</span></th>
 						<td>
 							{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'名前', 'required'=>'required']) !!}
 						</td>
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('role', '管理フラグ') !!}</th>
+						<th>{!! Form::label('role', __('message.flag.manager')) !!}</th>
 						<td>
 					@if(($model->id != 1) && ($model->organization_id != 1))
 						@if($data["allow_change_permission"] == true)
@@ -88,7 +90,7 @@
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('session_id', '部署') !!}</th>
+						<th>{!! Form::label('session_id', __('message.department')) !!}</th>
 						<td>
 							{!! Form::select('session_id', $data["arrSelectSessions"]["items"], NULL, ['class'=>'form-control', 'placeholder'=>'▼下記の項目を選択してください。'], $data["arrSelectSessions"]["deletedItemStyles"]) !!}
 						</td>
@@ -106,7 +108,7 @@
 					</tr>
 
 					<tr>
-						<th>性別</th>
+						<th>{!! Form::label('gender', __('message.user.gender')) !!}</th>
 						<td>
 							{!! Form::radio('gender', '0', null, ['class'=>'', 'id'=>'gender_male']) !!}&nbsp;{!! Form::label('gender_male', '男性') !!}
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -115,26 +117,27 @@
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('birthday', '生年月日') !!}</th>
+						<th>{!! Form::label('birthday', __('message.user.date_of_birth')) !!}</th>
 						<td>
 							{!! Form::text('birthday', null, ['class'=>'form-control', 'placeholder'=>'YYYY-MM-DD', 'datepicker'=>'datepicker']) !!}
 						</td>
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('phone', '携帯・電話番号') !!}</th>
+						<th>{!! Form::label('phone', __('message.user.phone_number')) !!}</th>
 						<td>
-							{!! Form::input('tel', 'phone', null, ['class'=>'form-control', 'placeholder'=>'携帯・電話番号']) !!}
+							{!! Form::input('tel', 'phone', null, ['class'=>'form-control', 'placeholder'=>__('message.user.phone_number')]) !!}
 						</td>
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('description', '詳細') !!}</th>
+						<th>{!! Form::label('description', __('message.description')) !!}</th>
 						<td>
 							{!! Form::textarea('description', null, ['class'=>'form-control', 'placeholder'=>'詳細', 'rows'=>20]) !!}
 						</td>
 					</tr>
 
+					@if(in_array($logged_in_user->role, array("Owner", "Manager")) || ($logged_in_user->id == $model->id))
 					<tfoot>
 					<tr>
 						<td colspan="2">
@@ -144,6 +147,7 @@
 						</td>
 					</tr>
 					</tfoot>
+					@endif
 				</table>
 				<br>
 				{!! Form::close() !!}

@@ -65,6 +65,7 @@
 						</td>
 					</tr>
 
+					@if(in_array($logged_in_user->role, array("Owner", "Manager")) || ($logged_in_user->id == $model->id))
 					<tfoot>
 					<tr>
 						<td></td>
@@ -75,6 +76,7 @@
 						</td>
 					</tr>
 					</tfoot>
+					@endif
 
 				</table>
 				{!! Form::close() !!}

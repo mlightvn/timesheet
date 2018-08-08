@@ -48,9 +48,11 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('message.user.info')}}</a>
 					</li>
+					@if(in_array($logged_in_user->role, array("Owner", "Manager")) || ($logged_in_user->id == $model->id))
 					<li class="nav-item">
 						<a class="nav-link" href="{{ action('Manage\UserController@language') }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
 					</li>
+					@endif
 				</ul>
 				@endif
 
@@ -76,6 +78,8 @@
 						</td>
 					@endif
 					</tr>
+
+					@if(in_array($logged_in_user->role, array("Owner", "Manager")) || ($logged_in_user->id == $model->id))
 					<tfoot>
 					<tr>
 						<td colspan="2">
@@ -85,6 +89,7 @@
 						</td>
 					</tr>
 					</tfoot>
+					@endif
 				</table>
 				{!! Form::close() !!}
 

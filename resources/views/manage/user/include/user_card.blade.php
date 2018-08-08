@@ -9,10 +9,12 @@
 				{!! Form::hidden('id') !!}
 				{!! Form::hidden('_method', 'POST') !!}
 
+				@if(in_array($logged_in_user->role, array("Owner", "Manager")) || ($logged_in_user->id == $model->id))
 				<label for="picture" class="picture" data-label="{{__('message.edit')}}">
 					{{__('message.edit')}}
 					<input id="picture" name="picture" class="input_file" type="file" accept="image/*" required>
 				</label>
+				@endif
 			{!! Form::close() !!}
 
 		</div>

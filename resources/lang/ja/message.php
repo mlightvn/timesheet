@@ -13,6 +13,8 @@ return [
 	'status'	=> '状態',
 	'keyword'	=> 'キーワード',
 	'searched_keyword'	=> '検索キーワード',
+	'description'		=> '詳細',
+	'detail'			=> '詳細',
 
 	'menu' => [
 		'report' => [
@@ -48,10 +50,18 @@ return [
 	'edit' 		=> '編集',
 
 	'member' 			=> '会員',
-	'project' 			=> 'プロジェクト',
-	'task' 				=> 'タスク',
 	'department' 		=> '部署',
 	'master' 			=> 'マスタ',
+
+	'project' 			=> [
+		'project' 			=> 'プロジェクト',
+		'list' 				=> 'プロジェクト一覧',
+	],
+
+	'task' 			=> [
+		'task' 				=> 'タスク',
+		'list' 				=> 'タスク一覧',
+	],
 
 	'promotion' 		=> 'プロモーション',
 	'payment' 			=> 'お支払い',
@@ -64,6 +74,7 @@ return [
 	'delete_user' 			=> 'ユーザ削除',
 
 	'login_info'			=> 'ログイン情報',
+	'personal_info'			=> '個人情報',
 
 	'user' => [
 		'user'				=> 'ユーザ',
@@ -71,6 +82,16 @@ return [
 		'info'				=> 'ユーザ情報',
 		'list'				=> 'ユーザ一覧',
 		'name'				=> 'ユーザ名',
+		'gender'			=> '性別',
+		'male'				=> '男性',
+		'female'			=> '女性',
+		'date_of_birth'		=> '生年月日',
+		'phone_number'		=> '電話番号',
+	],
+
+	'flag' => [
+		'manager'			=> '管理フラグ',
+		'member'			=> 'メンバーフラグ',
 	],
 
 	'language' => [

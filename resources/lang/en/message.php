@@ -13,6 +13,8 @@ return [
 	'status'	=> 'Status',
 	'keyword'	=> 'Keyword',
 	'searched_keyword'	=> 'Keyword',
+	'description'		=> 'Description',
+	'detail'			=> 'Detail',
 
 	'menu' => [
 		'report' => [
@@ -48,22 +50,31 @@ return [
 	'edit' 		=> 'Edit',
 
 	'member' 			=> 'Member',
-	'project' 			=> 'Project',
-	'task' 				=> 'Task',
 	'department' 		=> 'Department',
 	'master' 			=> 'Master',
+
+	'project' 			=> [
+		'project' 			=> 'Project',
+		'list' 				=> 'Project list',
+	],
+
+	'task' 			=> [
+		'task' 				=> 'Task',
+		'list' 				=> 'Task list',
+	],
 
 	'promotion' 		=> 'Promotion',
 	'payment' 			=> 'Payment',
 
 	'profile_edit' 				=> 'Profile edit',
 	'organization_edit' 		=> 'Organization edit',
-	'organization_info' 		=> 'Organization info',
+	'organization_info' 		=> 'Organization information',
 
 	'register_user' 		=> 'Register new user',
 	'delete_user' 			=> 'Delete user',
 
 	'login_info'			=> 'Login information',
+	'personal_info'			=> 'Personal information',
 
 	'user' => [
 		'user'				=> 'User',
@@ -71,6 +82,16 @@ return [
 		'info'				=> 'User information',
 		'list'				=> 'User list',
 		'name'				=> 'User name',
+		'gender'			=> 'Gender',
+		'male'				=> 'Male',
+		'female'			=> 'Female',
+		'date_of_birth'		=> 'Date of birth',
+		'phone_number'		=> 'Phone number',
+	],
+
+	'flag' => [
+		'manager'			=> 'Manager',
+		'member'			=> 'Member',
 	],
 
 	'language' => [
@@ -82,6 +103,5 @@ return [
 	],
 
 	'total'						=> 'Total',
-
 
 ];

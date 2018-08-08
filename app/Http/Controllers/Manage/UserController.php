@@ -141,11 +141,15 @@ class UserController extends Controller {
 		]);
 		$this->model = $this->model->first();
 
+		// get session list
+		$arrSelectSessions = $this->getSelectSessions();
+		$this->data["arrSelectSessions"] = $arrSelectSessions;
+
 		if(!$this->model){
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"データが存在していませんので、追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}
 
-		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model]);
+		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions]);
 
 	}
 

@@ -6,7 +6,7 @@
 )
 
 <div class="w3-row">
-	<h1>ユーザー</h1>
+	<h1>{{__('message.user.info')}}</h1>
 	<br>
 </div>
 
@@ -19,95 +19,108 @@
 </div>
 
 <div class="w3-row">
-	{!! Form::model($model) !!}
-	{!! Form::hidden('id') !!}
-	{!! Form::hidden('organization_id') !!}
+	<div class="container-fluid">
+		<div class="row">
+			@if(isset($model) && isset($model->id))
+			@include('manage.user.include.user_card', [
+				'model' 			=>$model,
+				'data' 				=>$data,
+				'departments' 		=>$data["arrSelectSessions"]["items"],
+				'user' 				=>$logged_in_user,
+			])
+			<div class="col-sm-9">
+			@else
+			<div class="col-sm-12">
+			@endif
 
-	@if(isset($message) || session("message"))
-		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
-	@endif
+				{!! Form::model($model) !!}
+				{!! Form::hidden('id') !!}
+				{!! Form::hidden('organization_id') !!}
 
-	<table class="timesheet_table w3-table w3-bordered">
-		<tr class="w3-xlarge">
-			<th colspan="2">ログイン情報</th>
-		</tr>
-		<tr>
-			<th>email</th>
-			<td>
-				<a href="mailto:{{ $model->email }}">{{ $model->email }}</a>
-			</td>
-		</tr>
-		<tr>
-			<th>{{__('message.password')}}</th>
-			<td>
-				********
-		</tr>
-		<tr>
-			<th colspan="2"><br></th>
-		</tr>
-		<tr class="w3-xlarge">
-			<th colspan="2">個人情報</th>
-		</tr>
-		<tr>
-			<th>名前</th>
-			<td>
-				{{ $model->name }}
-			</td>
-		</tr>
-		@if(in_array($logged_in_user->role, array("Owner", "Manager")))
-		<tr>
-			<th>管理フラグ</th>
-			<td>
-				{{ $model->role }}
-			</td>
-		</tr>
+				@if(isset($message) || session("message"))
+					@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
+				@endif
 
-		<tr>
-			<th>Department</th>
-			<td>
-				{{ $model->session_name }}
-			</td>
-		</tr>
-		@endif
+				<table class="timesheet_table w3-table w3-bordered">
+					<tr class="w3-xlarge">
+						<th colspan="2">{{__('message.login_info')}}</th>
+					</tr>
+					<tr>
+						<th>email</th>
+						<td>
+							<a href="mailto:{{ $model->email }}">{{ $model->email }}</a>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2"><br></th>
+					</tr>
+					<tr class="w3-xlarge">
+						<th colspan="2">{{__('message.personal_info')}}</th>
+					</tr>
+					<tr>
+						<th>{{__('message.user.name')}}</th>
+						<td>
+							{{ $model->name }}
+						</td>
+					</tr>
+					@if(in_array($logged_in_user->role, array("Owner", "Manager")))
+					<tr>
+						<th>{{__('message.flag.manager')}}</th>
+						<td>
+							{{ $model->role }}
+						</td>
+					</tr>
 
-		<tr>
-			<th>Dayoff</th>
-			<td>
-				{{ $model->dayoff }}
-			</td>
-		</tr>
+					<tr>
+						<th>Department</th>
+						<td>
+							{{ $model->session_name }}
+						</td>
+					</tr>
+					@endif
 
-		<tr>
-			<th>性別</th>
-			<td>
-				{{ ($model->gender == 0) ? '男性' : '女性' }}
-			</td>
-		</tr>
+					<tr>
+						<th>Dayoff</th>
+						<td>
+							{{ $model->dayoff }}
+						</td>
+					</tr>
 
-		<tr>
-			<th>生年月日</th>
-			<td>
-				{{ $model->birthday }}
-			</td>
-		</tr>
+					<tr>
+						<th>{{__('message.user.gender')}}</th>
+						<td>
+							{{ ($model->gender == 0) ? __('message.user.male') : __('message.user.female') }}
+						</td>
+					</tr>
 
-		<tr>
-			<th>携帯・電話番号</th>
-			<td>
-				{{ $model->tel }}
-			</td>
-		</tr>
+					<tr>
+						<th>{{__('message.user.date_of_birth')}}</th>
+						<td>
+							{{ $model->birthday }}
+						</td>
+					</tr>
 
-		<tr>
-			<th>詳細</th>
-			<td>
-				{!! nl2br(e($model->description)) !!}
-			</td>
-		</tr>
+					<tr>
+						<th>{{__('message.user.phone_number')}}</th>
+						<td>
+							{{ $model->tel }}
+						</td>
+					</tr>
 
-	</table>
-	<br>
-	{!! Form::close() !!}
+					<tr>
+						<th>{{__('message.description')}}</th>
+						<td>
+							{!! nl2br(e($model->description)) !!}
+						</td>
+					</tr>
+
+				</table>
+				<br>
+				{!! Form::close() !!}
+
+			</div>
+		</div>
+	</div>
 </div>
 
 @include('_include.admin_footer', [

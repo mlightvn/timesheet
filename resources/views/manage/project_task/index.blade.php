@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>タスク一覧</h1>
+	<h1>{{__('message.task.list')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
