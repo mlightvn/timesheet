@@ -8,7 +8,6 @@ class WorkDateTime extends Model
 {
 	protected $fillable = [
 		'date',
-		'organization_id',
 		'user_id',
 		'time_in',
 		'time_out',
@@ -18,7 +17,7 @@ class WorkDateTime extends Model
 
 	protected $table = 'work_datetime';
 
-	protected $primaryKey = ['date', 'organization_id', 'user_id'];
+	protected $primaryKey = ['date', 'user_id'];
 	public $incrementing = false;
 
 	// protected function setKeysForSaveQuery(Builder $query)
@@ -40,7 +39,7 @@ class WorkDateTime extends Model
 	//  *
 	//  * @param mixed $keyName
 	//  * @return mixed
-	 
+
 	// protected function getKeyForSaveQuery($keyName = null)
 	// {
 	// 	if(is_null($keyName)){

@@ -53,8 +53,6 @@ $(document).ready(function(){
 		calculateWorkingHour();
 	}
 
-
-
 	function calculateWorkingHour() {
 		var arrInputAllTasks = $("input[name^=input_task]");
 		var length = arrInputAllTasks.length;
@@ -195,7 +193,7 @@ $(document).ready(function(){
 		});
 
 		$.ajax({
-			url: '/report/time/regist',
+			url: '/report/time',
 			type: 'POST',
 			dataType: 'json',
 			data: $request_data,

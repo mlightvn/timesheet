@@ -5,7 +5,6 @@ namespace App\Model;
 class WorkingTime extends BaseModel
 {
 	protected $fillable = [
-		'organization_id',
 		'user_id',
 		'project_task_id',
 		'date',
@@ -16,7 +15,6 @@ class WorkingTime extends BaseModel
 
 	public function init()
 	{
-		$this->organization_id = \Auth::user()->organization_id;
 		$this->search_columns = ['user_id', 'date', 'time'];
 	}
 
@@ -26,8 +24,8 @@ class WorkingTime extends BaseModel
 
 		$table = $table->select(["working_time.*", \DB::raw("organization.name AS organization_name")]);
 
-		$table = $table->leftJoin("organization", "working_time.organization_id", "=", "organization.id");
 		$table = $table->join("users", "working_time.user_id", "=", "users.id");
+		$table = $table->join("organization", "organization.id", "=", "users.organization_id");
 		$table = $table->join("project_task", "working_time.project_task_id", "=", "project_task.id");
 		$table = $table->join("project", "project.id", "=", "project_task.project_id");
 
@@ -47,10 +45,12 @@ class WorkingTime extends BaseModel
 		$table = $table->where("project_task.is_deleted", "=", "0");
 		$table = $table->where("project.is_deleted", "=", "0");
 
+		$table = $table->orderBy("project.id");
 		$table = $table->orderBy("working_time.date");
 		$table = $table->orderBy("working_time.time");
-// dd($table->toSql());
+
 		$arrResult = $table->get();
+
 		return $arrResult;
 	}
 

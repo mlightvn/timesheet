@@ -57,7 +57,10 @@ class TimeController extends Controller {
 		$arrTimes = $this->getWorkingTimeLabelList();
 
 		$projectTask = new ProjectTask();
-		$arrTasks = $projectTask->getAllList($user_id, NULL, NULL, FALSE);
+		$whereCondition = array();
+		$whereCondition["user_id"] = $user_id;
+		$whereCondition["own_project_task"] = 1;
+		$arrTasks = $projectTask->getAllList($whereCondition);
 
 		// Get Working Times from DB, and put into array to show on user screen
 		$arrData = array();
@@ -98,7 +101,7 @@ class TimeController extends Controller {
 		$url = $this->blade_url . "?date=" . $this->sDbRequestDate;
 		$this->blade_url = $url;
 
-		if(!isset($this->form_input["input_task"])){
+		if(!isset($this->form_input)){
 			$alert_type = "error";
 			$message = "稼働プロジェクトを登録してください。";
 
@@ -106,12 +109,8 @@ class TimeController extends Controller {
 			$this->jsonExport($data);
 		}
 
-		$organization_id = $this->logged_in_user->organization_id;
-		$arrInputWorkingTime = $this->form_input["input_task"];
-
 		// 追加するために、最初、working_timeのデータを削除
 		$dbWorkingTime = new WorkingTime();
-		$dbWorkingTime = $dbWorkingTime->where("organization_id" 	, "=", $organization_id);
 		$dbWorkingTime = $dbWorkingTime->where("user_id"			, "=", $this->logged_in_user->id);
 		$dbWorkingTime = $dbWorkingTime->where("date"				, "=", $this->sDbRequestDate);
 		$dbWorkingTime->delete(); // 削除
@@ -119,11 +118,18 @@ class TimeController extends Controller {
 
 		// 追加するために、最初、working_dateのデータを削除
 		$dbWorkingDate = new WorkingDate();
-		$dbWorkingDate = $dbWorkingDate->where("organization_id" 		, "=", $organization_id);
 		$dbWorkingDate = $dbWorkingDate->where("user_id" 				, "=", $this->logged_in_user->id);
 		$dbWorkingDate = $dbWorkingDate->where("date" 					, "=", $this->sDbRequestDate);
 		$dbWorkingDate->delete();
 		unset($dbWorkingDate);
+
+		$organization_id = $this->logged_in_user->organization_id;
+		if(isset($this->form_input["input_task"])){
+			$arrInputWorkingTime = $this->form_input["input_task"];
+		}else{
+			$arrInputWorkingTime = array();
+		}
+
 
 		foreach ($arrInputWorkingTime as $project_task_id => $arrWorkingTimes) {
 			$working_minutes = 0;
@@ -133,7 +139,6 @@ class TimeController extends Controller {
 					$sDbTime = $this->timeKey2DbTime($timeKey);
 
 					$dbWorkingTime 						= new WorkingTime();
-					$dbWorkingTime->organization_id 	= $organization_id;
 					$dbWorkingTime->project_task_id 	= $project_task_id;
 					$dbWorkingTime->user_id 			= $this->logged_in_user->id;
 					$dbWorkingTime->date 				= $this->sDbRequestDate;
@@ -145,7 +150,6 @@ class TimeController extends Controller {
 			}
 
 			$dbWorkingDate = new WorkingDate();
-			$dbWorkingDate->organization_id 			= $organization_id;
 			$dbWorkingDate->project_task_id 			= $project_task_id;
 			$dbWorkingDate->user_id 					= $this->logged_in_user->id;
 			$dbWorkingDate->date 						= $this->sDbRequestDate;

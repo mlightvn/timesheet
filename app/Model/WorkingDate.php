@@ -5,7 +5,6 @@ namespace App\Model;
 class WorkingDate extends BaseModel
 {
 	protected $fillable = [
-		'organization_id',
 		'user_id',
 		'project_task_id',
 		'date',
@@ -15,12 +14,7 @@ class WorkingDate extends BaseModel
 
 	protected $table = 'working_date';
 
-	public function init()
-	{
-		$this->organization_id = \Auth::user()->organization_id;
-	}
-
-	public function getTimeSheetList($user_id, $organization_id, $year, $month = NULL, $day = NULL)
+	public function getTimeSheetList($user_id, $year, $month = NULL, $day = NULL)
 	{
 		$data = array();
 		$data["year"] 				= $year;
@@ -46,7 +40,6 @@ class WorkingDate extends BaseModel
 		$workingDate = $workingDate->join("project", "project.id", "=", "project_task.project_id");
 
 		$workingDate = $workingDate->where("working_date.user_id", "=", $user_id);
-		$workingDate = $workingDate->where("working_date.organization_id", "=", $organization_id);
 		$workingDate = $workingDate->where("working_date.date", "LIKE", $data["date"] . "%");
 		$workingDate = $workingDate->where("working_date.working_minutes", ">", "0");
 

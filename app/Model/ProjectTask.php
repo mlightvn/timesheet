@@ -4,6 +4,8 @@ namespace App\Model;
 
 class ProjectTask extends BaseModel
 {
+	const EXCEL_FLAG = 1;
+
 	protected $fillable = [
 		'id',
 		'project_id',
@@ -22,7 +24,7 @@ class ProjectTask extends BaseModel
 
 	}
 
-	public function getAllList($user_id = NULL, $keyword = NULL, $isPagination = true, $is_deleted_display = true)
+	public function getAllList($whereCondition = array())
 	{
 		$table = \DB::table('project');
 
@@ -47,39 +49,157 @@ class ProjectTask extends BaseModel
 		$table = $table->join('project_task'					, 'project.id'						, '=', 'project_task.project_id');
 		$table = $table->join("organization"					, "project.organization_id"			, "=", "organization.id");
 
-		if(!empty($user_id)){
-			$subQuery = "( SELECT * FROM user_project_task WHERE user_id = '" . $user_id . "') AS user_project_task ";
+		if(!empty($whereCondition["user_id"])){
+			$subQuery = "( SELECT * FROM user_project_task WHERE user_id = '" . $whereCondition["user_id"] . "') AS user_project_task ";
 		}else{
 			$subQuery = "user_project_task";
 		}
 		$table = $table->leftJoin(\DB::raw($subQuery)			, "project_task.id"						, "=", "user_project_task.project_task_id");
 
-		if($keyword){
+		if(!empty($whereCondition["keyword"])){
 			$where = " (
 							   (project_task.id = '{KEYWORD}')
 							OR (project_task.name LIKE '%{KEYWORD}%')
 						)";
-			$where = str_replace("{KEYWORD}", $keyword, $where);
+			$where = str_replace("{KEYWORD}", $whereCondition["keyword"], $where);
 
 			$table = $table->whereRaw($where);
 		}
 
-		if($is_deleted_display == false){
-			$table = $table->where("project_task.is_deleted", "0");
+		if(isset($whereCondition["is_deleted"])){
+			$table = $table->where("project_task.is_deleted", $whereCondition["is_deleted"]);
+		}
+
+		if(isset($whereCondition["own_project_task"])){
+			$table = $table->whereRaw("user_project_task.user_id IS NOT NULL");
 		}
 
 		$table = $table->where("organization.id", "=", \Auth::user()->organization_id);
 
+		$table = $table->orderBy("project.is_deleted", "ASC");
+		$table = $table->orderBy("project.id", "ASC");
 		$table = $table->orderBy("project_task.is_deleted", "ASC");
 		$table = $table->orderBy("project_task.id", "ASC");
 
-		if($isPagination){
+		if(!isset($whereCondition["isPagination"])){
 			$arrResult = $table->paginate(env('NUMBER_OF_RECORD_PER_PAGE'));
 		}else{
 			$arrResult = $table->get();
 		}
 
 		return $arrResult;
+	}
+
+	public function getTimeSheetList($user = null, $year, $month, $excel_flag = null)
+	{
+		$timeSheetList = array();
+		if(!isset($user)){
+			$user = \Auth::user();
+		}
+
+		// $year_month = $year . "-" . $month;
+		$timeSheetList["ProjectList"] = $this->getProjectList($user->id);
+		$timeSheetList["ProjectTaskTimesTotal"] = $this->getProjectTaskTimesTotal($user->id, $year, $month);
+// dd($timeSheetList["ProjectTaskTimesTotal"]);
+
+		$timeSheetList["total_hours_label"] = "00:00";
+
+		$timeSheetList["TimeSheet"] = array();
+		foreach ($timeSheetList["ProjectList"] as $key => $project) {
+			$project_times = array();
+			$total_hours = 0;
+
+			foreach ($timeSheetList["ProjectTaskTimesTotal"] as $key => $times) {
+				if($project->CONNECTION_KEY == $times->CONNECTION_KEY){
+					$project_times["project"] 						= $project;
+					$project_times["times"] 						= $times;
+					$total_hours += $times->total_working_minutes;
+				}
+			}
+			// $project
+			$timeSheetList["TimeSheet"][$project["CONNECTION_KEY"]] = $project_times;
+		}
+dd($timeSheetList);
+		return $timeSheetList;
+	}
+
+	public function getProjectTaskTimesTotal($user_id, $year, $month)
+	{
+		$workingDate = new WorkingDate();
+		$year_month = $year . "-" . $month;
+
+		$sql = "
+SELECT
+	  working_date.CONNECTION_KEY
+
+	, working_date.total_working_minutes
+	, CONCAT(
+			IF(working_date.HOUR_VALUE < 10, CONCAT('0', working_date.HOUR_VALUE), working_date.HOUR_VALUE)
+			, ':'
+			, working_date.MINUTE_VALUE
+	) AS 'total_hours_label'
+
+  FROM (
+		SELECT CONCAT(user_id, '-', `project`.id) 					AS 'CONNECTION_KEY'
+			 , SUM(working_date.working_minutes) 						AS 'total_working_minutes'
+			 , FLOOR(SUM(working_date.working_minutes) / 60) 			AS 'HOUR_VALUE'
+			 , LPAD(
+					MOD(SUM(working_date.working_minutes), 60), 2, '0'
+				) 														AS 'MINUTE_VALUE'
+		  FROM `working_date`
+			   INNER JOIN `project_task` ON (`working_date`.project_task_id = `project_task`.id)
+			   INNER JOIN `project` ON (`project_task`.project_id = `project`.id)
+		 WHERE `working_date`.`user_id` 				= '{USER_ID}'
+		   AND `working_date`.`date` 					LIKE '{REQUESTED_DATE}'
+		   AND `working_date`.`working_minutes` 		> 0
+
+		 GROUP BY user_id, `project`.id
+	  ) AS `working_date`
+		";
+
+		$sql = str_replace("{USER_ID}", $user_id, $sql);
+		$sql = str_replace("{REQUESTED_DATE}", $year_month . "-%", $sql);
+
+		$workingDate = \DB::select($sql);
+		$workingDate = collect($workingDate);
+
+		return $workingDate;
+	}
+
+	public function getProjectList($user_id, $excel_flag = NULL)
+	{
+
+		$tableNames = array();
+		$tableNames["Project"] = (new Project())->getTableName();
+		$tableNames["ProjectTask"] = (new ProjectTask())->getTableName();
+		$tableNames["UserProjectTask"] = (new UserProjectTask())->getTableName();
+
+		// get projects list
+		$model = new Project();
+		$model = $model->join($tableNames["ProjectTask"], $tableNames["Project"] . '.id', '=', $tableNames["ProjectTask"] . '.project_id');
+		$model = $model->join($tableNames["UserProjectTask"], $tableNames["ProjectTask"] . '.id', '=', $tableNames["UserProjectTask"] . '.project_task_id');
+
+		$model = $model->where($tableNames["Project"] . ".organization_id", "=", \Auth::user()->organization_id); // Security: so only same Organization can see this information
+		if(isset($excel_flag) || ($excel_flag == "0")){
+			$model = $model->where($tableNames["ProjectTask"] . ".excel_flag", "=", $excel_flag);
+		}
+		$model = $model->where($tableNames["UserProjectTask"] . ".user_id", $user_id);
+
+		$model = $model->where($tableNames["Project"] . '.is_deleted', '=', BaseModel::IS_NOT_DELETED);
+		$model = $model->where($tableNames["ProjectTask"] . '.is_deleted', '=', BaseModel::IS_NOT_DELETED);
+
+		$model = $model->select([
+			\DB::raw($tableNames["Project"] . ".id 									AS 'project_id'"),
+			\DB::raw($tableNames["Project"] . ".name 								AS 'project_name'"),
+			\DB::raw($tableNames["Project"] . ".description 						AS 'project_description'"),
+			\DB::raw($tableNames["ProjectTask"] . ".id 								AS 'project_task_id'"),
+			\DB::raw($tableNames["UserProjectTask"] . ".user_id"),
+			\DB::raw("CONCAT(" . $tableNames["UserProjectTask"] . ".user_id, '-', " . $tableNames["Project"] . ".id) 					AS 'CONNECTION_KEY'"),
+		]);
+
+		$resultSet = $model->get();
+
+		return $resultSet;
 	}
 
 }

@@ -10,10 +10,14 @@ class BaseModel extends Model
 	// https://laravel.com/docs/5.6/eloquent
 	use SoftDeletes;
 
+	const IS_NOT_DELETED = 0;
+	const IS_DELETED = 1;
+
 	protected $dates = ['deleted_at'];
 
 	protected $organization_id = null;
 	protected $is_deleted = null;
+	protected $deleted_value = null;
 
 	protected $search_columns = [];
 
@@ -25,7 +29,12 @@ class BaseModel extends Model
 	{
 	}
 
-	public function getList($keyword='')
+	public function getTableName()
+	{
+		return $this->table;
+	}
+
+	public function getList($keyword='', $deleted_value = null)
 	{
 		$model = $this;
 
@@ -40,6 +49,12 @@ class BaseModel extends Model
 			}
 			$where = "(" . implode(" OR ", $whereArr) . ")";
 			$model = $model->whereRaw($where);
+		}
+
+		if(isset($deleted_value) || ($deleted_value == "0")){
+			$model = $model->where($this->table . '.' . $this->is_deleted, $deleted_value);
+		}elseif(isset($this->deleted_value) || ($this->deleted_value == "0")){
+			$model = $model->where($this->table . '.' . $this->is_deleted, $this->deleted_value);
 		}
 
 		if(isset($this->is_deleted) && !empty($this->is_deleted)){

@@ -41,31 +41,32 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 			<tr class="w3-brown">
+				<th nowrap="nowrap">Excel出力フラグ</th>
 				<th nowrap="nowrap">プロジェクト</th>
-				<th nowrap="nowrap">タスク</th>
-				<th>時間</th>
+				<th></th>
+				<th nowrap="nowrap">合計作業時間</th>
 			</tr>
 			</thead>
 
 			@foreach($arrTaskSheet["on_task"]["task"] as $day => $oTask)
 			<tr>
+				<td><i class="fa fa-flag" aria-hidden="true"></i>
+				</td>
 				<td>
 					{{ $oTask->project_name }}
 				</td>
 				<td>
-					{{ $oTask->project_task_name }}
+					{{ $oTask->total_working_hours_label }}
 				</td>
 				<td>
-					{{ $oTask->total_working_hours_label }}
+					<strong>{{-- $oTask->total_working_hours_label --}}</strong>
 				</td>
 			</tr>
 			@endforeach
 
 			<tfoot>
 			<tr>
-				<td align="right">
-				</td>
-				<td align="right">
+				<td colspan="3">
 				</td>
 				<td><label class="w3-xlarge">{{ $arrTaskSheet["on_task"]["total_working_hours_label"] }}</label>
 				</td>

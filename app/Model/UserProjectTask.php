@@ -2,9 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
-
-class UserProjectTask extends Model
+class UserProjectTask extends BaseModel
 {
 	protected $fillable = [
 		'user_id',
