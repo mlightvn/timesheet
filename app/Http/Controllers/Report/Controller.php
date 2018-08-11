@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
-use App\Model\WorkingDate;
+use App\Model\ProjectTask;
 
 class Controller extends \App\Http\Controllers\Admin\Controller {
 
@@ -79,210 +79,269 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		$data["user_name"] 			= $user_name;
 		$data["filename"] 			= $filename;
 
-		$workingDate = new WorkingDate();
-		$arrOnTaskList = $workingDate->getTimeSheetList($this->reportUser->id, $this->organization_id, $year, $month);
+		$timeSheet = new ProjectTask();
+		$timeSheetList = $timeSheet->getTimeSheetList($this->reportUser, $year, $month);
 
 		$taskSheet 						= array();
-		// $arrOffTasks 					= array();
-		$arrOnTasks 					= array();
 
-		$arrOnTasks["task"] 							= $arrOnTaskList;
-		$arrOnTasks["task_label"] 						= "稼働プロジェクト";
-		$arrOnTasks["total_minutes"] 					= 0;
-		$arrOnTasks["total_working_hours_label"] 		= "";
+		$data["models"] 								= $timeSheetList;
+		$arrTasks["task_label"] 						= "稼働プロジェクト";
+		$arrTasks["total_minutes"] 						= 0;
+		$arrTasks["total_working_hours_label"] 			= "";
 
-		// $taskSheet["off_task"] 			= $arrOffTasks;
-		$taskSheet["on_task"] 			= $arrOnTasks;
+		$taskSheet["on_task"] 							= $arrTasks;
 
 		$data["taskSheet"] 	= $taskSheet;
-		$excel = \Excel::create($filename, function($excel) use($data) {
-			$excel->sheet('Sheetname', function($sheet) use($data) {
+
+		$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+		// $sheet->setCellValue('A1', 'Hello World !');
+
+
+		// $excel = \Maatwebsite\Excel\Facades\Excel::store($filename, function($excel) use($data)
+		{
+			// SpreadSheet
+			{
 				$taskSheet 			= $data["taskSheet"];
 
-				// $arrOffTasks 		= $taskSheet["off_task"];
-				$arrOnTasks 		= $taskSheet["on_task"];
-
 				$arrTotalData		= array(
-						"label"				=> "合計",
+						"label"				=> __("message.total"),
 						"minutes"			=> 0,
 					);
 
 				// タイトル
-				$sheet->setTitle($data["filename"]);
-				$sheet->setFontFamily('ＭＳ Ｐゴシック');
+				$sheet->setTitle($data["user_name"]);
+				// $sheet->setFontFamily('ＭＳ Ｐゴシック');
 
-				$sheet->mergeCells("D3:E3");
-				$sheet->mergeCells("D4:E4");
+				$sheet->mergeCells("C3:D3");
+				$sheet->mergeCells("C4:D4");
 
-				$sheet->cell('D3:E3', function($cell) {
-						$cell->setAlignment('right');
-					});
-				$sheet->cell('D4:E4', function($cell) {
-						$cell->setAlignment('right');
-					});
+				$sheet->getStyle('I3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+				$sheet->getStyle('I4')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
 
-				$sheet->cell('B2', function($cell) {
-						$cell->setFontSize(18);
-						$cell->setFontWeight('bold');
-					});
+				$sheet->getStyle('B2')->getFont()->setSize(18)->setBold(true);
 
-				$sheet->row(2, array(NULL, 'タスク別工数集計表'));
-				$sheet->row(3, array(NULL, NULL, NULL, $data["year"] . '/' . $data["month"] . '/01　～　' . date("Y/m/t", strtotime($data["year"] . '/' . $data["month"] . '/01'))));
-				$sheet->row(4, array(NULL, NULL, NULL, $this->reportUser->name));
+				$sheet->setCellValue("B2", __('message.excel.table_of_working_hours_by_task'));
 
-				$start_row = 6;
+				$sheet->setCellValue("C3", $data["year"] . '/' . $data["month"] . '/01　～　' . date("Y/m/t", strtotime($data["year"] . '/' . $data["month"] . '/01')));
+				$sheet->setCellValue("C4", $this->reportUser->name);
+
+				$iRow = 6;
+				$row = [
+					__('message.project.project'),
+					__('message.task.task'),
+					__('message.total_working_hours'),
+				];
+
+				$sheet->fromArray([$row], NULL, 'B' . $iRow);
+				$sheet->getStyle('B6:D6')->getFont()->setBold(true);
+
+				$iRow = 7;
 				$minutes = 0;
-				$this->writeSheetTable($sheet, $arrOnTasks, 6, $minutes);
-				$arrTotalData["minutes"] = $minutes;
+				$table = [];
 
-				$start_row += count($arrOnTasks["task"]) + 4;
-				// $this->writeSheetTable($sheet, $arrOffTasks, $start_row, $minutes);
-				// $arrTotalData["minutes"] += $minutes;
+				$total_working_minutes = 0;
+				$total_working_hours_display = "00:00";
+				$time_line_previous = null;
 
-				// $start_row += count($arrOffTasks["task"]) + 4;
-				// $this->writeSheetTotalTable($sheet, $arrTotalData, $start_row);
+				$project_summary = array();
+				$project_summary["minutes"] = 0;
+				$project_summary["hours_display"] = "00:00";
 
-				$sheet->setWidth('A', 3);
-				$sheet->setWidth('B', 20);
-				$sheet->setWidth('C', 20);
-				$sheet->setWidth('D', 20);
-				$sheet->setWidth('E', 20);
+				$styleArraySubTotal = [
+					'font' => [
+						'bold' => true,
+					],
+					'fill' => [
+						'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+						'color' => [
+							'argb' => 'FFEEEEEE',
+						],
+					],
+				];
 
-				// $start_row += 2;
-				$sheet->cell('D' . $start_row, function($cell) {
-						$cell->setBorder('thick', 'thick', 'thick', 'thick');
-					});
-				$sheet->cell('E' . $start_row, function($cell) {
-						$cell->setBorder('thick', 'thick', 'thick', 'thick');
-					});
-				$sheet->setSize('D' . $start_row, 20, 110);
-			});
+				if(count($timeSheetList) > 0){
+					foreach ($timeSheetList as $key => $time_line) {
+						$total_working_minutes += $time_line->TOTAL_MINUTES;
 
-			// Chain the setters
-			$excel->setCreator('Nguyen Nam')->setCompany(env("APP_COMP_NAME"));
+						if(($time_line_previous !== null) && ($time_line_previous->project_id !== $time_line->project_id)){
+								$minutes = $project_summary["minutes"];
+								$hours = floor($minutes / 60);
+								$remained_minutes = ($minutes % 60);
 
-			$excel->setDescription($data["filename"]);
-		});
-		$excel->export('xlsx');
-		// ERR_INVALID_RESPONSE
-		//
-	}
+								$project_summary["hours_display"] = str_pad($hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($remained_minutes, 2, 0, STR_PAD_LEFT);
 
-	public function writeSheetTable($sheet, $data, $start_row, &$minutes)
-	{
-		$sheet->row($start_row, array(NULL, $data["task_label"], NULL, NULL, "合計作業時間"));
+								$table[] = [
+									NULL,
+									__('message.total'),
+									$project_summary["hours_display"],
+								];
 
-		$taskSheet = $data["task"];
+								$sheet->getStyle('B' . $iRow . ':D' . $iRow)->applyFromArray($styleArraySubTotal);
+								$iRow++;
 
-		$total_working_minutes = 0;
-		$lastRow = $start_row + 1;
-		$iRow = $start_row + 1;
-		foreach ($taskSheet as $key => $task) {
-			$sheet->setHeight($iRow, $this->rowHeight);
-			$cells = $sheet->mergeCells("B" . $iRow . ":D" . $iRow);
+								$project_summary["minutes"] = 0;
 
-			$sheet->setBorder("B" . $iRow . ":E" . $iRow, 'thin');
+						}
 
-			$total_working_minutes += $task->total_working_minutes;
-			$sheet->row($iRow, array(NULL, $task->project_name, NULL, NULL, $task->total_working_hours_label));
-			$iRow++;
+						if($time_line_previous == null || ($time_line_previous->project_id !== $time_line->project_id)){
+							$project_name = $time_line->project_name;
+						}else{
+							$project_name = NULL;
+						}
+						$table[] = [
+							$project_name,
+							$time_line->project_task_name,
+							$time_line->HOURS_DISPLAY,
+						];
+						$iRow++;
+
+						$time_line_previous = $time_line;
+
+						$project_summary["minutes"] += $time_line->TOTAL_MINUTES;
+					}
+
+					// total row of last project
+					$minutes = $project_summary["minutes"];
+					$hours = floor($minutes / 60);
+					$remained_minutes = ($minutes % 60);
+
+					$project_summary["hours_display"] = str_pad($hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($remained_minutes, 2, 0, STR_PAD_LEFT);
+
+					$table[] = [
+						NULL,
+						__('message.total'),
+						$project_summary["hours_display"],
+					];
+					$sheet->getStyle('B' . $iRow . ':D' . $iRow)->applyFromArray($styleArraySubTotal);
+					$iRow++;
+
+				}
+
+				// Total row (ALL)
+				$total_working_hours = floor($total_working_minutes / 60);
+				$total_working_hours_minutes = $total_working_minutes % 60;
+				$total_working_hours_display = str_pad($total_working_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($total_working_hours_minutes, 2, 0, STR_PAD_LEFT);
+
+				$table[] = [
+					NULL,
+					__('message.total'),
+					$total_working_hours_display,
+				];
+				$sheet->getStyle('B' . $iRow . ':D' . $iRow)->getFont()->setBold(true)->setSize(18);
+				$iRow++;
+
+				$sheet->fromArray($table, NULL, 'B7');
+
+				$sheet->getColumnDimension('A')->setWidth(3);
+				$sheet->getColumnDimension('B')->setWidth(30);
+				$sheet->getColumnDimension('C')->setWidth(30);
+				$sheet->getColumnDimension('D')->setWidth(30);
+
+				$data["last_row_index"] = ($iRow - 1);
+				$this->excelSheetFormat($sheet, $data);
+
+			}
+
 		}
-		$minutes = $total_working_minutes;
+		// $excel->export('xlsx');
+		// $excel->export(\Maatwebsite\Excel\Facades\Excel::XLSX);
 
-		$sheet->setHeight($iRow, $this->rowHeight);
-		$sheet->mergeCells("B" . $iRow . ":D" . $iRow);
-		$sheet->row($iRow, array(NULL, "合計", NULL, NULL, $this->minutes2HourLabel($total_working_minutes)));
-		$lastRow = $iRow;
-		$iRow++;
+		$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
 
-		// フォーマット
-		$sheet->setHeight($start_row, $this->rowHeight);
+		// // Chain the setters
+		// $writer->setCreator('Nguyen Nam')->setCompany(env("APP_COMP_NAME"));
+		// $writer->setDescription($data["filename"]);
 
-		$sheet->cell("B" . $start_row . ":E" . $lastRow, function($cell) {
-				$cell->setValignment('center');
-			});
+		$file_path = storage_path('app/public/tmp/' . $filename . '.xlsx');
+		if(file_exists($file_path)){
+			unlink($file_path);
+		}
+		$writer->save($file_path);
 
-		$sheet->mergeCells("B" . $start_row . ":D" . $start_row);
+		$headers = array(
+			  'Content-Type: ' . mime_content_type( $file_path ),
+			);
+		return \Response::download($file_path, $filename . '.xlsx', $headers);
 
-		$sheet->cell('B' . $start_row . ':D' . $start_row, function($cell) {
-				$cell->setFontWeight('bold');
-				$cell->setBorder('thick', 'thick', 'thick', 'thick');
-			});
-		$sheet->cell('E' . $start_row, function($cell) {
-				$cell->setFontWeight('bold');
-				$cell->setBorder('thick', 'thick', 'thick', 'thick');
-			});
-		$sheet->cell('B' . ($start_row + 1) . ':D' . ($lastRow - 1), function($cell) {
-				$cell->setBorder('thick', 'thick', 'thick', 'thick');
-			});
-		$sheet->cell('E' . ($start_row + 1) . ':E' . ($lastRow - 1), function($cell) {
-				$cell->setBorder('thick', 'thick', 'thick', 'thick');
-				$cell->setAlignment('right');
-			});
-		$sheet->cell('B' . $lastRow . ':E' . $lastRow, function($cell) {
-				$cell->setAlignment('right');
-			});
-		$sheet->cell('B' . $lastRow, function($cell) {
-				$cell->setFontWeight('bold');
-				$cell->setBorder('solid', 'thick', 'thick', 'thick');
-			});
-		$sheet->cell('E' . $lastRow, function($cell) {
-				$cell->setFontWeight('bold');
-				$cell->setBorder('solid', 'thick', 'thick', 'thick');
-			});
+		// if(file_exists($file_path)){
+		// 	unlink($file_path);
+		// }
+
+		// return;
+
 	}
 
-	public function writeSheetTotalTable($sheet, $data, $start_row)
+	// https://phpspreadsheet.readthedocs.io/en/develop/topics/recipes/#setting-a-columns-width
+	private function excelSheetFormat($sheet, $data)
 	{
-		$sheet->setHeight($start_row, $this->rowHeight + 10);
-		$sheet->mergeCells("B" . $start_row . ":D" . $start_row);
-		$sheet->row($start_row, array(NULL, "合計", NULL, NULL, $this->minutes2HourLabel($data["minutes"])));
 
-		$sheet->cell('B' . $start_row . ':E' . $start_row, function($cell) {
-				$cell->setFontSize(24);
-				$cell->setValignment('center');
-				$cell->setFontWeight('bold');
-				$cell->setAlignment('right');
-				$cell->setBorder('thick', 'thick', 'thick', 'thick');
-			});
-		$sheet->cell('E' . $start_row, function($cell) {
-				$cell->setBorder('thick', 'thick', 'thick', 'thick');
-			});
+		$models = $data["models"];
+		$iLastRow = $data["last_row_index"];
+
+		$sheet->getStyle('C3:D4')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+		$sheet->getStyle('B6:D6')->getFont()->setBold(true)->setSize(15);
+
+		$styleArray = [
+			'borders' => [
+				'inside' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
+		$sheet->getStyle('B6:D' . $iLastRow)->applyFromArray($styleArray);
+
+		$styleArray = [
+			'borders' => [
+				'outline' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+				],
+			],
+		];
+		$sheet->getStyle('B6:D6')->applyFromArray($styleArray);
+
+		$styleArray = [
+			'borders' => [
+				'outline' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+				],
+			],
+		];
+		$sheet->getStyle('B6:D' . $iLastRow)->applyFromArray($styleArray);
+
+		$styleArray = [
+			'font' => [
+				'bold' => true,
+			],
+			'borders' => [
+				'outline' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+				],
+			],
+		];
+		$sheet->getStyle('B' . $iLastRow . ':D' . $iLastRow)->applyFromArray($styleArray);
+
+		$styleArray = [
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+			],
+		];
+		$sheet->getStyle('B' . $iLastRow . ':C' . $iLastRow)->applyFromArray($styleArray);
+
+		// Signature row
+		$iRow = $iLastRow + 3;
+
+		$styleArray = [
+			'borders' => [
+				'allBorders' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+				],
+			],
+		];
+		$sheet->getStyle('C' . $iRow . ':D' . $iRow)->applyFromArray($styleArray);
+		$sheet->getRowDimension($iRow)->setRowHeight(150);
+
 	}
-
-// 	public function getProjectSheet($user_id, $year, $month = NULL, $day = NULL, $is_off = NULL)
-// 	{
-// 		$data = array();
-// 		$data["year"] 				= $year;
-// 		$data["month"] 				= $month;
-// 		$data["day"] 				= $day;
-// 		$data["date"] 				= $year . "-" . $month . "-" . $day;
-// 		$data["year_month"] 		= $year . "-" . $month;
-
-// 		$workingDate = new \App\Model\WorkingDate();
-
-// 		$workingDate = $workingDate->select(\DB::raw("
-// 				  project.id
-// 				, working_date.user_id, SUM(working_date.working_minutes) AS 'total_working_minutes'
-// 				, CONCAT(LPAD(FLOOR(SUM(working_date.working_minutes) / 60), 2, '0'), ':', LPAD(MOD(SUM(working_date.working_minutes), 60), 2, '0')) AS 'total_working_hours_label'
-// 				, project.name AS 'project_name'
-// 				, project_task.name AS 'project_task_name'
-// 				"
-// 			));
-
-// 		$workingDate = $workingDate->join("project_task", "working_date.project_task_id", "=", "project_task.id");
-// 		$workingDate = $workingDate->join("project", "project_task.project_id", "=", "project_task.project_id");
-// 		$workingDate = $workingDate->where("working_date.user_id", "=", $user_id);
-// 		$workingDate = $workingDate->where("working_date.organization_id", "=", $this->organization_id);
-// 		$workingDate = $workingDate->where("working_date.date", "LIKE", $year . "-" . $month . "-" . $day . "%");
-// 		$workingDate = $workingDate->where("working_date.working_minutes", ">", "0");
-
-// 		$workingDate = $workingDate->groupBy(["project.id", "working_date.user_id", "project.name", "project_task.name"]);
-// 		$workingDate = $workingDate->orderBy("project.id");
-// 		$workingDate = $workingDate->orderBy("project_task.id");
-// // dd($workingDate->get());
-// // dd($workingDate->toSql());
-// 		return $workingDate->get();
-// 	}
 
 }

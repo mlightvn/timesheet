@@ -90,129 +90,190 @@ class ProjectTask extends BaseModel
 		return $arrResult;
 	}
 
-	public function getTimeSheetList($user = null, $year, $month, $excel_flag = null)
-	{
-		$timeSheetList = array();
-		if(!isset($user)){
+// 	public function getTimeSheetList($user = null, $year, $month, $excel_flag = null)
+// 	{
+// 		$timeSheetList = array();
+// 		if(!isset($user)){
+// 			$user = \Auth::user();
+// 		}
+
+// 		$timeSheetList["ProjectList"] = $this->getProjectList($user->id);
+// 		$timeSheetList["ProjectTaskTimesTotal"] = $this->getProjectTaskTimesTotal($user->id, $year, $month);
+
+// 		$timeSheetList["total_hours_label"] = "00:00";
+
+// 		$timeSheetList["TimeSheet"] = array();
+// 		foreach ($timeSheetList["ProjectList"] as $key => $project) {
+// 			$project_times = array();
+// 			$total_hours = 0;
+
+// 			foreach ($timeSheetList["ProjectTaskTimesTotal"] as $key => $times) {
+// 				if($project->id == $times->project_id){
+// 					$project_times["project"] 						= $project->name;
+// 					$project_times["times"] 						= $times;
+// 					$total_hours += $times->total_working_minutes;
+// 				}
+// 			}
+// 			// $project
+// 			$timeSheetList["TimeSheet"][$project->id] = $project_times;
+// 		}
+// dd($timeSheetList);
+// 		return $timeSheetList;
+// 	}
+
+// 	public function getProjectTaskTimesTotal($user_id, $year, $month)
+// 	{
+// 		$year_month = $year . "-" . $month;
+
+// 		$sql = "
+// SELECT
+// 	  sub_working_hour.project_id
+
+// 	, sub_working_hour.project_task_name
+// 	, sub_working_hour.total_working_minutes
+// 	, CONCAT(
+// 			IF(sub_working_hour.HOUR_VALUE < 10, CONCAT('0', sub_working_hour.HOUR_VALUE), sub_working_hour.HOUR_VALUE)
+// 			, ':'
+// 			, sub_working_hour.MINUTE_VALUE
+// 	) AS 'total_hours_label'
+
+//   FROM (
+// 		SELECT
+// 			   `project`.id												AS 'project_id'
+// 			 , `project_task`.name 										AS 'project_task_name'
+// 			 , SUM(working_date.working_minutes) 						AS 'total_working_minutes'
+// 			 , FLOOR(SUM(working_date.working_minutes) / 60) 			AS 'HOUR_VALUE'
+// 			 , LPAD(
+// 					MOD(SUM(working_date.working_minutes), 60), 2, '0'
+// 				) 														AS 'MINUTE_VALUE'
+// 		  FROM `working_date`
+// 			   INNER JOIN `project_task` 				ON (`working_date`.project_task_id = `project_task`.id)
+// 			   INNER JOIN `project` 					ON (`project_task`.project_id = `project`.id)
+// 		 WHERE `working_date`.`user_id` 				= {USER_ID}
+// 		   AND `working_date`.`date` 					LIKE '{REQUESTED_DATE}'
+// 		   AND `working_date`.`working_minutes` 		> 0
+
+// 		 GROUP BY `project`.id
+// 			 , `project_task`.name
+// 	  ) AS `sub_working_hour`
+
+// 		";
+
+// 		$sql = str_replace("{USER_ID}", $user_id, $sql);
+// 		$sql = str_replace("{REQUESTED_DATE}", $year_month . "-%", $sql);
+
+// 		$workingDate = \DB::select($sql);
+// 		$workingDate = collect($workingDate);
+
+// 		return $workingDate;
+// 	}
+
+// 	public function getProjectList($user_id, $excel_flag = NULL)
+// 	{
+// 		$organization_id = \Auth::user()->organization_id;
+
+// 		$sql = "
+// SELECT
+// 	   project.id
+// 	 , project.name
+// 	 , project.description
+
+//   FROM project
+// 	   LEFT JOIN (
+// 			SELECT project_task.project_id
+// 				 , user_project_task.user_id
+// 			  FROM project_task
+// 				   INNER JOIN user_project_task ON (project_task.id = user_project_task.project_task_id)
+// 			 WHERE 1 = 1
+// 			   AND project_task.is_deleted = 0
+// 			   {EXCEL_FLAG_CONDITION}
+// 			 GROUP BY project_task.project_id
+// 				 , user_project_task.user_id
+// 	   ) sub_task ON (project.id = sub_task.project_id)
+
+//  WHERE 1 = 1
+//    AND project.organization_id = {ORGANIZATION_ID}
+//    AND sub_task.user_id = {USER_ID}
+
+// AND project.is_deleted = 0
+
+// 		";
+
+// 		if($excel_flag){
+// 			$excel_flag_condition = "AND project_task.excel_flag = " . $excel_flag;
+// 		}else{
+// 			$excel_flag_condition = "";
+// 		}
+
+// 		$sql = str_replace("{ORGANIZATION_ID}", $organization_id, $sql);
+// 		$sql = str_replace("{USER_ID}", $user_id, $sql);
+// 		$sql = str_replace("{EXCEL_FLAG_CONDITION}", $excel_flag_condition, $sql);
+
+// 		$workingDate = \DB::select($sql);
+// 		$workingDate = collect($workingDate);
+
+// 		return $workingDate;
+// 	}
+
+	public function getTimeSheetList($user = null, $year, $month, $excel_flag = null){
+		if($user === null){
 			$user = \Auth::user();
 		}
-
-		$timeSheetList["ProjectList"] = $this->getProjectList($user->id);
-		$timeSheetList["ProjectTaskTimesTotal"] = $this->getProjectTaskTimesTotal($user->id, $year, $month);
-
-		$timeSheetList["total_hours_label"] = "00:00";
-
-		$timeSheetList["TimeSheet"] = array();
-		foreach ($timeSheetList["ProjectList"] as $key => $project) {
-			$project_times = array();
-			$total_hours = 0;
-
-			foreach ($timeSheetList["ProjectTaskTimesTotal"] as $key => $times) {
-				if($project->id == $times->project_id){
-					$project_times["project"] 						= $project->name;
-					$project_times["times"] 						= $times;
-					$total_hours += $times->total_working_minutes;
-				}
-			}
-			// $project
-			$timeSheetList["TimeSheet"][$project->id] = $project_times;
-		}
-dd($timeSheetList);
-		return $timeSheetList;
-	}
-
-	public function getProjectTaskTimesTotal($user_id, $year, $month)
-	{
+		$user_id = $user->id;
 		$year_month = $year . "-" . $month;
 
-		$sql = "
-SELECT
-	  sub_working_hour.project_id
+		$model = \DB::table('project');
+		$model = $model->join('project_task', 'project.id', '=', 'project_task.project_id');
+		$model = $model->join('user_project_task', 'project_task.id', '=', 'user_project_task.project_task_id');
 
-	, sub_working_hour.project_task_name
-	, sub_working_hour.total_working_minutes
-	, CONCAT(
-			IF(sub_working_hour.HOUR_VALUE < 10, CONCAT('0', sub_working_hour.HOUR_VALUE), sub_working_hour.HOUR_VALUE)
-			, ':'
-			, sub_working_hour.MINUTE_VALUE
-	) AS 'total_hours_label'
+		$sub_query_working_hours = "
+			(
+			SELECT
+				   `project_task`.id 													AS 'project_task_id'
+				 , SUM(working_date.working_minutes) 									AS 'TOTAL_MINUTES'
+				 , LPAD(FLOOR(SUM(working_date.working_minutes) / 60), 2, 0) 			AS 'HOUR_VALUE'
+				 , LPAD(MOD(SUM(working_date.working_minutes), 60), 2, 0) 				AS 'MINUTE_VALUE'
+			  FROM `working_date`
+				   INNER JOIN `project_task` 				ON (`working_date`.project_task_id = `project_task`.id)
+				   INNER JOIN `project` 					ON (`project_task`.project_id = `project`.id)
+			 WHERE `working_date`.`user_id` 				= {USER_ID}
+			   AND `working_date`.`date` 					LIKE '{YEAR_MONTH}%'
+			   AND `working_date`.`working_minutes` 		> 0
 
-  FROM (
-		SELECT
-			   `project`.id												AS 'project_id'
-			 , `project_task`.name 										AS 'project_task_name'
-			 , SUM(working_date.working_minutes) 						AS 'total_working_minutes'
-			 , FLOOR(SUM(working_date.working_minutes) / 60) 			AS 'HOUR_VALUE'
-			 , LPAD(
-					MOD(SUM(working_date.working_minutes), 60), 2, '0'
-				) 														AS 'MINUTE_VALUE'
-		  FROM `working_date`
-			   INNER JOIN `project_task` 				ON (`working_date`.project_task_id = `project_task`.id)
-			   INNER JOIN `project` 					ON (`project_task`.project_id = `project`.id)
-		 WHERE `working_date`.`user_id` 				= {USER_ID}
-		   AND `working_date`.`date` 					LIKE '{REQUESTED_DATE}'
-		   AND `working_date`.`working_minutes` 		> 0
-
-		 GROUP BY `project`.id
-			 , `project_task`.name
-	  ) AS `sub_working_hour`
+			 GROUP BY `project_task`.id
+			) AS sub_query_working_hours
 
 		";
+		$sub_query_working_hours = str_replace("{USER_ID}", $user_id, $sub_query_working_hours);
+		$sub_query_working_hours = str_replace("{YEAR_MONTH}", $year_month, $sub_query_working_hours);
+		$model = $model->join(\DB::raw($sub_query_working_hours), 'sub_query_working_hours.project_task_id', '=', 'project_task.id');
 
-		$sql = str_replace("{USER_ID}", $user_id, $sql);
-		$sql = str_replace("{REQUESTED_DATE}", $year_month . "-%", $sql);
+		$model = $model->where("project.organization_id", "=", \Auth::user()->organization_id);
 
-		$workingDate = \DB::select($sql);
-		$workingDate = collect($workingDate);
-
-		return $workingDate;
-	}
-
-	public function getProjectList($user_id, $excel_flag = NULL)
-	{
-		$organization_id = \Auth::user()->organization_id;
-
-		$sql = "
-SELECT
-	   project.id
-	 , project.name
-	 , project.description
-
-  FROM project
-	   LEFT JOIN (
-			SELECT project_task.project_id
-				 , user_project_task.user_id
-			  FROM project_task
-				   INNER JOIN user_project_task ON (project_task.id = user_project_task.project_task_id)
-			 WHERE 1 = 1
-			   AND project_task.is_deleted = 0
-			   {EXCEL_FLAG_CONDITION}
-			 GROUP BY project_task.project_id
-				 , user_project_task.user_id
-	   ) sub_task ON (project.id = sub_task.project_id)
-
- WHERE 1 = 1
-   AND project.organization_id = {ORGANIZATION_ID}
-   AND sub_task.user_id = {USER_ID}
-
-AND project.is_deleted = 0
-
-		";
-
-		if($excel_flag){
-			$excel_flag_condition = "AND project_task.excel_flag = " . $excel_flag;
-		}else{
-			$excel_flag_condition = "";
+		if($excel_flag !== null){
+			$model = $model->where('project_task.excel_flag', '=', $excel_flag);
 		}
 
-		$sql = str_replace("{ORGANIZATION_ID}", $organization_id, $sql);
-		$sql = str_replace("{USER_ID}", $user_id, $sql);
-		$sql = str_replace("{EXCEL_FLAG_CONDITION}", $excel_flag_condition, $sql);
+		$model = $model->where('project.is_deleted', BaseModel::IS_NOT_DELETED);
+		$model = $model->where('project_task.is_deleted', BaseModel::IS_NOT_DELETED);
 
-		$workingDate = \DB::select($sql);
-		$workingDate = collect($workingDate);
+		$model = $model->orderBy('project.id')->orderBy('project_task.id');
 
-		return $workingDate;
+		$model = $model->select([
+				\DB::raw("project.id 													AS 'project_id'"),
+				\DB::raw("project.name 													AS 'project_name'"),
+				\DB::raw("project_task.id 												AS 'project_task_id'"),
+				\DB::raw("project_task.name 											AS 'project_task_name'"),
+				"project_task.excel_flag",
+				\DB::raw("sub_query_working_hours.TOTAL_MINUTES"),
+				\DB::raw("sub_query_working_hours.HOUR_VALUE"),
+				\DB::raw("sub_query_working_hours.MINUTE_VALUE"),
+				\DB::raw("CONCAT(sub_query_working_hours.HOUR_VALUE, ':',sub_query_working_hours.MINUTE_VALUE) 		AS 'HOURS_DISPLAY'"),
+
+		]);
+
+		$models = $model->get();
+		return $models;
 	}
 
 }

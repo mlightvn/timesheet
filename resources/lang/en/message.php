@@ -107,6 +107,10 @@ return [
 		'language_setting'		=> 'Language setting',
 	],
 
+	'excel' => [
+		'table_of_working_hours_by_task' 						=> 'Working time summary table',
+	],
+
 	'total'						=> 'Total',
 
 ];

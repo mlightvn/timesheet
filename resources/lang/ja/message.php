@@ -108,6 +108,10 @@ return [
 		'language_setting'		=> '言語設定',
 	],
 
+	'excel' => [
+		'table_of_working_hours_by_task' 						=> 'タスク別工数集計表',
+	],
+
 	'total'						=> '合計',
 
 ];
