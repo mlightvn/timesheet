@@ -97,10 +97,8 @@ class ProjectTask extends BaseModel
 			$user = \Auth::user();
 		}
 
-		// $year_month = $year . "-" . $month;
 		$timeSheetList["ProjectList"] = $this->getProjectList($user->id);
 		$timeSheetList["ProjectTaskTimesTotal"] = $this->getProjectTaskTimesTotal($user->id, $year, $month);
-// dd($timeSheetList["ProjectTaskTimesTotal"]);
 
 		$timeSheetList["total_hours_label"] = "00:00";
 
@@ -110,14 +108,14 @@ class ProjectTask extends BaseModel
 			$total_hours = 0;
 
 			foreach ($timeSheetList["ProjectTaskTimesTotal"] as $key => $times) {
-				if($project->CONNECTION_KEY == $times->CONNECTION_KEY){
-					$project_times["project"] 						= $project;
+				if($project->id == $times->project_id){
+					$project_times["project"] 						= $project->name;
 					$project_times["times"] 						= $times;
 					$total_hours += $times->total_working_minutes;
 				}
 			}
 			// $project
-			$timeSheetList["TimeSheet"][$project["CONNECTION_KEY"]] = $project_times;
+			$timeSheetList["TimeSheet"][$project->id] = $project_times;
 		}
 dd($timeSheetList);
 		return $timeSheetList;
@@ -125,36 +123,40 @@ dd($timeSheetList);
 
 	public function getProjectTaskTimesTotal($user_id, $year, $month)
 	{
-		$workingDate = new WorkingDate();
 		$year_month = $year . "-" . $month;
 
 		$sql = "
 SELECT
-	  working_date.CONNECTION_KEY
+	  sub_working_hour.project_id
 
-	, working_date.total_working_minutes
+	, sub_working_hour.project_task_name
+	, sub_working_hour.total_working_minutes
 	, CONCAT(
-			IF(working_date.HOUR_VALUE < 10, CONCAT('0', working_date.HOUR_VALUE), working_date.HOUR_VALUE)
+			IF(sub_working_hour.HOUR_VALUE < 10, CONCAT('0', sub_working_hour.HOUR_VALUE), sub_working_hour.HOUR_VALUE)
 			, ':'
-			, working_date.MINUTE_VALUE
+			, sub_working_hour.MINUTE_VALUE
 	) AS 'total_hours_label'
 
   FROM (
-		SELECT CONCAT(user_id, '-', `project`.id) 					AS 'CONNECTION_KEY'
+		SELECT
+			   `project`.id												AS 'project_id'
+			 , `project_task`.name 										AS 'project_task_name'
 			 , SUM(working_date.working_minutes) 						AS 'total_working_minutes'
 			 , FLOOR(SUM(working_date.working_minutes) / 60) 			AS 'HOUR_VALUE'
 			 , LPAD(
 					MOD(SUM(working_date.working_minutes), 60), 2, '0'
 				) 														AS 'MINUTE_VALUE'
 		  FROM `working_date`
-			   INNER JOIN `project_task` ON (`working_date`.project_task_id = `project_task`.id)
-			   INNER JOIN `project` ON (`project_task`.project_id = `project`.id)
-		 WHERE `working_date`.`user_id` 				= '{USER_ID}'
+			   INNER JOIN `project_task` 				ON (`working_date`.project_task_id = `project_task`.id)
+			   INNER JOIN `project` 					ON (`project_task`.project_id = `project`.id)
+		 WHERE `working_date`.`user_id` 				= {USER_ID}
 		   AND `working_date`.`date` 					LIKE '{REQUESTED_DATE}'
 		   AND `working_date`.`working_minutes` 		> 0
 
-		 GROUP BY user_id, `project`.id
-	  ) AS `working_date`
+		 GROUP BY `project`.id
+			 , `project_task`.name
+	  ) AS `sub_working_hour`
+
 		";
 
 		$sql = str_replace("{USER_ID}", $user_id, $sql);
@@ -168,38 +170,49 @@ SELECT
 
 	public function getProjectList($user_id, $excel_flag = NULL)
 	{
+		$organization_id = \Auth::user()->organization_id;
 
-		$tableNames = array();
-		$tableNames["Project"] = (new Project())->getTableName();
-		$tableNames["ProjectTask"] = (new ProjectTask())->getTableName();
-		$tableNames["UserProjectTask"] = (new UserProjectTask())->getTableName();
+		$sql = "
+SELECT
+	   project.id
+	 , project.name
+	 , project.description
 
-		// get projects list
-		$model = new Project();
-		$model = $model->join($tableNames["ProjectTask"], $tableNames["Project"] . '.id', '=', $tableNames["ProjectTask"] . '.project_id');
-		$model = $model->join($tableNames["UserProjectTask"], $tableNames["ProjectTask"] . '.id', '=', $tableNames["UserProjectTask"] . '.project_task_id');
+  FROM project
+	   LEFT JOIN (
+			SELECT project_task.project_id
+				 , user_project_task.user_id
+			  FROM project_task
+				   INNER JOIN user_project_task ON (project_task.id = user_project_task.project_task_id)
+			 WHERE 1 = 1
+			   AND project_task.is_deleted = 0
+			   {EXCEL_FLAG_CONDITION}
+			 GROUP BY project_task.project_id
+				 , user_project_task.user_id
+	   ) sub_task ON (project.id = sub_task.project_id)
 
-		$model = $model->where($tableNames["Project"] . ".organization_id", "=", \Auth::user()->organization_id); // Security: so only same Organization can see this information
-		if(isset($excel_flag) || ($excel_flag == "0")){
-			$model = $model->where($tableNames["ProjectTask"] . ".excel_flag", "=", $excel_flag);
+ WHERE 1 = 1
+   AND project.organization_id = {ORGANIZATION_ID}
+   AND sub_task.user_id = {USER_ID}
+
+AND project.is_deleted = 0
+
+		";
+
+		if($excel_flag){
+			$excel_flag_condition = "AND project_task.excel_flag = " . $excel_flag;
+		}else{
+			$excel_flag_condition = "";
 		}
-		$model = $model->where($tableNames["UserProjectTask"] . ".user_id", $user_id);
 
-		$model = $model->where($tableNames["Project"] . '.is_deleted', '=', BaseModel::IS_NOT_DELETED);
-		$model = $model->where($tableNames["ProjectTask"] . '.is_deleted', '=', BaseModel::IS_NOT_DELETED);
+		$sql = str_replace("{ORGANIZATION_ID}", $organization_id, $sql);
+		$sql = str_replace("{USER_ID}", $user_id, $sql);
+		$sql = str_replace("{EXCEL_FLAG_CONDITION}", $excel_flag_condition, $sql);
 
-		$model = $model->select([
-			\DB::raw($tableNames["Project"] . ".id 									AS 'project_id'"),
-			\DB::raw($tableNames["Project"] . ".name 								AS 'project_name'"),
-			\DB::raw($tableNames["Project"] . ".description 						AS 'project_description'"),
-			\DB::raw($tableNames["ProjectTask"] . ".id 								AS 'project_task_id'"),
-			\DB::raw($tableNames["UserProjectTask"] . ".user_id"),
-			\DB::raw("CONCAT(" . $tableNames["UserProjectTask"] . ".user_id, '-', " . $tableNames["Project"] . ".id) 					AS 'CONNECTION_KEY'"),
-		]);
+		$workingDate = \DB::select($sql);
+		$workingDate = collect($workingDate);
 
-		$resultSet = $model->get();
-
-		return $resultSet;
+		return $workingDate;
 	}
 
 }

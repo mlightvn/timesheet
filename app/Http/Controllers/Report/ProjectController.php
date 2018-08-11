@@ -1,10 +1,9 @@
 <?php namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
-use App\Model\Project;
-use App\Model\ProjectTask;
-// use App\Model\WorkingDate;
-// use App\Model\WorkingTime;
+// use App\Model\Project;
+// use App\Model\ProjectTask;
+use App\Model\BaseModel;
 
 class ProjectController extends Controller {
 
@@ -111,9 +110,8 @@ class ProjectController extends Controller {
 		$total_working_minutes = 0;
 		$user = \App\Model\User::find($report_user_id);
 
-		$timeSheet = new ProjectTask();
-		$timeSheetList = $timeSheet->getTimeSheetList($user, $this->requestYear, $this->requestMonth);
-
+		// $timeSheet = new ProjectTask();
+		$timeSheetList = $this->getTimeSheetList($user, $this->requestYear, $this->requestMonth);
 
 		// // $arrTaskTypeList = $this->getTaskTypeList();
 		// // $arrUserList = $this->getUsers(false);
@@ -186,6 +184,65 @@ class ProjectController extends Controller {
 						// "total_working_minutes" 			=> $total_working_minutes,
 						"report_user_id"					=> $this->reportUser->id,
 				]);
+	}
+
+	public function getTimeSheetList($user = null, $year, $month, $excel_flag = null){
+		if($user === null){
+			$user = \Auth::user();
+		}
+		$user_id = $user->id;
+		$year_month = $year . "-" . $month;
+
+		$model = \DB::table('project');
+		$model = $model->join('project_task', 'project.id', '=', 'project_task.project_id');
+		$model = $model->join('user_project_task', 'project_task.id', '=', 'user_project_task.project_task_id');
+
+		$sub_query_working_hours = "
+			(
+			SELECT
+				   `project_task`.id 													AS 'project_task_id'
+				 , SUM(working_date.working_minutes) 									AS 'TOTAL_MINUTES'
+				 , LPAD(FLOOR(SUM(working_date.working_minutes) / 60), 2, 0) 			AS 'HOUR_VALUE'
+				 , LPAD(MOD(SUM(working_date.working_minutes), 60), 2, 0) 				AS 'MINUTE_VALUE'
+			  FROM `working_date`
+				   INNER JOIN `project_task` 				ON (`working_date`.project_task_id = `project_task`.id)
+				   INNER JOIN `project` 					ON (`project_task`.project_id = `project`.id)
+			 WHERE `working_date`.`user_id` 				= {USER_ID}
+			   AND `working_date`.`date` 					LIKE '{YEAR_MONTH}%'
+			   AND `working_date`.`working_minutes` 		> 0
+
+			 GROUP BY `project_task`.id
+			) AS sub_query_working_hours
+
+		";
+		$sub_query_working_hours = str_replace("{USER_ID}", $user_id, $sub_query_working_hours);
+		$sub_query_working_hours = str_replace("{YEAR_MONTH}", $year_month, $sub_query_working_hours);
+		$model = $model->join(\DB::raw($sub_query_working_hours), 'sub_query_working_hours.project_task_id', '=', 'project_task.id');
+
+		if($excel_flag !== null){
+			$model = $model->where('project_task.excel_flag', '=', $excel_flag);
+		}
+
+		$model = $model->where('project.is_deleted', BaseModel::IS_NOT_DELETED);
+		$model = $model->where('project_task.is_deleted', BaseModel::IS_NOT_DELETED);
+
+		$model = $model->orderBy('project.id')->orderBy('project_task.id');
+
+		$model = $model->select([
+				\DB::raw("project.id 													AS 'project_id'"),
+				\DB::raw("project.name 													AS 'project_name'"),
+				\DB::raw("project_task.id 												AS 'project_task_id'"),
+				\DB::raw("project_task.name 											AS 'project_task_name'"),
+				"project_task.excel_flag",
+				\DB::raw("sub_query_working_hours.TOTAL_MINUTES"),
+				\DB::raw("sub_query_working_hours.HOUR_VALUE"),
+				\DB::raw("sub_query_working_hours.MINUTE_VALUE"),
+				\DB::raw("CONCAT(sub_query_working_hours.HOUR_VALUE, ':',sub_query_working_hours.MINUTE_VALUE) 		AS 'HOURS_DISPLAY'"),
+
+		]);
+
+		$models = $model->get();
+		return $models;
 	}
 
 }

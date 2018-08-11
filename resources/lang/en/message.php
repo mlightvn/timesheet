@@ -10,11 +10,16 @@ return [
 	'password'	=> 'Password',
 	'confirm_password'	=> 'Confirm password',
 
-	'status'	=> 'Status',
-	'keyword'	=> 'Keyword',
-	'searched_keyword'	=> 'Keyword',
-	'description'		=> 'Description',
-	'detail'			=> 'Detail',
+	'status'				=> 'Status',
+	'keyword'				=> 'Keyword',
+	'searched_keyword'		=> 'Keyword',
+	'description'			=> 'Description',
+	'detail'				=> 'Detail',
+	'download'				=> 'Download',
+	'upload'				=> 'Upload',
+	'total_working_hours'						=> 'Total working hours',
+	'excel_output_flag'							=> 'Excel output flag',
+	'data_does_not_exist'						=> 'Data does not exist',
 
 	'menu' => [
 		'report' => [

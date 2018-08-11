@@ -57,7 +57,7 @@
 			<tr>
 				<td colspan="2">
 					<div class="w3-center">
-						<button type="button" disabled="disabled" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> ダウンロード　　</button>
+						<button type="button" disabled="disabled" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
 					</div>
 				</td>
 			</tr>

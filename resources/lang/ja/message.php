@@ -10,11 +10,17 @@ return [
 	'password'	=> 'パスワード',
 	'confirm_password'	=> '確認パスワード',
 
-	'status'	=> '状態',
-	'keyword'	=> 'キーワード',
-	'searched_keyword'	=> '検索キーワード',
-	'description'		=> '詳細',
-	'detail'			=> '詳細',
+	'status'				=> '状態',
+	'keyword'				=> 'キーワード',
+	'searched_keyword'		=> '検索キーワード',
+	'description'			=> '詳細',
+	'detail'				=> '詳細',
+	'download'				=> 'ダウンロード',
+	'upload'				=> 'アップロード',
+	'total_working_hours'						=> '合計作業時間',
+	'excel_output_flag'							=> 'Excel出力フラグ',
+	'data_does_not_exist'						=> 'データが存在していません。',
+
 
 	'menu' => [
 		'report' => [
