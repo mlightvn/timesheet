@@ -25,9 +25,9 @@ class ProjectController extends Controller {
 			$this->sRequestYearMonth = $this->form_input["year_month"];
 		}
 
-		if(isset($form_input["user_id"])){
-			$this->user_id = $this->form_input["user_id"];
-		}
+		// if(isset($form_input["user_id"])){
+		// 	$this->user_id = $this->form_input["user_id"];
+		// }
 
 		if(empty($this->sRequestYearMonth)){
 			$date = date("Y-m-t");

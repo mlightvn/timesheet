@@ -14,6 +14,7 @@
 
 			<input type="hidden" id="data_source_url" value="/api{{ $data['url_pattern'] }}">
 
+			<input type="hidden" name="user_id" value="{{ $data['user_id'] }}">
 			<input type="hidden" name="sRequestYearMonth" value="@{{ model_list.sRequestYearMonth }}">
 			<input type="hidden" id="sRequestDate" name="sRequestDate" value="@{{ model_list.sDbRequestDate }}">
 			<input type="hidden" id="iTotalWorkingMinutes" name="iTotalWorkingMinutes" value="@{{ model_list.total_working_minutes }}">

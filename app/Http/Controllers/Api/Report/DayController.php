@@ -19,6 +19,10 @@ class DayController extends \App\Http\Controllers\Api\Controller {
 		$this->data["url_pattern"] = "/" . str_replace(".", "/", $this->blade_url);
 
 		$form_input = $this->form_input;
+		if(isset($form_input["user_id"])){
+			$this->user_id = $this->form_input["user_id"];
+		}
+
 		if(isset($form_input["year_month"])){
 			$this->sRequestYearMonth = $this->form_input["year_month"];
 		}

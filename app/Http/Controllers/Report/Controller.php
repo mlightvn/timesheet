@@ -17,6 +17,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		if(isset($this->form_input["user_id"])){
 			$user_id = $this->form_input["user_id"];
 		}
+		$this->data["user_id"] = $user_id;
 		$this->setReportUser($user_id);
 		$this->url_pattern = "report";
 
@@ -53,6 +54,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 	// http://www.maatwebsite.nl/laravel-excel/docs/export#sheets
 	public function download($year, $month = NULL, $day = NULL)
 	{
+
 		$day = ($day) ? $day : "";
 		if(is_null($month) || empty($month)){
 			$month = NULL;

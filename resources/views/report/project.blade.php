@@ -44,8 +44,8 @@
 			<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 				<thead>
 				<tr class="w3-brown">
-					<th nowrap="nowrap">{{__('message.excel_output_flag')}}</th>
 					<th nowrap="nowrap">{{__('message.project.project')}}</th>
+					<th nowrap="nowrap"></th>
 					<th nowrap="nowrap">{{__('message.task.task')}}</th>
 					<th nowrap="nowrap">{{__('message.total_working_hours')}}</th>
 				</tr>
@@ -89,14 +89,14 @@
 
 				<tr>
 					<td>
-						@if($time_line->excel_flag)
-						<i class="fa fa-flag" aria-hidden="true"></i>
-						@endif
-					</td>
-					<td>
 					@if($time_line_previous == null || ($time_line_previous->project_id !== $time_line->project_id))
 						<strong>{{ $time_line->project_name }}</strong>
 					@endif
+					</td>
+					<td>
+						@if($time_line->excel_flag)
+						<i class="fa fa-flag" aria-hidden="true" title="{{__('message.excel_output_flag')}}"></i>
+						@endif
 					</td>
 					<td>{{ $time_line->project_task_name }}</td>
 					<td>{{ $time_line->HOURS_DISPLAY }}</td>
@@ -130,19 +130,15 @@
 				$total_working_hours_display = str_pad($total_working_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($total_working_hours_minutes, 2, 0, STR_PAD_LEFT);
 				@endphp
 
-				@if($time_line_previous->project_id !== $time_line->project_id)
-				<tr>
-					<td colspan="3">{{__('message.total')}}：</td>
-					<td><label class="w3-xlarge">{{ $total_working_hours_display }}</label>
-					</td>
-				</tr>
-				@endif
-
 				<tfoot>
+					<tr class="w3-xlarge font-weight-bold">
+						<td colspan="3" class="text-right">{{__('message.total')}}：</td>
+						<td>{{ $total_working_hours_display }}</td>
+					</tr>
 					<tr>
-						<td colspan="2">
+						<td colspan="4">
 							<div class="w3-center">
-								<button type="button" onclick="window.open('/report/project_download_{{ $requestYear }}_{{ $requestMonth }}?user_id={{ $report_user_id }}','_blank');" class="w3-button w3-brown w3-xlarge" disabled="disabled">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
+								<button type="button" onclick="window.open('/report/project_download_{{ $requestYear }}_{{ $requestMonth }}?user_id={{ $report_user_id }}','_blank');" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
 							</div>
 						</td>
 					</tr>
