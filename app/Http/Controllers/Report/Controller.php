@@ -110,7 +110,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 					);
 
 				// タイトル
-				$sheet->setTitle($data["user_name"]);
+				$sheet->setTitle($this->reportUser->id . "_" . $data["user_name"]);
 				// $sheet->setFontFamily('ＭＳ Ｐゴシック');
 
 				$sheet->mergeCells("C3:D3");
@@ -244,8 +244,6 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 			}
 
 		}
-		// $excel->export('xlsx');
-		// $excel->export(\Maatwebsite\Excel\Facades\Excel::XLSX);
 
 		$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
 
@@ -253,7 +251,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		// $writer->setCreator('Nguyen Nam')->setCompany(env("APP_COMP_NAME"));
 		// $writer->setDescription($data["filename"]);
 
-		$file_path = storage_path('app/public/tmp/' . $filename . '.xlsx');
+		$file_path = storage_path('tmp/' . $filename . '.xlsx');
 		if(file_exists($file_path)){
 			unlink($file_path);
 		}
@@ -262,13 +260,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		$headers = array(
 			  'Content-Type: ' . mime_content_type( $file_path ),
 			);
-		return \Response::download($file_path, $filename . '.xlsx', $headers);
-
-		// if(file_exists($file_path)){
-		// 	unlink($file_path);
-		// }
-
-		// return;
+		return \Response::download($file_path, $filename . '.xlsx', $headers)->deleteFileAfterSend(true);;
 
 	}
 
