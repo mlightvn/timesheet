@@ -385,8 +385,8 @@ class Controller extends BaseController
 		$table = DB::table('users');
 		$table = $table->select([
 			  "users.*"
-			, DB::raw("organization.name AS organization_name")
-			, DB::raw("department.name AS department_name")
+			, DB::raw("organization.name 				AS organization_name")
+			, DB::raw("department.name 					AS department_name")
 
 			, DB::raw("CASE users.is_deleted WHEN 1 THEN 'w3-gray' ELSE '' END AS DELETED_CSS_CLASS")
 			, DB::raw("CASE users.is_deleted WHEN 0 THEN 1 ELSE 0 END AS DELETE_FLAG_ACTION")
@@ -405,7 +405,12 @@ class Controller extends BaseController
 				")
 		]);
 
-		$table = $table->leftJoin("department", "users.department_id", "=", "department.id");
+		$table = $table->leftJoin("department", function($join)
+		{
+			$join->on("users.department_id", "=", "department.id")
+				 ->on("users.organization_id", "=", "department.organization_id")
+			;
+		});
 		$table = $table->leftJoin("organization", "users.organization_id", "=", "organization.id");
 		// $table = $table->leftJoin("dayoff", function ($join)
 		// {
@@ -446,6 +451,8 @@ class Controller extends BaseController
 		}
 
 		$table = $table->orderBy("users.is_deleted", "ASC");
+		$table = $table->orderBy("department.is_deleted", "ASC");
+		$table = $table->orderBy("department.id", "ASC");
 		$table = $table->orderBy("users.id", "ASC");
 
 		if($isPagination){

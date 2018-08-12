@@ -7,7 +7,7 @@ $(function() {
 
 		$.ajax({
 			type: "POST"
-			, url: "/admin/api/add/session"
+			, url: "/admin/api/add/department"
 			, data: data
 			, dataType: "json"
 		}).done(function(data) {

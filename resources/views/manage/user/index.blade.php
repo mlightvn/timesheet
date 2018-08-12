@@ -65,7 +65,7 @@
 				@endif
 
 			</td>
-			<td><span ng-bind="model.session_name"></span></td>
+			<td><span ng-bind="model.department_name"></span></td>
 			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<td><span ng-bind="model.dayoff"></span></td>

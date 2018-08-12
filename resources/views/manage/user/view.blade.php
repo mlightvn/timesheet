@@ -74,7 +74,7 @@
 					<tr>
 						<th>Department</th>
 						<td>
-							{{ $model->session_name }}
+							{{ $model->department_name }}
 						</td>
 					</tr>
 					@endif

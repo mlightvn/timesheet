@@ -55,5 +55,5 @@
 </div>
 
 @include('_include.admin_footer', [
-		'js'				=> 'admin/session',
+		'js'				=> 'admin/department',
 ])
