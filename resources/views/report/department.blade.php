@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>部署一覧</h1>
+	<h1>{{__('screen.report.department.department_list')}}</h1>
 	<br>
 </div>
 
@@ -21,10 +21,10 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>#</th>
-			<th>部署</th>
+			<th>{{__('screen.report.department.department')}}</th>
 			@if (in_array($logged_in_user->role, array("Owner", "Manager")))
-			<th>先月のレポート<br>{{ $data['prev_yearmonth'] }}</th>
-			<th>当月のレポート<br>{{ $data['curr_yearmonth'] }}</th>
+			<th>{{__('screen.report.department.last_month_report')}}<br>{{ $data['prev_yearmonth'] }}</th>
+			<th>{{__('screen.report.department.current_month_report')}}<br>{{ $data['curr_yearmonth'] }}</th>
 			@endif
 		</tr>
 		</thead>
@@ -36,8 +36,8 @@
 			{{ $session->name }}
 			</td>
 			@if (in_array($logged_in_user->role, array("Owner", "Manager")))
-			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['prev_yearmonth'] }}" class="w3-text-brown" onclick="return false;"><span class="fas fa-cloud-download-alt"></span>（★開発中★）</a></td>
-			<td><a href="{{ \Request::url() }}/{{ $session->id }}/download/{{ $data['curr_yearmonth'] }}" class="w3-text-brown" onclick="return false;"><span class="fas fa-cloud-download-alt"></span>（★開発中★）</a></td>
+			<td><a href="{{ \Request::url() }}/download/{{ $session->id }}?year={{ $data['prev_year'] }}&month={{$data['prev_month']}}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a></td>
+			<td><a href="{{ \Request::url() }}/download/{{ $session->id }}?year={{ $data['curr_year'] }}&month={{$data['curr_month']}}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a></td>
 			@endif
 		</tr>
 		@endforeach

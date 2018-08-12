@@ -51,11 +51,17 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 		Route::get('', 'Report\DepartmentController@index');
 		Route::get('index', 'Report\DepartmentController@index');
 
-		Route::get('{department_id}/download/{year}-{month}', 'Report\DepartmentController@reportDownload')->where('department_id', '[0-9]+');
+		// Route::get('{department_id}/download/{year}-{month}', 'Report\DepartmentController@reportDownload')->where('department_id', '[0-9]+');
+
+		Route::get('download/{department_id}', 'Report\Controller@downloadByDepartment')->where('department_id', '[0-9]+');
+
 	});
 
-	Route::get('project', 'Report\ProjectController@index');
-	Route::get('project_download_{year}_{month}', 'Report\ProjectController@download');
+	Route::group(['prefix' => 'project'], function(){
+		Route::get('', 'Report\ProjectController@index');
+		Route::get('download', 'Report\Controller@downloadProject');
+
+	});
 });
 
 Route::group(['prefix' => 'work-time'], function(){

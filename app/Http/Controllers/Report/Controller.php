@@ -51,54 +51,153 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 
 	}
 
-	// http://www.maatwebsite.nl/laravel-excel/docs/export#sheets
-	public function download($year, $month = NULL, $day = NULL)
+	public function downloadProject()
 	{
+		$this->data["user_list"] = array();
+		$this->data["user_list"][$this->reportUser->id] = $this->reportUser;
 
-		$day = ($day) ? $day : "";
-		if(is_null($month) || empty($month)){
-			$month = NULL;
-		}else{
-			$month = (strlen($month) < 2) ? ("0" . $month) : $month;
+		return $this->download();
+	}
+
+	public function downloadByDepartment()
+	{
+		if(!isset(request()->department_id)){
+			return __("message.data_does_not_exist");
 		}
 
-		$data = $this->data;
+		$this->data["user_list"] = array();
 
-		$user_name = $this->reportUser->name;
-		$user_name = str_replace("　", "-", $user_name);
-		$user_name = str_replace("　", "-", $user_name);
-		$user_name = str_replace("\\", "-", $user_name);
-		$user_name = str_replace("/", "-", $user_name);
-		$user_name = str_replace("\.", "_", $user_name);
+		$department_id = request()->department_id;
+		$model = new \App\Model\Department();
+		$model = $model->join("users", function($join)
+		{
+			$join->on("users.department_id", "=", "department.id")
+				 ->on("users.organization_id", "=", "department.organization_id")
+			;
+		});
 
-		$filename = "タスク別工数集計表_" . $year . $month . $day . "_" . $user_name;
+		$model = $model->where("department.id", $department_id);
 
-		$data["year"] 				= $year;
-		$data["month"] 				= $month;
-		$data["day"] 				= $day;
-		$data["user_name"] 			= $user_name;
-		$data["filename"] 			= $filename;
+		$model = $model->where("department.organization_id", $this->organization_id);
 
-		$timeSheet = new ProjectTask();
-		$timeSheetList = $timeSheet->getTimeSheetList($this->reportUser, $year, $month);
+		$model = $model->where("users.is_deleted", \App\Model\BaseModel::IS_NOT_DELETED);
+		$model = $model->where("department.is_deleted", \App\Model\BaseModel::IS_NOT_DELETED);
 
-		$taskSheet 						= array();
+		$model = $model->select([
+			\DB::raw("users.id 					AS 'user_id'"),
+			"users.*",
+		]);
 
-		$data["models"] 								= $timeSheetList;
-		$arrTasks["task_label"] 						= "稼働プロジェクト";
-		$arrTasks["total_minutes"] 						= 0;
-		$arrTasks["total_working_hours_label"] 			= "";
+		$user_list = $model->get();
 
-		$taskSheet["on_task"] 							= $arrTasks;
+		$this->data["user_list"] = $user_list;
 
-		$data["taskSheet"] 	= $taskSheet;
+		return $this->download();
+	}
 
-		$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-		$sheet = $spreadsheet->getActiveSheet();
-		// $sheet->setCellValue('A1', 'Hello World !');
+	// http://www.maatwebsite.nl/laravel-excel/docs/export#sheets
+	public function download()
+	{
+		if(isset($this->data["user_list"]) && (count($this->data["user_list"]) > 0)){
+			$year 		= request()->year;
+			$month 		= request()->month;
+			$day 		= request()->day;
 
+			$day 		= ($day ?? "");
+			$month 		= ($month ?? str_pad($month, 2, 0 , STR_PAD_LEFT));
 
-		// $excel = \Maatwebsite\Excel\Facades\Excel::store($filename, function($excel) use($data)
+			$this->data["year"] 				= $year;
+			$this->data["month"] 				= $month;
+			$this->data["day"] 					= $day;
+
+			$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+			$this->data["spreadsheet"] = &$spreadsheet;
+
+			$data 		= $this->data;
+
+			$i = 0;
+			$data["sheet_exist"] = &$i;
+			foreach ($data["user_list"] as $key => $user) {
+				$i++;
+
+				$user_name = $user->name;
+				$user_name = str_replace("　", "-", $user_name);
+				$user_name = str_replace("　", "-", $user_name);
+				$user_name = str_replace("\\", "-", $user_name);
+				$user_name = str_replace("/", "-", $user_name);
+				$user_name = str_replace("\.", "_", $user_name);
+
+				$filename = "タスク別工数集計表_" . $year . $month . $day . "_" . $user_name;
+
+				$data["user_id"] 			= $user->id;
+				$data["user_name"] 			= $user_name;
+				$data["filename"] 			= $filename;
+
+				$timeSheet = new ProjectTask();
+				$timeSheetList = $timeSheet->getTimeSheetList($user, $year, $month);
+
+				$taskSheet 					= array();
+
+				$data["models"] 								= $timeSheetList;
+				$arrTasks["task_label"] 						= __("message.project.project");
+				$arrTasks["total_minutes"] 						= 0;
+				$arrTasks["total_working_hours_label"] 			= "00:00";
+
+				$taskSheet["on_task"] 							= $arrTasks;
+
+				$data["taskSheet"] 	= $taskSheet;
+
+				$this->excelSheetCreate($data);
+			}
+
+			$file_path = $this->excelCreate($data);
+
+			$headers = array(
+				  // 'Content-Type: ' . mime_content_type( $file_path ),
+				  'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+				);
+
+			return \Response::download($file_path, $filename . '.xlsx', $headers)->deleteFileAfterSend(true);
+
+		}
+
+		return __("message.data_does_not_exist");
+
+	}
+
+	// https://phpspreadsheet.readthedocs.io/en/develop/topics/recipes/#setting-a-columns-width
+	private function excelCreate($data)
+	{
+		if(!isset($data["spreadsheet"])){
+			return NULL;
+		}
+
+		$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($data["spreadsheet"]);
+
+		// // Chain the setters
+		// $writer->setCreator('Nguyen Nam')->setCompany(env("APP_COMP_NAME"));
+		// $writer->setDescription($data["filename"]);
+
+		$file_path = storage_path('tmp/' . $data["filename"] . '.xlsx');
+		if(file_exists($file_path)){
+			unlink($file_path);
+		}
+		$writer->save($file_path);
+
+		return $file_path;
+
+	}
+
+	// https://phpspreadsheet.readthedocs.io/en/develop/topics/recipes/#setting-a-columns-width
+	private function excelSheetCreate(&$data)
+	{
+		$spreadsheet = $data["spreadsheet"];
+		if($data["sheet_exist"] === 1){
+			$sheet = $spreadsheet->getActiveSheet();
+		}else{
+			$sheet = $spreadsheet->createSheet();
+		}
+
 		{
 			// SpreadSheet
 			{
@@ -110,7 +209,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 					);
 
 				// タイトル
-				$sheet->setTitle($this->reportUser->id . "_" . $data["user_name"]);
+				$sheet->setTitle($data["user_id"] . "_" . $data["user_name"]);
 				// $sheet->setFontFamily('ＭＳ Ｐゴシック');
 
 				$sheet->mergeCells("C3:D3");
@@ -160,6 +259,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 					],
 				];
 
+				$timeSheetList = $data["models"];
 				if(count($timeSheetList) > 0){
 					foreach ($timeSheetList as $key => $time_line) {
 						$total_working_minutes += $time_line->TOTAL_MINUTES;
@@ -245,22 +345,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 
 		}
 
-		$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-
-		// // Chain the setters
-		// $writer->setCreator('Nguyen Nam')->setCompany(env("APP_COMP_NAME"));
-		// $writer->setDescription($data["filename"]);
-
-		$file_path = storage_path('tmp/' . $filename . '.xlsx');
-		if(file_exists($file_path)){
-			unlink($file_path);
-		}
-		$writer->save($file_path);
-
-		$headers = array(
-			  'Content-Type: ' . mime_content_type( $file_path ),
-			);
-		return \Response::download($file_path, $filename . '.xlsx', $headers)->deleteFileAfterSend(true);;
+		return $sheet;
 
 	}
 

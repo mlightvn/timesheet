@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 // use App\Model\Project;
 use App\Model\ProjectTask;
-// use App\Model\BaseModel;
 
 class ProjectController extends Controller {
 
@@ -43,7 +42,6 @@ class ProjectController extends Controller {
 	{
 		$report_user_id = $this->reportUser->id;
 
-		$total_working_minutes = 0;
 		$user = \App\Model\User::find($report_user_id);
 
 		$timeSheet = new ProjectTask();
@@ -55,7 +53,6 @@ class ProjectController extends Controller {
 		$data["lastDayOfMonth"] 						= $this->lastDayOfMonth;
 		$data["sRequestYearMonth"] 						= $this->sRequestYearMonth;
 		$data["timeSheetList"] 							= $timeSheetList;
-
 
 		$this->data = $data;
 

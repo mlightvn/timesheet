@@ -24,7 +24,12 @@ class DepartmentController extends Controller {
 		$prev_yearmonth = date('Y-m', strtotime('first day of previous month'));
 		$curr_yearmonth = date('Y-m');
 
-		$data["logged_in_user"] = $this->logged_in_user;
+		$prev_year 						= date('Y', strtotime('first day of previous month'));
+		$prev_month 					= date('m', strtotime('first day of previous month'));
+		$curr_year 						= date('Y');
+		$curr_month 					= date('m');
+
+		$data["logged_in_user"] 		= $this->logged_in_user;
 
 		$keyword = null;
 		if(isset($this->form_input["keyword"])){
@@ -34,24 +39,29 @@ class DepartmentController extends Controller {
 
 		$arrSessions = $this->getDepartments(true, NULL, NULL, $keyword);
 
-		$this->data["prev_yearmonth"] = $prev_yearmonth;
-		$this->data["curr_yearmonth"] = $curr_yearmonth;
+		$this->data["prev_yearmonth"] 			= $prev_yearmonth;
+		$this->data["curr_yearmonth"] 			= $curr_yearmonth;
+
+		$this->data["prev_year"] 			= $prev_year;
+		$this->data["prev_month"] 			= $prev_month;
+		$this->data["curr_year"] 			= $curr_year;
+		$this->data["curr_month"] 			= $curr_month;
 
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "arrSessions"=>$arrSessions]);
 	}
 
-	public function download($year, $month = NULL, $day = NULL){
-		$params = array();
+	// public function download($year, $month = NULL, $day = NULL){
+	// 	$params = array();
 
-		$params["user_list"] 		= array();
-		$params["user_list"][$this->reportUser->id] = $this->reportUser;
+	// 	$params["user_list"] 		= array();
+	// 	$params["user_list"][$this->reportUser->id] = $this->reportUser;
 
-		$params["year"] 			= $year;
-		$params["month"] 			= $month;
-		$params["day"] 				= $day;
+	// 	$params["year"] 			= $year;
+	// 	$params["month"] 			= $month;
+	// 	$params["day"] 				= $day;
 
-		$this->downloadBy($params);
-	}
+	// 	$this->downloadBy($params);
+	// }
 
 	public function reportDownload($department_id, $year, $month = NULL)
 	{

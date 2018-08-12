@@ -138,7 +138,7 @@
 					<tr>
 						<td colspan="4">
 							<div class="w3-center">
-								<button type="button" onclick="window.open('/report/project_download_{{ $requestYear }}_{{ $requestMonth }}?user_id={{ $report_user_id }}','_blank');" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
+								<button type="button" onclick="window.open('/report/project/download?year={{ $requestYear }}&month={{ $requestMonth }}&user_id={{ $report_user_id }}','_blank');" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
 							</div>
 						</td>
 					</tr>
