@@ -434,9 +434,22 @@
   <h2 class="text-center">CONTACT</h2>
   <div class="row">
     <div class="col-sm-5">
-      <p>Contact us and we'll get back to you soon.</p>
-      <p><span class="glyphicon glyphicon-map-marker"></span> Japan, Tokyo, Adashi ku</p>
-      <p><span class="glyphicon glyphicon-envelope"></span> <a href="https://coxanh.net/about" target="_blank">Contact form</a></p>
+      <div class="row">
+        <p>Contact us and we'll get back to you soon.</p>
+        <p><span class="glyphicon glyphicon-map-marker"></span> Japan, Tokyo, Adashi ku</p>
+        <p><span class="glyphicon glyphicon-envelope"></span> <a href="https://coxanh.net/about" target="_blank">Contact form</a></p>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <p><strong>Bank account</strong></p>
+        <p>Mizuho (みずほ銀行)</p>
+        <p>Account type: Normal</p>
+        <p>Bank branch: Ayase (綾瀬支店: 179)</p>
+        <p>Account number: 1405218</p>
+        <p>Account user: NGUYEN NGOC NAM</p>
+      </div>
 
     </div>
     <div class="col-sm-7 slideanim">
