@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('index', 'HomeController@index');
+// Route::get('introduction', 'HomeController@introduction');
+Route::get('price', 'HomeController@price');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
@@ -272,7 +274,7 @@ Route::group(['prefix' => 'bin', 'middleware' => ['admin']], function()
 
 });
 
-Route::group(['prefix' => 'price'], function(){
-	Route::get('', 'PriceController@list');
+// Route::group(['prefix' => 'price'], function(){
+// 	Route::get('', 'PriceController@list');
 
-});
+// });

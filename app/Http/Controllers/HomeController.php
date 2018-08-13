@@ -12,4 +12,14 @@ class HomeController extends Controller {
 		$this->data["url_pattern"] 			= "/";
 	}
 
+	public function introduction()
+	{
+		return view("introduction");
+	}
+
+	public function price()
+	{
+		return view("price");
+	}
+
 }
