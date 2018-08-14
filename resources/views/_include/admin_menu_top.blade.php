@@ -96,7 +96,7 @@
 				@endif
 
 				<a href="/manage/user/edit/{{ $logged_in_user->id }}" class="w3-bar-item w3-button"><span class="fas fa-user"></span> {{ __('message.profile_edit') }}</a>
-				<a href="manage/user/language" class="w3-bar-item w3-button"><span class="fas fa-language"></span> {{__('message.language.language')}}</a>
+				<a href="/manage/user/language" class="w3-bar-item w3-button"><span class="fas fa-language"></span> {{__('message.language.language')}}</a>
 
 				<a href="/profile/organization/info" class="w3-bar-item w3-button w3-border-top"><i class="fas fa-building"></i> {{ __('message.organization_info') }}</a>
 				@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
