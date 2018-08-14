@@ -1,4 +1,4 @@
-@include('_include.user_header',
+@include('_include.admin_header',
 	[
 		'id'				=> 'manage-application-template',
 	]
@@ -58,7 +58,7 @@
 
 </div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
 
-@include('_include.user_footer', [
+@include('_include.admin_footer', [
 		'id'				=> 'manage-application-template',
 		'js_list'			=> true,
 ])

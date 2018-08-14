@@ -30,7 +30,7 @@
 		<tr class="w3-brown">
 			<th>ID</th>
 			<th>Application</th>
-			<th>{{__('message.status')}}</th>
+			<th>{{__('message.status.status')}}</th>
 			<th>{{__('message.applied_member')}}</th>
 			<th>{{__('message.allowed_member')}}</th>
 			<th></th>

@@ -81,7 +81,7 @@
 			<tr>
 				<td colspan="4">
 					<div class="w3-center">
-						<button type="button" action="download" value="@{{model_list.download_url}}" class="w3-button w3-brown w3-xlarge" disabled="disabled">　　<span class="fas fa-cloud-download-alt"></span> ダウンロード　　</button>
+						<button type="button" action="download" value="@{{model_list.download_url}}" class="w3-button w3-brown w3-xlarge" disabled="disabled">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
 					</div>
 				</td>
 			</tr>
