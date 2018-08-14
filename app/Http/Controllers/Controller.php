@@ -75,7 +75,7 @@ class Controller extends BaseController
 
 		$cur_date = date("Y-m-d");
 
-		$model = $model->where("organization_id", "=", $this->organization_id);
+		// $model = $model->where("organization_id", "=", $this->organization_id);
 		$model = $model->where("user_id", "=", $this->user_id);
 		$model = $model->where("date", "=", $cur_date);
 		$model = $model->select([
