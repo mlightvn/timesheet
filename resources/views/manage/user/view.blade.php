@@ -63,9 +63,9 @@
 							{{ $model->name }}
 						</td>
 					</tr>
-					@if(in_array($logged_in_user->role, array("Owner", "Manager")))
+
 					<tr>
-						<th>{{__('message.flag.manager')}}</th>
+						<th>{{__('message.flag.role')}}</th>
 						<td>
 							{{ $model->role }}
 						</td>
@@ -77,7 +77,6 @@
 							{{ $model->department_name }}
 						</td>
 					</tr>
-					@endif
 
 					<tr>
 						<th>Dayoff</th>

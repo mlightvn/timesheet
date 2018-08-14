@@ -49,7 +49,7 @@ class ProjectController extends Controller {
 			$project->update();
 
 			$alert_type = "success";
-			$message = "修正完了。";
+			$message = __("message.status.done.edit");
 
 		}
 
@@ -101,7 +101,7 @@ class ProjectController extends Controller {
 		}
 
 		$alert_type = "success";
-		$message = "登録完了。";
+		$message = __("message.status.done.add");
 
 		$this->blade_url = $this->url_pattern;
 		return redirect("/" . str_replace(".", "/", $this->blade_url))->with(['message'=>$message, "alert_type" => $alert_type]);

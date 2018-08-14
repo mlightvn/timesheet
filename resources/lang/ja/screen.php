@@ -5,10 +5,24 @@ return [
 		'report'					=> 'レポート',
 		'department'				=> [
 			'department'				=> '部署',
-			'department_list'			=> '部署一覧',
+			'list'						=> '部署一覧',
 			'last_month_report'			=> '先月のレポート',
 			'current_month_report'		=> '当月のレポート',
 		],
+		'project' 						=> [
+			'project' 					=> 'プロジェクト',
+		],
+		'task' 							=> [
+			'task' 						=> 'タスク',
+			'my_task' 					=> '自分のタスク',
+		],
+	],
+
+	'common'							=> [
+		'explanation'					=> '説明',
+		'description'					=> '説明',
+		'detail'						=> '詳細',
+		'title'							=> 'タイトル',
 	],
 
 ];

@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>タスク</h1>
+	<h1>{{__('screen.report.task.task')}}</h1>
 	<br>
 </div>
 
@@ -26,9 +26,9 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('project_id', 'プロジェクト') !!}</th>
+			<th>{!! Form::label('project_id', __('screen.report.project.project')) !!}</th>
 			<td>
-				<select name="project_id" id="project_id" class="form-control" placeholder='稼働プロジェクト' required='required'>
+				<select name="project_id" id="project_id" class="form-control" placeholder='{{__('screen.report.project.project')}}' required='required'>
 					@foreach($data["projectList"] as $project_id => $project)
 					<option value="{{ $project->id }}" class="{{ ($project->is_deleted) ? 'w3-gray' : '' }}" {{ ($project->id == $model->project_id) ? 'selected="selected"' : '' }}>{{ $project->name }}</option>
 					@endforeach
@@ -37,21 +37,21 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('name', 'タスク') !!}</th>
+			<th>{!! Form::label('name', __('screen.report.task.task')) !!}</th>
 			<td>
 				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タスク', 'required'=>'required']) !!}
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('description', '備考') !!}</th>
+			<th>{!! Form::label('description', __('message.detail')) !!}</th>
 			<td>
-				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>'備考']) !!}
+				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>__('message.detail')]) !!}
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('user_id', '自分のタスク') !!}</th>
+			<th>{!! Form::label('user_id', __('screen.report.task.my_task')) !!}</th>
 			<td>
 				<label class="switch">
 					{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }}
@@ -62,7 +62,7 @@
 
 		@if(in_array($logged_in_user->role, array("Owner", "Manager")))
 		<tr>
-			<th>{!! Form::label('excel_flag', 'Excel出力フラグ') !!}</th>
+			<th>{!! Form::label('excel_flag', __('message.excel_output_flag')) !!}</th>
 			<td>
 				<label class="switch">
 					{{ Form::checkbox('excel_flag', NULL, NULL, ['id' => 'excel_flag']) }}

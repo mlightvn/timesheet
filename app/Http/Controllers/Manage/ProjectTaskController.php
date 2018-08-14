@@ -70,7 +70,7 @@ class ProjectTaskController extends Controller {
 			}
 
 			$alert_type = "success";
-			$message = "新規追加完了。";
+			$message = __("message.status.done.add");
 
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>$message, "alert_type" => $alert_type]);
 
@@ -129,7 +129,7 @@ class ProjectTaskController extends Controller {
 			}
 
 			$alert_type = "success";
-			$message = "修正完了。";
+			$message = __("message.status.done.edit");
 
 		}
 
@@ -167,7 +167,7 @@ class ProjectTaskController extends Controller {
 		}
 
 		$alert_type = "success";
-		$message = "登録完了。";
+		$message = __("message.status.done.edit");
 
 		$this->blade_url = $this->url_pattern;
 		return redirect("/" . str_replace(".", "/", $this->blade_url))->with(['message'=>$message, "alert_type" => $alert_type]);

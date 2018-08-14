@@ -10,7 +10,21 @@ return [
 	'password'	=> 'Password',
 	'confirm_password'	=> 'Confirm password',
 
-	'status'				=> 'Status',
+	'title'						=> 'Title',
+
+	'status'					=> [
+		'status' 				=> 'Status',
+		'done' 					=> [
+			'done' 				=> 'Done',
+			'add' 				=> 'Finished adding',
+			'edit' 				=> 'Finished editing',
+		],
+		'error' 				=> [
+			'error' 			=> 'Error',
+			'add' 				=> 'Error adding',
+			'edit' 				=> 'Error editing',
+		],
+	],
 	'keyword'				=> 'Keyword',
 	'searched_keyword'		=> 'Keyword',
 	'description'			=> 'Description',
@@ -95,6 +109,7 @@ return [
 	],
 
 	'flag' => [
+		'role'				=> 'Role',
 		'manager'			=> 'Manager',
 		'member'			=> 'Member',
 	],

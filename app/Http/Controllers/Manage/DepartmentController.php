@@ -55,13 +55,13 @@ class DepartmentController extends Controller {
 		}
 
 		if($this->form_input){ // Submit
-			$is_manager = in_array($this->logged_in_user->role, array("Manager"));
+			$is_manager = in_array($this->logged_in_user->role, array("Owner", "Manager"));
 			if($is_manager){
 
 				$this->model->fill($this->form_input);
 				$this->model->update();
 				$alert_type = "success";
-				$message = "修正完了。";
+				$message = __("message.status.done.edit");
 			}else{
 				$message = "セッションの追加修正削除に関しては、システム管理者までお問い合わせください。";
 			}

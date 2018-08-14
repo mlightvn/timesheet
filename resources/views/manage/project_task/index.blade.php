@@ -31,8 +31,8 @@
 			<th>ID</th>
 			<th>{{__('message.project.project')}}</th>
 			<th>{{__('message.task.task')}}</th>
-			<th>自分のタスク</th>
-			<th>Excel出力フラグ</th>
+			<th>{{__('screen.report.task.my_task')}}</th>
+			<th>{{__('message.excel_output_flag')}}</th>
 			<th></th>
 		</tr>
 		</thead>

@@ -720,7 +720,7 @@ class Controller extends BaseController
 			$this->model->fill($this->form_input);
 			$this->model->save(); //insert
 			$alert_type = "success";
-			$message = "追加完了。";
+			$message = __("message.status.done.add");
 
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>$message, "alert_type" => $alert_type]);
 		}
@@ -762,7 +762,7 @@ class Controller extends BaseController
 				$this->model->fill($this->form_input);
 				$this->model->update();
 				$alert_type = "success";
-				$message = "データが修正完了。";
+				$message = __("message.status.done.edit");
 
 			}
 		}

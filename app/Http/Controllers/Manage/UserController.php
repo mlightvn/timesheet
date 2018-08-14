@@ -19,7 +19,7 @@ class UserController extends Controller {
 
 	public function add()
 	{
-		$arrSelectSessions = $this->getSelectSessions();
+		$arrSelectSessions = $this->getSelectDepartments();
 		$this->data["arrSelectSessions"] 		= $arrSelectSessions;
 
 		$role = $this->logged_in_user->role;
@@ -67,7 +67,7 @@ class UserController extends Controller {
 		$this->data["allow_change_permission"] = $allow_change_permission;
 
 		// get session list
-		$arrSelectSessions = $this->getSelectSessions();
+		$arrSelectSessions = $this->getSelectDepartments();
 		$this->data["arrSelectSessions"] = $arrSelectSessions;
 
 		// Submit
@@ -94,7 +94,7 @@ class UserController extends Controller {
 					$this->model->fill($this->form_input);
 					$this->model->update();
 					$alert_type = "success";
-					$message = "修正完了。";
+					$message = __("message.status.done.edit");
 				}else{
 					$message = "ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。";
 				}
@@ -106,9 +106,9 @@ class UserController extends Controller {
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}
 
-	public function getSelectSessions($id = NULL, $name = NULL)
+	public function getSelectDepartments($id = NULL, $name = NULL)
 	{
-		$arrSessions = parent::getSessions($id, $name);
+		$arrSessions = parent::getDepartments($id, $name);
 		$arrResult = array();
 		$arrItems = array();
 		$arrDeletedItemStyles = array();
@@ -133,16 +133,16 @@ class UserController extends Controller {
 		$message = NULL;
 		$alert_type = NULL;
 
-		$this->model = $this->model->join("session", "session.id", "=", "users.session_id");
+		$this->model = $this->model->join("department", "department.id", "=", "users.department_id");
 		$this->model = $this->model->where("users.id", "=", $id);
 		$this->model = $this->model->select([
 				"users.*",
-				\DB::raw("session.name AS session_name"),
+				\DB::raw("department.name AS department_name"),
 		]);
 		$this->model = $this->model->first();
 
 		// get session list
-		$arrSelectSessions = $this->getSelectSessions();
+		$arrSelectSessions = $this->getSelectDepartments();
 		$this->data["arrSelectSessions"] = $arrSelectSessions;
 
 		if(!$this->model){
@@ -157,7 +157,7 @@ class UserController extends Controller {
 	{
 		$url = $this->url_pattern . '.user_info';
 		$this->model = $this->model->find($id);
-		$arrSelectSessions = $this->getSelectSessions();
+		$arrSelectSessions = $this->getSelectDepartments();
 		$this->data["arrSelectSessions"] = $arrSelectSessions;
 
 		$message = NULL;
@@ -174,7 +174,7 @@ class UserController extends Controller {
 				$this->model->fill($this->form_input);
 				$this->model->update();
 				$alert_type = "success";
-				$message = "修正完了。";
+				$message = __("message.status.done.edit");
 			}else{
 				$message = "ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。";
 			}
@@ -188,7 +188,7 @@ class UserController extends Controller {
 		$id = $this->logged_in_user->id;
 		$url = $this->url_pattern . '.language';
 		$this->model = $this->model->find($id);
-		$arrSelectSessions = $this->getSelectSessions();
+		$arrSelectSessions = $this->getSelectDepartments();
 		$this->data["arrSelectSessions"] = $arrSelectSessions;
 
 		$message = NULL;
@@ -207,7 +207,7 @@ class UserController extends Controller {
 			$this->model->update();
 
 			$alert_type = "success";
-			$message = "修正完了。";
+			$message = __("message.status.done.edit");
 
 		}
 

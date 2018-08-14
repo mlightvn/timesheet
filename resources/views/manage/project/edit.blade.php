@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>プロジェクト</h1>
+	<h1>{{__('message.project.project')}}</h1>
 	<br>
 </div>
 
@@ -26,16 +26,16 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('name', 'プロジェクト名') !!}</th>
+			<th>{!! Form::label('name', __('message.project.project')) !!}</th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'プロジェクト名', 'required'=>'required']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('message.project.project'), 'required'=>'required']) !!}
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('description', 'Description') !!}</th>
+			<th>{!! Form::label('description', __('message.description')) !!}</th>
 			<td>
-				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>'Description']) !!}
+				{!! Form::text('description', null, ['class'=>'form-control', 'placeholder'=>__('message.description')]) !!}
 			</td>
 		</tr>
 

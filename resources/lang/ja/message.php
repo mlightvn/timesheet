@@ -10,7 +10,23 @@ return [
 	'password'	=> 'パスワード',
 	'confirm_password'	=> '確認パスワード',
 
-	'status'				=> '状態',
+	'title'						=> 'タイトル',
+
+	'status'					=> [
+		'status' 				=> '状態',
+		'success' 				=> '完成',
+		'done' 					=> [
+			'done' 				=> '完了',
+			'add' 				=> '追加完了',
+			'edit' 				=> '編集完了',
+		],
+		'error' 				=> [
+			'error' 			=> 'エラー',
+			'add' 				=> '追加エラー',
+			'edit' 				=> '編集エラー',
+		],
+	],
+
 	'keyword'				=> 'キーワード',
 	'searched_keyword'		=> '検索キーワード',
 	'description'			=> '詳細',
@@ -96,6 +112,7 @@ return [
 	],
 
 	'flag' => [
+		'role'				=> 'Role',
 		'manager'			=> '管理フラグ',
 		'member'			=> 'メンバーフラグ',
 	],
@@ -113,5 +130,6 @@ return [
 	],
 
 	'total'						=> '合計',
+
 
 ];

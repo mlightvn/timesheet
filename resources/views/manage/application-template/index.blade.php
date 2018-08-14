@@ -31,7 +31,7 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>タイトル</th>
+			<th>{{__('screen.common.title')}}</th>
 			<th></th>
 		</tr>
 		</thead>

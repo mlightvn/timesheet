@@ -90,9 +90,9 @@
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('session_id', __('message.department')) !!}</th>
+						<th>{!! Form::label('department_id', __('message.department')) !!}</th>
 						<td>
-							{!! Form::select('session_id', $data["arrSelectSessions"]["items"], NULL, ['class'=>'form-control', 'placeholder'=>'▼下記の項目を選択してください。'], $data["arrSelectSessions"]["deletedItemStyles"]) !!}
+							{!! Form::select('department_id', $data["arrSelectSessions"]["items"], NULL, ['class'=>'form-control', 'placeholder'=>'▼下記の項目を選択してください。'], $data["arrSelectSessions"]["deletedItemStyles"]) !!}
 						</td>
 					</tr>
 

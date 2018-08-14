@@ -30,7 +30,9 @@
 			<p class="card-text">
 				<ul>
 					<li><a href="mailto:{{$model->email}}"><span class="fas fa-envelope"></span> {{$model->email}}</a></li>
-					<li>{{$departments[$model->session_id]}}</li>
+					@if(isset($departments[$model->department_id]))
+					<li>{{$departments[$model->department_id]}}</li>
+					@endif
 				</ul>
 			</p>
 		</div>

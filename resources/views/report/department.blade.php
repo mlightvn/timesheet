@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>{{__('screen.report.department.department_list')}}</h1>
+	<h1>{{__('screen.report.department.list')}}</h1>
 	<br>
 </div>
 

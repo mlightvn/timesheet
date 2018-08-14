@@ -49,7 +49,7 @@
 
 				<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.application_templates') }}</a>
 
-				<a href="manage/user/language" class="w3-bar-item w3-button w3-border-top"><span class="fas fa-language"></span> {{__('message.language.language')}}</a>
+				<a href="/manage/user/language" class="w3-bar-item w3-button w3-border-top {{ ($id == 'manage-language') ? 'w3-gray' : ''}}"><span class="fas fa-language"></span> {{__('message.language.language')}}</a>
 			</div>
 		</div>
 

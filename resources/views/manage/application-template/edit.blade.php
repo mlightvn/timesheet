@@ -27,25 +27,25 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('name', 'タイトル') !!} <span class="w3-text-red">※</span></th>
+			<th>{!! Form::label('name', __('screen.common.title')) !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>
 			<td>
 				@if($logged_in_user->role == "Member")
-					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'readonly'=>'readonly']) !!}
+					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('screen.common.title'), 'readonly'=>'readonly']) !!}
 				@else
-					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タイトル', 'required'=>'required']) !!}
+					{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('screen.common.title'), 'required'=>'required']) !!}
 				@endif
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('description', '詳細情報') !!}</th>
+			<th>{!! Form::label('description', __('screen.common.detail')) !!}</th>
 			<th><button type="button" name="btnCopy" value="description"><i class="fas fa-copy"></i></button></th>
 			<td>
 				@if($logged_in_user->role == "Member")
-					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報', 'readonly'=>'readonly']) !!}
+					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>__('screen.common.detail'), 'readonly'=>'readonly']) !!}
 				@else
-					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>'詳細情報']) !!}
+					{!! Form::textarea('description', NULL, ['class'=>'form-control', 'placeholder'=>__('screen.common.detail')]) !!}
 				@endif
 			</td>
 		</tr>

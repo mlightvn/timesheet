@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>部署</h1>
+	<h1>{{__('screen.report.department.department')}}</h1>
 	<br>
 </div>
 
@@ -28,9 +28,9 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('name', '部署※') !!}</th>
+			<th>{!! Form::label('name', __('screen.report.department.department') . '※') !!}</th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'部署', 'required'=>'required']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('screen.report.department.department'), 'required'=>'required']) !!}
 			</td>
 		</tr>
 		<tfoot>
