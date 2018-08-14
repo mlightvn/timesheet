@@ -38,11 +38,11 @@
 			<th>{!! Form::label('password', __('message.password')) !!}</th>
 			<td>
 			@if($model->id)
-				{!! Form::password('password', ['placeholder'=>'__('message.password'), 'min'=>'8', 'max'=>'100', 'class'=>'form-control']) !!}
+				{!! Form::password('password', ['placeholder'=>__('message.password'), 'min'=>'8', 'max'=>'100', 'class'=>'form-control']) !!}
 				<br>
 				<label class="w3-text-green">パスワードを入力しない場合は、パスワードが変わらないです。</label>
 			@else
-				{!! Form::password('password', ['placeholder'=>'__('message.password'), 'min'=>'8', 'max'=>'100', 'class'=>'form-control', 'required'=>'required']) !!}
+				{!! Form::password('password', ['placeholder'=>__('message.password'), 'min'=>'8', 'max'=>'100', 'class'=>'form-control', 'required'=>'required']) !!}
 			</td>
 			@endif
 		</tr>
