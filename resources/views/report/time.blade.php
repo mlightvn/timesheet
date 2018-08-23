@@ -22,7 +22,11 @@
 					@include('_include.alert_message', ["is_hidden" => TRUE])
 				</div>
 				<div class="w3-col s12 m4 l4">
-					&nbsp;
+					<ol>
+						<li><a href="/manage/project" title="" class="w3-button w3-brown">{{__('message.project.list')}}</a> &gt; <a href="/manage/project_task/add" title="" class="w3-button w3-brown"><span class="fas fa-plus"></span></li>
+						<li><a href="/manage/project_task" title="" class="w3-button w3-brown">{{__('message.task.list')}}</a> &gt; <a href="/manage/project_task/add" title="" class="w3-button w3-brown"><span class="fas fa-plus"></span></a></li>
+					</ol>
+
 				</div>
 			</div>
 			<br>

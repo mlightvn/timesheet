@@ -16,6 +16,9 @@ return [
 			'task' 						=> 'タスク',
 			'my_task' 					=> '自分のタスク',
 		],
+		'time' 							=> [
+			'task_add' 					=> 'タスク追加',
+		],
 	],
 
 	'common'							=> [
