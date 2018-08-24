@@ -20,11 +20,14 @@
 				</div>
 				<div class="w3-col s12 m4 l4">
 					@include('_include.alert_message', ["is_hidden" => TRUE])
+					&nbsp;
 				</div>
 				<div class="w3-col s12 m4 l4">
+					※How to register
 					<ol>
-						<li><a href="/manage/project" title="" class="w3-button w3-brown">{{__('message.project.list')}}</a> &gt; <a href="/manage/project_task/add" title="" class="w3-button w3-brown"><span class="fas fa-plus"></span></li>
-						<li><a href="/manage/project_task" title="" class="w3-button w3-brown">{{__('message.task.list')}}</a> &gt; <a href="/manage/project_task/add" title="" class="w3-button w3-brown"><span class="fas fa-plus"></span></a></li>
+						<li><a href="/manage/project" title="" class="">{{__('screen.project.list')}}</a> &gt; <a href="/manage/project/add" title="" class=""><span class="fas fa-plus"></span></a></li>
+						<li><a href="/manage/project_task" title="" class="">{{__('screen.task.list')}}</a> &gt; <a href="/manage/project_task/add" title="" class=""><span class="fas fa-plus"></span></a></li>
+						<li><a href="./time">Register</a></li>
 					</ol>
 
 				</div>
