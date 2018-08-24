@@ -22,11 +22,6 @@ Auth::routes();
 Route::auth();
 
 
-// Route::get('{locale}', function ($locale) {
-//     App::setLocale($locale);
-
-// });
-
 Route::get('login', ['as' => 'login', 'uses' => 'Controller@login']);
 Route::post('login', 'Controller@authenticate');
 Route::any('logout', 'Controller@logout');

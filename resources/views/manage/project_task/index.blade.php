@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>{{__('message.task.list')}}</h1>
+	<h1>{{__('screen.task.list')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -29,9 +29,9 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>{{__('message.project.project')}}</th>
-			<th>{{__('message.task.task')}}</th>
-			<th>{{__('screen.report.task.my_task')}}</th>
+			<th>{{__('screen.project.project')}}</th>
+			<th>{{__('screen.task.task')}}</th>
+			<th>{{__('screen.task.my_task')}}</th>
 			<th>{{__('message.excel_output_flag')}}</th>
 			<th></th>
 		</tr>

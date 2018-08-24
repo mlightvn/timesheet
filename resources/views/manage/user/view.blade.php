@@ -6,7 +6,7 @@
 )
 
 <div class="w3-row">
-	<h1>{{__('message.user.info')}}</h1>
+	<h1>{{__('screen.user.info')}}</h1>
 	<br>
 </div>
 
@@ -58,7 +58,7 @@
 						<th colspan="2">{{__('message.personal_info')}}</th>
 					</tr>
 					<tr>
-						<th>{{__('message.user.name')}}</th>
+						<th>{{__('screen.user.name')}}</th>
 						<td>
 							{{ $model->name }}
 						</td>
@@ -86,21 +86,21 @@
 					</tr>
 
 					<tr>
-						<th>{{__('message.user.gender')}}</th>
+						<th>{{__('screen.user.gender')}}</th>
 						<td>
-							{{ ($model->gender == 0) ? __('message.user.male') : __('message.user.female') }}
+							{{ ($model->gender == 0) ? __('screen.user.male') : __('screen.user.female') }}
 						</td>
 					</tr>
 
 					<tr>
-						<th>{{__('message.user.date_of_birth')}}</th>
+						<th>{{__('screen.user.date_of_birth')}}</th>
 						<td>
 							{{ $model->birthday }}
 						</td>
 					</tr>
 
 					<tr>
-						<th>{{__('message.user.phone_number')}}</th>
+						<th>{{__('screen.user.phone_number')}}</th>
 						<td>
 							{{ $model->tel }}
 						</td>

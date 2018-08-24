@@ -43,8 +43,8 @@
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
 				<a href="/manage/user" class="w3-bar-item w3-button {{ ($id == 'manage_user') ? 'w3-gray' : ''}}"><span class="fas fa-user"></span> {{ __('message.member') }}</a>
 
-				<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'manage_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.project.project') }}</a>
-				<a href="/manage/project_task" class="w3-bar-item w3-button {{ ($id == 'manage_project_task') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.task.task') }}</a>
+				<a href="/manage/project" class="w3-bar-item w3-button {{ ($id == 'manage_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('screen.project.project') }}</a>
+				<a href="/manage/project_task" class="w3-bar-item w3-button {{ ($id == 'manage_project_task') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('screen.task.task') }}</a>
 				<a href="/manage/department" class="w3-bar-item w3-button {{ ($id == 'manage_department') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.department') }}</a>
 
 				<a href="/manage/application-template" class="w3-bar-item w3-button {{ ($id == 'manage-application-template') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{ __('message.application_templates') }}</a>

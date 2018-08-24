@@ -46,9 +46,9 @@
 						<a class="nav-link active" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('message.user.info')}}</a>
+						<a class="nav-link" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('screen.user.info')}}</a>
 					</li>
-					@if(in_array($logged_in_user->role, array("Owner", "Manager")) || ($logged_in_user->id == $model->id))
+					@if($logged_in_user->id == $model->id)
 					<li class="nav-item">
 						<a class="nav-link" href="{{ action('Manage\UserController@language') }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
 					</li>

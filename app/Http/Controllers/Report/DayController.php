@@ -14,6 +14,8 @@ class DayController extends Controller {
 	public function index()
 	{
 		$url = $this->blade_url;
+		$this->data["title"] 					= __("message.menu.report.summary_by_day");
+
 		return view($url, ["data"=>$this->data
 						, "logged_in_user" 					=> $this->logged_in_user
 				]);

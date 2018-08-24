@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>{{__('screen.report.task.task')}}</h1>
+	<h1>{{__('screen.task.task')}}</h1>
 	<br>
 </div>
 
@@ -26,9 +26,9 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('project_id', __('screen.report.project.project')) !!}</th>
+			<th>{!! Form::label('project_id', __('screen.project.project')) !!}</th>
 			<td>
-				<select name="project_id" id="project_id" class="form-control" placeholder='{{__('screen.report.project.project')}}' required='required'>
+				<select name="project_id" id="project_id" class="form-control" placeholder='{{__('screen.project.project')}}' required='required'>
 					@foreach($data["projectList"] as $project_id => $project)
 					<option value="{{ $project->id }}" class="{{ ($project->is_deleted) ? 'w3-gray' : '' }}" {{ ($project->id == $model->project_id) ? 'selected="selected"' : '' }}>{{ $project->name }}</option>
 					@endforeach
@@ -37,9 +37,9 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('name', __('screen.report.task.task')) !!}</th>
+			<th>{!! Form::label('name', __('screen.task.task')) !!}</th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'タスク', 'required'=>'required']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('screen.task.task'), 'required'=>'required']) !!}
 			</td>
 		</tr>
 
@@ -51,7 +51,7 @@
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('user_id', __('screen.report.task.my_task')) !!}</th>
+			<th>{!! Form::label('user_id', __('screen.task.my_task')) !!}</th>
 			<td>
 				<label class="switch">
 					{{ Form::checkbox('user_id', NULL, NULL, ['id' => 'user_id']) }}

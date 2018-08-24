@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>{{__('screen.report.department.list')}}</h1>
+	<h1>{{__('screen.department.list')}}</h1>
 	<br>
 </div>
 
@@ -21,10 +21,10 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>#</th>
-			<th>{{__('screen.report.department.department')}}</th>
+			<th>{{__('screen.department.department')}}</th>
 			@if (in_array($logged_in_user->role, array("Owner", "Manager")))
-			<th>{{__('screen.report.department.last_month_report')}}<br>{{ $data['prev_yearmonth'] }}</th>
-			<th>{{__('screen.report.department.current_month_report')}}<br>{{ $data['curr_yearmonth'] }}</th>
+			<th>{{__('screen.department.last_month_report')}}<br>{{ $data['prev_yearmonth'] }}</th>
+			<th>{{__('screen.department.current_month_report')}}<br>{{ $data['curr_yearmonth'] }}</th>
 			@endif
 		</tr>
 		</thead>

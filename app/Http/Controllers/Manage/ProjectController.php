@@ -16,6 +16,8 @@ class ProjectController extends Controller {
 		$this->model->organization_id 		= $this->organization_id;
 		$this->url_pattern = "manage.project";
 		$this->data["url_pattern"] = "/manage/project";
+		$this->data["title"] 					= __("screen.project.list");
+
 		$this->logical_delete = true;
 	}
 
@@ -54,6 +56,7 @@ class ProjectController extends Controller {
 		}
 
 		$this->model = $this->model->first();
+		$this->data["title"] 					= __("screen.project.edit");
 
 		return view("/". str_replace(".", "/", $this->blade_url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}

@@ -54,6 +54,8 @@ class ProjectController extends Controller {
 		$data["sRequestYearMonth"] 						= $this->sRequestYearMonth;
 		$data["timeSheetList"] 							= $timeSheetList;
 
+		$data["title"] 					= __("message.menu.report.summary_by_project");
+
 		$this->data = $data;
 
 		return view("/" . str_replace(".", "/", $this->blade_url)

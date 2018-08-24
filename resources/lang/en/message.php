@@ -42,7 +42,7 @@ return [
 			'summary_by_day' 					=> 'Summary by day',
 			'summary_by_month' 					=> 'Summary by month',
 			'summary_by_project' 				=> 'Summary by project',
-			'summary_by_department' 			=> 'Summary by department',
+			'summary_by_department' 			=> 'Report by department',
 		],
 
 		'day_off' => [
@@ -72,16 +72,6 @@ return [
 	'department' 		=> 'Department',
 	'master' 			=> 'Master',
 
-	'project' 			=> [
-		'project' 			=> 'Project',
-		'list' 				=> 'Project list',
-	],
-
-	'task' 			=> [
-		'task' 				=> 'Task',
-		'list' 				=> 'Task list',
-	],
-
 	'promotion' 		=> 'Promotion',
 	'payment' 			=> 'Payment',
 
@@ -94,19 +84,6 @@ return [
 
 	'login_info'			=> 'Login information',
 	'personal_info'			=> 'Personal information',
-
-	'user' => [
-		'user'				=> 'User',
-		'add'				=> 'Add',
-		'info'				=> 'User information',
-		'list'				=> 'User list',
-		'name'				=> 'User name',
-		'gender'			=> 'Gender',
-		'male'				=> 'Male',
-		'female'			=> 'Female',
-		'date_of_birth'		=> 'Date of birth',
-		'phone_number'		=> 'Phone number',
-	],
 
 	'flag' => [
 		'role'				=> 'Role',

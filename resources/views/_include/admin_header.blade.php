@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<title>{{(!empty($title)) ? ($title . " | ") : ""}}{{ __("message.APP_NAME") }}</title>
+	<title>{{(!empty($data["title"])) ? ($data["title"] . " | ") : ""}}{{ __("message.APP_NAME") }}</title>
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">

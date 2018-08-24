@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>Bookmark 一覧</h1>
+	<h1>{{__('screen.bookmark.list')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -28,7 +28,7 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>Title</th>
+			<th>{{__('message.title')}}</th>
 			<th>url</th>
 			<th></th>
 		</tr>

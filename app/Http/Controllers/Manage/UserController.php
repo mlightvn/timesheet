@@ -15,12 +15,15 @@ class UserController extends Controller {
 		$this->model->organization_id 			= $this->organization_id;
 		$this->url_pattern 						= "manage.user";
 		$this->data["url_pattern"] 				= "/manage/user";
+		$this->data["title"] 					= __("screen.user.list");
+
 	}
 
 	public function add()
 	{
 		$arrSelectSessions = $this->getSelectDepartments();
 		$this->data["arrSelectSessions"] 		= $arrSelectSessions;
+		$this->data["title"] 					= __("screen.user.add");
 
 		$role = $this->logged_in_user->role;
 		if(in_array($role, array("Owner", "Manager"))){
@@ -103,6 +106,7 @@ class UserController extends Controller {
 
 		}
 
+		$this->data["title"] 					= __("screen.user.edit");
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}
 
@@ -149,6 +153,8 @@ class UserController extends Controller {
 			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"データが存在していませんので、追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}
 
+		$this->data["title"] 					= __("screen.user.view");
+
 		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions]);
 
 	}
@@ -179,6 +185,8 @@ class UserController extends Controller {
 				$message = "ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。";
 			}
 		}
+
+		$this->data["title"] 					= __("screen.user.info");
 
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}

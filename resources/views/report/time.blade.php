@@ -39,8 +39,8 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered w3-tiny">
 		<thead>
 			<tr class="w3-brown">
-				<th nowrap="nowrap" width="200px">{{__('message.project.project')}}</th>
-				<th nowrap="nowrap" width="200px">{{__('message.task.task')}}</th>
+				<th nowrap="nowrap" width="200px">{{__('screen.project.project')}}</th>
+				<th nowrap="nowrap" width="200px">{{__('screen.task.task')}}</th>
 				@foreach ($arrTimes as $timeKey => $time)
 				<th>{{ $time }}</th>
 				@endforeach

@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>{{__('message.user.list')}}</h1>
+	<h1>{{__('screen.user.list')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -29,12 +29,12 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>{{__('message.user.name')}}</th>
+			<th>{{__('screen.user.name')}}</th>
 			<th>{{__('message.department')}}</th>
 			<th>email</th>
 			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<th>Dayoff</th>
-			<th>レポート</th>
+			<th>{{__('screen.report.report')}}</th>
 			@endif
 			<th></th>
 		</tr>
@@ -69,7 +69,7 @@
 			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<td><span ng-bind="model.dayoff"></span></td>
-			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fas fa-table" aria-hidden="true"></span> プロジェクトのレポート</a></td>
+			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fas fa-table" aria-hidden="true"></span> {{__('screen.project.report')}}</a></td>
 			@endif
 			<td>
 

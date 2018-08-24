@@ -46,6 +46,7 @@ class MonthController extends Controller {
 		$data = $this->data;
 
 		$data["arrMonth"] = $this->arrMonth;
+		$data["title"] 					= __("message.menu.report.summary_by_month");
 
 		$this->data = $data;
 

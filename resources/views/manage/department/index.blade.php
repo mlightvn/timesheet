@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>{{__('screen.report.department.list')}}</h1>
+	<h1>{{__('screen.department.list')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -29,7 +29,7 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>{{__('screen.report.department.department')}}</th>
+			<th>{{__('screen.department.department')}}</th>
 			<th></th>
 		</tr>
 		</thead>

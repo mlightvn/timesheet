@@ -6,7 +6,7 @@
 )
 
 <div class="w3-row">
-	<h1>Bookmark</h1>
+	<h1>{{__('screen.bookmark.bookmark')}}</h1>
 	<br>
 </div>
 
@@ -28,10 +28,10 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('name', 'Title') !!} <span class="w3-text-red">※</span></th>
+			<th>{!! Form::label('name', __('message.title')) !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Title', 'required'=>'required']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('message.title'), 'required'=>'required']) !!}
 			</td>
 		</tr>
 

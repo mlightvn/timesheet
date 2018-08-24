@@ -37,7 +37,7 @@
 
 				<ul class="nav nav-tabs nav-justified">
 					<li class="nav-item">
-						<a class="nav-link" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('message.user.info')}}</a>
+						<a class="nav-link" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('screen.user.info')}}</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>

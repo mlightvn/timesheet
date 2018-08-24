@@ -75,16 +75,6 @@ return [
 	'department' 		=> '部署',
 	'master' 			=> 'マスタ',
 
-	'project' 			=> [
-		'project' 			=> 'プロジェクト',
-		'list' 				=> 'プロジェクト一覧',
-	],
-
-	'task' 			=> [
-		'task' 				=> 'タスク',
-		'list' 				=> 'タスク一覧',
-	],
-
 	'promotion' 		=> 'プロモーション',
 	'payment' 			=> 'お支払い',
 
@@ -97,19 +87,6 @@ return [
 
 	'login_info'			=> 'ログイン情報',
 	'personal_info'			=> '個人情報',
-
-	'user' => [
-		'user'				=> 'ユーザ',
-		'add'				=> '追加',
-		'info'				=> 'ユーザ情報',
-		'list'				=> 'ユーザ一覧',
-		'name'				=> 'ユーザ名',
-		'gender'			=> '性別',
-		'male'				=> '男性',
-		'female'			=> '女性',
-		'date_of_birth'		=> '生年月日',
-		'phone_number'		=> '電話番号',
-	],
 
 	'flag' => [
 		'role'				=> 'Role',

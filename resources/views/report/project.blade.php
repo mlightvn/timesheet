@@ -44,9 +44,9 @@
 			<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 				<thead>
 				<tr class="w3-brown">
-					<th nowrap="nowrap">{{__('message.project.project')}}</th>
+					<th nowrap="nowrap">{{__('screen.project.project')}}</th>
 					<th nowrap="nowrap"></th>
-					<th nowrap="nowrap">{{__('message.task.task')}}</th>
+					<th nowrap="nowrap">{{__('screen.task.task')}}</th>
 					<th nowrap="nowrap">{{__('message.total_working_hours')}}</th>
 				</tr>
 				</thead>

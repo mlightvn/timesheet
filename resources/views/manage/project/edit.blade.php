@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>{{__('message.project.project')}}</h1>
+	<h1>{{__('screen.project.project')}}</h1>
 	<br>
 </div>
 
@@ -26,9 +26,9 @@
 
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 		<tr>
-			<th>{!! Form::label('name', __('message.project.project')) !!}</th>
+			<th>{!! Form::label('name', __('screen.project.project')) !!}</th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('message.project.project'), 'required'=>'required']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('screen.project.project'), 'required'=>'required']) !!}
 			</td>
 		</tr>
 

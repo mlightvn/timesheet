@@ -6,7 +6,7 @@
 )
 
 <div class="w3-row">
-	<h1>{{__('message.user.info')}}</h1>
+	<h1>{{__('screen.user.info')}}</h1>
 	<br>
 </div>
 
@@ -47,9 +47,9 @@
 						<a class="nav-link" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('message.user.info')}}</a>
+						<a class="nav-link active" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('screen.user.info')}}</a>
 					</li>
-					@if(in_array($logged_in_user->role, array("Owner", "Manager")) || ($logged_in_user->id == $model->id))
+					@if($logged_in_user->id == $model->id)
 					<li class="nav-item">
 						<a class="nav-link" href="{{ action('Manage\UserController@language') }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
 					</li>
@@ -59,9 +59,9 @@
 
 				<table class="timesheet_table w3-table w3-bordered">
 					<tr>
-						<th>{!! Form::label('name', __('message.user.name')) !!} <span class="w3-text-red">※</span></th>
+						<th>{!! Form::label('name', __('screen.user.name')) !!} <span class="w3-text-red">※</span></th>
 						<td>
-							{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'名前', 'required'=>'required']) !!}
+							{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('screen.user.name'), 'required'=>'required']) !!}
 						</td>
 					</tr>
 
@@ -108,32 +108,32 @@
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('gender', __('message.user.gender')) !!}</th>
+						<th>{!! Form::label('gender', __('screen.user.gender')) !!}</th>
 						<td>
-							{!! Form::radio('gender', '0', null, ['class'=>'', 'id'=>'gender_male']) !!}&nbsp;{!! Form::label('gender_male', '男性') !!}
+							{!! Form::radio('gender', '0', null, ['class'=>'', 'id'=>'gender_male']) !!}&nbsp;{!! Form::label('gender_male', __('screen.user.male')) !!}
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							{!! Form::radio('gender', '1', null, ['class'=>'', 'id'=>'gender_female']) !!}&nbsp;{!! Form::label('gender_female', '女性') !!}
+							{!! Form::radio('gender', '1', null, ['class'=>'', 'id'=>'gender_female']) !!}&nbsp;{!! Form::label('gender_female', __('screen.user.female')) !!}
 						</td>
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('birthday', __('message.user.date_of_birth')) !!}</th>
+						<th>{!! Form::label('birthday', __('screen.user.date_of_birth')) !!}</th>
 						<td>
 							{!! Form::text('birthday', null, ['class'=>'form-control', 'placeholder'=>'YYYY-MM-DD', 'datepicker'=>'datepicker']) !!}
 						</td>
 					</tr>
 
 					<tr>
-						<th>{!! Form::label('phone', __('message.user.phone_number')) !!}</th>
+						<th>{!! Form::label('phone', __('screen.user.phone_number')) !!}</th>
 						<td>
-							{!! Form::input('tel', 'phone', null, ['class'=>'form-control', 'placeholder'=>__('message.user.phone_number')]) !!}
+							{!! Form::input('tel', 'phone', null, ['class'=>'form-control', 'placeholder'=>__('screen.user.phone_number')]) !!}
 						</td>
 					</tr>
 
 					<tr>
 						<th>{!! Form::label('description', __('message.description')) !!}</th>
 						<td>
-							{!! Form::textarea('description', null, ['class'=>'form-control', 'placeholder'=>'詳細', 'rows'=>20]) !!}
+							{!! Form::textarea('description', null, ['class'=>'form-control', 'placeholder'=>__('message.description'), 'rows'=>20]) !!}
 						</td>
 					</tr>
 
