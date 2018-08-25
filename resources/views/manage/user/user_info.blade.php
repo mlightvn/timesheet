@@ -69,7 +69,7 @@
 						<th>{!! Form::label('role', __('message.flag.manager')) !!}</th>
 						<td>
 					@if(($model->id != 1) && ($model->organization_id != 1))
-						@if($data["allow_change_permission"] == true)
+						@if(isset($data["allow_change_permission"]) && ($data["allow_change_permission"] == true))
 							{!! Form::radio('role', 'Member', true, ['class'=>'', 'id'=>'role[0]']) !!}
 							<label for="role[0]" class="radio-inline control-label">Member</label>
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -92,7 +92,13 @@
 					<tr>
 						<th>{!! Form::label('department_id', __('message.department')) !!}</th>
 						<td>
-							{!! Form::select('department_id', $data["arrSelectSessions"]["items"], NULL, ['class'=>'form-control', 'placeholder'=>'▼下記の項目を選択してください。'], $data["arrSelectSessions"]["deletedItemStyles"]) !!}
+							{!! Form::select(
+									'department_id',
+									$data["arrSelectSessions"]["items"],
+									NULL,
+									['class'=>'form-control', 'placeholder'=>'▼下記の項目を選択してください。'],
+									$data["arrSelectSessions"]["deletedItemStyles"]
+							) !!}
 						</td>
 					</tr>
 

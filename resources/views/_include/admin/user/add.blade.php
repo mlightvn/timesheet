@@ -56,9 +56,9 @@
 				</tr>
 
 				<tr>
-					<th>{!! Form::label('session_id', '部署') !!}</th>
+					<th>{!! Form::label('department_id', '部署') !!}</th>
 					<td>
-						<select class="form-control" id="session_id" name="session_id"><option disabled="disabled" hidden="hidden" value="">▼下記の項目を選択してください。</option><option value="1" selected="selected">IT事業部</option><option value="2">事業部</option><option value="3">葬祭事業本部</option><option value="4">葬祭サービス部</option><option value="5">人事部</option><option value="8" class="w3-gray">削除</option></select>
+						<select class="form-control" id="department_id" name="department_id"><option disabled="disabled" hidden="hidden" value="">▼下記の項目を選択してください。</option><option value="1" selected="selected">IT事業部</option><option value="2">事業部</option><option value="3">葬祭事業本部</option><option value="4">葬祭サービス部</option><option value="5">人事部</option><option value="8" class="w3-gray">削除</option></select>
 					</td>
 				</tr>
 				@endif

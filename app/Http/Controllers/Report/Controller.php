@@ -227,8 +227,8 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 
 				$iRow = 6;
 				$row = [
-					__('message.project.project'),
-					__('message.task.task'),
+					__('screen.project.project'),
+					__('screen.task.task'),
 					__('message.total_working_hours'),
 				];
 

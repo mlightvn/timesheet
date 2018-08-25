@@ -38,9 +38,10 @@ class UserController extends Controller {
 	{
 		$url = $this->url_pattern . '.edit';
 
-		$this->model = $this->model->where("id", $id);
-		$this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
-		$this->model = $this->model->first();
+		// $this->model = $this->model->where("id", $id);
+		// $this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
+		// $this->model = $this->model->first();
+		$this->model = $this->model->find($id);
 
 		$message = NULL;
 		$alert_type = NULL;
@@ -55,19 +56,6 @@ class UserController extends Controller {
 		if(!$exist_flag){
 			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"ユーザーが存在していませんので、ユーザー追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}
-
-		// Allow changing permission flag
-		$allow_change_permission = false;
-		if($this->logged_in_user->role == "Owner"){
-			$allow_change_permission = true;
-		}else{
-			if(in_array($this->logged_in_user->role, array("Manager"))){
-				if(in_array($this->model->role, array("Manager", "Member"))){
-					$allow_change_permission = true;
-				}
-			}
-		}
-		$this->data["allow_change_permission"] = $allow_change_permission;
 
 		// get session list
 		$arrSelectSessions = $this->getSelectDepartments();
@@ -107,6 +95,59 @@ class UserController extends Controller {
 		}
 
 		$this->data["title"] 					= __("screen.user.edit");
+		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
+	}
+
+	public function editUserInfo($id)
+	{
+		$url = $this->url_pattern . '.user_info';
+		$this->model = $this->model->find($id);
+
+		$arrSelectSessions = $this->getSelectDepartments();
+		$this->data["arrSelectSessions"] = $arrSelectSessions;
+
+		$message = NULL;
+		$alert_type = NULL;
+
+		// Check model exist
+		$exist_flag = true;
+		$exist_flag = ($this->model) ? true : false;
+		// Check same organization
+		if($exist_flag){
+			$exist_flag = (($this->model->organization_id == $this->organization_id) ? true : false);
+		}
+		if(!$exist_flag){
+			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"ユーザーが存在していませんので、ユーザー追加画面に遷移しました。", "alert_type" => $alert_type]);
+		}
+
+		// Allow changing permission flag
+		$allow_change_permission = false;
+		if($this->logged_in_user->role == "Owner"){
+			$allow_change_permission = true;
+		}else{
+			if(in_array($this->logged_in_user->role, array("Manager"))){
+				if(in_array($this->model->role, array("Manager", "Member"))){
+					$allow_change_permission = true;
+				}
+			}
+		}
+		$this->data["allow_change_permission"] = $allow_change_permission;
+
+		if($this->form_input){ // Submit
+			$role = $this->logged_in_user->role;
+			if((in_array($role, array("Owner", "Manager"))) || ($this->logged_in_user->id == $this->form_input["id"])){
+
+				$this->model->fill($this->form_input);
+				$this->model->update();
+				$alert_type = "success";
+				$message = __("message.status.done.edit");
+			}else{
+				$message = "ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。";
+			}
+		}
+
+		$this->data["title"] 					= __("screen.user.info");
+
 		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}
 
@@ -157,38 +198,6 @@ class UserController extends Controller {
 
 		return view($this->blade_url, ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions]);
 
-	}
-
-	public function editUserInfo($id)
-	{
-		$url = $this->url_pattern . '.user_info';
-		$this->model = $this->model->find($id);
-		$arrSelectSessions = $this->getSelectDepartments();
-		$this->data["arrSelectSessions"] = $arrSelectSessions;
-
-		$message = NULL;
-		$alert_type = NULL;
-
-		if(!$this->model){
-			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"ユーザーが存在していませんから、ユーザー追加画面に遷移しました。", "alert_type" => $alert_type]);
-		}
-
-		if($this->form_input){ // Submit
-			$role = $this->logged_in_user->role;
-			if((in_array($role, array("Owner", "Manager"))) || ($this->logged_in_user->id == $this->form_input["id"])){
-
-				$this->model->fill($this->form_input);
-				$this->model->update();
-				$alert_type = "success";
-				$message = __("message.status.done.edit");
-			}else{
-				$message = "ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。";
-			}
-		}
-
-		$this->data["title"] 					= __("screen.user.info");
-
-		return view("/" . str_replace(".", "/", $url), ['data'=>$this->data, "logged_in_user"=>$this->logged_in_user, "model"=>$this->model, "arrSelectSessions"=>$arrSelectSessions])->with(["message"=>$message, "alert_type" => $alert_type]);
 	}
 
 	public function language()

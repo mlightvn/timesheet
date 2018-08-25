@@ -28,7 +28,7 @@ class User extends Authenticatable
 		'password',
 		'name',
 		'role', // Master: admin of website, Owner: representative/owner of organization, Manager: Manager, "member" : workers, staff at organization
-		'session_id',
+		'department_id',
 
 		'dayoff',
 		'gender',
