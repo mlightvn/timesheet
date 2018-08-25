@@ -35,7 +35,8 @@ class ProjectTaskController extends \App\Http\Controllers\Api\Controller {
 		}
 		$this->data["keyword"] = $keyword;
 
-		$arrTasks = $this->model->getAllList($this->user_id, $keyword);
+		$whereCondition = array("user_id"=>$this->user_id, "keyword"=>$keyword);
+		$arrTasks = $this->model->getAllList($whereCondition);
 
 		return $this->toJson($arrTasks);
 	}
