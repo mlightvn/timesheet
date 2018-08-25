@@ -230,6 +230,7 @@ class ProjectTask extends BaseModel
 			(
 			SELECT
 				   `project_task`.id 													AS 'project_task_id'
+				 , `working_date`.`user_id`
 				 , SUM(working_date.working_minutes) 									AS 'TOTAL_MINUTES'
 				 , LPAD(FLOOR(SUM(working_date.working_minutes) / 60), 2, 0) 			AS 'HOUR_VALUE'
 				 , LPAD(MOD(SUM(working_date.working_minutes), 60), 2, 0) 				AS 'MINUTE_VALUE'
@@ -240,13 +241,20 @@ class ProjectTask extends BaseModel
 			   AND `working_date`.`date` 					LIKE '{YEAR_MONTH}%'
 			   AND `working_date`.`working_minutes` 		> 0
 
-			 GROUP BY `project_task`.id
+			 GROUP BY
+				   `project_task`.id
+				 , `working_date`.`user_id`
 			) AS sub_query_working_hours
 
 		";
 		$sub_query_working_hours = str_replace("{USER_ID}", $user_id, $sub_query_working_hours);
 		$sub_query_working_hours = str_replace("{YEAR_MONTH}", $year_month, $sub_query_working_hours);
-		$model = $model->join(\DB::raw($sub_query_working_hours), 'sub_query_working_hours.project_task_id', '=', 'project_task.id');
+		$model = $model->join(\DB::raw($sub_query_working_hours), function($join)
+		{
+			$join->on('sub_query_working_hours.project_task_id', '=', 'project_task.id')
+				->on('sub_query_working_hours.user_id', '=', 'user_project_task.user_id')
+			;
+		});
 
 		$model = $model->where("project.organization_id", "=", \Auth::user()->organization_id);
 
@@ -273,6 +281,7 @@ class ProjectTask extends BaseModel
 		]);
 
 		$models = $model->get();
+
 		return $models;
 	}
 
