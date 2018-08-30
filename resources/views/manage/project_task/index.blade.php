@@ -51,13 +51,13 @@
 			</td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="project[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT" disabled="disabled">
+					<input type="checkbox" name="my_task[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT" data-id="@{{model.id}}">
 					<span class="slider round"></span>
 				</label>
 			</td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="project[@{{ model.id }}][excel_flag]" ng-checked="model.excel_flag" disabled="disabled">
+					<input type="checkbox" name="excel_flag[@{{ model.id }}][excel_flag]" ng-checked="model.excel_flag" data-id="@{{model.id}}">
 					<span class="slider round"></span>
 				</label>
 			</td>
@@ -80,4 +80,5 @@
 
 @include('_include.admin_footer', [
 	'js_list'			=> true,
+	'js'				=> "manage/project_task/index",
 ])

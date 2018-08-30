@@ -40,4 +40,68 @@ class ProjectTaskController extends \App\Http\Controllers\Api\Controller {
 
 		return $this->toJson($arrTasks);
 	}
+
+	public function myTask($project_task_id)
+	{
+
+		$returnData = array("status"=>0, "message"=>"Done");
+
+		if(!isset($project_task_id)){
+			$returnData = array("status"=>1, "message"=>"IDを入力してください。");
+		}
+
+		$flag = $this->form_input["flag"];
+		if($flag === NULL || $flag === false || $flag == 0 || $flag == 1){
+			if($flag == 1){
+				$flag = "1";
+			}else{
+				$flag = "0";
+			}
+		}
+
+		$user_id = \Auth::id();
+		$model = App\Model\UserProjectTask();
+		$model = $model->where("project_task_id" , $project_task_id);
+		$model = $model->where("user_id" , $user_id);
+		$model = $model->delete();
+
+		if($flag){
+			$model->save();
+		}
+
+		$json = $this->toJson($returnData);
+		return $json;
+
+	}
+
+	public function excelFlag($project_task_id)
+	{
+
+		$returnData = array("status"=>0, "message"=>"Done");
+
+		if(!isset($project_task_id)){
+			$returnData = array("status"=>1, "message"=>"IDを入力してください。");
+		}
+
+		$flag = $this->form_input["flag"];
+		if($flag === NULL || $flag === false || $flag == 0 || $flag == 1){
+			if($flag == 1){
+				$flag = "1";
+			}else{
+				$flag = "0";
+			}
+		}
+
+		$model = $this->model->find($project_task_id);
+		$model->excel_flag = $flag;
+		$result = $model->update();
+		if($result){
+			$returnData = array("status"=>99, "message"=>"Unknownエラー。管理者に連絡してください。");
+		}
+
+		$json = $this->toJson($returnData);
+		return $json;
+
+	}
+
 }
