@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$( "[name^=my_task]" ).click(function( event ) {
+	$( "[name^=my_task]" ).on("click", function( event ) {
 		var project_task_id = $(this).data('id');
 
 		var flag = 0;
@@ -30,7 +30,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$( "[name^=excel_flag]" ).click(function( event ) {
+	$( "[name^=excel_flag]" ).on("click", function( event ) {
 		var project_task_id = $(this).data('id');
 
 		var flag = 0;
