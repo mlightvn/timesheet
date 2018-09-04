@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function(){
 	$( "[name^=my_task]" ).click(function( event ) {
 		var project_task_id = $(this).data('id');
 
