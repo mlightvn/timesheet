@@ -48,6 +48,22 @@ return [
 	'time' 							=> [
 		'title' 					=> '稼働時間入力',
 	],
+	'domain' 						=> [
+		'domain' 					=> 'ドメイン',
+		'list' 						=> 'ドメイン一覧',
+		'add' 						=> 'ドメイン追加',
+		'edit' 						=> 'ドメイン編集',
+		'name' 						=> 'ドメイン名',
+		'detail' 					=> '詳細',
+		'environment' 				=> [
+			'all' 					=> '全て',
+			'environment' 			=> '環境',
+			'production' 			=> '本番',
+			'staging' 				=> 'ステージング',
+			'development' 			=> '開発',
+			'others' 				=> 'その他',
+		]
+	],
 	'bookmark' 						=> [
 		'bookmark' 					=> 'ブックマーク',
 		'list' 						=> 'ブックマーク一覧',

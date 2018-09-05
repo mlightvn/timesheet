@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>ドメイン</h1>
+	<h1>{{__('screen.domain.domain')}}</h1>
 	<br>
 </div>
 

@@ -48,6 +48,22 @@ return [
 	'time' 							=> [
 		'input' 					=> 'Input time',
 	],
+	'domain' 						=> [
+		'domain' 					=> 'Domain ',
+		'list' 						=> 'Domain list',
+		'add' 						=> 'Add domain',
+		'edit' 						=> 'Edit domain',
+		'name' 						=> 'Domain name',
+		'detail' 					=> 'Detail',
+		'environment' 				=> [
+			'all' 					=> 'All',
+			'environment' 			=> 'Environment',
+			'production' 			=> 'Production',
+			'staging' 				=> 'Staging',
+			'development' 			=> 'Development',
+			'others' 				=> 'Others',
+		]
+	],
 	'bookmark' 						=> [
 		'bookmark' 					=> 'Bookmark',
 		'list' 						=> 'Bookmark list',

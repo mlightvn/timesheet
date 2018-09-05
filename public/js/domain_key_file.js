@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$('#selectFileUpload').change(function ($event) {
+	$('#selectFileUpload').on("change", function ($event) {
 		FileUpload($event);
 	});
 
@@ -78,14 +78,16 @@ function FileUpload($event) {
 			console.log("fail: エラー");
 // console.log($response);
 		})
+		.always(function($response) {
+			// reload data
+			$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
+			$scope.get();
+
+			// $event.target.value = '';
+			$('#selectFileUpload').val(null);
+
+		})
 		;
-
-		// reload data
-		$scope = angular.element($('[ng-app="myApp"][ng-controller="myCtrl"]')).scope();
-		$scope.get();
-
-		// $event.target.value = '';
-		$('#selectFileUpload').val(null);
 
 	});
 

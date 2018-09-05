@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>ドメイン一覧</h1>
+	<h1>{{__('screen.domain.list')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -22,11 +22,11 @@
 	<br><br>
 
 	<div class="w3-bar w3-light-gray">
-		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}">All</a>
-		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=1">Production</a>
-		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=2">Staging</a>
-		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=3">Development</a>
-		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=4">Others</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}">{{__('screen.domain.environment.all')}}</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=1">{{__('screen.domain.environment.production')}}</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=2">{{__('screen.domain.environment.staging')}}</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=3">{{__('screen.domain.environment.development')}}</a>
+		<a class="w3-bar-item w3-button" href="{{ $data['url_pattern'] }}?development_flag=4">{{__('screen.domain.environment.others')}}</a>
 	</div>
 
 	<form action="{{ $data['url_pattern'] }}/update" method="post">
@@ -36,9 +36,9 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
-			<th>環境</th>
-			<th>ドメイン名</th>
-			<th>SSHとDB接続</th>
+			<th>{{__('screen.domain.environment.environment')}}</th>
+			<th>{{__('screen.domain.name')}}</th>
+			<th>{{__('screen.domain.detail')}}</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -49,11 +49,7 @@
 			<td>
 				<a href="?development_flag=@{{ model.development_flag }}"><i class="fas fa-search"></i> <span ng-bind="model.development_flag_label"></span></a></td>
 			<td>
-				@if(in_array($logged_in_user->role, array("Member")))
-				<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}"><i class="fas fa-eye"></i> <span ng-bind="model.name"></span>（★開発中★）</a>
-				@else
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><i class="fas fa-pencil-alt"></i> <span ng-bind="model.name"></span></a>
-				@endif
 				<br><br>
 				サイト： <a href="@{{ model.url }}" target="_blank"><span ng-bind="model.url"></span></a><br>
 				管理： <a href="@{{ model.admin_url }}" target="_blank"><span ng-bind="model.admin_url"></span></a>
@@ -66,10 +62,8 @@
 				Respository： <a href="@{{ model.repository_url }}" target="_blank"><span ng-bind="model.repository_url"></span></a>
 			</td>
 			<td>
-				@if(in_array($logged_in_user->role, array("Member")))
-				<a href="{{ $data['url_pattern'] }}/view/@{{ model.id }}" class="btn w3-brown btn-xs"><i class="fas fa-eye"></i></a>
-				@else
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><i class="fas fa-pencil-alt"></i></a>
+				@if(!in_array($logged_in_user->role, array("Member")))
 				| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
 				@endif
 		</tr>

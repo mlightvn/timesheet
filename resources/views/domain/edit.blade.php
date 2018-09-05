@@ -5,7 +5,7 @@
 )
 
 <div class="w3-row">
-	<h1>ドメイン</h1>
+	<h1>{{__('screen.domain.domain')}}</h1>
 	<br>
 </div>
 
@@ -35,23 +35,23 @@
 	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
 
 		<tr>
-			<td colspan="3"><h2>Domain</h2>
+			<td colspan="3"><h2>{{__('screen.domain.domain')}}</h2>
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('name', 'ドメイン名') !!} <span class="w3-text-red">※</span></th>
+			<th>{!! Form::label('name', __('screen.domain.name')) !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>
 			<td>
-				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'ドメイン名', 'required'=>'required']) !!}
+				{!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>__('screen.domain.name'), 'required'=>'required']) !!}
 			</td>
 		</tr>
 
 		<tr>
-			<th>{!! Form::label('development_flag', '環境') !!}</th>
+			<th>{!! Form::label('development_flag', __('screen.domain.environment.environment')) !!}</th>
 			<th><button type="button" name="btnCopy" value="development_flag"><i class="fas fa-copy"></i></button></th>
 			<td>
-				{!! Form::select('development_flag', ['1'=>'本番', '2'=>'ステージング', '3'=>'開発', '4'=>'その他'], NULL, ['class'=>'form-control']) !!}
+				{!! Form::select('development_flag', ['1'=>__('screen.domain.environment.production'), '2'=>__('screen.domain.environment.staging'), '3'=>__('screen.domain.environment.development'), '4'=>__('screen.domain.environment.others')], NULL, ['class'=>'form-control']) !!}
 			</td>
 		</tr>
 
@@ -229,6 +229,7 @@
 			</td>
 		</tr>
 
+		@if(!in_array($logged_in_user->role, array("Member")))
 		<tfoot>
 		<tr>
 			<td colspan="3">
@@ -238,6 +239,7 @@
 			</td>
 		</tr>
 		</tfoot>
+		@endif
 	</table>
 	<br>
 	{!! Form::close() !!}

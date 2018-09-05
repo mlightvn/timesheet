@@ -34,8 +34,8 @@
 		<a href="/customer" class="w3-bar-item w3-button {{ ($id == 'user_customer') ? 'w3-gray' : ''}}"><i class="fas fa-address-card" aria-hidden="true"></i> {{ __('message.menu.customer.customer') }}</a>
 
 		<a href="/cashflow" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'cashflow_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> Cashflow</a>
-		<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> ドメイン</a>
 --}}
+		<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{__('screen.domain.domain')}}</a>
 		<a href="/bookmark" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'bookmark_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{__('screen.bookmark.bookmark')}}</a>
 
 		<div class="w3-dropdown-hover w3-brown">
