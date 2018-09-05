@@ -78,11 +78,21 @@ return [
 		'edit' 						=> 'ブックマーク編集',
 	],
 
+	'master' => [
+		'organization' 			=> [
+			'organization' 		=> '企業',
+			'list' 				=> '企業一覧',
+			'name' 				=> '企業名',
+		],
+	],
+
 	'common'							=> [
 		'explanation'					=> '説明',
 		'description'					=> '説明',
 		'detail'						=> '詳細',
 		'title'							=> 'タイトル',
+		'name'							=> 'Name',
+		'email'							=> 'email',
 	],
 
 ];

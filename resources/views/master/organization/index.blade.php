@@ -4,11 +4,10 @@
 	]
 )
 
-@if (in_array($logged_in_user->role, array("Master")))
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>企業一覧</h1>
+	<h1>{{__('screen.master.organization.list')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
@@ -35,7 +34,8 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>#</th>
-			<th>企業名</th>
+			<th>{{__('screen.master.organization.name')}}</th>
+			<th>Member limitation</th>
 			<th>Website</th>
 			<th></th>
 		</tr>
@@ -46,6 +46,7 @@
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> @{{ model.name }}</a>
 			</td>
+			<td>@{{ model.member_limitation }}</td>
 			<td><a href="@{{ model.website }}" target="_blank">@{{ model.website }}</a></td>
 			<td>
 				<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
@@ -62,11 +63,6 @@
 </div>
 
 </div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
-@else
-<div class="w3-row">
-	<h1 class="w3-text-red">許可なし</h1>
-</div>
-@endif
 
 @include('_include.master.footer', [
 	'js_list'	=> true,

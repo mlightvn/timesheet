@@ -4,9 +4,8 @@
 	]
 )
 
-@if (in_array($logged_in_user->role, array("Manager")))
 <div class="w3-row">
-	<h1>ユーザー</h1>
+	<h1>{{__('screen.master.organization.organization')}}</h1>
 	<br>
 </div>
 
@@ -72,10 +71,5 @@
 	<br>
 	{!! Form::close() !!}
 </div>
-@else
-<div class="w3-row">
-	<h1 class="w3-text-red">許可なし</h1>
-</div>
-@endif
 
 @include('_include.master.footer')

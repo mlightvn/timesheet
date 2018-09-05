@@ -264,10 +264,27 @@ class Controller extends BaseController
 				'is_deleted' 	=> "0",
 			];
 
-		if ($this->guard->attempt($credentials, $remember)) {
+		$login_status = false;
+
+		$user = new \App\Model\User();
+		$user = $user->join("organization", "organization.id", "=", "users.organization_id");
+		$user = $user->where("users.is_deleted", "0");
+		$user = $user->where("organization.is_deleted", "0");
+
+		$user = $user->where("users.email", $form_input['email']);
+		$user = $user->first();
+
+		if($user){
+			$login_status = $this->guard->attempt($credentials, $remember);
+		}
+
+		if ($login_status) {
 			return redirect()->intended('/');
 		} else {
-			return redirect('/login');
+			$url = 'login';
+			$error_message = "ログイン情報が存在していません。";
+			// return redirect('/login')->with("csrf_error", $error_message);
+			return view($url, ["model" => $form_input])->with("csrf_error", $error_message);
 		}
 
 	}
@@ -735,16 +752,12 @@ class Controller extends BaseController
 		$message = NULL;
 		$alert_type = NULL;
 
-		$this->model = $this->model->find($id);
-		// $this->model = $this->model->where("id", $id);
-		// $this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
-		// $this->model = $this->model->first();
+		// $this->model = $this->model->find($id);
+		$this->model = $this->model->where("id", $id);
+		$this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
+		$this->model = $this->model->first();
 
-		$exist_flag = true;
 		$exist_flag = ($this->model) ? true : false;
-		if($exist_flag){
-			$exist_flag = (($this->model->organization_id == $this->organization_id) ? true : false);
-		}
 		if(!$exist_flag){
 			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"データが存在していませんから、追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}

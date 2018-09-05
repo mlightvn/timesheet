@@ -21,14 +21,14 @@
 <div class="w3-row">
 	{!! Form::model($model) !!}
 
-	<table class="w3-table w3-bordered">
+	<table class="table table-bordered">
 		<tr>
 			<td>email</td>
-			<td><input type="email" name="email" class="w3-col s6 m6 l6" placeholder="user@coxanh.net"></td>
+			<td>{!! Form::email("email", NULL, ["class"=>"w3-col s6 m6 l6 form-control", "placeholder"=>"user@coxanh.net", "required"=>"required"]) !!}</td>
 		</tr>
 		<tr>
 			<td>{{ __('message.password') }}</td>
-			<td><input type="password" name="password" class="w3-col s6 m6 l6" placeholder="password"></td>
+			<td><input type="password" name="password" class="w3-col s6 m6 l6 form-control" placeholder="password" required="required"></td>
 		</tr>
 		<tr>
 			<td></td>

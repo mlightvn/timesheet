@@ -19,18 +19,63 @@ class UserController extends Controller {
 
 	}
 
+	public function list()
+	{
+		if($this->organization_id == 1){
+			$allow_adding = true;
+		}else{
+			$organization = \App\Model\Organization::find($this->organization_id);
+			$member_limitation = $organization->member_limitation;
+			$user_list = new \App\Model\User();
+			$user_list = $user_list->where("organization_id", $this->organization_id);
+			$member_amount = $user_list->count();
+
+			$allow_adding = false;
+			if(
+					($member_amount < $member_limitation)
+				 && (in_array($this->logged_in_user->role, array("Owner", "Manager")))
+			){
+				$allow_adding = true;
+			}
+
+		}
+
+		$this->data["allow_adding"] = $allow_adding;
+
+		return parent::list();
+	}
+
 	public function add()
 	{
-		$arrSelectSessions = $this->getSelectDepartments();
-		$this->data["arrSelectSessions"] 		= $arrSelectSessions;
-		$this->data["title"] 					= __("screen.user.add");
-
-		$role = $this->logged_in_user->role;
-		if(in_array($role, array("Owner", "Manager"))){
-			$this->model->role 		= "Member";
-			return parent::add();
+		if($this->organization_id == 1){
+			$allow_adding = true;
 		}else{
-			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。"]);
+			$arrSelectSessions = $this->getSelectDepartments();
+			$this->data["arrSelectSessions"] 		= $arrSelectSessions;
+			$this->data["title"] 					= __("screen.user.add");
+
+			$organization = \App\Model\Organization::find($this->organization_id);
+			$member_limitation = $organization->member_limitation;
+			$user_list = new \App\Model\User();
+			$user_list = $user_list->where("organization_id", $this->organization_id);
+			$member_amount = $user_list->count();
+
+			if($member_amount < $member_limitation){
+				$allow_adding = true;
+			}else{
+				$allow_adding = false;
+			}
+		}
+
+		if($allow_adding){
+			$role = $this->logged_in_user->role;
+			if(in_array($role, array("Owner", "Manager"))){
+				return parent::add();
+			}else{
+				return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"ユーザーの追加修正削除に関しては、システム管理者までお問い合わせください。"]);
+			}
+		}else{
+			return redirect("/" . str_replace(".", "/", $this->url_pattern))->with(["message"=>"Limitation for user amount. Please register for more users."]);
 		}
 	}
 
@@ -38,21 +83,16 @@ class UserController extends Controller {
 	{
 		$url = $this->url_pattern . '.edit';
 
-		// $this->model = $this->model->where("id", $id);
-		// $this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
-		// $this->model = $this->model->first();
-		$this->model = $this->model->find($id);
+		$this->model = $this->model->where("id", $id);
+		$this->model = $this->model->where("organization_id", \Auth::user()->organization_id);
+		$this->model = $this->model->first();
 
 		$message = NULL;
 		$alert_type = NULL;
 
 		// Check model exist
-		$exist_flag = true;
 		$exist_flag = ($this->model) ? true : false;
-		// Check same organization
-		if($exist_flag){
-			$exist_flag = (($this->model->organization_id == $this->organization_id) ? true : false);
-		}
+
 		if(!$exist_flag){
 			return redirect("/" . str_replace(".", "/", $this->url_pattern) . '/add')->with(["message"=>"ユーザーが存在していませんので、ユーザー追加画面に遷移しました。", "alert_type" => $alert_type]);
 		}

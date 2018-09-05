@@ -65,7 +65,8 @@ class RegisterController extends Controller
         $organization = \App\Model\Organization::create([
             'name' => $data['name'],
             'ceo' => $data['name'],
-            'size' => "1",
+            'size' => 1,
+            'member_limitation' => 5, // default: 5 members
         ]);
         $organization_id = $organization->id;
 

@@ -15,8 +15,8 @@ class OrganizationController extends \App\Http\Controllers\Controller {
 		if($this->logged_in_user->organization_id){
 			$this->model->organization_id 		= $this->logged_in_user->organization_id;
 		}
-		$this->url_pattern = "admin.profile.organization";
-		$this->data["url_pattern"] = "/admin/profile/organization";
+		$this->url_pattern = "profile.organization";
+		$this->data["url_pattern"] = "/profile/organization";
 		$this->logical_delete = true;
 	}
 
@@ -40,16 +40,15 @@ class OrganizationController extends \App\Http\Controllers\Controller {
 	public function edit($id = NULL)
 	{
 		$role = $this->logged_in_user->role;
-		$is_manager = in_array($role, array("Manager"));
+		$is_manager = in_array($role, array("Manager", "Owner"));
 		if(!$is_manager){
-			// return \Redirect::to('/admin/profile/organization/info');
-			return redirect('/admin/profile/organization/info');
+			return redirect(action("Profile\OrganizationController@info"));
 		}
 
 		$url = $this->url_pattern . '.edit';
 
 		if(!$this->organization_id){ // 新規追加の場合 ($organization_idが存在していないので)
-			// return parent::add();
+			return redirect(action("Profile\OrganizationController@info"));
 		}else{ // 修正の場合
 			$this->model = $this->model->find($this->organization_id);
 		}
@@ -64,7 +63,7 @@ class OrganizationController extends \App\Http\Controllers\Controller {
 
 		if($this->form_input){ // Submit
 			$role = $this->logged_in_user->role;
-			$is_manager = in_array($role, array("Manager"));
+			$is_manager = in_array($role, array("Manager", "Owner"));
 			if($is_manager){
 				$this->model->fill($this->form_input);
 				$this->model->save();

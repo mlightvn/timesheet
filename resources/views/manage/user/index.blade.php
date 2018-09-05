@@ -18,7 +18,7 @@
 
 <div class="w3-row">
 	<button type="button" class="w3-button w3-brown" ng-click="reset()"><span class="fas fa-list-ul"></span></button>&nbsp;
-	@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
+	@if ( $data["allow_adding"] )
 	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>

@@ -78,11 +78,21 @@ return [
 		'edit' 						=> 'Edit bookmark',
 	],
 
+	'master' => [
+		'organization' 			=> [
+			'organization' 		=> 'Organization',
+			'list' 				=> 'Organization list',
+			'name' 				=> 'Organization name',
+		],
+	],
+
 	'common'							=> [
 		'explanation'					=> 'Explanation',
 		'description'					=> 'Description',
 		'detail'						=> 'Detail',
 		'title'							=> 'Title',
+		'name'							=> 'Name',
+		'email'							=> 'email',
 	],
 
 ];
