@@ -17,26 +17,8 @@ jQuery(document).ready(function($){
 		var data = {flag: flag};
 
 		var url = "/api/manage/project_task/" + project_task_id + "/my-task";
-
-		$.ajax({
-			type: "GET"
-			, url: url
-			, data: data
-			, dataType: "json"
-			, contentType: "application/json;charset=utf-8",
-		}).done(function(data) {
-// console.log(data);
-// $( "#modal #alert #divMessage" ).html(data);
-// $( "#modal #alert" ).toggle();
-// return;
-
-			// if(data["status"] == "success"){
-			// 	location.reload();
-			// }else{
-			// 	$( "#modal #alert #divMessage" ).html(data["message"]);
-			// 	$( "#modal #alert" ).toggle();
-			// }
-		});
+		$.get(url, data, function(data, textStatus, xhr) {
+		}, 'json');
 
 	});
 
@@ -62,17 +44,6 @@ jQuery(document).ready(function($){
 			, data: data
 			, dataType: "json"
 		}).done(function(data) {
-// console.log(data);
-// $( "#modal #alert #divMessage" ).html(data);
-// $( "#modal #alert" ).toggle();
-// return;
-
-			// if(data["status"] == "success"){
-			// 	location.reload();
-			// }else{
-			// 	$( "#modal #alert #divMessage" ).html(data["message"]);
-			// 	$( "#modal #alert" ).toggle();
-			// }
 		});
 	});
 
