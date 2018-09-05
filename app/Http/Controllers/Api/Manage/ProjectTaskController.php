@@ -50,7 +50,7 @@ class ProjectTaskController extends \App\Http\Controllers\Api\Controller {
 			$returnData = array("status"=>1, "message"=>"IDを入力してください。");
 		}
 
-		$flag = $this->form_input["flag"];
+		$flag = request()->input("flag");
 		if($flag === NULL || $flag === false || $flag == 0 || $flag == 1){
 			if($flag == 1){
 				$flag = "1";
@@ -60,12 +60,15 @@ class ProjectTaskController extends \App\Http\Controllers\Api\Controller {
 		}
 
 		$user_id = \Auth::id();
-		$model = App\Model\UserProjectTask();
+		$model = new \App\Model\UserProjectTask();
 		$model = $model->where("project_task_id" , $project_task_id);
 		$model = $model->where("user_id" , $user_id);
 		$model = $model->delete();
 
+		$model = new \App\Model\UserProjectTask();
 		if($flag){
+			$model->project_task_id = $project_task_id;
+			$model->user_id = $user_id;
 			$model->save();
 		}
 
@@ -83,7 +86,7 @@ class ProjectTaskController extends \App\Http\Controllers\Api\Controller {
 			$returnData = array("status"=>1, "message"=>"IDを入力してください。");
 		}
 
-		$flag = $this->form_input["flag"];
+		$flag = request()->input("flag");
 		if($flag === NULL || $flag === false || $flag == 0 || $flag == 1){
 			if($flag == 1){
 				$flag = "1";
@@ -95,7 +98,7 @@ class ProjectTaskController extends \App\Http\Controllers\Api\Controller {
 		$model = $this->model->find($project_task_id);
 		$model->excel_flag = $flag;
 		$result = $model->update();
-		if($result){
+		if(!$result){
 			$returnData = array("status"=>99, "message"=>"Unknownエラー。管理者に連絡してください。");
 		}
 

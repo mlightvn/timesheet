@@ -117,8 +117,8 @@ Route::group(['prefix' => '', 'middleware' => ['admin']], function(){
 			Route::get('{id}/delete' 		, 'Api\Manage\ProjectTaskController@delete')->where('id', '[0-9]+');
 			Route::get('{id}/recover' 		, 'Api\Manage\ProjectTaskController@recover')->where('id', '[0-9]+');
 
-			Route::post('{id}/my-task' 		, 'Api\Manage\ProjectTaskController@myTask')->where('id', '[0-9]+');
-			Route::post('{id}/excel-flag' 	, 'Api\Manage\ProjectTaskController@excelFlag')->where('id', '[0-9]+');
+			Route::get('{id}/my-task' 		, 'Api\Manage\ProjectTaskController@myTask')->where('id', '[0-9]+');
+			Route::get('{id}/excel-flag' 	, 'Api\Manage\ProjectTaskController@excelFlag')->where('id', '[0-9]+');
 		});
 
 		Route::group(['prefix' => 'department'], function(){

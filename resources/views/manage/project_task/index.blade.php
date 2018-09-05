@@ -51,13 +51,13 @@
 			</td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="my_task[@{{ model.id }}][user_id]" ng-checked="model.SELF_PROJECT" data-id="@{{model.id}}">
+					<input type="checkbox" name="my_task[@{{ model.project_task_id }}][user_id]" ng-checked="model.SELF_PROJECT" data-id="@{{model.project_task_id}}">
 					<span class="slider round"></span>
 				</label>
 			</td>
 			<td>
 				<label class="switch">
-					<input type="checkbox" name="excel_flag[@{{ model.id }}][excel_flag]" ng-checked="model.excel_flag" data-id="@{{model.id}}">
+					<input type="checkbox" name="excel_flag[@{{ model.project_task_id }}][excel_flag]" ng-checked="model.excel_flag" data-id="@{{model.project_task_id}}">
 					<span class="slider round"></span>
 				</label>
 			</td>

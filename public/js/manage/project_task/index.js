@@ -1,20 +1,29 @@
-$(document).ready(function(){
-	$( "[name^=my_task]" ).on("click", function( event ) {
-		var project_task_id = $(this).data('id');
+// $.noConflict();
+
+jQuery(document).ready(function($){
+	$( "body" ).on("click", "[name^=my_task]", function( event ) {
+		var project_task_id = $(this).data("id");
+
+		if(project_task_id == ""){
+			console.log("id is EMPTY. Check your code please");
+			return;
+		}
 
 		var flag = 0;
-		if($(this).checked){
+		if($(this).prop("checked") == true){
 			flag = 1;
 		}
 
 		var data = {flag: flag};
 
-		var url = "/admin/api/manage/project_task/" + project_task_id + "/my-task";
+		var url = "/api/manage/project_task/" + project_task_id + "/my-task";
+
 		$.ajax({
-			type: "POST"
+			type: "GET"
 			, url: url
 			, data: data
 			, dataType: "json"
+			, contentType: "application/json;charset=utf-8",
 		}).done(function(data) {
 // console.log(data);
 // $( "#modal #alert #divMessage" ).html(data);
@@ -28,21 +37,27 @@ $(document).ready(function(){
 			// 	$( "#modal #alert" ).toggle();
 			// }
 		});
+
 	});
 
-	$( "[name^=excel_flag]" ).on("click", function( event ) {
+	$( "body" ).on("click", "[name^=excel_flag]", function( event ) {
 		var project_task_id = $(this).data('id');
 
+		if(project_task_id == ""){
+			console.log("id is EMPTY. Check your code please");
+			return;
+		}
+
 		var flag = 0;
-		if($(this).checked){
+		if($(this).prop("checked") == true){
 			flag = 1;
 		}
 
 		var data = {flag: flag};
 
-		var url = "/admin/api/manage/project_task/" + project_task_id + "/excel-flag";
+		var url = "/api/manage/project_task/" + project_task_id + "/excel-flag";
 		$.ajax({
-			type: "POST"
+			type: "GET"
 			, url: url
 			, data: data
 			, dataType: "json"
