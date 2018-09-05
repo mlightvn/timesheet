@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -67,6 +67,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             // 'password' => bcrypt($data['password']),
             'password' => $data['password'],
+            'role' => "Owner",
         ]);
     }
 }

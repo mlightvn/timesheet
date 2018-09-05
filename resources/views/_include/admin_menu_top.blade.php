@@ -2,11 +2,11 @@
 	<a href="/" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="fas fa-clock"></span> {{ __('message.APP_NAME') }}</a>
 
 	@if(isset($logged_in_user))
-		<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_time') ? 'w3-gray' : ''}}">{{ __('message.menu.report.input_time_screen') }}</a>
-		<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_day') }}</a>
-		<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_month') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_month') }}</a>
-		<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_project') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_project') }}</a>
-		<a href="/report/department" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_department') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_department') }}</a>
+		<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_time') ? 'w3-gray' : ''}}"><span class="fas fa-pencil-alt"></span> {{ __('message.menu.report.input_time_screen') }}</a>
+		<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('message.menu.report.summary_by_day') }}</a>
+		<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_month') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('message.menu.report.summary_by_month') }}</a>
+		<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('message.menu.report.summary_by_project') }}</a>
+		<a href="/report/department" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_department') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('message.menu.report.summary_by_department') }}</a>
 
 {{--
 		<div class="w3-dropdown-hover w3-brown">
