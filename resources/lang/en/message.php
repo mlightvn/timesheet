@@ -74,6 +74,7 @@ return [
 
 	'promotion' 		=> 'Promotion',
 	'payment' 			=> 'Payment',
+	'donate' 			=> 'Donate',
 
 	'profile_edit' 				=> 'Profile edit',
 	'organization_edit' 		=> 'Organization edit',

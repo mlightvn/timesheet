@@ -77,6 +77,7 @@ return [
 
 	'promotion' 		=> 'プロモーション',
 	'payment' 			=> 'お支払い',
+	'donate' 			=> 'Donate',
 
 	'profile_edit' 		=> 'プロフィール修正',
 	'organization_edit' 		=> '企業修正',

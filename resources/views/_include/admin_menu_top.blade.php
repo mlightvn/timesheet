@@ -1,5 +1,5 @@
 <div class="w3-bar w3-brown w3-border">
-	<a href="/dashboard" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="fas fa-clock"></span> {{ __('message.APP_NAME') }}</a>
+	<a href="/" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="fas fa-clock"></span> {{ __('message.APP_NAME') }}</a>
 
 	@if(isset($logged_in_user))
 		<div class="w3-dropdown-hover w3-brown">
@@ -60,17 +60,17 @@
 		@if (in_array($logged_in_user->role, array("Owner", 'Manager')))
 {{--
 		<a href="/promotion" class="w3-bar-item w3-button"><i class="fas fa-gift"></i> {{ __('message.promotion') }}</a>
-		<a href="/price" class="w3-bar-item w3-button"><i class="fas fa-dollar-sign"></i> {{ __('message.payment') }}</a>
 --}}
+		<a href="/price" class="w3-bar-item w3-button"><i class="fas fa-dollar-sign"></i> {{ __('message.payment') }}</a>
 
-		<a href="javascript:void(0);" onclick="donate()" class="w3-btn w3-green"><i class="fas fa-dollar-sign"></i> {{ __('message.payment') }} <span class="glyphicon glyphicon-apple"></span></a>
 		@endif
 
 	@endif
 
-{{--
+	@if(!isset($logged_in_user))
+	<a href="/price" class="w3-bar-item w3-button"><i class="fas fa-dollar-sign"></i> {{ __('message.payment') }}</a>
+	@endif
 	<a href="javascript:void(0);" onclick="donate()" class="w3-btn w3-green">Donate <span class="glyphicon glyphicon-apple"></span></a>
-	--}}
 
 	<div class="w3-right">
 		@if(isset($logged_in_user))

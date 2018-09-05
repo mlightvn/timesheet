@@ -1,5 +1,3 @@
-// $.noConflict();
-
 jQuery(document).ready(function($){
 	$( "body" ).on("click", "[name^=my_task]", function( event ) {
 		var project_task_id = $(this).data("id");

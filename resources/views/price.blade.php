@@ -390,7 +390,10 @@
         <div class="panel-footer">
           <h3>$0</h3>
           <h4>per month</h4>
-          <button class="btn btn-lg">Sign Up</button>
+          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
+          <div>
+            Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
+          </div>
         </div>
       </div>
     </div>
@@ -406,7 +409,10 @@
         <div class="panel-footer">
           <h3>$100</h3>
           <h4>per month (not tax include)</h4>
-          <button class="btn btn-lg">Sign Up</button>
+          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
+          <div>
+            Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
+          </div>
         </div>
       </div>
     </div>
@@ -422,12 +428,24 @@
         <div class="panel-footer">
           <h3>$200</h3>
           <h4>per month (not tax include)</h4>
-          <button class="btn btn-lg">Sign Up</button>
+          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
+          <div>
+            Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("[action=contact]").click(function(){
+    window.location = "https://www.linkedin.com/in/nguyenngocnam/";
+  });
+});
+</script>
+
 
 <!-- Container (Contact Section) -->
 <div id="contact" class="container-fluid bg-grey">
@@ -453,15 +471,16 @@
 
     </div>
     <div class="col-sm-7 slideanim">
+      <a href="https://www.linkedin.com/in/nguyenngocnam/" class="btn btn-primary">Message to me through LinkedIn</a><br><br>
       <div class="row">
         <div class="col-sm-6 form-group">
-          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required disabled="disabled">
         </div>
         <div class="col-sm-6 form-group">
-          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required disabled="disabled">
         </div>
       </div>
-      <textarea class="form-control" id="comments" name="comments" placeholder="Content" rows="10" required></textarea><br>
+      <textarea class="form-control" id="comments" name="comments" placeholder="Content" rows="10" required disabled="disabled"></textarea><br>
       <div class="row">
         <div class="col-sm-12 form-group">
           <button class="btn btn-default pull-right" type="submit" disabled="disabled">Send</button>
