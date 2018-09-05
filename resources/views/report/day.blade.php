@@ -77,6 +77,7 @@
 				</td>
 			</tr>
 
+{{--
 			<tfoot>
 			<tr>
 				<td colspan="4">
@@ -86,6 +87,7 @@
 				</td>
 			</tr>
 			</tfoot>
+--}}
 		</table>
 		</form>
 		<br>

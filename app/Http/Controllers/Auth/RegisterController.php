@@ -62,12 +62,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $organization = \App\Model\Organization::create([
+            'name' => $data['name'],
+            'ceo' => $data['name'],
+            'size' => "1",
+        ]);
+        $organization_id = $organization->id;
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             // 'password' => bcrypt($data['password']),
             'password' => $data['password'],
             'role' => "Owner",
+            'organization_id' => "" . $organization_id,
         ]);
     }
 }

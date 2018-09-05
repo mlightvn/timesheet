@@ -25,9 +25,9 @@
 				<div class="w3-col s12 m4 l4">
 					※How to register
 					<ol>
-						<li><a href="/manage/project" title="" class="">{{__('screen.project.list')}}</a> &gt; <a href="/manage/project/add" title="" class=""><span class="fas fa-plus"></span></a></li>
-						<li><a href="/manage/project_task" title="" class="">{{__('screen.task.list')}}</a> &gt; <a href="/manage/project_task/add" title="" class=""><span class="fas fa-plus"></span></a></li>
-						<li><a href="./time">Register</a></li>
+						<li><a href="/manage/project/add" title="" class=""><span class="fas fa-plus"></span> Add project</a></li>
+						<li><a href="/manage/project_task/add" title="" class=""><span class="fas fa-plus"></span> Add task into project</a></li>
+						<li><a href="./time"><span class="fas fa-pencil-alt"></span> Register</a></li>
 					</ol>
 
 				</div>

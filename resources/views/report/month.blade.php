@@ -53,6 +53,8 @@
 				</td>
 			</tr>
 			@endforeach
+
+{{--
 			<tfoot>
 			<tr>
 				<td colspan="2">
@@ -62,6 +64,8 @@
 				</td>
 			</tr>
 			</tfoot>
+--}}
+
 		</table>
 
 	<br>
