@@ -37,7 +37,6 @@ return [
 	'excel_output_flag'							=> 'Excel出力フラグ',
 	'data_does_not_exist'						=> 'データが存在していません。',
 
-
 	'menu' => [
 		'report' => [
 			'report' 							=> 'レポート',

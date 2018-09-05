@@ -1,6 +1,13 @@
 <?php
 
 return [
+	'menu' => [
+		'others' => [
+			'others' 							=> 'その他',
+		],
+
+	],
+
 	'report'						=> [
 		'report'					=> 'レポート',
 	],

@@ -2,16 +2,11 @@
 	<a href="/" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="fas fa-clock"></span> {{ __('message.APP_NAME') }}</a>
 
 	@if(isset($logged_in_user))
-		<div class="w3-dropdown-hover w3-brown">
-			<button class="w3-button w3-brown w3-hover-black"><span class="fas fa-file-powerpoint"></span> {{ __('message.menu.report.report') }} <span class="fas fa-caret-down"></span></button>
-			<div class="w3-dropdown-content w3-bar-block w3-card-4">
-				<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_time') ? 'w3-gray' : ''}}">{{ __('message.menu.report.input_time_screen') }}</a>
-				<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_day') }}</a>
-				<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_month') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_month') }}</a>
-				<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_project') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_project') }}</a>
-				<a href="/report/department" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_department') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_department') }}</a>
-			</div>
-		</div>
+		<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_time') ? 'w3-gray' : ''}}">{{ __('message.menu.report.input_time_screen') }}</a>
+		<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_day') }}</a>
+		<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_month') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_month') }}</a>
+		<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_project') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_project') }}</a>
+		<a href="/report/department" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_department') ? 'w3-gray' : ''}}">{{ __('message.menu.report.summary_by_department') }}</a>
 
 {{--
 		<div class="w3-dropdown-hover w3-brown">
@@ -35,8 +30,14 @@
 
 		<a href="/cashflow" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'cashflow_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> Cashflow</a>
 --}}
-		<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{__('screen.domain.domain')}}</a>
-		<a href="/bookmark" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'bookmark_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{__('screen.bookmark.bookmark')}}</a>
+
+		<div class="w3-dropdown-hover w3-brown">
+			<button class="w3-button w3-brown w3-hover-black">{{ __('screen.menu.others.others') }} <span class="fas fa-caret-down"></span></button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a href="/domain" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'domain_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{__('screen.domain.domain')}}</a>
+				<a href="/bookmark" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'bookmark_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> {{__('screen.bookmark.bookmark')}}</a>
+			</div>
+		</div>
 
 		<div class="w3-dropdown-hover w3-brown">
 			<button class="w3-button w3-brown w3-hover-black"><i class="fas fa-cogs"></i> <span class="fas fa-caret-down"></span></button>

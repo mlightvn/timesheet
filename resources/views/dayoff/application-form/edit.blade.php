@@ -154,11 +154,11 @@
 			<td colspan="3">
 				<div class="w3-center">
 					@if ($data["view_mode"] == true)
-						@if ( $logged_in_user->role == "Manager" || ($logged_in_user->id == $model->applied_user_id))
+						@if ( in_array($logged_in_user->role, array("Manager", "Owner")) || ($logged_in_user->id == $model->applied_user_id))
 						<a class="w3-button w3-gray w3-xlarge" href="{{ $data['url_pattern'] }}/{{$model->id}}/reject">　　<span class="fas fa-times"></span>　却下　　</a>
 						@endif
-						@if ( $logged_in_user->role == "Manager" )
-						<a class="w3-button w3-brown w3-xlarge"href="{{ $data['url_pattern'] }}/{{$model->id}}/approve">　　<span class="fas fa-check"></span>　同意　　</a>
+						@if ( in_array($logged_in_user->role, array("Manager", "Owner")) )
+						<a class="w3-button w3-brown w3-xlarge" href="{{ $data['url_pattern'] }}/{{$model->id}}/approve">　　<span class="fas fa-check"></span>　同意　　</a>
 						@endif
 					@else
 					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　{{__('message.register')}}　　</button>
