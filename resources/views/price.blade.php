@@ -5,11 +5,13 @@
   <title>Bootstrap Theme Company Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
   <style>
   body {
       font: 400 15px Lato, sans-serif;
@@ -452,22 +454,18 @@ $(document).ready(function(){
   <h2 class="text-center">CONTACT</h2>
   <div class="row">
     <div class="col-sm-5">
-      <div class="row">
-        <p>Contact us and we'll get back to you soon.</p>
-        <p><span class="glyphicon glyphicon-map-marker"></span> Japan, Tokyo, Adashi ku</p>
-        <p><span class="glyphicon glyphicon-envelope"></span> <a href="https://coxanh.net/about" target="_blank">Contact form</a></p>
-      </div>
+      <div>Contact us and we'll get back to you soon.</div>
+      <div><i class="fas fa-map-marker-alt"></i></span> Japan, Tokyo, Adashi ku</div>
+      <div><i class="fas fa-envelope"></i> <a href="https://coxanh.net/about" target="_blank">Contact form</a></div>
 
       <br>
 
-      <div class="row">
-        <p><strong>Bank account</strong></p>
-        <p>Mizuho (みずほ銀行)</p>
-        <p>Account type: Normal</p>
-        <p>Bank branch: Ayase (綾瀬支店: 179)</p>
-        <p>Account number: 1405218</p>
-        <p>Account user: NGUYEN NGOC NAM</p>
-      </div>
+      <p><strong>Bank account</strong></p>
+      <p>Mizuho (みずほ銀行)</p>
+      <p>Account type: Normal</p>
+      <p>Bank branch: Ayase (綾瀬支店: 179)</p>
+      <p>Account number: 1405218</p>
+      <p>Account user: NGUYEN NGOC NAM</p>
 
     </div>
     <div class="col-sm-7 slideanim">
