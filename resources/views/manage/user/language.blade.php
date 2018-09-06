@@ -10,9 +10,9 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="btn w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
 	@if(in_array($logged_in_user->role, array("Owner", "Manager")))
-	<a href="{{ $data['url_pattern'] }}/add" class="btn w3-brown"><span class="fas fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
 </div>
@@ -37,17 +37,17 @@
 
 				<ul class="nav nav-tabs nav-justified">
 					<li class="nav-item">
-						<a class="nav-link" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('screen.user.info')}}</a>
+						<a class="nav-link" href="{{ action('Manage\UserController@edit', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('message.login_info')}}</a>
+						<a class="nav-link" href="{{ action('Manage\UserController@editUserInfo', ['user_id' => $model->id]) }}">{{__('screen.user.info')}}</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active" href="{{ action('Manage\UserController@language') }}"><i class="fas fa-language"></i> {{__('message.language.language')}}</a>
 					</li>
 				</ul>
 
-				<table class="timesheet_table w3-table border shadow">
+				<table class="w3-table border shadow">
 					<tr>
 						<th>{{__('message.language.language')}}</th>
 						<td>
@@ -71,7 +71,7 @@
 						<td></td>
 						<td>
 							<div>
-								<button type="submit" class="btn w3-brown w3-xlarge">　　<span class="fas fa-cloud-upload-alt"></span>　{{__('message.register')}}　　</button>
+								<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-upload-alt"></span>　{{__('message.register')}}　　</button>
 							</div>
 						</td>
 					</tr>

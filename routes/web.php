@@ -38,9 +38,14 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 	Route::post('time', 'Report\TimeController@register');
 
 	Route::get('day', 'Report\DayController@index');
-	Route::get('day_download_{year}-{month}', 'Report\DayController@download');
+	// Route::get('day_download_{year}-{month}', 'Report\DayController@download');
 
-	Route::get('month', 'Report\MonthController@index');
+
+	Route::group(['prefix' => 'month'], function(){
+		Route::get('', 'Report\MonthController@index');
+		Route::get('download', 'Report\Controller@downloadByMonth');
+
+	});
 
 
 	Route::group(['prefix' => 'department'], function()
@@ -56,7 +61,7 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 
 	Route::group(['prefix' => 'project'], function(){
 		Route::get('', 'Report\ProjectController@index');
-		Route::get('download', 'Report\Controller@downloadProject');
+		Route::get('download', 'Report\Controller@downloadByProject');
 
 	});
 });

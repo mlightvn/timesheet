@@ -45,9 +45,10 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
 			<thead>
 				<tr class="w3-brown">
-					<th nowrap="nowrap">日</th>
-					<th>時間</th>
-					<th>Description</th>
+					<th nowrap="nowrap" width="100px">{{__('screen.report.day.day')}}</th>
+					<th width="50px"></th>
+					<th width="100px">{{__('screen.report.day.time')}}</th>
+					<th>{{__('screen.common.description')}}</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -55,6 +56,9 @@
 			<tr class="@{{ model.status_color }}" ng-repeat="model in model_list.arrWorkingDays">
 				<td align="right">
 					<a href="@{{ model.TIME_PAGE_URL }}" title="@{{ model.name }}"><span ng-bind="model.day"></span> <span class="glyphicon glyphicon-new-window"></span></a>
+				</td>
+				<td>
+					<span class="@{{ model.day_icon }}"></span>
 				</td>
 				<td>
 					<span class="@{{ model.hour_color }}" ng-bind="model.hour_label"></span>
@@ -67,27 +71,22 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
+				<td colspan="2">
 				</td>
-				<td><label class="w3-xlarge" ng-bind="model_list.total_working_hours_label"></label>
-				</td>
-				<td>
-				</td>
-				<td>
+				<td colspan="3"><label class="w3-xlarge" ng-bind="model_list.total_working_hours_label"></label>
 				</td>
 			</tr>
 
-{{--
 			<tfoot>
 			<tr>
 				<td colspan="4">
 					<div class="w3-center">
-						<button type="button" action="download" value="@{{model_list.download_url}}" class="w3-button w3-brown w3-xlarge" disabled="disabled">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
+						<button type="button" action="download" value="@{{model_list.download_url}}" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
 					</div>
 				</td>
 			</tr>
 			</tfoot>
---}}
+
 		</table>
 		</form>
 		<br>

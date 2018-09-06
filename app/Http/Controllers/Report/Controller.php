@@ -51,7 +51,15 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 
 	}
 
-	public function downloadProject()
+	public function downloadByMonth()
+	{
+		$this->data["user_list"] = array();
+		$this->data["user_list"][$this->reportUser->id] = $this->reportUser;
+
+		return $this->download();
+	}
+
+	public function downloadByProject()
 	{
 		$this->data["user_list"] = array();
 		$this->data["user_list"][$this->reportUser->id] = $this->reportUser;
@@ -95,7 +103,6 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 		return $this->download();
 	}
 
-	// http://www.maatwebsite.nl/laravel-excel/docs/export#sheets
 	public function download()
 	{
 		if(isset($this->data["user_list"]) && (count($this->data["user_list"]) > 0)){
@@ -104,7 +111,7 @@ class Controller extends \App\Http\Controllers\Admin\Controller {
 			$day 		= request()->day;
 
 			$day 		= ($day ?? "");
-			$month 		= ($month ?? str_pad($month, 2, 0 , STR_PAD_LEFT));
+			$month 		= str_pad($month, 2, 0 , STR_PAD_LEFT);
 
 			$this->data["year"] 				= $year;
 			$this->data["month"] 				= $month;

@@ -44,7 +44,7 @@
 		<a class="w3-bar-item w3-button {{ (isset($data['role']) && ($data['role'] == 'Other')) ? 'w3-gray' : '' }}" href="{{ $data['url_pattern'] }}?permission=Other">Other users</a>
 	</div>
 
-	<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
+	<table class="w3-table-all w3-hoverable w3-striped w3-bordered">
 		<thead>
 		<tr class="w3-brown">
 			<th>#</th>

@@ -26,7 +26,7 @@
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
 	@endif
 
-	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
+	<table class="w3-table-all w3-striped w3-bordered">
 		<tr>
 			<th>{!! Form::label('name', __('screen.department.department') . '※') !!}</th>
 			<td>
@@ -37,7 +37,7 @@
 		<tr>
 			<td colspan="2">
 				<div class="w3-center">
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　{{__('message.register')}}　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-upload-alt"></span>　{{__('message.register')}}　　</button>
 				</div>
 			</td>
 		</tr>

@@ -10,6 +10,13 @@ return [
 
 	'report'						=> [
 		'report'					=> 'Report',
+		'day' 						=> [
+			'day'					=> 'Day',
+			'time'					=> 'Time',
+		],
+		'month' 					=> [
+			'month'					=> 'Month',
+		],
 	],
 
 	'manage'						=> [

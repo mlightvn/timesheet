@@ -26,45 +26,25 @@
 		<table class="timesheet_table w3-table-all w3-hoverable w3-striped w3-bordered">
 			<thead>
 			<tr class="w3-brown">
-{{--
-				<th>
-					<input type="checkbox" id="chkMonthAll">
-				</th>
---}}
-				<th nowrap="nowrap">月</th>
+				<th nowrap="nowrap">{{__('screen.report.month.month')}}</th>
 				<th></th>
 			</tr>
 			</thead>
 
 			@foreach($arrMonth as $month_key => $month_label)
 			<tr>
-{{--
-				<td><input type="checkbox" id="chkMonth[{{ $month_key }}]" name="chkMonth[{{ $month_key }}]">
---}}
 				</td>
 				<td>
-					<a href="/admin/report/day?year_month={{ $requestYear }}-{{ str_pad($month_key, 2, '0', STR_PAD_LEFT) }}">
-						{{ $month_key }}月
+					<a href="day?year_month={{ $requestYear }}-{{ $month_key }}" class="btn disabled">
+						{{ $month_label }}
 					</a>
 
 				</td>
 				<td>
-					<a href="day_download_{{ $requestYear }}-{{ $month_key }}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a>
+					<a href="month/download?year={{ $requestYear }}&month={{ $month_key }}" class="w3-text-brown"><span class="fas fa-cloud-download-alt fa-2x"></span></a>
 				</td>
 			</tr>
 			@endforeach
-
-{{--
-			<tfoot>
-			<tr>
-				<td colspan="2">
-					<div class="w3-center">
-						<button type="button" disabled="disabled" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-download-alt"></span> {{__('message.download')}}　　</button>
-					</div>
-				</td>
-			</tr>
-			</tfoot>
---}}
 
 		</table>
 

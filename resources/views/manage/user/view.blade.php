@@ -41,7 +41,7 @@
 					@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
 				@endif
 
-				<table class="timesheet_table w3-table w3-bordered">
+				<table class="w3-table w3-bordered">
 					<tr class="w3-xlarge">
 						<th colspan="2">{{__('message.login_info')}}</th>
 					</tr>

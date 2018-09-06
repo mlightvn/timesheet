@@ -26,7 +26,7 @@
 		@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message"))])
 	@endif
 
-	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
+	<table class="table table-striped table-bordered">
 		<tr>
 			<th>{!! Form::label('name', 'Title') !!} <span class="w3-text-red">※</span></th>
 			<th><button type="button" name="btnCopy" value="name"><i class="fas fa-copy"></i></button></th>

@@ -10,9 +10,9 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="btn w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
 	@if(in_array($logged_in_user->role, array("Owner", "Manager")))
-	<a href="{{ $data['url_pattern'] }}/add" class="btn w3-brown"><span class="fas fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
 </div>
@@ -56,7 +56,7 @@
 				</ul>
 				@endif
 
-				<table class="timesheet_table w3-table border shadow">
+				<table class="w3-table border shadow">
 					<tr>
 						<th>{!! Form::label('email', 'email※') !!}</th>
 						<td>
@@ -84,7 +84,7 @@
 					<tr>
 						<td colspan="2">
 							<div class="w3-center">
-								<button type="submit" class="btn w3-brown w3-xlarge">　　<span class="fas fa-hdd"></span>　{{__('message.register')}}　　</button>
+								<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-upload-alt"></span>　{{__('message.register')}}　　</button>
 							</div>
 						</td>
 					</tr>

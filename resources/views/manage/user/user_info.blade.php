@@ -11,9 +11,9 @@
 </div>
 
 <div class="w3-row">
-	<a href="{{ $data['url_pattern'] }}" class="btn w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
+	<a href="{{ $data['url_pattern'] }}" class="w3-button w3-brown"><span class="fas fa-list-ul"></span></a>&nbsp;
 	@if(in_array($logged_in_user->role, array("Owner", "Manager")))
-	<a href="{{ $data['url_pattern'] }}/add" class="btn w3-brown"><span class="fas fa-plus"></span></a>
+	<a href="{{ $data['url_pattern'] }}/add" class="w3-button w3-brown"><span class="fas fa-plus"></span></a>
 	@endif
 	<br><br>
 </div>
@@ -57,7 +57,7 @@
 				</ul>
 				@endif
 
-				<table class="timesheet_table w3-table w3-bordered">
+				<table class="w3-table table-bordered table-hover border shadow">
 					<tr>
 						<th>{!! Form::label('name', __('screen.user.name')) !!} <span class="w3-text-red">※</span></th>
 						<td>
@@ -65,10 +65,10 @@
 						</td>
 					</tr>
 
+					@if($model->id != 1)
 					<tr>
 						<th>{!! Form::label('role', __('message.flag.manager')) !!}</th>
 						<td>
-					@if(($model->id != 1) && ($model->organization_id != 1))
 						@if(isset($data["allow_change_permission"]) && ($data["allow_change_permission"] == true))
 							{!! Form::radio('role', 'Member', true, ['class'=>'', 'id'=>'role[0]']) !!}
 							<label for="role[0]" class="radio-inline control-label">Member</label>
@@ -85,9 +85,9 @@
 						@else
 							{{ $model->role }}
 						@endif
-					@endif
 						</td>
 					</tr>
+					@endif
 
 					<tr>
 						<th>{!! Form::label('department_id', __('message.department')) !!}</th>
@@ -148,7 +148,7 @@
 					<tr>
 						<td colspan="2">
 							<div class="w3-center">
-								<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　{{__('message.register')}}　　</button>
+								<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-upload-alt"></span>　{{__('message.register')}}　　</button>
 							</div>
 						</td>
 					</tr>

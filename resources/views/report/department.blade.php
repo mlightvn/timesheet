@@ -36,8 +36,8 @@
 			{{ $session->name }}
 			</td>
 			@if (in_array($logged_in_user->role, array("Owner", "Manager")))
-			<td><a href="{{ \Request::url() }}/download/{{ $session->id }}?year={{ $data['prev_year'] }}&month={{$data['prev_month']}}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a></td>
-			<td><a href="{{ \Request::url() }}/download/{{ $session->id }}?year={{ $data['curr_year'] }}&month={{$data['curr_month']}}" class="w3-text-brown"><span class="fas fa-cloud-download-alt"></span></a></td>
+			<td><a href="{{ \Request::url() }}/download/{{ $session->id }}?year={{ $data['prev_year'] }}&month={{$data['prev_month']}}" class="w3-text-brown"><span class="fas fa-cloud-download-alt fa-2x"></span></a></td>
+			<td><a href="{{ \Request::url() }}/download/{{ $session->id }}?year={{ $data['curr_year'] }}&month={{$data['curr_month']}}" class="w3-text-brown"><span class="fas fa-cloud-download-alt fa-2x"></span></a></td>
 			@endif
 		</tr>
 		@endforeach

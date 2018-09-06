@@ -33,7 +33,7 @@
 		@include('_include.alert_message')
 	@endif
 
-	<table class="timesheet_table w3-table-all w3-striped w3-bordered">
+	<table class="w3-table-all w3-striped w3-bordered">
 		@if ($data["view_mode"] !== true)
 		@if (isset($data['template_list']))
 		<tr>
@@ -161,7 +161,7 @@
 						<a class="w3-button w3-brown w3-xlarge" href="{{ $data['url_pattern'] }}/{{$model->id}}/approve">　　<span class="fas fa-check"></span>　同意　　</a>
 						@endif
 					@else
-					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-pencil-alt"></span>　{{__('message.register')}}　　</button>
+					<button type="submit" class="w3-button w3-brown w3-xlarge">　　<span class="fas fa-cloud-upload-alt"></span>　{{__('message.register')}}　　</button>
 					@endif
 				</div>
 			</td>

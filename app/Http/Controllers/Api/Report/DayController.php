@@ -58,6 +58,8 @@ class DayController extends \App\Http\Controllers\Api\Controller {
 
 		$application_form_list = $this->getApplicationFormList($user_id, $this->sRequestYearMonth);
 
+		$today = date('Y-m-d');
+
 		// arrWorkingDays
 		for ($day=1; $day <= $this->lastDayOfMonth; $day++) {
 			$day_data = array();
@@ -71,10 +73,24 @@ class DayController extends \App\Http\Controllers\Api\Controller {
 				$day_data["is_holiday"] = $this->isWeekend($date); //週末、休日、祭り、…
 				$day_data["name"] = "";
 			}
-			$day_data["day"] = $day;
+
+			$day_label = str_pad($day, 2, 0, STR_PAD_LEFT);
+			$date_label = $this->sRequestYearMonth . '-' . $day_label;
+
+			$day_icon = "";
+			if($day_data["is_holiday"]){
+				$day_icon = "fas fa-bed";
+			}elseif($today === $date_label){
+				$day_icon = "fab fa-accessible-icon";
+			}elseif($today > $date_label){
+				$day_icon = "fa fa-power-off";
+			}
+
+			$day_data["day"] = $day_label;
+			$day_data["day_icon"] = $day_icon;
 			$day_data["minutes"] = 0;
 			$day_data["hour_label"] = "00:00";
-			$day_data["TIME_PAGE_URL"] = "/report/time?date=" . $this->sRequestYearMonth . "-" . $day;
+			$day_data["TIME_PAGE_URL"] = "/report/time?date=" . $date_label;
 
 			if(isset($application_form_list[$day])){
 				$day_data["application_title"] = $application_form_list[$day]->name;
@@ -120,7 +136,7 @@ class DayController extends \App\Http\Controllers\Api\Controller {
 		$data["arrWorkingDays"] 					= $arrWorkingDays;
 		$data["total_working_hours_label"] 			= $total_working_hours_label;
 		$data["total_working_minutes"] 				= $total_working_minutes;
-		$data["download_url"] 						= "/report/day_download_" . $this->sRequestYearMonth;
+		$data["download_url"] 						= "/report/month/download?year=" . $this->requestYear . "&month=" . $this->requestMonth;
 
 		$return_data["data"] 						= $data;
 

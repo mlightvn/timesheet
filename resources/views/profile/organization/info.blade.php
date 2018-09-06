@@ -10,7 +10,7 @@
 </div>
 
 <div class="w3-row">
-	<table class="timesheet_table w3-table w3-bordered">
+	<table class="table table-bordered table-hover">
 		<tr>
 			<th>{!! Form::label('name', '企業名※') !!}</th>
 			<td>

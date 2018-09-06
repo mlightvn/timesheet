@@ -29,7 +29,7 @@
 			@endif
 
 		<div class="w3-row">
-		<table class="timesheet_table w3-table-all w3-hoverable w3-bordered">
+		<table class="table table-hoverable table-bordered">
 			<thead>
 			<tr class="w3-brown">
 				<th nowrap="nowrap">日</th>
