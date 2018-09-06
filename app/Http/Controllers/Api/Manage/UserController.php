@@ -73,4 +73,17 @@ class UserController extends \App\Http\Controllers\Api\Controller {
 		return response()->json($result);
 	}
 
+	public function language($language='ja')
+	{
+		$user_id = request()->user_id;
+		if(!isset($user_id) && !empty($user_id)){
+			$user_id = $this->logged_in_user->user_id;
+		}
+
+		$model = new \App\Model\User();
+		$model = $model->find($user_id);
+
+		\App::setLocale($language);
+	}
+
 }
