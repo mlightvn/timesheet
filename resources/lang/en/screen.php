@@ -58,6 +58,8 @@ return [
 		'female'					=> 'Female',
 		'date_of_birth'				=> 'Date of birth',
 		'phone_number'				=> 'Phone number',
+		'internal_number'			=> 'Internal number',
+		'role'						=> 'Role',
 	],
 	'time' 							=> [
 		'input' 					=> 'Input time',

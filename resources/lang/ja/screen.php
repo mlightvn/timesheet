@@ -58,6 +58,8 @@ return [
 		'female'					=> '女性',
 		'date_of_birth'				=> '生年月日',
 		'phone_number'				=> '電話番号',
+		'internal_number'			=> '内線番号',
+		'role'						=> '役割',
 	],
 	'time' 							=> [
 		'title' 					=> '稼働時間入力',

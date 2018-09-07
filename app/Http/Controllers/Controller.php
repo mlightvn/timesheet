@@ -402,6 +402,20 @@ class Controller extends BaseController
 		$table = DB::table('users');
 		$table = $table->select([
 			  "users.*"
+
+			, DB::raw("
+					CASE users.gender
+						WHEN 0 THEN 'fas fa-male fa-lg'
+						ELSE 'fas fa-female fa-lg'
+					END				AS GENDER_ICON
+				")
+			, DB::raw("
+					CASE users.gender
+						WHEN 0 THEN 'Male'
+						ELSE 'FEMALE'
+					END				AS GENDER_LABEL
+				")
+
 			, DB::raw("organization.name 				AS organization_name")
 			, DB::raw("department.name 					AS department_name")
 
@@ -413,11 +427,10 @@ class Controller extends BaseController
 			, DB::raw("users.id 		AS user_id")
 			, DB::raw("
 				CASE users.role
-					WHEN 'Master' THEN 'fab fa-empire w3-text-red'
-					WHEN 'Owner' THEN 'glyphicon glyphicon-king'
-					WHEN 'Administrator' THEN 'glyphicon glyphicon-knight'
-					WHEN 'Manager' THEN 'glyphicon glyphicon-queen'
-					ELSE 'glyphicon glyphicon-pawn'
+					WHEN 'Master' THEN 'fab fa-empire fa-lg w3-text-red'
+					WHEN 'Owner' THEN 'fas fa-chess-king fa-lg'
+					WHEN 'Manager' THEN 'fas fa-user-secret fa-lg'
+					ELSE 'fas fa-user-tie fa-lg'
 				END AS ICON_CLASS
 				")
 		]);

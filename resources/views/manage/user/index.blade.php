@@ -29,11 +29,15 @@
 		<thead>
 		<tr class="w3-brown">
 			<th>ID</th>
+			<th width="30px"></th>
 			<th>{{__('screen.user.name')}}</th>
+			<th width="20px"></th>
+			<th width="30px">{{__('screen.user.gender')}}</th>
 			<th>{{__('message.department')}}</th>
 			<th>email</th>
 			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<th>Dayoff</th>
+			<th>{{__('screen.user.phone_number')}}</th>
 			<th>{{__('screen.report.report')}}</th>
 			@endif
 			<th></th>
@@ -41,11 +45,8 @@
 		</thead>
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
 			<td><span ng-bind="model.id"></span></td>
+			<td><img ng-if="model.profile_picture != null" ng-src="@{{ '/upload/user/' + model.profile_picture}}" alt="" width="30px" ></td>
 			<td>
-				<img ng-if="model.profile_picture != null" ng-src="@{{ '/upload/user/' + model.profile_picture}}" alt="" width="30px" >
-				<span class="@{{ model.ICON_CLASS }}"></span>
-				&nbsp;
-
 				@if ( $logged_in_user->role == "Owner" )
 					<a href="{{ $data['url_pattern'] }}/user-info/@{{ model.id }}"><span class="fas fa-pencil-alt"></span> <span ng-bind="model.name"></span></a>
 				@elseif( in_array($logged_in_user->role, array("Manager")) )
@@ -65,10 +66,13 @@
 				@endif
 
 			</td>
+			<td><span class="@{{ model.ICON_CLASS }}" title="@{{ model.role }}"></span></td>
+			<td><span class="@{{ model.GENDER_ICON }}" title="@{{ model.GENDER_LABEL }}"></span></td>
 			<td><span ng-bind="model.department_name"></span></td>
 			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<td><span ng-bind="model.dayoff"></span></td>
+			<td><a ng-href="tel:@{{model.phone}}" ng-bind="model.phone"></a></td>
 			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fas fa-table" aria-hidden="true"></span> {{__('screen.project.report')}}</a></td>
 			@endif
 			<td>
