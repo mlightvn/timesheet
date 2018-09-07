@@ -35,6 +35,7 @@ class User extends Authenticatable
 		'birthday',
 		'tel',
 		'phone',
+		'internal_number',
 		'description',
 
 		'remember_token',

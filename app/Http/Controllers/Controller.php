@@ -431,7 +431,7 @@ class Controller extends BaseController
 					WHEN 'Owner' THEN 'fas fa-chess-king fa-lg'
 					WHEN 'Manager' THEN 'fas fa-user-secret fa-lg'
 					ELSE 'fas fa-user-tie fa-lg'
-				END AS ICON_CLASS
+				END AS ROLE_ICON
 				")
 		]);
 

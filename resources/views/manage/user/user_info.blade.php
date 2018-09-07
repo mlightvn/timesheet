@@ -57,7 +57,7 @@
 				</ul>
 				@endif
 
-				<table class="w3-table table-bordered table-hover border shadow">
+				<table class="w3-table table-bordered table-hover border shadow" data-ng-app="" data-ng-init="phone='{{$model->phone}}';tel='{{$model->tel}}';internal_number='{{$model->internal_number}}'">
 					<tr>
 						<th>{!! Form::label('name', __('screen.user.name')) !!} <span class="w3-text-red">※</span></th>
 						<td>
@@ -132,7 +132,24 @@
 					<tr>
 						<th>{!! Form::label('phone', __('screen.user.phone_number')) !!}</th>
 						<td>
-							{!! Form::input('tel', 'phone', null, ['class'=>'form-control', 'placeholder'=>__('screen.user.phone_number')]) !!}
+							{!! Form::tel('phone', null, ['class'=>'form-control', 'ng-model'=>'phone', 'maxlength'=>'25']) !!}
+							<a ng-href="tel:@{{phone}}" title="{{__('screen.user.phone_number')}}" ng-bind="phone"></a>
+						</td>
+					</tr>
+
+					<tr>
+						<th>{!! Form::label('tel', __('screen.user.tel_number')) !!}</th>
+						<td>
+							{!! Form::tel('tel', null, ['class'=>'form-control', 'ng-model'=>'tel', 'maxlength'=>'25']) !!}
+							<a ng-href="tel:@{{tel}}" title="{{__('screen.user.tel_number')}}" ng-bind="tel"></a>
+						</td>
+					</tr>
+
+					<tr>
+						<th>{!! Form::label('internal_number', __('screen.user.internal_number')) !!}</th>
+						<td>
+							{!! Form::tel('internal_number', null, ['class'=>'form-control', 'ng-model'=>'internal_number', 'maxlength'=>'50']) !!}
+							<a ng-href="tel:@{{internal_number}}" title="{{__('screen.user.internal_number')}}" ng-bind="internal_number"></a>
 						</td>
 					</tr>
 
