@@ -27,6 +27,14 @@
 <script src="/js/{{ $js }}.js"></script>
 @endif
 
+<script type="text/javascript">
+$(function() {
+	$("img.lazy").lazyload({
+		effect : "fadeIn"
+	});
+});
+</script>
+
 <script src="/js/alert.box.js"></script>
 
 <div class="w3-border w3-border-black"></div>

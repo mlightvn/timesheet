@@ -2,7 +2,7 @@
 
 <div class="col-sm-3">
 	<div class="card shadow">
-		<img name="profile_picture" class="card-img-top" src="{{ ($model->profile_picture) ? ('/upload/user/' . $model->profile_picture) : '/common/images/avatar_male.png'}}" alt="{{$model->name}}">
+		<img name="profile_picture" class="card-img-top lazy" data-original="{{ ($model->profile_picture) ? ('/upload/user/' . $model->profile_picture) : '/common/images/avatar_male.png'}}" alt="{{$model->name}}">
 
 		<div class="user_card_upload">
 			{!! Form::model($model, ["id"=>"user_card_form","enctype"=>"multipart/form-data"]) !!}

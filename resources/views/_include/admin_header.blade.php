@@ -23,6 +23,7 @@
 	<script src="/js/common/jquery.min.js"></script>
 	<script src="/js/common/bootstrap.min.js"></script>
 	<script src="/js/common/angular.min.js"></script>
+	<script src="/js/common/jquery.lazyload.min.js"></script>
 
 	<link rel="stylesheet" href="/css/alert.box.css">
 
