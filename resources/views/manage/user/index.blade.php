@@ -40,8 +40,8 @@
 			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<th>Dayoff</th>
 			<th>{{__('screen.report.report')}}</th>
-			@endif
 			<th></th>
+			@endif
 		</tr>
 		</thead>
 		<tr class="@{{ model.DELETED_CSS_CLASS }}" ng-repeat="model in model_list">
@@ -73,35 +73,31 @@
 			<td><a href="mailto:@{{ model.email }}"><span class="fas fa-envelope"></span> <span ng-bind="model.email"></span></a></td>
 			<td><a ng-href="tel:@{{model.phone}}" ng-bind="model.phone"></a></td>
 			<td><a ng-href="tel:@{{model.internal_number}}" ng-bind="model.internal_number"></a></td>
+
 			@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
 			<td><span ng-bind="model.dayoff"></span></td>
 			<td><a href="/report/project?user_id=@{{ model.id }}"><span class="fas fa-table" aria-hidden="true"></span> {{__('screen.project.report')}}</a></td>
-			@endif
 			<td>
 
 				@if ( $logged_in_user->role == "Owner" )
 					<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
-				@elseif( in_array($logged_in_user->role, array("Manager")) )
-					<span ng-if="model.id == '{{ $logged_in_user->id }}'">
+
+					<span ng-if="model.id != 1 && (model.role == 'Member' ||  model.role == 'Manager')">
+						<a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
+					</span>
+				@elseif( $logged_in_user->role == "Manager" )
+					<span ng-if="(model.id == '{{ $logged_in_user->id }}') || (model.role == 'Member')">
 						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
 					</span>
 
-					<span ng-if="model.id != '{{ $logged_in_user->id }}'">
-						@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
-						<a href="{{ $data['url_pattern'] }}/edit/@{{ model.id }}" class="btn w3-brown btn-xs"><span class="fas fa-pencil-alt"></span></a>
-						@else
-						<span class="fas fa-pencil-alt"></span>
-						@endif
+					<span ng-if="model.id != 1 && model.role == 'Member'">
+						<a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
 					</span>
 				@endif
 
-				@if ( in_array($logged_in_user->role, array("Owner", "Manager")) )
-					<span ng-if="model.id != 1">
-					| <a href="javascript:void(0);" ng-click="delete_recover(model.id, model.DELETE_FLAG_ACTION)" class="btn @{{model.DELETED_RECOVER_COLOR}} btn-xs"><i class="@{{model.DELETED_RECOVER_ICON}}"></i></a>
-					</span>
-
-				@endif
 			</td>
+			@endif
+
 		</tr>
 	</table>
 	<br>
