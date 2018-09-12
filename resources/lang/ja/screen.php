@@ -2,6 +2,26 @@
 
 return [
 	'menu' => [
+		'report' => [
+			'report' 							=> 'レポート',
+			'input_time_screen' 				=> '工数入力画面',
+			'summary_by_day' 					=> '日別工数集計',
+			'summary_by_member' 				=> 'ユーザ別工数集計',
+			'summary_by_month' 					=> '月別工数集計',
+			'summary_by_project' 				=> 'プロジェクト別工数集計',
+			'summary_by_department' 			=> '部署',
+		],
+
+		'day_off' => [
+			'day_off' 							=> '休暇・有給',
+			'application_form'					=> '各種申請',
+			'applied_history'					=> '休暇履歴',
+		],
+
+		'customer' => [
+			'customer' 							=> '顧客',
+		],
+
 		'others' => [
 			'others' 							=> 'その他',
 		],
@@ -103,6 +123,7 @@ return [
 		'title'							=> 'タイトル',
 		'name'							=> 'Name',
 		'email'							=> 'email',
+		'all'							=> 'すべて',
 	],
 
 ];

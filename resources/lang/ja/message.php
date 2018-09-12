@@ -37,28 +37,6 @@ return [
 	'excel_output_flag'							=> 'Excel出力フラグ',
 	'data_does_not_exist'						=> 'データが存在していません。',
 
-	'menu' => [
-		'report' => [
-			'report' 							=> 'レポート',
-			'input_time_screen' 				=> '工数入力画面',
-			'summary_by_day' 					=> '日別工数集計',
-			'summary_by_month' 					=> '月別工数集計',
-			'summary_by_project' 				=> 'プロジェクト別工数集計',
-			'summary_by_department' 			=> '部署',
-		],
-
-		'day_off' => [
-			'day_off' 							=> '休暇・有給',
-			'application_form'					=> '各種申請',
-			'applied_history'					=> '休暇履歴',
-		],
-
-		'customer' => [
-			'customer' 							=> '顧客',
-		]
-
-	],
-
 	'application_templates' 		=> 'Application Templates',
 
 	'applied_member'	=> '登録者',

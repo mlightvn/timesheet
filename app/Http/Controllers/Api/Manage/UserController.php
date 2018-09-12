@@ -18,13 +18,12 @@ class UserController extends \App\Http\Controllers\Api\Controller {
 	public function list()
 	{
 
-		$keyword = null;
-		if(isset($this->form_input["keyword"])){
-			$keyword = $this->form_input["keyword"];
-		}
-		$this->data["keyword"] = $keyword;
-
-		$arrUsers = $this->getUsers(true, NULL, NULL, NULL, $keyword);
+		$table = new \App\Model\User();
+		$request = [
+			"isPagination" 		=> true,
+			"keyword" 			=> request()->keyword,
+		];
+		$arrUsers = $table->getList($request);
 
 		return $this->toJson($arrUsers);
 	}

@@ -35,28 +35,6 @@ return [
 	'excel_output_flag'							=> 'Excel output flag',
 	'data_does_not_exist'						=> 'Data does not exist',
 
-	'menu' => [
-		'report' => [
-			'report' 							=> 'Report',
-			'input_time_screen' 				=> 'Input',
-			'summary_by_day' 					=> 'Summary by day',
-			'summary_by_month' 					=> 'Summary by month',
-			'summary_by_project' 				=> 'Summary by project',
-			'summary_by_department' 			=> 'Report by department',
-		],
-
-		'day_off' => [
-			'day_off' 							=> 'Day off',
-			'application_form'					=> 'Application form',
-			'applied_history'					=> 'Applied history',
-		],
-
-		'customer' => [
-			'customer' 							=> 'Customer',
-		]
-
-	],
-
 	'application_templates' 		=> 'Application Templates',
 
 	'applied_member'	=> 'Applied member',

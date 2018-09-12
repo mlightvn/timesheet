@@ -47,6 +47,11 @@ Route::group(['prefix' => 'report', 'middleware' => ['admin']], function(){
 
 	});
 
+	Route::group(['prefix' => 'member'], function(){
+		Route::get('', 'Report\MemberController@index');
+
+	});
+
 
 	Route::group(['prefix' => 'department'], function()
 	{

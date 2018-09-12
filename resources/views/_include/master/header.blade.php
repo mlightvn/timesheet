@@ -13,7 +13,7 @@
 	<meta name="keywords" content="{{ (!empty($keyword) ? $keyword : env('APP_KEYWORDS')) }}">
 
 	<link rel="stylesheet" href="/css/common/w3.css">
-	<link rel="stylesheet" href="/css/common/fontawesome-all.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="stylesheet" href="/css/common/bootstrap.min.css">
 {{--
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -26,6 +26,7 @@
 	<script src="/js/common/jquery.min.js"></script>
 	<script src="/js/common/bootstrap.min.js"></script>
 	<script src="/js/common/angular.min.js"></script>
+	<script src="/js/common/jquery.lazyload.min.js"></script>
 
 	<link rel="stylesheet" href="/css/alert.box.css">
 

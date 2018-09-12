@@ -2,11 +2,11 @@
 	<a href="/" class="w3-bar-item w3-button w3-hover-black {{ (isset($id) && ($id == 'home')) ? 'w3-gray' : ''}}"><span class="fas fa-clock"></span> {{ __('message.APP_NAME') }}</a>
 
 	@if(isset($logged_in_user))
-		<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_time') ? 'w3-gray' : ''}}"><span class="fas fa-pencil-alt"></span> {{ __('message.menu.report.input_time_screen') }}</a>
-		<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('message.menu.report.summary_by_day') }}</a>
-		<a href="/report/month" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_month') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('message.menu.report.summary_by_month') }}</a>
-		<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('message.menu.report.summary_by_project') }}</a>
-		<a href="/report/department" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_department') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('message.menu.report.summary_by_department') }}</a>
+		<a href="/report/time" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_time') ? 'w3-gray' : ''}}"><span class="fas fa-pencil-alt"></span> {{ __('screen.menu.report.input_time_screen') }}</a>
+		<a href="/report/day" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_day') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('screen.menu.report.summary_by_day') }}</a>
+		<a href="/report/member" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_member') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('screen.menu.report.summary_by_member') }}</a>
+		<a href="/report/project" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_project') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('screen.menu.report.summary_by_project') }}</a>
+		<a href="/report/department" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'report_department') ? 'w3-gray' : ''}}"><span class="fas fa-list-alt"></span> {{ __('screen.menu.report.summary_by_department') }}</a>
 
 {{--
 		<div class="w3-dropdown-hover w3-brown">
@@ -18,15 +18,15 @@
 --}}
 
 		<div class="w3-dropdown-hover w3-brown">
-			<button class="w3-button w3-brown w3-hover-black"><span class="fas fa-calendar"></span> {{ __('message.menu.day_off.day_off') }} <span class="fas fa-caret-down"></span></button>
+			<button class="w3-button w3-brown w3-hover-black"><span class="fas fa-calendar"></span> {{ __('screen.menu.day_off.day_off') }} <span class="fas fa-caret-down"></span></button>
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
-				<a href="/dayoff/application-form" class="w3-bar-item w3-button w3-hover-black">{{ __('message.menu.day_off.application_form') }}</a>
-				<a href="/report/day" class="w3-bar-item w3-button w3-hover-black">{{ __('message.menu.day_off.applied_history') }}</a>
+				<a href="/dayoff/application-form" class="w3-bar-item w3-button w3-hover-black">{{ __('screen.menu.day_off.application_form') }}</a>
+				<a href="/report/day" class="w3-bar-item w3-button w3-hover-black">{{ __('screen.menu.day_off.applied_history') }}</a>
 			</div>
 		</div>
 
 {{--
-		<a href="/customer" class="w3-bar-item w3-button {{ ($id == 'user_customer') ? 'w3-gray' : ''}}"><i class="fas fa-address-card" aria-hidden="true"></i> {{ __('message.menu.customer.customer') }}</a>
+		<a href="/customer" class="w3-bar-item w3-button {{ ($id == 'user_customer') ? 'w3-gray' : ''}}"><i class="fas fa-address-card" aria-hidden="true"></i> {{ __('screen.menu.customer.customer') }}</a>
 
 		<a href="/cashflow" class="w3-bar-item w3-button w3-hover-black {{ ($id == 'cashflow_list') ? 'w3-gray' : ''}}"><span class="fas fa-list-ul"></span> Cashflow</a>
 --}}
@@ -80,10 +80,11 @@
 			<button class="w3-button w3-brown">
 				<div class="chip">
 					<img id="profile_picture" name="profile_picture"
+						class="lazy"
 						@if($logged_in_user->profile_picture)
-							src="/upload/user/{{$logged_in_user->profile_picture}}"
+							data-original="/upload/user/{{$logged_in_user->profile_picture}}"
 						@else
-							src="/common/images/avatar_male.png"
+							data-original="/common/images/avatar_male.png"
 						@endif
 						alt="{{$logged_in_user->name}}" width="30px"
 					>

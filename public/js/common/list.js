@@ -6,6 +6,8 @@ function loadData($argument) {
 			$(document).ready(function(){
 				keyword 								= $('#keyword').val();
 				data_source_url 						= $('#data_source_url').val();
+				// request_data 							= $('[name^=request_data]');
+// console.log(request_data);
 
 				if(!$argument){
 					$argument 							= {};

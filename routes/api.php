@@ -34,6 +34,7 @@ Route::group(['prefix' => '', 'middleware' => ['admin']], function(){
 
 	Route::group(['prefix' => 'report'], function(){
 		Route::get('day', 'Api\Report\DayController@list');
+		Route::get('member', 'Api\Report\MemberController@list');
 	});
 
 	Route::group(['prefix' => 'work-time'], function(){

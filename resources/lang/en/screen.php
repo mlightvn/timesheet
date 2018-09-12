@@ -2,6 +2,26 @@
 
 return [
 	'menu' => [
+		'report' => [
+			'report' 							=> 'Report',
+			'input_time_screen' 				=> 'Input',
+			'summary_by_day' 					=> 'Summary by days',
+			'summary_by_member' 				=> 'Summary by members',
+			'summary_by_month' 					=> 'Summary by months',
+			'summary_by_project' 				=> 'Summary by projects',
+			'summary_by_department' 			=> 'Report by departments',
+		],
+
+		'day_off' => [
+			'day_off' 							=> 'Day off',
+			'application_form'					=> 'Application form',
+			'applied_history'					=> 'Applied history',
+		],
+
+		'customer' => [
+			'customer' 							=> 'Customer',
+		],
+
 		'others' => [
 			'others' 							=> 'Others',
 		],
@@ -103,6 +123,7 @@ return [
 		'title'							=> 'Title',
 		'name'							=> 'Name',
 		'email'							=> 'email',
+		'all'							=> 'All',
 	],
 
 ];
