@@ -56,6 +56,7 @@ class MemberController extends \App\Http\Controllers\Api\Controller {
 		$table = new \App\Model\User();
 		$request = array();
 		$request["department_id"] = request()->department_id;
+		$request["is_deleted"] = 0;
 		$userList = $table->getList($request);
 
 		$resultSet = $this->getResultSet($this->requestYear, $this->requestMonth);
