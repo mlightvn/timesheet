@@ -56,7 +56,7 @@
 				<tr class="w3-brown">
 					<th nowrap="nowrap" width="100px">{{__('screen.report.day.day')}}</th>
 					<th width="50px"></th>
-					<th>{{__('screen.common.description')}}</th>
+					<th nowrap="nowrap">{{__('screen.common.description')}}</th>
 					<th ng-repeat="user in model_list.userList" nowrap="nowrap"><a ng-href="time?user_id=@{{user.id}}" ng-bind="user.name" class="text-white"></a></th>
 				</tr>
 			</thead>

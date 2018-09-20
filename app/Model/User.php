@@ -116,6 +116,9 @@ class User extends Authenticatable
 		if(isset($request["name"]) && (!empty($request["name"]))){
 			$table = $table->where("users.name", "LIKE", "%" . $request["name"] . "%");
 		}
+		if(isset($request["is_deleted"]) && ($request["is_deleted"] !== "")){
+			$table = $table->where("users.is_deleted", $request["is_deleted"]);
+		}
 
 		if(isset($request["keyword"]) && (!empty($request["keyword"]))){
 			$where = " (
