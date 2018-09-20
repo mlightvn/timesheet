@@ -72,6 +72,21 @@
 			</td>
 		</tr>
 		<tr>
+			<th>{!! Form::label('basic_authentication_name', 'Basic Authentication Name') !!}</th>
+			<th><button type="button" name="btnCopy" value="basic_authentication_name"><i class="fas fa-copy"></i></button></th>
+			<td>
+				{!! Form::text('basic_authentication_name', null, ['class'=>'form-control', 'placeholder'=>'Basic Authentication Name']) !!}
+			</td>
+		</tr>
+		<tr>
+			<th>{!! Form::label('basic_authentication_password', 'Basic Authentication Password') !!}</th>
+			<th><button type="button" name="btnCopy" value="basic_authentication_password"><i class="fas fa-copy"></i></button></th>
+			<td>
+				<input type="password" id="basic_authentication_password" name="basic_authentication_password" value="{{ $model->basic_authentication_password }}" class="form-control raku-textbox-asterisk" autocomplete="off" current-password="off">
+			</td>
+		</tr>
+
+		<tr>
 			<th>{!! Form::label('admin_username', '管理のユーザ名') !!}</th>
 			<th><button type="button" name="btnCopy" value="admin_username"><i class="fas fa-copy"></i></button></th>
 			<td>

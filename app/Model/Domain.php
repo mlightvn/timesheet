@@ -10,6 +10,8 @@ class Domain extends BaseModel
 		'name',
 		'url',
 		'admin_url',
+		'basic_authentication_name',
+		'basic_authentication_password',
 		'admin_username',
 		'admin_password',
 		'description',
