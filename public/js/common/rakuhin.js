@@ -110,5 +110,5 @@ $(function() {
 });
 
 function donate() {
-	window.open('https://www.paypal.me/ngocnam', '_blank');
+	window.open('https://www.paypal.me/rakujin', '_blank');
 }
