@@ -7,7 +7,7 @@
 <div ng-app="myApp" ng-controller="myCtrl">
 
 <div class="w3-row">
-	<h1>{{__('message.menu.day_off.application_form')}}</h1>
+	<h1>{{__('screen.menu.day_off.application_form')}}</h1>
 </div>
 
 @include('_include.api_search', ['keyword'=>$data["keyword"]])
