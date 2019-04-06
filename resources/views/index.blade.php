@@ -35,4 +35,10 @@
 	</table>
 </div>
 
+<br>
+<div class="container">
+	Author: Nguyen Ngoc Nam<br>
+	LinkedIn: <a href="https://www.linkedin.com/in/nguyenngocnam/">https://www.linkedin.com/in/nguyenngocnam/</a><br>
+	About me: <a href="https://coxanh.yen-sao.net/about">https://coxanh.yen-sao.net/about</a>
+</div>
 @include('_include.user_footer')
