@@ -17,6 +17,13 @@ class HomeController extends Controller {
 		return view("introduction");
 	}
 
+	public function aboutme()
+	{
+		$html = "My LinkedId: <a href=\"https://www.linkedin.com/in/nguyenngocnam/\">https://www.linkedin.com/in/nguyenngocnam/</a><br><br>";
+		$html .= "<a href=\"/\">Homepage</a>";
+		return $html;
+	}
+
 	public function price()
 	{
 		return view("price");

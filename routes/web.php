@@ -14,6 +14,7 @@
 Route::get('/', 'HomeController@index');
 Route::get('index', 'HomeController@index');
 // Route::get('introduction', 'HomeController@introduction');
+// Route::get('aboutme', 'HomeController@aboutme');
 Route::get('price', 'HomeController@price');
 
 // Route::get('/home', 'HomeController@index')->name('home');
