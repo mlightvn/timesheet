@@ -19,7 +19,8 @@
 @endif
 
 <div class="w3-row">
-	{!! Form::model($model, ['url' => URL::to('login', array(), true)]) !!}
+	<form method="POST" action="/login" accept-charset="UTF-8">
+		<input name="_token" type="hidden" value="{{ csrf_token() }}">
 
 	<table class="table table-bordered">
 		<tr>
