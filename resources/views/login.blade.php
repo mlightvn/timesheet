@@ -19,7 +19,7 @@
 @endif
 
 <div class="w3-row">
-	{!! Form::model($model) !!}
+	{!! Form::model($model, ['url' => URL::to('login', array(), true)]) !!}
 
 	<table class="table table-bordered">
 		<tr>
