@@ -9,6 +9,7 @@ return [
 	'register'	=> '登録',
 	'password'	=> 'パスワード',
 	'confirm_password'	=> '確認パスワード',
+	'search'	=> '検索',
 
 	'title'						=> 'タイトル',
 

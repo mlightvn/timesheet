@@ -6,6 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "anhskohbo/no-captcha": "^3.0",
+        "arrilot/laravel-widgets": "^3.7",
+        "barryvdh/laravel-cors": "^0.9.2",
         "google/apiclient": "^2.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",

@@ -6,11 +6,13 @@
 
 <div ng-app="myApp" ng-controller="myCtrl">
 
+{{-- 
 <div class="w3-row">
 	<h1>{{__('screen.user.list')}}</h1>
 </div>
+ --}}
 
-@include('_include.api_search', ['keyword'=>$data["keyword"]])
+@include('manage.user.list.filter', ['keyword'=>$data["keyword"]])
 
 @if(isset($message) || session("message"))
 	@include('_include.alert_message', ["message" => (isset($message) ? $message : session("message")), "alert_type" => (isset($alert_type) ? $alert_type : session("alert_type"))])
@@ -110,5 +112,5 @@
 </div> {{-- <div ng-app="myApp" ng-controller="myCtrl"> --}}
 
 @include('_include.admin_footer', [
-	'js_list'	=> true,
+	'js_listing'	=> true,
 ])

@@ -28,6 +28,15 @@ class UserController extends \App\Http\Controllers\Api\Controller {
 		return $this->toJson($arrUsers);
 	}
 
+	public function listing(Request $request)
+	{
+
+		$table = new \App\Model\User();
+		$arrUsers = $table->getListing($request);
+
+		return $this->toJson($arrUsers);
+	}
+
 	public function uploadPicture($id = NULL)
 	{
 		$result = ["status"=>99, "message"=>"Unknow error."];

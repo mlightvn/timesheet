@@ -9,6 +9,7 @@ return [
 	'register'	=> 'Register',
 	'password'	=> 'Password',
 	'confirm_password'	=> 'Confirm password',
+	'search'	=> 'Search',
 
 	'title'						=> 'Title',
 

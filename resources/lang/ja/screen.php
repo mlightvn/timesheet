@@ -74,6 +74,7 @@ return [
 		'list'						=> 'ユーザ一覧',
 		'name'						=> 'ユーザ名',
 		'gender'					=> '性別',
+		'unknown'					=> '不明',
 		'male'						=> '男性',
 		'female'					=> '女性',
 		'date_of_birth'				=> '生年月日',

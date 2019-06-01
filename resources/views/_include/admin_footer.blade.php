@@ -23,6 +23,10 @@
 <script src="/js/common/list.js"></script>
 @endif
 
+@if (isset($js_listing))
+<script src="/js/common/listing.js"></script>
+@endif
+
 @if (isset($js))
 <script src="/js/{{ $js }}.js"></script>
 @endif

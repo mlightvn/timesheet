@@ -93,8 +93,8 @@ Route::group(['prefix' => '', 'middleware' => ['admin']], function(){
 
 	Route::group(['prefix' => 'manage'], function(){
 		Route::group(['prefix' => 'user'], function(){
-			Route::get('', 'Api\Manage\UserController@list');
-			Route::get('list', 'Api\Manage\UserController@list');
+			Route::get('', 'Api\Manage\UserController@listing');
+			Route::get('list', 'Api\Manage\UserController@listing');
 
 			Route::get('{id}/delete' 		, 'Api\Manage\UserController@delete')->where('id', '[0-9]+');
 			Route::get('{id}/recover' 		, 'Api\Manage\UserController@recover')->where('id', '[0-9]+');

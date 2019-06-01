@@ -74,6 +74,7 @@ return [
 		'list'						=> 'User list',
 		'name'						=> 'User name',
 		'gender'					=> 'Gender',
+		'unknown'					=> 'Unknown',
 		'male'						=> 'Male',
 		'female'					=> 'Female',
 		'date_of_birth'				=> 'Date of birth',
