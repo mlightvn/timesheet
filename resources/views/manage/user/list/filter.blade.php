@@ -1,6 +1,6 @@
 
 <div class="w3-row">
-	<div class="w3-col s12 m12 l12 w3-card-4 w3-light-grey">
+	<div class="w3-col s12 m12 l12 w3-card-4">
 
 		<form method="GET" action="{{ $data['url_pattern'] }}" accept-charset="UTF-8" role="search" class="w3-container">
 			<div class="w3-row-padding w3-section">
@@ -41,4 +41,4 @@
 		</form>
 	</div>
 </div>
-<br><br>
+<br>

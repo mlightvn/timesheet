@@ -45,7 +45,7 @@ $(function() {
 <footer class="w3-container w3-gray">
 	<a href="/" class="w3-text-white w3-hover-text-red">{{ __("message.APP_NAME") }}</a>
 	&nbsp;|&nbsp;
-	<a href="https://coxanh.yen-sao.net/about" target="_blank" class="w3-text-white w3-hover-text-red">About me</a>
+	<a href="https://coxanh.coupon-pon.net/about" target="_blank" class="w3-text-white w3-hover-text-red">About me</a>
 </footer>
 </div>
 
