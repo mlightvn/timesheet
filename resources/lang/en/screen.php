@@ -127,4 +127,9 @@ return [
 		'all'							=> 'All',
 	],
 
+	'button' 							=> [
+		'reset'							=> 'Reset',
+		'search'						=> 'Search',
+	],
+
 ];

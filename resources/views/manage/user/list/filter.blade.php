@@ -34,7 +34,9 @@
 			
 			<div class="w3-row-padding w3-section">
 				<div class="w3-col s12 m12 l12 w3-right-align">
-					<button type="button" class="w3-btn w3-brown" ng-click="loadData()">{{__('message.search')}} <i class="fas fa-search"></i></button>
+					<button type="reset" class="w3-btn w3-light-gray" ng-click="reset()">{{__('screen.button.reset')}} <i class="fas fa-sync-alt"></i></button>
+					&nbsp;
+					<button type="button" class="w3-btn w3-brown" ng-click="loadData()">{{__('screen.button.search')}} <i class="fas fa-search"></i></button>
 				</div>
 			</div>
 
