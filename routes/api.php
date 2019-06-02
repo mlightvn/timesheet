@@ -48,8 +48,8 @@ Route::group(['prefix' => '', 'middleware' => ['admin']], function(){
 	});
 
 	Route::group(['prefix' => 'domain'], function(){
-		Route::get('', 'Api\DomainController@list');
-		Route::get('list', 'Api\DomainController@list');
+		Route::get('', 'Api\DomainController@listing');
+		Route::get('list', 'Api\DomainController@listing');
 
 		Route::get('{id}/delete' 		, 'Api\DomainController@delete')->where('id', '[0-9]+');
 		Route::get('{id}/recover' 		, 'Api\DomainController@recover')->where('id', '[0-9]+');
