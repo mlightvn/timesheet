@@ -13,7 +13,7 @@ class BaseModel extends Model
 	const IS_NOT_DELETED = 0;
 	const IS_DELETED = 1;
 
-	protected $dates = ['deleted_at'];
+	// protected $dates = ['deleted_at'];
 
 	protected $organization_id = null;
 	protected $is_deleted = null;

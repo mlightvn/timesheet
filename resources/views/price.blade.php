@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Company Page</title>
+  <title>Price | {{env('APP_NAME')}}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -12,185 +12,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-  <style>
-  body {
-      font: 400 15px Lato, sans-serif;
-      line-height: 1.8;
-      color: #818181;
-  }
-  h2 {
-      font-size: 24px;
-      text-transform: uppercase;
-      color: #303030;
-      font-weight: 600;
-      margin-bottom: 30px;
-  }
-  h4 {
-      font-size: 19px;
-      line-height: 1.375em;
-      color: #303030;
-      font-weight: 400;
-      margin-bottom: 30px;
-  }
-  .jumbotron {
-      background-color: #f4511e;
-      color: #fff;
-      padding: 100px 25px;
-      font-family: Montserrat, sans-serif;
-  }
-  .container-fluid {
-      padding: 60px 50px;
-  }
-  .bg-grey {
-      background-color: #f6f6f6;
-  }
-  .logo-small {
-      color: #f4511e;
-      font-size: 50px;
-  }
-  .logo {
-      color: #f4511e;
-      font-size: 200px;
-  }
-  .thumbnail {
-      padding: 0 0 15px 0;
-      border: none;
-      border-radius: 0;
-  }
-  .thumbnail img {
-      width: 100%;
-      height: 100%;
-      margin-bottom: 10px;
-  }
-  .carousel-control.right, .carousel-control.left {
-      background-image: none;
-      color: #f4511e;
-  }
-  .carousel-indicators li {
-      border-color: #f4511e;
-  }
-  .carousel-indicators li.active {
-      background-color: #f4511e;
-  }
-  .item h4 {
-      font-size: 19px;
-      line-height: 1.375em;
-      font-weight: 400;
-      font-style: italic;
-      margin: 70px 0;
-  }
-  .item span {
-      font-style: normal;
-  }
-  .panel {
-      border: 1px solid #f4511e;
-      border-radius:0 !important;
-      transition: box-shadow 0.5s;
-  }
-  .panel:hover {
-      box-shadow: 5px 0px 40px rgba(0,0,0, .2);
-  }
-  .panel-footer .btn:hover {
-      border: 1px solid #f4511e;
-      background-color: #fff !important;
-      color: #f4511e;
-  }
-  .panel-heading {
-      color: #fff !important;
-      background-color: #f4511e !important;
-      padding: 25px;
-      border-bottom: 1px solid transparent;
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
-      border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;
-  }
-  .panel-footer {
-      background-color: white !important;
-  }
-  .panel-footer h3 {
-      font-size: 32px;
-  }
-  .panel-footer h4 {
-      color: #aaa;
-      font-size: 14px;
-  }
-  .panel-footer .btn {
-      margin: 15px 0;
-      background-color: #f4511e;
-      color: #fff;
-  }
-  .navbar {
-      margin-bottom: 0;
-      background-color: #f4511e;
-      z-index: 9999;
-      border: 0;
-      font-size: 12px !important;
-      line-height: 1.42857143 !important;
-      letter-spacing: 4px;
-      border-radius: 0;
-      font-family: Montserrat, sans-serif;
-  }
-  .navbar li a, .navbar .navbar-brand {
-      color: #fff !important;
-  }
-  .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #f4511e !important;
-      background-color: #fff !important;
-  }
-  .navbar-default .navbar-toggle {
-      border-color: transparent;
-      color: #fff !important;
-  }
-  footer .glyphicon {
-      font-size: 20px;
-      margin-bottom: 20px;
-      color: #f4511e;
-  }
-  .slideanim {visibility:hidden;}
-  .slide {
-      animation-name: slide;
-      -webkit-animation-name: slide;
-      animation-duration: 1s;
-      -webkit-animation-duration: 1s;
-      visibility: visible;
-  }
-  @keyframes slide {
-    0% {
-      opacity: 0;
-      transform: translateY(70%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0%);
-    }
-  }
-  @-webkit-keyframes slide {
-    0% {
-      opacity: 0;
-      -webkit-transform: translateY(70%);
-    }
-    100% {
-      opacity: 1;
-      -webkit-transform: translateY(0%);
-    }
-  }
-  @media screen and (max-width: 768px) {
-    .col-sm-4 {
-      text-align: center;
-      margin: 25px 0;
-    }
-    .btn-lg {
-        width: 100%;
-        margin-bottom: 35px;
-    }
-  }
-  @media screen and (max-width: 480px) {
-    .logo {
-        font-size: 150px;
-    }
-  }
-  </style>
+  <link href="/css/price/index.css" rel="stylesheet" type="text/css">
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
@@ -198,22 +20,25 @@
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="fas fa-list"></span>
+{{-- 
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
+ --}}
       </button>
-      <a class="navbar-brand" href="/">Timesheet</a>
+      <a class="navbar-brand" href="/">{{env('APP_NAME')}}</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-{{--
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#about">ABOUT</a></li>
         <li><a href="#services">SERVICES</a></li>
+{{--
         <li><a href="#portfolio">PORTFOLIO</a></li>
+--}}
         <li><a href="#pricing">PRICING</a></li>
         <li><a href="#contact">CONTACT</a></li>
       </ul>
---}}
     </div>
   </div>
 </nav>
@@ -240,14 +65,10 @@
   <div class="row">
     <div class="col-sm-8">
       <h2>About system</h2><br>
-      <h4>Records all working time of all staffs, members. Managers can see immediately summarized data and export to Excel.</h4><br>
-{{--
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <br><button class="btn btn-default btn-lg">Get in Touch</button>
---}}
+      <h4>Managing working hours for all staffs.</h4>
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-signal logo"></span>
+      <span class="fas fa-signal logo"></span>
     </div>
   </div>
 </div>
@@ -257,7 +78,7 @@
 <div class="container-fluid bg-grey">
   <div class="row">
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-globe logo slideanim"></span>
+      <span class="fas fa-globe logo slideanim"></span>
     </div>
     <div class="col-sm-8">
       <h2>Our Values</h2><br>
@@ -267,6 +88,7 @@
     </div>
   </div>
 </div>
+--}}
 
 <!-- Container (Services Section) -->
 <div id="services" class="container-fluid text-center">
@@ -275,41 +97,60 @@
   <br>
   <div class="row slideanim">
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-off logo-small"></span>
-      <h4>POWER</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <span class="fas fa-calendar-alt logo-small"></span>
+      <h4>TIME MANAGEMENT</h4>
+      <p>
+        Manage all working hours for all staffs.<br>
+      </p>
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-heart logo-small"></span>
-      <h4>LOVE</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <span class="fas fa-landmark logo-small"></span>
+      <h4>FOR OWNER</h4>
+      <p>
+        Easily adding, editing, deleting managers, staffs.<br>
+        Easily changing permission, role for managers, staffs.<br>
+      </p>
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-lock logo-small"></span>
-      <h4>JOB DONE</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <span class="fas fa-user-cog logo-small"></span>
+      <h4>FOR MANAGERS</h4>
+      <p>
+        Easily input by dragging mouse.<br>
+        Easily views by days, months, departments, projects.<br>
+        Records all working time of all staffs, members.<br>
+        See immediately summarized data and export to Excel.<br>
+      </p>
     </div>
   </div>
   <br><br>
   <div class="row slideanim">
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-leaf logo-small"></span>
-      <h4>GREEN</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+    <div class="col-sm-6">
+      <span class="fas fa-user logo-small"></span>
+      <h4>FOR STAFFS</h4>
+      <p>
+        Easily input by dragging mouse.<br>
+        Easily views by days, months, departments, projects.<br>
+        Records all working time of all staffs, members. Easily export data to Excel.<br>
+      </p>
     </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-certificate logo-small"></span>
-      <h4>CERTIFIED</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+    <div class="col-sm-6">
+      <span class="fas fa-file-invoice-dollar logo-small"></span>
+      <h4>FOR ACCOUNTANTS</h4>
+      <p>
+        Easily calculating working hours of staffs.<br>
+      </p>
     </div>
+{{-- 
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-wrench logo-small"></span>
+      <span class="fas fa-wrench logo-small"></span>
       <h4 style="color:#303030;">HARD WORK</h4>
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
+ --}}
   </div>
 </div>
 
+{{--
 <!-- Container (Portfolio Section) -->
 <div id="portfolio" class="container-fluid text-center bg-grey">
   <h2>Portfolio</h2><br>
@@ -362,11 +203,11 @@
 
     <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="fas fa-chevron-left" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
     </a>
     <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="fas fa-chevron-right" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
   </div>
@@ -381,7 +222,7 @@
     <h4>Choose a payment plan that works for you</h4>
   </div>
   <div class="row slideanim">
-    <div class="col-sm-4 col-xs-12">
+    <div class="col-sm-3 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
           <h1>Free</h1>
@@ -392,15 +233,17 @@
         <div class="panel-footer">
           <h3>$0</h3>
           <h4>per month</h4>
-          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
+          <a class="btn btn-lg" href=mlregister?ua=5">Sign Up</a>
+{{-- 
           <div>
             Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
           </div>
+ --}}
         </div>
       </div>
     </div>
 
-    <div class="col-sm-4 col-xs-12">
+    <div class="col-sm-3 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
           <h1>Basic</h1>
@@ -409,17 +252,19 @@
           <p>Upto <strong>50</strong> users</p>
         </div>
         <div class="panel-footer">
-          <h3>$100</h3>
-          <h4>per month (not tax include)</h4>
-          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
+          <h3>$350</h3>
+          <h4>per month (<font color="lightgreen"><strong>tax included</strong></font>)</h4>
+          <a class="btn btn-lg" href="/register?ml=50">Sign Up</a>
+{{-- 
           <div>
             Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
           </div>
+ --}}
         </div>
       </div>
     </div>
 
-    <div class="col-sm-4 col-xs-12">
+    <div class="col-sm-3 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
           <h1>Medium</h1>
@@ -428,24 +273,43 @@
           <p>Upto <strong>100</strong> users</p>
         </div>
         <div class="panel-footer">
-          <h3>$200</h3>
-          <h4>per month (not tax include)</h4>
-          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
+          <h3>$500</h3>
+          <h4>per month (<font color="lightgreen"><strong>tax included</strong></font>)</h4>
+          <a class="btn btn-lg" href="/register?ml=100">Sign Up</a>
+{{-- 
           <div>
             Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
           </div>
+ --}}
         </div>
       </div>
     </div>
+
+    <div class="col-sm-3 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>Premium</h1>
+        </div>
+        <div class="panel-body">
+          <p>Upto <strong>200</strong> users</p>
+        </div>
+        <div class="panel-footer">
+          <h3>$900</h3>
+          <h4>per month (<font color="lightgreen"><strong>tax included</strong></font>)</h4>
+          <a class="btn btn-lg" href="/register?ml=200">Sign Up</a>
+{{-- 
+          <div>
+            Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
+          </div>
+ --}}
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script type="text/javascript">
-$(document).ready(function(){
-  $("[action=contact]").click(function(){
-    window.location = "https://www.linkedin.com/in/nguyenngocnam/";
-  });
-});
 </script>
 
 
@@ -455,8 +319,8 @@ $(document).ready(function(){
   <div class="row">
     <div class="col-sm-5">
       <div>Contact us and we'll get back to you soon.</div>
-      <div><i class="fas fa-map-marker-alt"></i></span> Japan, Tokyo, Adashi ku</div>
-      <div><i class="fas fa-envelope"></i> <a href="https://coxanh.net/about" target="_blank">Contact form</a></div>
+      <div><i class="fas fa-map-marker-alt"></i></span> Japan, Tokyo, Adachi ku</div>
+      {{-- <div><i class="fas fa-envelope"></i> <a href="https://www.linkedin.com/in/nguyenngocnam/" target="_blank">Contact form</a></div> --}}
 
       <br>
 
@@ -488,6 +352,7 @@ $(document).ready(function(){
   </div>
 </div>
 
+
 {{--
 
 <!-- Add Google Maps -->
@@ -512,48 +377,13 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 <footer class="container-fluid text-center">
 {{--
   <a href="#myPage" title="To Top">
-    <span class="glyphicon glyphicon-chevron-up"></span>
+    <span class="fas fa-chevron-up"></span>
   </a>
 --}}
-  <p>Timesheet &copy; 2018</p>
+  <p>{{env('APP_NAME')}} &copy; 2018</p>
 </footer>
 
-<script>
-$(document).ready(function(){
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-    // Make sure this.hash has a value before overriding default behavior
-    if (this.hash !== "") {
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 900, function(){
-
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-    } // End if
-  });
-
-  $(window).scroll(function() {
-    $(".slideanim").each(function(){
-      var pos = $(this).offset().top;
-
-      var winTop = $(window).scrollTop();
-        if (pos < winTop + 600) {
-          $(this).addClass("slide");
-        }
-    });
-  });
-})
-</script>
+<script src="/js/price/index.js"></script>
 
 </body>
 </html>

@@ -10,6 +10,7 @@ class Organization extends Model
 		'id',
 		'slug',
 		'name',
+		'member_limitation',
 		'established_date',
 		'ceo',
 		'website',
@@ -20,4 +21,10 @@ class Organization extends Model
 	];
 
 	protected $table = 'organization';
+
+	public function Users()
+	{
+		return $this->hasMany("App\Model\User", "organization_id");
+	}
+
 }

@@ -1,3 +1,13 @@
+@php
+$member_limitation_list = [
+    5=>"Free account",
+    50=>"Basic account ($350/month/Tax included)",
+    100=>"Medium account ($500/month/Tax included)",
+    200=>"Premium account ($900/month/Tax included)",
+];
+
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -57,6 +67,14 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">Account type</label>
+
+                            <div class="col-md-6">
+                                {{Form::select("member_limitation", $member_limitation_list, (request()->ml ?? 5), ["class"=>"form-control"])}}
                             </div>
                         </div>
 

@@ -242,4 +242,13 @@ class User extends Authenticatable
 		return $arrResult;
 	}
 
+	public function Organization()
+	{
+		return $this->belongsTo("App\Model\Organization", "organization_id");
+	}
+
+	public function getMemberLimitationAttribute()
+	{
+		return $this->Organization->member_limitation;
+	}
 }
