@@ -1,3 +1,8 @@
+@php
+$users_amount_arr = ["5"=>"Free for a group of 5 users forever!", "50"=>"Basic $300/50 users", "100"=>"Medium $550/100 users", "200"=>"Premium $900/200 users"];
+
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -57,6 +62,18 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="users_amount" class="col-md-4 control-label">Account Type <small class="text-success font-weight-bolder">(※Tax included)</small></label>
+
+                            <div class="col-md-6">
+                                <select name="users_amount" id="users_amount" class="form-control">
+                                    @foreach($users_amount_arr as $key => $label)
+                                    <option value="{{$key}}" {{($key == request()->amount) ? 'selected' : ''}}>{{$label}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

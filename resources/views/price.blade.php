@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Company Page</title>
+  <title>Price | {{env('APP_NAME')}}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -197,23 +196,24 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
+
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="fas fa-list"></span>
       </button>
-      <a class="navbar-brand" href="/">Timesheet</a>
+
+      <img src="/favicon.ico" width="20px" alt="{{env('APP_NAME')}}" style="padding-bottom: 7px;">
+      <a class="navbar-brand" href="/">{{env('APP_NAME')}}</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-{{--
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#about">ABOUT</a></li>
+{{-- 
         <li><a href="#services">SERVICES</a></li>
         <li><a href="#portfolio">PORTFOLIO</a></li>
+ --}}
         <li><a href="#pricing">PRICING</a></li>
         <li><a href="#contact">CONTACT</a></li>
       </ul>
---}}
     </div>
   </div>
 </nav>
@@ -240,14 +240,24 @@
   <div class="row">
     <div class="col-sm-8">
       <h2>About system</h2><br>
-      <h4>Records all working time of all staffs, members. Managers can see immediately summarized data and export to Excel.</h4><br>
+      <h4>
+        <ul>
+          <li>Records all working time of all staffs, members in all departments.</li>
+          <li>Managers can see immediately summarized data and export to Excel by day, months, departments or projects.</li>
+          <li>Easily input by dragging mouse.</li>
+          <li>Easily click on buttons.</li>
+          <li>Clear view for end users.</li>
+          <li>Free for 5 users or below.</li>
+        </ul>
+      </h4>
+      <br>
 {{--
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <br><button class="btn btn-default btn-lg">Get in Touch</button>
 --}}
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-signal logo"></span>
+      <span class="fas fa-signal logo"></span>
     </div>
   </div>
 </div>
@@ -257,7 +267,7 @@
 <div class="container-fluid bg-grey">
   <div class="row">
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-globe logo slideanim"></span>
+      <span class="fas fa-globe-asia logo slideanim"></span>
     </div>
     <div class="col-sm-8">
       <h2>Our Values</h2><br>
@@ -275,17 +285,17 @@
   <br>
   <div class="row slideanim">
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-off logo-small"></span>
+      <span class="fas fa-power-off logo-small"></span>
       <h4>POWER</h4>
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-heart logo-small"></span>
+      <span class="fas fa-heart logo-small"></span>
       <h4>LOVE</h4>
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-lock logo-small"></span>
+      <span class="fas fa-lock logo-small"></span>
       <h4>JOB DONE</h4>
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
@@ -293,17 +303,17 @@
   <br><br>
   <div class="row slideanim">
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-leaf logo-small"></span>
+      <span class="fas fa-leaf logo-small"></span>
       <h4>GREEN</h4>
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-certificate logo-small"></span>
+      <span class="fas fa-certificate logo-small"></span>
       <h4>CERTIFIED</h4>
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-wrench logo-small"></span>
+      <span class="fas fa-wrench logo-small"></span>
       <h4 style="color:#303030;">HARD WORK</h4>
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
@@ -362,11 +372,11 @@
 
     <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="fas fa-chevron-left" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
     </a>
     <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="fas fa-chevron-right" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
   </div>
@@ -381,7 +391,7 @@
     <h4>Choose a payment plan that works for you</h4>
   </div>
   <div class="row slideanim">
-    <div class="col-sm-4 col-xs-12">
+    <div class="col-sm-3 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
           <h1>Free</h1>
@@ -392,15 +402,17 @@
         <div class="panel-footer">
           <h3>$0</h3>
           <h4>per month</h4>
-          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
+          <a href="/register?amount=5" class="btn btn-lg">Sign Up</a>
+{{-- 
           <div>
             Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
           </div>
+ --}}
         </div>
       </div>
     </div>
 
-    <div class="col-sm-4 col-xs-12">
+    <div class="col-sm-3 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
           <h1>Basic</h1>
@@ -409,17 +421,19 @@
           <p>Upto <strong>50</strong> users</p>
         </div>
         <div class="panel-footer">
-          <h3>$100</h3>
-          <h4>per month (not tax include)</h4>
-          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
+          <h3>$300</h3>
+          <h4>per month (<font color="green"><strong>tax included</strong></font>)</h4>
+          <a href="/register?amount=50" class="btn btn-lg">Sign Up</a>
+{{-- 
           <div>
             Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
           </div>
+ --}}
         </div>
       </div>
     </div>
 
-    <div class="col-sm-4 col-xs-12">
+    <div class="col-sm-3 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
           <h1>Medium</h1>
@@ -428,24 +442,40 @@
           <p>Upto <strong>100</strong> users</p>
         </div>
         <div class="panel-footer">
-          <h3>$200</h3>
-          <h4>per month (not tax include)</h4>
-          <!-- <button class="btn btn-lg" action="contact">Sign Up</button> -->
-          <div>
-            Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
-          </div>
+          <h3>$550</h3>
+          <h4>per month (<font color="green"><strong>tax included</strong></font>)</h4>
+          <a href="/register?amount=100" class="btn btn-lg">Sign Up</a>
         </div>
       </div>
     </div>
+
+    <div class="col-sm-3 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>Premium</h1>
+        </div>
+        <div class="panel-body">
+          <p>Upto <strong>200</strong> users</p>
+        </div>
+        <div class="panel-footer">
+          <h3>$900</h3>
+          <h4>per month (<font color="green"><strong>tax included</strong></font>)</h4>
+          <a href="/register?amount=200" class="btn btn-lg">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script type="text/javascript">
+/*
 $(document).ready(function(){
   $("[action=contact]").click(function(){
     window.location = "https://www.linkedin.com/in/nguyenngocnam/";
   });
 });
+*/
 </script>
 
 
@@ -455,8 +485,8 @@ $(document).ready(function(){
   <div class="row">
     <div class="col-sm-5">
       <div>Contact us and we'll get back to you soon.</div>
-      <div><i class="fas fa-map-marker-alt"></i></span> Japan, Tokyo, Adashi ku</div>
-      <div><i class="fas fa-envelope"></i> <a href="https://coxanh.net/about" target="_blank">Contact form</a></div>
+      <div><i class="fas fa-map-marker-alt"></i></span> Japan, Tokyo, Adachi ku</div>
+      <div class="d-none"><i class="fas fa-envelope"></i> <a href="https://coxanh.coupon-pon.net/about" target="_blank">Contact form</a></div>
 
       <br>
 
@@ -510,12 +540,12 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 --}}
 
 <footer class="container-fluid text-center">
-{{--
+
   <a href="#myPage" title="To Top">
-    <span class="glyphicon glyphicon-chevron-up"></span>
+    <i class="fas fa-chevron-up"></i>
   </a>
---}}
-  <p>Timesheet &copy; 2018</p>
+
+  <p>{{env('APP_NAME')}} &copy; 2018</p>
 </footer>
 
 <script>

@@ -62,18 +62,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // $request = request();
+        $member_limitation = request()->users_amount;
+        $is_activated = ($member_limitation <= 5) ? true : false;
+
         $organization = \App\Model\Organization::create([
             'name' => $data['name'],
             'ceo' => $data['name'],
             'size' => 1,
-            'member_limitation' => 5, // default: 5 members
+            'member_limitation' => $member_limitation, // default: 5 members
+            'is_activated' => $is_activated,
         ]);
         $organization_id = $organization->id;
 
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            // 'password' => bcrypt($data['password']),
             'password' => $data['password'],
             'role' => "Owner",
             'organization_id' => "" . $organization_id,
