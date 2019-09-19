@@ -17,6 +17,7 @@ class Organization extends Model
 		'capital',
 		'size',
 		'description',
+		'is_activated',
 		'is_deleted',
 	];
 

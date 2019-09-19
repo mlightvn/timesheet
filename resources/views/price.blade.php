@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>Price | {{env('APP_NAME')}}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,23 +18,22 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
+
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="fas fa-list"></span>
-{{-- 
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
- --}}
       </button>
+
+      <img src="/favicon.ico" width="20px" alt="{{env('APP_NAME')}}" style="padding-bottom: 7px;">
       <a class="navbar-brand" href="/">{{env('APP_NAME')}}</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#about">ABOUT</a></li>
+{{-- 
         <li><a href="#services">SERVICES</a></li>
 {{--
         <li><a href="#portfolio">PORTFOLIO</a></li>
---}}
+ --}}
         <li><a href="#pricing">PRICING</a></li>
         <li><a href="#contact">CONTACT</a></li>
       </ul>
@@ -65,7 +63,17 @@
   <div class="row">
     <div class="col-sm-8">
       <h2>About system</h2><br>
-      <h4>Managing working hours for all staffs.</h4>
+      <h4>
+        <ul>
+          <li>Records all working time of all staffs, members in all departments.</li>
+          <li>Managers can see immediately summarized data and export to Excel by day, months, departments or projects.</li>
+          <li>Easily input by dragging mouse.</li>
+          <li>Easily click on buttons.</li>
+          <li>Clear view for end users.</li>
+          <li>Free for 5 users or below.</li>
+        </ul>
+      </h4>
+      <br>
     </div>
     <div class="col-sm-4">
       <span class="fas fa-signal logo"></span>
@@ -78,7 +86,7 @@
 <div class="container-fluid bg-grey">
   <div class="row">
     <div class="col-sm-4">
-      <span class="fas fa-globe logo slideanim"></span>
+      <span class="fas fa-globe-asia logo slideanim"></span>
     </div>
     <div class="col-sm-8">
       <h2>Our Values</h2><br>
@@ -233,7 +241,7 @@
         <div class="panel-footer">
           <h3>$0</h3>
           <h4>per month</h4>
-          <a class="btn btn-lg" href=mlregister?ua=5">Sign Up</a>
+          <a class="btn btn-lg" href=mlregister?ml=5">Sign Up</a>
 {{-- 
           <div>
             Sign up by messaging me through <a href="https://www.linkedin.com/in/nguyenngocnam/" title="nguyenngocnam">LinkedIn</a>
@@ -305,11 +313,17 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
 <script type="text/javascript">
+/*
+$(document).ready(function(){
+  $("[action=contact]").click(function(){
+    window.location = "https://www.linkedin.com/in/nguyenngocnam/";
+  });
+});
+*/
 </script>
 
 
@@ -320,7 +334,7 @@
     <div class="col-sm-5">
       <div>Contact us and we'll get back to you soon.</div>
       <div><i class="fas fa-map-marker-alt"></i></span> Japan, Tokyo, Adachi ku</div>
-      {{-- <div><i class="fas fa-envelope"></i> <a href="https://www.linkedin.com/in/nguyenngocnam/" target="_blank">Contact form</a></div> --}}
+      <div><i class="fas fa-envelope"></i> <a href="https://www.linkedin.com/in/nguyenngocnam/" target="_blank">Contact through LinkedIn</a></div>
 
       <br>
 
@@ -375,11 +389,11 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 --}}
 
 <footer class="container-fluid text-center">
-{{--
+
   <a href="#myPage" title="To Top">
-    <span class="fas fa-chevron-up"></span>
+    <i class="fas fa-chevron-up"></i>
   </a>
---}}
+
   <p>{{env('APP_NAME')}} &copy; 2018</p>
 </footer>
 

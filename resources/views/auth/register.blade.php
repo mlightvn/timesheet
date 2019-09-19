@@ -71,7 +71,7 @@ $member_limitation_list = [
                         </div>
 
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Account type</label>
+                            <label for="users_amount" class="col-md-4 control-label">Account Type <small class="text-success font-weight-bolder">(※Tax included)</small></label>
 
                             <div class="col-md-6">
                                 {{Form::select("member_limitation", $member_limitation_list, (request()->ml ?? 5), ["class"=>"form-control"])}}
