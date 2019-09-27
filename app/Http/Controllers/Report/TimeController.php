@@ -46,7 +46,7 @@ class TimeController extends Controller {
 		$data["sDbRequestDate"] = $this->sDbRequestDate;
 		$data["arrAllTasks"] = $arrAllTasks;
 		$data["logged_in_user"] = $this->logged_in_user;
-		$data["title"] 					= __("message.menu.report.input_time_screen");
+		$data["title"] 					= __("screen.menu.report.input_time_screen");
 
 		$this->data = $data;
 

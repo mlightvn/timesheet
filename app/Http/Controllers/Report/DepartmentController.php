@@ -39,7 +39,7 @@ class DepartmentController extends Controller {
 
 		$arrSessions = $this->getDepartments(true, NULL, NULL, $keyword);
 
-		$this->data["title"] 					= __("message.menu.report.summary_by_department");
+		$this->data["title"] 					= __("screen.menu.report.summary_by_department");
 		$this->data["prev_yearmonth"] 			= $prev_yearmonth;
 		$this->data["curr_yearmonth"] 			= $curr_yearmonth;
 
