@@ -11,5 +11,17 @@
 
 ## Screens
 
-<embed src="https://github.com/namtenten/timesheet/blob/master/storage/screenshots/01.%20Input%20Page.pdf" width="600" height="700" alt="pdf">
+<img src="">
+
+<img src="">
+
+<img src="">
+
+<img src="">
+
+<img src="">
+
+<img src="">
+
+<img src="">
 
